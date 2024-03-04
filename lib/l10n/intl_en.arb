@@ -1,0 +1,12 @@
+{   
+    "name_app" : "loc",
+    "title" : "loc",
+    "add_khdma" : "add loc",
+    "name_loc" : "name loc",
+    "floor" : "floor",
+    "add_loc" : "add loc",
+    "cancal":"Cancal",
+    "remove":"Remove",
+    "mass_alart":"Are you sure you want to remove this item?",
+    "title_alart":"Remove Item"
+}
