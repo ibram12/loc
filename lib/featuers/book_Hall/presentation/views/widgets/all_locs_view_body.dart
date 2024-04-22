@@ -8,19 +8,18 @@ class AllLocsViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children:[
+    return Stack(children: [
       const HallsListView(),
       Positioned(
         bottom: 20,
         right: 20,
         child: FloatingActionButton(
           onPressed: () {
-         Navigator.of(context).pushNamed(BookLocView.id);
-          }
-        ,child: const Icon(Icons.add),)),
-
-    ] 
-    );
+            Navigator.of(context).pushNamed(BookLocView.id);
+          },
+          child: const Icon(Icons.add),
+        ),
+      ),
+    ]);
   }
 }

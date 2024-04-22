@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:loc/featuers/auth/presentation/views/login_view.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/book_Loc_view.dart';
 import 'package:loc/homePage.dart';
 import 'firebase_options.dart';
@@ -37,7 +38,7 @@ class HomePage extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyanAccent),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: const LoginView(),
       routes: {
         BookLocView.id:(context) => const BookLocView(),
       },
