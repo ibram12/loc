@@ -24,13 +24,23 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add_khdma": MessageLookupByLibrary.simpleMessage("اضافة مكان"),
         "add_loc": MessageLookupByLibrary.simpleMessage("اضافة المكان"),
+        "add_reservation": MessageLookupByLibrary.simpleMessage("اضافة حجز"),
+        "book_hall": MessageLookupByLibrary.simpleMessage("حجز قاعة"),
         "cancal": MessageLookupByLibrary.simpleMessage("اغلاق"),
+        "choose_date": MessageLookupByLibrary.simpleMessage("اختر التاريخ"),
+        "end_time": MessageLookupByLibrary.simpleMessage("وقت الانتهاء"),
         "floor": MessageLookupByLibrary.simpleMessage("الطابق"),
+        "halls": MessageLookupByLibrary.simpleMessage("القاعات"),
         "mass_alart": MessageLookupByLibrary.simpleMessage(
             "هل انت متاكد انك تريد ازالة هذا العنصر"),
         "name_app": MessageLookupByLibrary.simpleMessage("اماكن"),
         "name_loc": MessageLookupByLibrary.simpleMessage("اسم المكان"),
         "remove": MessageLookupByLibrary.simpleMessage("ازالة"),
+        "set_end_time":
+            MessageLookupByLibrary.simpleMessage("حدد وقت الانتهاء"),
+        "set_start_time": MessageLookupByLibrary.simpleMessage("حدد وقت البدء"),
+        "start_time": MessageLookupByLibrary.simpleMessage("وقت البدء"),
+        "time_range": MessageLookupByLibrary.simpleMessage("مدى الوقت المحدد"),
         "title": MessageLookupByLibrary.simpleMessage("اماكن"),
         "title_alart": MessageLookupByLibrary.simpleMessage("ازالة العنصر")
       };

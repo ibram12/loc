@@ -149,6 +149,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Halls`
+  String get halls {
+    return Intl.message(
+      'Halls',
+      name: 'halls',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Book Hall`
+  String get book_hall {
+    return Intl.message(
+      'Book Hall',
+      name: 'book_hall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add a reservation`
+  String get add_reservation {
+    return Intl.message(
+      'Add a reservation',
+      name: 'add_reservation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Time`
+  String get start_time {
+    return Intl.message(
+      'Start Time',
+      name: 'start_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Start Time`
+  String get set_start_time {
+    return Intl.message(
+      'Select Start Time',
+      name: 'set_start_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End Time`
+  String get end_time {
+    return Intl.message(
+      'End Time',
+      name: 'end_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select End Time`
+  String get set_end_time {
+    return Intl.message(
+      'Select End Time',
+      name: 'set_end_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Selected Time Range`
+  String get time_range {
+    return Intl.message(
+      'Selected Time Range',
+      name: 'time_range',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose the date`
+  String get choose_date {
+    return Intl.message(
+      'Choose the date',
+      name: 'choose_date',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

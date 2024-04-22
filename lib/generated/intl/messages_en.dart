@@ -24,13 +24,25 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add_khdma": MessageLookupByLibrary.simpleMessage("add loc"),
         "add_loc": MessageLookupByLibrary.simpleMessage("add loc"),
+        "add_reservation":
+            MessageLookupByLibrary.simpleMessage("Add a reservation"),
+        "book_hall": MessageLookupByLibrary.simpleMessage("Book Hall"),
         "cancal": MessageLookupByLibrary.simpleMessage("Cancal"),
+        "choose_date": MessageLookupByLibrary.simpleMessage("Choose the date"),
+        "end_time": MessageLookupByLibrary.simpleMessage("End Time"),
         "floor": MessageLookupByLibrary.simpleMessage("floor"),
+        "halls": MessageLookupByLibrary.simpleMessage("Halls"),
         "mass_alart": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to remove this item?"),
         "name_app": MessageLookupByLibrary.simpleMessage("loc"),
         "name_loc": MessageLookupByLibrary.simpleMessage("name loc"),
         "remove": MessageLookupByLibrary.simpleMessage("Remove"),
+        "set_end_time": MessageLookupByLibrary.simpleMessage("Select End Time"),
+        "set_start_time":
+            MessageLookupByLibrary.simpleMessage("Select Start Time"),
+        "start_time": MessageLookupByLibrary.simpleMessage("Start Time"),
+        "time_range":
+            MessageLookupByLibrary.simpleMessage("Selected Time Range"),
         "title": MessageLookupByLibrary.simpleMessage("loc"),
         "title_alart": MessageLookupByLibrary.simpleMessage("Remove Item")
       };
