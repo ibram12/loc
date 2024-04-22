@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:loc/core/text_styles/Styles.dart';
+import 'package:loc/core/utils/constants.dart';
 import 'package:loc/screen/add%20activity.dart';
-import 'package:loc/screen/addLoc.dart';
+import 'package:loc/featuers/book_Hall/presentation/views/all_Locs_view.dart';
 import 'package:loc/widget/Card_Button.dart';
 
 import 'generated/l10n.dart';
@@ -21,13 +23,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(S.of(context).title),
+        backgroundColor: kPrimaryColor,
+        title: Text(S.of(context).halls,style: Styles.textStyle18,),
       ),
       body: Center(
         child: Column(
           children: <Widget>[
-            Card_Button(page: addLoc(), text: S.of(context).add_khdma),
+            Card_Button(page: const AllLocsView(), text: S.of(context).book_hall),
             Card_Button(page: AddActivity(), text: S.of(context).add_khdma),
 
           ],

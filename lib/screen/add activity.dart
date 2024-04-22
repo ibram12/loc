@@ -19,23 +19,20 @@ class _AddActivityState extends State<AddActivity> {
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                height: 300,
-                child: Expanded(
-                  child: ListView.builder(
-                    itemCount: isCheckedList.length,
-                    itemBuilder: (context, index) {
-                      return CheckboxListTile(
-                        title: Text('Item $index'),
-                        value: isCheckedList[index],
-                        onChanged: (value) {
-                          setState(() {
-                            isCheckedList[index] = value!;
-                          });
-                        },
-                      );
-                    },
-                  ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: isCheckedList.length,
+                  itemBuilder: (context, index) {
+                    return CheckboxListTile(
+                      title: Text('Item $index'),
+                      value: isCheckedList[index],
+                      onChanged: (value) {
+                        setState(() {
+                          isCheckedList[index] = value!;
+                        });
+                      },
+                    );
+                  },
                 ),
               ),
               card_DateTime(

@@ -84,7 +84,7 @@ class _card_DateTimeState extends State<card_DateTime> {
         // Notify the parent widget about the selected timeActivity
         widget.onDateTimeSelected(timeActivity);
       },
-      child: Text("Select Dates"),
+      child: const Text("Select Dates"),
     );
   }
 }
