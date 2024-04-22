@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "802253720364",
+    "project_id": "loct-app",
+    "storage_bucket": "loct-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802253720364:android:a7f0efc7c8462693c8fa89",
+        "android_client_info": {
+          "package_name": "com.example.loc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo-W3VmlNUzodVuMXkfnMADukAffw9u7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
