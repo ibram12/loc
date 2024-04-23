@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/featuers/auth/presentation/views/login_view.dart';
+import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
 import 'package:loc/featuers/auth/presentation/views/sginup_view.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/book_Loc_view.dart';
 import 'package:loc/homePage.dart';
@@ -55,6 +56,7 @@ class HomePage extends StatelessWidget {
         SignUpView.id:(context) => const SignUpView(),
         LoginView.id:(context) => const LoginView(),
         MyHomePage.id:(context) => const MyHomePage(),
+        PasswordRecoveryVeiw.id:(context) => const PasswordRecoveryVeiw(),
       },
     );
   }

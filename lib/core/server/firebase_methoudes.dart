@@ -1,18 +1,17 @@
-// //use this file in the fututre
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-// class DataBaseMethouds {
-//   Future addUserDetails(Map<String, dynamic> userData, String uId) async {
-//     return await FirebaseFirestore.instance
-//         .collection('users')
-//         .doc(uId)
-//         .set(userData);
-//   }
+ class DataBaseMethouds {
+  Future addUserDetails(Map<String, dynamic> userData, String uId) async {
+    return await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId)
+        .set(userData);
+  }
+}
 
-//   Future addloc(Map<String, dynamic> userData, String name) async {
-//     return await FirebaseFirestore.instance.collection(name).add(userData);
-//   }
+  //  Future addloc(Map<String, dynamic> userData, String name) async {
+  //    return await FirebaseFirestore.instance.collection(name).add(userData);
+  //  }
 
 //   Future<Stream<QuerySnapshot>> getItems(String name) async {
 //     return FirebaseFirestore.instance.collection(name).snapshots();

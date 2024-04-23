@@ -4,7 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/text_styles/Styles.dart';
+import 'package:loc/core/widgets/password_text_field.dart';
 import 'package:loc/featuers/auth/presentation/manager/cubits/logIn_cubit/log_in_cubit.dart';
+import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
 import 'package:loc/featuers/auth/presentation/views/sginup_view.dart';
 import 'package:loc/homePage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -86,14 +88,16 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                       style: Styles.textStyle18,
                     ),
                     const SizedBox(height: 10),
-                    CustomTextField(
+                    PasswordTextField(
                         onSaved: (value) {
                           password.text = value!;
                         },
-                        hinttext: "ُEnter Your Password",
+                        hinttext: 'Password',
                         textEditingController: password),
                     InkWell(
-                      // onTap: () {},
+                       onTap: () {
+                        Navigator.of(context).pushNamed(PasswordRecoveryVeiw.id);
+                       },
                       child: Container(
                         margin: const EdgeInsets.only(top: 10, bottom: 20),
                         alignment: Alignment.topRight,
@@ -114,24 +118,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                           }
                         }),
                     const SizedBox(height: 20),
-                    MaterialButton(
-                        height: 40,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        color: Colors.red[700],
-                        textColor: Colors.white,
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text("Login With Google  "),
-                            Image.asset(
-                              "assets/images/4.png",
-                              width: 20,
-                            )
-                          ],
-                        )),
-                    Container(height: 20),
+                  
                     // Text("Don't Have An Account ? Resister" , textAlign: TextAlign.center,),
                     InkWell(
                       onTap: () {

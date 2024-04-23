@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/text_styles/Styles.dart';
+import 'package:loc/core/widgets/password_text_field.dart';
 import 'package:loc/homePage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
@@ -96,9 +97,9 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                       style: Styles.textStyle18,
                     ),
                     const SizedBox(height: 10),
-                    CustomTextField(
+                    PasswordTextField(
                         onSaved: (value) {},
-                        hinttext: "ُEnter Your Password",
+                        hinttext: 'Password',
                         textEditingController: password),
                     const SizedBox(height: 20),
                     CustomBotton(
@@ -116,24 +117,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                             );
                           }
                         }),
-                    const SizedBox(height: 20),
-                    MaterialButton(
-                        height: 40,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        color: Colors.red[700],
-                        textColor: Colors.white,
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text("Sign Up With Google  "),
-                            Image.asset(
-                              "assets/images/4.png",
-                              width: 20,
-                            )
-                          ],
-                        )),
+                  
                     const SizedBox(height: 20),
                     // Text("Don't Have An Account ? Resister" , textAlign: TextAlign.center,),
                     InkWell(
