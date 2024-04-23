@@ -54,6 +54,7 @@ class HomePage extends StatelessWidget {
         BookLocView.id:(context) => const BookLocView(),
         SignUpView.id:(context) => const SignUpView(),
         LoginView.id:(context) => const LoginView(),
+        MyHomePage.id:(context) => const MyHomePage(),
       },
     );
   }

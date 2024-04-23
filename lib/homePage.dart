@@ -8,16 +8,9 @@ import 'package:loc/widget/Card_Button.dart';
 import 'generated/l10n.dart';
 
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key,});
-
-
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+  static const String id = "MyHomePage";
 
   @override
   Widget build(BuildContext context) {
