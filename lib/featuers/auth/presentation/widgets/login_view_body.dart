@@ -75,7 +75,9 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                        onSaved: (value) {},
+                        onSaved: (value) {
+                          email.text = value!;
+                        },
                         hinttext: "ُEnter Your Email",
                         textEditingController: email),
                     const SizedBox(height: 10),
@@ -85,7 +87,9 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                        onSaved: (value) {},
+                        onSaved: (value) {
+                          password.text = value!;
+                        },
                         hinttext: "ُEnter Your Password",
                         textEditingController: password),
                     InkWell(
@@ -102,13 +106,12 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                         backgroundColor: Colors.orange,
                         text: "login",
                         onPressed: () {
-                          if(formKey.currentState!.validate()){
+                          if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
                             BlocProvider.of<LogInCubit>(context)
-                              .logInWithEmailAndPassword(
-                                  email.text, password.text);
+                                .logInWithEmailAndPassword(
+                                    email.text, password.text);
                           }
-                          
                         }),
                     const SizedBox(height: 20),
                     MaterialButton(
