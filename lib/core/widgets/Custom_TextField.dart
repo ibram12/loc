@@ -4,11 +4,11 @@ import 'package:loc/core/utils/constants.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
-    required this.onSaved,
+     this.onSaved,
     required this.hinttext,
     required this.textEditingController, this.obscureText,
   });
-  final void Function(String?) onSaved;
+  final void Function(String?)? onSaved;
   final String hinttext;
   final TextEditingController textEditingController;
   final bool? obscureText;

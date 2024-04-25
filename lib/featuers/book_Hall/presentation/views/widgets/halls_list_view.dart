@@ -32,6 +32,7 @@ class _HallsListViewState extends State<HallsListView> {
             ),
             itemBuilder: (context, index) {
               return  HallItem(
+                hallId: snapshot.data!.docs[index].id,
                 hallModel: HallModel.fromJson(snapshot.data!.docs[index].data() as Map<String, dynamic>),
               );
             });

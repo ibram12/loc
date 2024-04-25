@@ -7,19 +7,22 @@ class CustomHallImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
-      child: AspectRatio(
-        aspectRatio: 3 / 1.5,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: CachedNetworkImage(
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) {
-              return const Icon(Icons.error);
-            },
-            imageUrl:  image,
-            fit: BoxFit.cover,
+    return Hero(
+      tag: image,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: AspectRatio(
+          aspectRatio: 3 / 2,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CachedNetworkImage(
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) {
+                return const Icon(Icons.error);
+              },
+              imageUrl:  image,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/snack_bar.dart';
+import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/widgets/password_text_field.dart';
 import 'package:loc/homePage.dart';
@@ -78,7 +79,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                        onSaved: (value) {},
+                      
                         hinttext: "ُYour Name",
                         textEditingController: name),
                     const SizedBox(height: 10),
@@ -88,7 +89,6 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                        onSaved: (value) {},
                         hinttext: "ُEnter Your Email",
                         textEditingController: email),
                     const SizedBox(height: 10),
@@ -108,7 +108,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                         text: "Sign Up",
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                          //  formKey.currentState!.save();
+                           SherdPrefHelper().setUserName(name.text);
                             BlocProvider.of<SignUpCubit>(context)
                                 .signUpWithEmailAndPassword(
                               email: email.text,

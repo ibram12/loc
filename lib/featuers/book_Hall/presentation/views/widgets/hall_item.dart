@@ -10,60 +10,64 @@ import '../book_loc_view.dart';
 class HallItem extends StatelessWidget {
   const HallItem({
     super.key,
-    required this.hallModel,
+    required this.hallModel, required this.hallId,
   });
   final HallModel hallModel;
+  final String hallId;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return BookLocView(image: hallModel.image);
-          }));
-        },
-        child: Material(
-          clipBehavior: Clip.antiAlias,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          elevation: 8,
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Expanded(
-              child: CachedNetworkImage(
-                errorWidget: (context, url, error) {
-                  return const Icon(Icons.error);
-                },
-                imageUrl: hallModel.image,
-                width: double.infinity,
-                fit: BoxFit.fill,
+    return Hero(
+      tag: hallModel.image,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return BookLocView(image: hallModel.image,hallId: hallId,);
+            }));
+          },
+          child: Material(
+            clipBehavior: Clip.antiAlias,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            elevation: 8,
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Expanded(
+                child: CachedNetworkImage(
+                  errorWidget: (context, url, error) {
+                    return const Icon(Icons.error);
+                  },
+                  imageUrl: hallModel.image,
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
-            Text(
-              " ${hallModel.name}",
-              style: Styles.textStyle20,
-              overflow: TextOverflow.ellipsis,
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  "  ${hallModel.floor}",
-                  style: Styles.textStyle18,
-                ),
-                const Spacer(),
-                Icon(
-                  Icons.circle_rounded,
-                  color: hallModel.isBooked ? Colors.green : Colors.red,
-                ),
-              ],
-            ),
-          ]),
+              Text(
+                " ${hallModel.name}",
+                style: Styles.textStyle20,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    "  ${hallModel.floor}",
+                    style: Styles.textStyle18,
+                  ),
+                  const Spacer(),
+                  Icon(
+                    Icons.circle_rounded,
+                    color: hallModel.isBooked ? Colors.green : Colors.red,
+                  ),
+                ],
+              ),
+            ]),
+          ),
         ),
       ),
     );
