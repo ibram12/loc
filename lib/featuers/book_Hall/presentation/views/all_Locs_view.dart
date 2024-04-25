@@ -7,6 +7,7 @@ import '../../../../generated/l10n.dart';
 class AllLocsView extends StatelessWidget {
   const AllLocsView({super.key});
 
+ static const String id = 'AllLocsView';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

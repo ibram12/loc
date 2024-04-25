@@ -8,6 +8,7 @@ import 'package:loc/core/utils/simple_bloc_observer.dart';
 import 'package:loc/featuers/auth/presentation/views/login_view.dart';
 import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
 import 'package:loc/featuers/auth/presentation/views/sginup_view.dart';
+import 'package:loc/featuers/book_Hall/presentation/views/all_Locs_view.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/book_Loc_view.dart';
 import 'package:loc/homePage.dart';
 import 'firebase_options.dart';
@@ -56,6 +57,7 @@ class HomePage extends StatelessWidget {
         LoginView.id: (context) => const LoginView(),
         MyHomePage.id: (context) => const MyHomePage(),
         PasswordRecoveryVeiw.id: (context) => const PasswordRecoveryVeiw(),
+        AllLocsView.id: (context) => const AllLocsView(),
       },
     );
   }

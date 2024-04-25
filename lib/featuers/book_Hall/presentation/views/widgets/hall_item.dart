@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/featuers/book_Hall/data/models/hall_model.dart';
+import 'package:loc/featuers/book_Hall/presentation/views/all_Locs_view.dart';
 
 import '../book_loc_view.dart';
 
@@ -23,9 +24,13 @@ class HallItem extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            Navigator.of(context).push(
+              
+              MaterialPageRoute(builder: (context) {
               return BookLocView(image: hallModel.image,hallId: hallId,);
-            }));
+              
+            },
+            ));
           },
           child: Material(
             clipBehavior: Clip.antiAlias,
