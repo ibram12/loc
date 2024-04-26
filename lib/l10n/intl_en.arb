@@ -17,5 +17,6 @@
     "end_time":"End Time",
     "set_end_time":"Select End Time",
     "time_range":"Selected Time Range",
-    "choose_date":"Choose the date"
+    "choose_date":"Choose the date",
+    "add_hall":"Add Hall"
 }
