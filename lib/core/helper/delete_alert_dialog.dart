@@ -2,7 +2,7 @@
 
 import '../../generated/l10n.dart';
 
-void showDeleteItemAlert({required BuildContext context ,required String index,void Function()? onPressed}) {
+void showDeleteItemAlert({required BuildContext context ,required void Function() onPressed}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

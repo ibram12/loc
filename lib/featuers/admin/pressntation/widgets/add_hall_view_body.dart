@@ -1,6 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loc/core/helper/snack_bar.dart';
+import 'package:loc/featuers/admin/pressntation/manager/cubit/add_hall_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/Custom_image_contaner.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../core/widgets/Custom_TextField.dart';
 import '../../../../generated/l10n.dart';
@@ -16,7 +21,7 @@ class _AddHallViewBodyState extends State<AddHallViewBody> {
   late TextEditingController location;
   late TextEditingController floor;
   GlobalKey<FormState> key = GlobalKey();
-  CollectionReference loc = FirebaseFirestore.instance.collection('loc');
+  File packedImage = File('');
 
   @override
   void initState() {
@@ -36,68 +41,81 @@ class _AddHallViewBodyState extends State<AddHallViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: key,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CustomImageContaner(),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
+    return BlocBuilder<AddHallCubit, AddHallState>(
+      builder: (context, state) {
+        if (state is AddHallSuccess) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            showSnackBar(context, 'Hall added successfully');
+          });
+          location.clear();
+          floor.clear();
+          packedImage = File('');
+        } else if (state is AddHallError) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            showSnackBar(context, 'something went wrong,try later');
+          });
+        }
+        return ModalProgressHUD(
+          inAsyncCall: state is AddHallLoading,
+          child: Form(
+            key: key,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: CustomTextField(
-                    onSaved: (value) {
-                      location.text = value!;
-                    },
-                    hinttext: S.of(context).name_loc,
-                    textEditingController: location,
+                CustomImageContaner(
+                  onSelected: (value) {
+                     packedImage = value;
+
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          onSaved: (value) {
+                            location.text = value!;
+                          },
+                          hinttext: S.of(context).name_loc,
+                          textEditingController: location,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Expanded(
+                        child: CustomTextField(
+                          onSaved: (value) {
+                            floor.text = value!;
+                          },
+                          hinttext: S.of(context).floor,
+                          textEditingController: floor,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                ElevatedButton(
+                    onPressed: () async {
+                      if (key.currentState!.validate() &&
+                          packedImage != File('')) {
+                        await BlocProvider.of<AddHallCubit>(context)
+                            .addHall(floor.text, location.text, packedImage);
+                      } else if (packedImage.path == '') {
+                        showSnackBar(context, 'Please select image');
+                      }
+                    },
+                    child: Text(S.of(context).add_loc)),
                 const SizedBox(
-                  width: 8,
-                ),
-                Expanded(
-                  child: CustomTextField(
-                    onSaved: (value) {
-                      floor.text = value!;
-                    },
-                    hinttext: S.of(context).floor,
-                    textEditingController: floor,
-                  ),
+                  height: 10,
                 ),
               ],
             ),
           ),
-        
-          ElevatedButton(
-              onPressed: () {
-                if (key.currentState!.validate()) {
-                  addloc();
-                  location.clear();
-                  floor.clear();
-                } else {
-                  print('error');
-                }
-              },
-              child: Text(S.of(context).add_loc)),
-                const SizedBox(
-            height: 10,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
-
-  Future<void> addloc() {
-    return loc
-        .add({'name_loc': location.text, 'floor': floor.text})
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
-  }
 }
-
-
-    

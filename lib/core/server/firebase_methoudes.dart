@@ -16,6 +16,17 @@ class DataBaseMethouds {
         .collection('reservations')
         .add(resrvationInfo);
   }
+
+  Future addHall(Map<String, dynamic> hallInfo) async {
+    return await FirebaseFirestore.instance.collection('locs').add(hallInfo);
+  }
+
+  
+  Future deleteLoc(String id) async {
+      FirebaseFirestore.instance
+        .collection('locs')
+        .doc(id).delete();
+  }
 }
 
 
@@ -65,12 +76,5 @@ class DataBaseMethouds {
 //     });
 //   }
 
-//   Future deleteItemFromCurt(String id) async {
-//     String uId = FirebaseAuth.instance.currentUser!.uid;
-//       FirebaseFirestore.instance
-//         .collection('users')
-//         .doc(uId)
-//         .collection('curt').doc(id).delete();
-//   }
 
 // }

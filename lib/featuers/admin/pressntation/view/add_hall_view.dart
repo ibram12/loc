@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loc/featuers/admin/pressntation/manager/cubit/add_hall_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/add_hall_view_body.dart';
 
 import '../../../../core/utils/constants.dart';
@@ -12,12 +14,15 @@ class AddHallView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        title: Text(S.of(context).add_hall),
+    return BlocProvider(
+      create: (context) => AddHallCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text(S.of(context).add_hall),
+        ),
+        body: AddHallViewBody(),
       ),
-      body: AddHallViewBody(),
     );
   }
 }
