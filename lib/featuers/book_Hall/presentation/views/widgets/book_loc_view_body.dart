@@ -13,7 +13,9 @@ import '../../manager/cubits/sent_reservation_cubit/sent_reservation_cubit.dart'
 import 'user_choices.dart';
 
 class BookLocViewBody extends StatefulWidget {
-  const BookLocViewBody({super.key,});
+  const BookLocViewBody({
+    super.key,
+  });
   @override
   State<BookLocViewBody> createState() => _BookLocViewBodyState();
 }
@@ -23,7 +25,8 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
   Timestamp? _endTime;
   DateTime? _date;
   bool isLoading = false;
-  
+  TimeOfDay? formatedStartTime;
+  TimeOfDay? formatedEndTime;
 
   @override
   Widget build(BuildContext context) {
@@ -45,44 +48,53 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                     context: context,
                     message: 'your request Sent Successfully');
               });
-            }else if (state is GetFilteringDataLoading) {
+            } else if (state is GetFilteringDataLoading) {
               isLoading = true;
             }
             return ModalProgressHUD(
               inAsyncCall: isLoading,
               child: Center(
                 child: SingleChildScrollView(
-                  child:Column(
+                  child: Column(
                     children: [
-                  const SizedBox(height: 50),
-                  UserChoices(
-                    date: _date,
-                  ),
-                  const SizedBox(height: 20),
-                  if (_startTime != null && _endTime != null && _date != null)
-                    Column(
-                      children: [
-                        Text(
-                            '${S.of(context).time_range}: ${_startTime!.toDate().hour}:${_startTime!.toDate().minute} - ${_endTime!.toDate().hour}:${_endTime!.toDate().minute}'),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        CustomBotton(
-                            backgroundColor: kPrimaryColor,
-                            text: 'Submit',
-                            onPressed: () {
-                              BlocProvider.of<GetFilteringDataCubit>(context)
-                                  .sentReservation(
+                      const SizedBox(height: 50),
+                      UserChoices(
+                        setStartTime: (startTime) {
+                          formatedStartTime = startTime;
+                        },
+                        setEndTime: (endTime) {
+                          formatedEndTime = endTime;
+                        },
+                        date: _date,
+                      ),
+                      const SizedBox(height: 20),
+                      if (_startTime != null &&
+                          _endTime != null &&
+                          _date != null)
+                        Column(
+                          children: [
+                            Text(
+                                '${S.of(context).time_range}: ${formatedStartTime!.format(context)} - ${formatedEndTime!.format(context)}'),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            CustomBotton(
+                                backgroundColor: kPrimaryColor,
+                                text: 'Submit',
+                                onPressed: () {
+                                  BlocProvider.of<GetFilteringDataCubit>(
+                                          context)
+                                      .sentReservation(
                                     endTime: _endTime!,
                                     startTime: _startTime!,
-                                      data: _date!,
-                                    );
-                            }),
-                        const SizedBox(
-                          height: 10,
+                                    data: _date!,
+                                  );
+                                }),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
                     ],
                   ),
                 ),
