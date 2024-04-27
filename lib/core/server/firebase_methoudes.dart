@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class DataBaseMethouds {
   Future addUserDetails(Map<String, dynamic> userData, String uId) async {
@@ -8,7 +9,7 @@ class DataBaseMethouds {
         .set(userData);
   }
 
-  Future<DocumentReference<Map<String, dynamic>>> addReservation(
+  Future<DocumentReference<Map<String, dynamic>>> getAvilableHalls(
       Map<String, dynamic> resrvationInfo, String hallId) async {
     return await FirebaseFirestore.instance
         .collection('locs')
@@ -21,11 +22,8 @@ class DataBaseMethouds {
     return await FirebaseFirestore.instance.collection('locs').add(hallInfo);
   }
 
-  
   Future deleteLoc(String id) async {
-      FirebaseFirestore.instance
-        .collection('locs')
-        .doc(id).delete();
+    FirebaseFirestore.instance.collection('locs').doc(id).delete();
   }
 }
 

@@ -8,25 +8,21 @@ import 'package:loc/featuers/book_Hall/presentation/views/widgets/book_loc_view_
 import '../../../../generated/l10n.dart';
 
 class BookLocView extends StatelessWidget {
-  const BookLocView({Key? key, required this.image, required this.hallId}) : super(key: key);
- final String image;
- final String hallId;
+  const BookLocView({Key? key,}) : super(key: key);
+ 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => SelectTimeCubit()),
-        BlocProvider(create: (context)=>SentReservationCubit())
+        BlocProvider(create: (context)=>GetFilteringDataCubit())
       ] 
       ,child: Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           title: Text(S.of(context).add_reservation),
         ),
-        body: BookLocViewBody(
-          hallId: hallId,
-          image: image,
-        ),
+        body: const BookLocViewBody(),
       ),
     );
   }

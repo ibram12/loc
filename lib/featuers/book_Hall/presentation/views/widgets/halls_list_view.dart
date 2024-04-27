@@ -6,7 +6,6 @@ import 'hall_item.dart';
 
 class HallsListView extends StatefulWidget {
   const HallsListView({super.key});
-
   @override
   State<HallsListView> createState() => _HallsListViewState();
 }

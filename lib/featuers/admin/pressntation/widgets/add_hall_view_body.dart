@@ -49,7 +49,6 @@ class _AddHallViewBodyState extends State<AddHallViewBody> {
           });
           location.clear();
           floor.clear();
-          packedImage = File('');
         } else if (state is AddHallError) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             showSnackBar(context, 'something went wrong,try later');

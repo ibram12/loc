@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/admin_view_body.dart';
 
 import '../../../../generated/l10n.dart';
-import 'add_hall_view.dart';
 
 class AdminView extends StatelessWidget {
   const AdminView({super.key});

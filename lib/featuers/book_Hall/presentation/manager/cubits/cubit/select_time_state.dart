@@ -6,14 +6,14 @@ sealed class SelectTimeState {}
 final class SelectTimeInitial extends SelectTimeState {}
 
 final class SelectStartTimeSuccess extends SelectTimeState {
-  final TimeOfDay startTime;
+  final Timestamp startTime;
 
   SelectStartTimeSuccess(this.startTime);
 
 }
 
 final class SelectEndTimeSuccess extends SelectTimeState {
-  final TimeOfDay endTime;
+  final Timestamp endTime;
 
   SelectEndTimeSuccess(this.endTime);
 }

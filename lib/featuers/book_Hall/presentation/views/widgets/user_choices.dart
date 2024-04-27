@@ -4,12 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../generated/l10n.dart';
 import '../../manager/cubits/cubit/select_time_cubit.dart';
 
-class UserChoices extends StatelessWidget {
-  const UserChoices({super.key, this.date, this.startTime, this.endTime});
+class UserChoices extends StatefulWidget {
+const   UserChoices({super.key, this.date,});
   final DateTime? date;
-  final TimeOfDay? startTime;
-  final TimeOfDay? endTime;
 
+  @override
+  State<UserChoices> createState() => _UserChoicesState();
+}
+
+class _UserChoicesState extends State<UserChoices> {
+   TimeOfDay? startTime;
+   TimeOfDay? endTime;
   @override
   Widget build(BuildContext context) {
 var selectTimeCubit = BlocProvider.of<SelectTimeCubit>(context);
@@ -17,14 +22,16 @@ var selectTimeCubit = BlocProvider.of<SelectTimeCubit>(context);
       children: [
             ElevatedButton(
                     onPressed: () =>
-                        selectTimeCubit.selectDate(context, date),
-                    child: Text(date != null
-                        ? '${date!.year}/${date!.month}/${date!.day}'
+                        selectTimeCubit.selectDate(context, widget.date),
+                    child: Text(widget.date != null
+                        ? '${widget.date!.year}/${widget.date!.month}/${widget.date!.day}'
                         : S.of(context).choose_date)),
                 const SizedBox(height: 15),
                 ElevatedButton(
                   onPressed: () =>
-                      selectTimeCubit.selectStartTime(context, startTime),
+                      selectTimeCubit.selectStartTime(context,widget.date??DateTime.now(),(pickedSrtartTime){
+                        startTime = pickedSrtartTime;
+                      }),
                   child: Text(startTime != null
                       ? '${S.of(context).start_time}: ${startTime!.format(context)}'
                       : S.of(context).set_start_time),
@@ -32,7 +39,9 @@ var selectTimeCubit = BlocProvider.of<SelectTimeCubit>(context);
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () =>
-                      selectTimeCubit.selectEndTime(context, endTime),
+                      selectTimeCubit.selectEndTime(context,widget.date??DateTime.now(),(pickedEndTime){
+                        endTime = pickedEndTime;
+                      }),
                   child: Text(endTime != null
                       ? '${S.of(context).end_time}: ${endTime!.format(context)}'
                       : S.of(context).set_end_time),

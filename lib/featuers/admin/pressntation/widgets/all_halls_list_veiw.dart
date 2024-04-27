@@ -5,8 +5,6 @@ import 'package:loc/core/server/firebase_methoudes.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/admin_hall_item.dart';
 import 'package:loc/featuers/book_Hall/data/models/hall_model.dart';
 
-import '../../../book_Hall/presentation/views/widgets/hall_item.dart';
-
 class AllHallsListView extends StatefulWidget {
   const AllHallsListView({super.key});
 

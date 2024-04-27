@@ -1,16 +1,16 @@
 part of 'sent_reservation_cubit.dart';
 
 @immutable
-sealed class SentReservationState {}
+sealed class GetFilteringDataState {}
 
-final class SentReservationInitial extends SentReservationState {}
+final class SentReservationInitial extends GetFilteringDataState {}
 
-final class SentReservationSuccess extends SentReservationState {}
-final class SentReservationLoading extends SentReservationState {}
+final class GetFilteringDataSuccess extends GetFilteringDataState {}
+final class GetFilteringDataLoading extends GetFilteringDataState {}
 
-final class SentReservationError extends SentReservationState {
+final class GetFilteringDataError extends GetFilteringDataState {
    final String message;
 
-  SentReservationError(this.message);
+  GetFilteringDataError(this.message);
 
 }
