@@ -8,8 +8,8 @@ import '../../../../../../core/server/shered_pref_helper.dart';
 
 part 'sent_reservation_state.dart';
 
-class GetFilteringDataCubit extends Cubit<GetFilteringDataState> {
-  GetFilteringDataCubit() : super(SentReservationInitial());
+class SentReservationCubit extends Cubit<SentReservationState> {
+  SentReservationCubit() : super(SentReservationInitial());
   Future<void> sentReservation({
     required Timestamp endTime,
     required Timestamp startTime,
@@ -23,12 +23,11 @@ class GetFilteringDataCubit extends Cubit<GetFilteringDataState> {
       'date': '${data.day}/${data.month}/${data.year}',
     };
     try {
-      emit(GetFilteringDataLoading());
+      emit(SentReservationLoading());
         await DataBaseMethouds().getAvilableHalls(resrvationInfo,'3Bw9aH34obmcSnnPtWSO');
-      emit(GetFilteringDataSuccess());
+      emit(SentReservationSuccess());
     } catch (err) {
-      emit(GetFilteringDataError(err.toString()));
-      throw err;
+      emit(SentReservationError(err.toString()));
     }
   }
 }

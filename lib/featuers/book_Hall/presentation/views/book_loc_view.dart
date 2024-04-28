@@ -15,7 +15,7 @@ class BookLocView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => SelectTimeCubit()),
-        BlocProvider(create: (context)=>GetFilteringDataCubit())
+        BlocProvider(create: (context)=>SentReservationCubit())
       ] 
       ,child: Scaffold(
         appBar: AppBar(

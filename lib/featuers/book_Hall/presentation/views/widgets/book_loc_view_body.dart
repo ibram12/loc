@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/alert_dialog.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
 import 'package:loc/featuers/book_Hall/presentation/manager/cubits/cubit/select_time_cubit.dart';
+import 'package:loc/featuers/book_Hall/presentation/views/all_Locs_view.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../../../generated/l10n.dart';
@@ -39,16 +40,16 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
         } else if (state is SelectEndTimeSuccess) {
           _endTime = state.endTime;
         }
-        return BlocBuilder<GetFilteringDataCubit, GetFilteringDataState>(
+        return BlocBuilder<SentReservationCubit, SentReservationState>(
           builder: (context, state) {
-            if (state is GetFilteringDataSuccess) {
+            if (state is SentReservationSuccess) {
               isLoading = false;
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 showAlertDialog(
                     context: context,
                     message: 'your request Sent Successfully');
               });
-            } else if (state is GetFilteringDataLoading) {
+            } else if (state is SentReservationLoading) {
               isLoading = true;
             }
             return ModalProgressHUD(
@@ -82,13 +83,10 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                                 backgroundColor: kPrimaryColor,
                                 text: 'Submit',
                                 onPressed: () {
-                                  BlocProvider.of<GetFilteringDataCubit>(
-                                          context)
-                                      .sentReservation(
-                                    endTime: _endTime!,
-                                    startTime: _startTime!,
-                                    data: _date!,
-                                  );
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => AllLocsView(
+                                          startTime: _startTime!,
+                                          endTime: _endTime!)));
                                 }),
                             const SizedBox(
                               height: 10,
