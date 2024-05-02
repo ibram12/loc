@@ -40,18 +40,6 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
         } else if (state is SelectEndTimeSuccess) {
           _endTime = state.endTime;
         }
-        return BlocBuilder<SentReservationCubit, SentReservationState>(
-          builder: (context, state) {
-            if (state is SentReservationSuccess) {
-              isLoading = false;
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                showAlertDialog(
-                    context: context,
-                    message: 'your request Sent Successfully');
-              });
-            } else if (state is SentReservationLoading) {
-              isLoading = true;
-            }
             return ModalProgressHUD(
               inAsyncCall: isLoading,
               child: Center(
@@ -98,8 +86,7 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                 ),
               ),
             );
-          },
-        );
+
       },
     );
   }

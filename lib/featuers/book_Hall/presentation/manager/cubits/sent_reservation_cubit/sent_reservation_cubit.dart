@@ -14,6 +14,7 @@ class SentReservationCubit extends Cubit<SentReservationState> {
     required Timestamp endTime,
     required Timestamp startTime,
     required DateTime data,
+    required  List<String> halls,
   }) async {
     String? getUserName = await SherdPrefHelper().getUserName();
     Map<String, dynamic> resrvationInfo = {
@@ -24,7 +25,9 @@ class SentReservationCubit extends Cubit<SentReservationState> {
     };
     try {
       emit(SentReservationLoading());
-        await DataBaseMethouds().getAvilableHalls(resrvationInfo,'3Bw9aH34obmcSnnPtWSO');
+        for (int i = 0; i < halls.length; i++) {
+  await DataBaseMethouds().addReservation(resrvationInfo, halls[i]);
+}
       emit(SentReservationSuccess());
     } catch (err) {
       emit(SentReservationError(err.toString()));

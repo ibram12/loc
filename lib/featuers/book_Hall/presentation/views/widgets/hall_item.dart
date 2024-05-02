@@ -10,10 +10,12 @@ class HallItem extends StatefulWidget {
   const HallItem({
     super.key,
     required this.hallModel,
-    required this.hallId,
+    required this.hallId, required this.selectedHalls, required this.onSelectionChanged,
   });
   final HallModel hallModel;
   final String hallId;
+    final List<String> selectedHalls;
+  final Function(bool isSelected, String hallId) onSelectionChanged;
 
   @override
   State<HallItem> createState() => _HallItemState();
@@ -21,20 +23,22 @@ class HallItem extends StatefulWidget {
 
 class _HallItemState extends State<HallItem> {
   Color color = Colors.white;
-  bool isTabed = true;
+  bool isSelected  = false;
+  List<String> selectedHalls = [];
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: GestureDetector(
-        onTap: () {
+       onTap: () {
           setState(() {
-            isTabed = !isTabed;
-});
+            isSelected = !isSelected;
+            widget.onSelectionChanged(isSelected, widget.hallId);
+          });
         },
         child: Material(
           clipBehavior: Clip.antiAlias,
-          color: isTabed?Colors.white:kPrimaryColor,
+          color: isSelected  ? kPrimaryColor : Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

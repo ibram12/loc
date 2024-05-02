@@ -8,7 +8,7 @@ class DataBaseMethouds {
         .set(userData);
   }
 
-  Future<DocumentReference<Map<String, dynamic>>> getAvilableHalls(
+  Future<DocumentReference<Map<String, dynamic>>> addReservation(
       Map<String, dynamic> resrvationInfo, String hallId) async {
     return await FirebaseFirestore.instance
         .collection('locs')
