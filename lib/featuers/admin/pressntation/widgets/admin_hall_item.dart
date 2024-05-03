@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:loc/featuers/admin/pressntation/view/requests_view.dart';
 
 import '../../../../core/text_styles/Styles.dart';
 import '../../../book_Hall/data/models/hall_model.dart';
@@ -7,7 +8,8 @@ import '../../../book_Hall/data/models/hall_model.dart';
 class AdminHallItem extends StatelessWidget {
   const AdminHallItem({
     super.key,
-    required this.hallModel,required this.onLongPress,
+    required this.hallModel,
+    required this.onLongPress,
   });
   final HallModel hallModel;
   final void Function() onLongPress;
@@ -15,6 +17,11 @@ class AdminHallItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return RequestsView();
+        }));
+      },
       onLongPress: onLongPress,
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -51,6 +58,10 @@ class AdminHallItem extends StatelessWidget {
                   style: Styles.textStyle18,
                 ),
                 const Spacer(),
+                CircleAvatar(
+                  backgroundColor: Colors.green,
+                  child: Text('2'),
+                )
               ],
             ),
           ]),

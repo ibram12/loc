@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../generated/l10n.dart';
-import '../../manager/cubits/cubit/select_time_cubit.dart';
+import '../../manager/cubits/select_time_cubit/select_time_cubit.dart';
 
 class UserChoices extends StatefulWidget {
   const UserChoices({

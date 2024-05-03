@@ -13,7 +13,6 @@ class SentRequestButtom extends StatelessWidget {
   final List<String> hallsIds;
   final Timestamp startTime;
   final Timestamp endTime;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SentReservationCubit, SentReservationState>(
