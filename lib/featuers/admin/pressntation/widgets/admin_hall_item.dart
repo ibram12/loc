@@ -5,24 +5,39 @@ import 'package:loc/featuers/admin/pressntation/view/requests_view.dart';
 import '../../../../core/text_styles/Styles.dart';
 import '../../../book_Hall/data/models/hall_model.dart';
 
-class AdminHallItem extends StatelessWidget {
+class AdminHallItem extends StatefulWidget {
   const AdminHallItem({
     super.key,
     required this.hallModel,
     required this.onLongPress,
+    required this.hallid,// required this.revarsations,
   });
   final HallModel hallModel;
   final void Function() onLongPress;
+  final String hallid;
+  // final int revarsations;
 
+  @override
+  State<AdminHallItem> createState() => _AdminHallItemState();
+}
+
+class _AdminHallItemState extends State<AdminHallItem> {
+  int revarsations = 0;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return RequestsView();
+          return RequestsView(
+            hallId: widget.hallid,
+            hallName: widget.hallModel.name,
+            onNumberOfDocsChanged: (count) {
+                revarsations = count;
+            },
+          );
         }));
       },
-      onLongPress: onLongPress,
+      onLongPress: widget.onLongPress,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Material(
@@ -39,13 +54,13 @@ class AdminHallItem extends StatelessWidget {
                 errorWidget: (context, url, error) {
                   return const Icon(Icons.error);
                 },
-                imageUrl: hallModel.image,
+                imageUrl: widget.hallModel.image,
                 width: double.infinity,
                 fit: BoxFit.fill,
               ),
             ),
             Text(
-              " ${hallModel.name}",
+              " ${widget.hallModel.name}",
               style: Styles.textStyle20,
               overflow: TextOverflow.ellipsis,
             ),
@@ -54,13 +69,13 @@ class AdminHallItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  "  ${hallModel.floor}",
+                  "  ${widget.hallModel.floor}",
                   style: Styles.textStyle18,
                 ),
                 const Spacer(),
                 CircleAvatar(
                   backgroundColor: Colors.green,
-                  child: Text('2'),
+                  child: revarsations==0? Text('${widget.hallModel.reversationsCount}'):Text('$revarsations'),
                 )
               ],
             ),

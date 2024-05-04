@@ -15,6 +15,25 @@ class AllHallsListView extends StatefulWidget {
 class _AllHallsListViewState extends State<AllHallsListView> {
   final Stream<QuerySnapshot> _hallsStream =
       FirebaseFirestore.instance.collection('locs').snapshots();
+  late Map<String, int> reservationsCounts = {};
+ 
+ initState() {
+    super.initState();
+    _fetchReservationsCounts();
+  }
+
+  Future<void> _fetchReservationsCounts() async {
+    final halls = await FirebaseFirestore.instance.collection('locs').get();
+    for (final hall in halls.docs) {
+      final reservations = await FirebaseFirestore.instance
+          .collection('locs')
+          .doc(hall.id)
+          .collection('reservations')
+          .get();
+      reservationsCounts[hall.id] = reservations.docs.length;
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +51,10 @@ class _AllHallsListViewState extends State<AllHallsListView> {
                 crossAxisCount: 2,
               ),
               itemBuilder: (context, index) {
+         final reservationsCount = reservationsCounts[snapshot.data!.docs[index].id] ?? 0;
+
                 return AdminHallItem(
+                  hallid: snapshot.data!.docs[index].id,
                   onLongPress: () {
                     showDeleteItemAlert(
                         context: context,
@@ -42,8 +64,10 @@ class _AllHallsListViewState extends State<AllHallsListView> {
                           Navigator.pop(context);
                         });
                   },
-                  hallModel: HallModel.fromJson(snapshot.data!.docs[index]
-                      .data() as Map<String, dynamic>),
+                  hallModel: HallModel.fromJson(
+                    snapshot.data!.docs[index].data() as Map<String, dynamic>,
+                    reservationsCount,
+                  ),
                 );
               });
         });

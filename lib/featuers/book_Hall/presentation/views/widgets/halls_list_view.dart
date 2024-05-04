@@ -78,7 +78,7 @@ class _HallsListViewState extends State<HallsListView> {
                 },
                 hallId: snapshot.data![index].id,
                 hallModel: HallModel.fromJson(
-                    snapshot.data![index].data() as Map<String, dynamic>),
+                    snapshot.data![index].data() as Map<String, dynamic>,0),
               );
             },
           ),

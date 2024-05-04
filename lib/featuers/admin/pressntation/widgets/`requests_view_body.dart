@@ -5,17 +5,26 @@ import '../../data/models/request_model.dart';
 import 'request_item.dart';
 
 class RequestsViewBody extends StatefulWidget {
-  const RequestsViewBody({super.key});
+  const RequestsViewBody({super.key, required this.hallId, required this.onNumberOfDocsChanged});
+  final String hallId;
+
+  final void Function(int) onNumberOfDocsChanged;
 
   @override
   State<RequestsViewBody> createState() => _RequestsViewBodyState();
 }
 
 class _RequestsViewBodyState extends State<RequestsViewBody> {
-  CollectionReference reservations = FirebaseFirestore.instance
+  late CollectionReference reservations;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    reservations = FirebaseFirestore.instance
       .collection('locs')
-      .doc('3Bw9aH34obmcSnnPtWSO')
+      .doc(widget.hallId)
       .collection('reservations');
+  }
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<QuerySnapshot>(
@@ -23,16 +32,16 @@ class _RequestsViewBodyState extends State<RequestsViewBody> {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Something went wrong');
-          }else if (snapshot.connectionState == ConnectionState.waiting) {
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-
+            widget.onNumberOfDocsChanged(snapshot.data?.docs.length ?? 0);
           return ListView.builder(
               itemCount: snapshot.data?.docs.length,
               itemBuilder: (context, index) {
                 return RequestItem(
                   requestModel: RequestModel.fromDocumentSnapshot(
-                      snapshot.data!.docs[index] ),
+                      snapshot.data!.docs[index]),
                 );
               });
         });
