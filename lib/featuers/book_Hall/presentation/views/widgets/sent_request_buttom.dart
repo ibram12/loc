@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loc/featuers/admin/data/models/request_model.dart';
 import 'package:loc/featuers/book_Hall/presentation/manager/cubits/add_request/add_request_cubit.dart';
-import 'package:loc/featuers/requests/data/models/request_model.dart';
-
 import '../../../../../core/helper/alert_dialog.dart';
 import '../../../../../core/helper/snack_bar.dart';
 import '../../../../../core/utils/constants.dart';
@@ -45,7 +42,7 @@ class SentRequestButtom extends StatelessWidget {
                           startTime: startTime,
                           data: startTime.toDate(),
                           halls: hallsIds);
-                  addRequest(
+                await  addRequest(
                     context,
                     hallids: hallsIds,
                     endTime: endTime,
@@ -77,10 +74,6 @@ class SentRequestButtom extends StatelessWidget {
     required Timestamp endTime,
     required Timestamp startTime,
   }) {
-    BlocProvider.of<AddRequestCubit>(context).addRequest(UserRequestModel(
-      //  hallName: hallName,
-        endTime: endTime,
-        startTime: startTime,
-        replyState: ReplyState.noReplyYet,),hallids);
+    BlocProvider.of<AddRequestCubit>(context).addRequest(startTime,endTime,hallids);
   }
 }
