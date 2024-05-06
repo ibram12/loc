@@ -3,6 +3,7 @@ import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/admin/pressntation/view/admin_view.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/book_loc_view.dart';
+import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:loc/screen/add%20activity.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/all_Locs_view.dart';
 import 'package:loc/widget/Card_Button.dart';
@@ -26,6 +27,7 @@ class MyHomePage extends StatelessWidget {
           children: <Widget>[
             Card_Button(page: const BookLocView(), text: S.of(context).book_hall),
             Card_Button(page: const AdminView(), text: S.of(context).add_khdma),
+            const Card_Button(page: UserRequests(), text: 'your requests'),
 
           ],
         ),
