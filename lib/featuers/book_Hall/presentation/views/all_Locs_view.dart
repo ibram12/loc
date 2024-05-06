@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/utils/constants.dart';
+import 'package:loc/featuers/book_Hall/presentation/manager/cubits/add_request/add_request_cubit.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/widgets/all_locs_view_body.dart';
 
 import '../../../../generated/l10n.dart';
@@ -18,7 +19,8 @@ class AllLocsView extends StatelessWidget {
     return MultiBlocProvider(
       providers:[
         BlocProvider(create: (context) => FeatchAvilableHallsCubit()),
-        BlocProvider(create: (context) => SentReservationCubit())
+        BlocProvider(create: (context) => SentReservationCubit()),
+        BlocProvider(create: (context) => AddRequestCubit()),
       ] ,
       child: Scaffold(
         appBar: AppBar(
