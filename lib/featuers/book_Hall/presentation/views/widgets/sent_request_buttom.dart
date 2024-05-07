@@ -8,7 +8,7 @@ import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/custom_botton.dart';
 import '../../manager/cubits/sent_reservation_cubit/sent_reservation_cubit.dart';
 
-class SentRequestButtom extends StatelessWidget {
+class SentRequestButtom extends StatefulWidget {
   const SentRequestButtom(
       {super.key,
       required this.hallsIds,
@@ -17,6 +17,20 @@ class SentRequestButtom extends StatelessWidget {
   final List<String> hallsIds;
   final Timestamp startTime;
   final Timestamp endTime;
+
+  @override
+  State<SentRequestButtom> createState() => _SentRequestButtomState();
+}
+
+class _SentRequestButtomState extends State<SentRequestButtom> {
+  late Future<String> requestIdInUserCollection;
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SentReservationCubit, SentReservationState>(
@@ -34,19 +48,23 @@ class SentRequestButtom extends StatelessWidget {
             child: CustomBotton(
               width: MediaQuery.of(context).size.width / 2,
               text: 'sent request',
-              onPressed: ()async {
-                if (hallsIds.isNotEmpty) {
-                await  BlocProvider.of<SentReservationCubit>(context)
+              onPressed: () async {
+                if (widget.hallsIds.isNotEmpty) {
+                  requestIdInUserCollection =
+                      BlocProvider.of<AddRequestCubit>(context).addRequest(
+                          widget.startTime, widget.endTime, widget.hallsIds);
+                  await BlocProvider.of<SentReservationCubit>(context)
                       .sentReservation(
-                          endTime: endTime,
-                          startTime: startTime,
-                          data: startTime.toDate(),
-                          halls: hallsIds);
-                await  addRequest(
+                          endTime: widget.endTime,
+                          startTime: widget.startTime,
+                          data: widget.startTime.toDate(),
+                          halls: widget.hallsIds,
+                          requestIdInUserCollection: requestIdInUserCollection);
+                  await addRequest(
                     context,
-                    hallids: hallsIds,
-                    endTime: endTime,
-                    startTime: startTime,
+                    hallids: widget.hallsIds,
+                    endTime: widget.endTime,
+                    startTime: widget.startTime,
                   );
                 } else {
                   showSnackBar(context, 'please select hall');
@@ -59,21 +77,13 @@ class SentRequestButtom extends StatelessWidget {
   }
 
 // Future<String> getHallName(List<String> hallIds)async {
-//     return await FirebaseFirestore.instance
-//         .collection('locs')
-//         .doc(hallIds)
-//         .get()
-//         .then((value) {
-//       return value.data()!['name'];
-//     });
-//   }
-
   addRequest(
     BuildContext context, {
     required List<String> hallids,
     required Timestamp endTime,
     required Timestamp startTime,
   }) {
-    BlocProvider.of<AddRequestCubit>(context).addRequest(startTime,endTime,hallids);
+    BlocProvider.of<AddRequestCubit>(context)
+        .addRequest(startTime, endTime, hallids);
   }
 }

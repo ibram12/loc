@@ -40,6 +40,7 @@ class _RequestsViewBodyState extends State<RequestsViewBody> {
               itemCount: snapshot.data?.docs.length,
               itemBuilder: (context, index) {
                 return RequestItem(
+                  hallid: snapshot.data!.docs[index].id,
                   requestModel: RequestModel.fromDocumentSnapshot(
                       snapshot.data!.docs[index]),
                 );

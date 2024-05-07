@@ -6,9 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:loc/core/server/firebase_methoudes.dart';
 import 'package:loc/featuers/requests/data/models/request_model.dart';
 import 'package:meta/meta.dart';
-
 import '../../../../../../core/server/shered_pref_helper.dart';
-
 part 'sent_reservation_state.dart';
 
 class SentReservationCubit extends Cubit<SentReservationState> {
@@ -18,6 +16,7 @@ class SentReservationCubit extends Cubit<SentReservationState> {
     required Timestamp startTime,
     required DateTime data,
     required List<String> halls,
+    required Future< String >requestIdInUserCollection,
   }) async {
     String? getUserName = await SherdPrefHelper().getUserName();
 
@@ -27,13 +26,33 @@ class SentReservationCubit extends Cubit<SentReservationState> {
       'startTime': startTime,
       'endTime': endTime,
       'date': '${data.day}/${data.month}/${data.year}',
-        'replyState':ReplyState.noReplyYet.description, 
+      'replyState': ReplyState.noReplyYet.description,
     };
     try {
       emit(SentReservationLoading());
+       String requestId = await requestIdInUserCollection;
       for (int i = 0; i < halls.length; i++) {
-        await DataBaseMethouds().addReservation(resrvationInfo, halls[i]);
-        //await DataBaseMethouds().addReservationToUser();
+        DocumentReference reservationRef =
+            await DataBaseMethouds().addReservation(resrvationInfo, halls[i]);
+        // String requestIdInUserCollection = await FirebaseFirestore.instance
+        //     .collection('users')
+        //     .doc(FirebaseAuth.instance.currentUser!.uid)
+        //     .collection('requests')
+        //     .doc()
+        //     .get()
+        //     .then((value) {
+        //   return value.data()!['requestId'];
+        // });
+
+        await reservationRef.set({
+          'requestId': requestId,
+          'id': FirebaseAuth.instance.currentUser!.uid,
+          'name': getUserName,
+          'startTime': startTime,
+          'endTime': endTime,
+          'date': '${data.day}/${data.month}/${data.year}',
+          'replyState': ReplyState.noReplyYet.description,
+        });
       }
       emit(SentReservationSuccess());
     } catch (err) {

@@ -24,12 +24,14 @@ class UserRequestModel {
   final Timestamp endTime;
   final Timestamp startTime;
   final ReplyState replyState;
+  final String requestId;
 
   UserRequestModel({
     required this.hallName,
     required this.endTime,
     required this.startTime,
     required this.replyState,
+    required this.requestId,
   });
 
   factory UserRequestModel.fromDocumentSnapshot(
@@ -38,7 +40,9 @@ class UserRequestModel {
       hallName: documentSnapshot['hallName'],
       endTime: documentSnapshot['endTime'],
       startTime: documentSnapshot['startTime'],
-      replyState: _convertReplyState(documentSnapshot['replyState']),
+      replyState: _convertReplyState(documentSnapshot['replyState'],
+      ),
+      requestId: documentSnapshot['requestId'],
     );
   }
 

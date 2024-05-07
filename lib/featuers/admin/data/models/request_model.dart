@@ -1,22 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RequestModel {
+  final String id;
   final String sendDate;
   final Timestamp startTime;
   final Timestamp endTime;
   final String name;
   final ReplyState replyState;
-  RequestModel({required this.sendDate, required this.startTime, required this.endTime, required this.name, required this.replyState,});
-factory RequestModel.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
+  RequestModel(
+      {required this.sendDate,
+      required this.startTime,
+      required this.endTime,
+      required this.name,
+      required this.replyState,
+      required this.id});
+  factory RequestModel.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
     return RequestModel(
-        sendDate: documentSnapshot['date'],
-        name: documentSnapshot['name'],
-        startTime: documentSnapshot['startTime'],
-        endTime: documentSnapshot['endTime'],
-        replyState: _convertReplyState(documentSnapshot['replyState']),
-        );
+      id: documentSnapshot['id'],
+      sendDate: documentSnapshot['date'],
+      name: documentSnapshot['name'],
+      startTime: documentSnapshot['startTime'],
+      endTime: documentSnapshot['endTime'],
+      replyState: _convertReplyState(documentSnapshot['replyState']),
+    );
   }
-    static _convertReplyState(String replyState) {
+  static _convertReplyState(String replyState) {
     switch (replyState) {
       case 'Accepted':
         return ReplyState.accepted;
@@ -26,8 +34,8 @@ factory RequestModel.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
         return ReplyState.noReplyYet;
     }
   }
-
 }
+
 enum ReplyState {
   accepted,
   unaccepted,
