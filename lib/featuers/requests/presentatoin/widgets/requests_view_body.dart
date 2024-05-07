@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:loc/featuers/admin/data/models/request_model.dart';
 import 'package:loc/featuers/requests/data/models/request_model.dart';
 import 'package:loc/featuers/requests/presentatoin/widgets/request_item.dart';
 
@@ -25,9 +24,9 @@ class _UserRequestBodyState extends State<UserRequestBody> {
     query = FirebaseFirestore.instance
         .collection('users')
         .doc(id)
-        .collection('requests')
-        .orderBy('replyState', descending: true);
-        requestsStream = query.snapshots();
+        .collection('requests');
+    // .orderBy('startTime', descending: true);//TODO: show the pending requests first
+    requestsStream = query.snapshots();
   }
 
   @override
@@ -37,17 +36,16 @@ class _UserRequestBodyState extends State<UserRequestBody> {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Something went wrong');
-          }else if(snapshot.connectionState == ConnectionState.waiting){
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
           return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
-                return  UserRequestItem(
-                  requestModel: UserRequestModel.fromDocumentSnapshot(
-                    snapshot.data!.docs[index],
-                  )
-                );
+                return UserRequestItem(
+                    requestModel: UserRequestModel.fromDocumentSnapshot(
+                  snapshot.data!.docs[index],
+                ));
               });
         });
   }

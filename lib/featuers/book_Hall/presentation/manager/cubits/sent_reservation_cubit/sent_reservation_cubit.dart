@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/core/server/firebase_methoudes.dart';
@@ -21,10 +22,12 @@ class SentReservationCubit extends Cubit<SentReservationState> {
     String? getUserName = await SherdPrefHelper().getUserName();
 
     Map<String, dynamic> resrvationInfo = {
+      'id': FirebaseAuth.instance.currentUser!.uid,
       'name': getUserName,
       'startTime': startTime,
       'endTime': endTime,
       'date': '${data.day}/${data.month}/${data.year}',
+        'replyState':ReplyState.noReplyYet.description, 
     };
     try {
       emit(SentReservationLoading());

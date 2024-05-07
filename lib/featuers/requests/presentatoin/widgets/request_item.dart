@@ -52,10 +52,10 @@ final  UserRequestModel requestModel;
                ),
                if (requestModel.replyState != ReplyState.noReplyYet)
                CircleAvatar(
-                backgroundColor:requestModel.replyState.description == 'accepted' ? Colors.green:Colors.red,
+                backgroundColor:requestModel.replyState.description == 'Accepted' ? Colors.green:Colors.red,
                 radius: 20,
                 child: Icon(
-                  requestModel.replyState.description == 'accepted' ?
+                  requestModel.replyState.description == 'Accepted' ?
                   Icons.check:Icons.close,
                   color: Colors.white,
                 ),

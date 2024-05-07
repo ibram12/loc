@@ -12,7 +12,7 @@ void showDeleteItemAlert({required BuildContext context ,required void Function(
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the alert dialog
+                Navigator.pop(context);
               },
               child: Text(S.of(context).cancal),
             ),

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/snack_bar.dart';
-import 'package:loc/featuers/admin/pressntation/manager/cubit/add_hall_cubit.dart';
+import 'package:loc/featuers/admin/pressntation/manager/add_hall_cubit/add_hall_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/Custom_image_contaner.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 

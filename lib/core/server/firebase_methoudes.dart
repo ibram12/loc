@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:loc/featuers/admin/data/models/request_model.dart';
 
 class DataBaseMethouds {
   Future addUserDetails(Map<String, dynamic> userData, String uId) async {
@@ -24,8 +22,10 @@ class DataBaseMethouds {
   }
 
   Future deleteLoc(String id) async {
-    FirebaseFirestore.instance.collection('locs').doc(id).delete();
+  await  FirebaseFirestore.instance.collection('locs').doc(id).delete();
   }
+
+
 
 
 }

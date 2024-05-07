@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loc/featuers/admin/pressntation/manager/cubit/add_hall_cubit.dart';
+import 'package:loc/featuers/admin/pressntation/manager/add_hall_cubit/add_hall_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/add_hall_view_body.dart';
 
 import '../../../../core/utils/constants.dart';

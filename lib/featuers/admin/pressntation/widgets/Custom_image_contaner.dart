@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loc/featuers/admin/pressntation/manager/cubit/add_hall_cubit.dart';
+import 'package:loc/featuers/admin/pressntation/manager/add_hall_cubit/add_hall_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/custom_bottom_sheet_body.dart';
 
 class CustomImageContaner extends StatefulWidget {

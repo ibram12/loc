@@ -5,13 +5,44 @@ class RequestModel {
   final Timestamp startTime;
   final Timestamp endTime;
   final String name;
-  RequestModel({required this.sendDate, required this.startTime, required this.endTime, required this.name});
+  final ReplyState replyState;
+  RequestModel({required this.sendDate, required this.startTime, required this.endTime, required this.name, required this.replyState,});
 factory RequestModel.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
     return RequestModel(
         sendDate: documentSnapshot['date'],
         name: documentSnapshot['name'],
         startTime: documentSnapshot['startTime'],
-        endTime: documentSnapshot['endTime']);
+        endTime: documentSnapshot['endTime'],
+        replyState: _convertReplyState(documentSnapshot['replyState']),
+        );
+  }
+    static _convertReplyState(String replyState) {
+    switch (replyState) {
+      case 'Accepted':
+        return ReplyState.accepted;
+      case 'Unaccepted':
+        return ReplyState.unaccepted;
+      default:
+        return ReplyState.noReplyYet;
+    }
   }
 
+}
+enum ReplyState {
+  accepted,
+  unaccepted,
+  noReplyYet,
+}
+
+extension ReplyStateExtension on ReplyState {
+  String get description {
+    switch (this) {
+      case ReplyState.accepted:
+        return 'Accepted';
+      case ReplyState.unaccepted:
+        return 'Unaccepted';
+      default:
+        return 'No reply yet';
+    }
+  }
 }
