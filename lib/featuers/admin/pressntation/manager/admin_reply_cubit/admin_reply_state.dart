@@ -10,3 +10,5 @@ final class AdminReplyLoading extends AdminReplyState {}
 final class AdminReplyAccept extends AdminReplyState {}
 
 final class AdminReplyReject extends AdminReplyState {}   
+
+final class AdminTakeAction extends AdminReplyState {}

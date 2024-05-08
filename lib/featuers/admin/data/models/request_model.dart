@@ -7,8 +7,10 @@ class RequestModel {
   final Timestamp endTime;
   final String name;
   final ReplyState replyState;
+  final String requestId;
   RequestModel(
-      {required this.sendDate,
+      {required this.requestId, 
+        required this.sendDate,
       required this.startTime,
       required this.endTime,
       required this.name,
@@ -16,6 +18,7 @@ class RequestModel {
       required this.id});
   factory RequestModel.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
     return RequestModel(
+      requestId: documentSnapshot['requestId'],
       id: documentSnapshot['id'],
       sendDate: documentSnapshot['date'],
       name: documentSnapshot['name'],

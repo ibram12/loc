@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/utils/constants.dart';
-import 'package:loc/featuers/admin/pressntation/manager/cubit/admin_reply_cubit.dart';
+import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_reply_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/%60requests_view_body.dart';
 
 class RequestsView extends StatelessWidget {
@@ -27,7 +27,7 @@ class RequestsView extends StatelessWidget {
           ),
         ),
         body: RequestsViewBody(
-            hallId: hallId, onNumberOfDocsChanged: onNumberOfDocsChanged),
+            hallId: hallId, onNumberOfDocsChanged: onNumberOfDocsChanged,hallName: hallName,),
       ),
     );
   }

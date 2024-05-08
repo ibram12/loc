@@ -2,86 +2,123 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/core/helper/admin_alert_dialog.dart';
+import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/featuers/admin/data/models/request_model.dart';
-import 'package:loc/featuers/admin/pressntation/manager/cubit/admin_reply_cubit.dart';
+import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_reply_cubit.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class RequestItem extends StatelessWidget {
   const RequestItem({
     super.key,
-    required this.requestModel, required this.hallid,
+    required this.requestModel,
+    required this.reservationId,
+    required this.hallId,
+    required this.hallName,
   });
   final RequestModel requestModel;
-  final String hallid;
+  final String reservationId;
+  final String hallId;
+  final String hallName;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        adminAlrtDialog(context: context, onAccept: () {
-        //  BlocProvider.of<AdminReplyCubit>(context).adminReplyAccept(hallid: hallid, userId: requestModel.id, requestId: );
-        }, onReject: () {});
+    return BlocListener<AdminReplyCubit, AdminReplyState>(
+      listener: (context, state) {
+        if (state is AdminReplyAccept) {
+          Navigator.of(context).pop();
+          showSnackBar(context, 'Request Accepted Successfully',
+              color: Colors.green);
+        } else if (state is AdminReplyReject) {
+          Navigator.of(context).pop();
+          showSnackBar(context, 'Request Rejected Successfully',
+              color: Colors.red);
+        }
       },
-      child: Card(
-        elevation: 3,
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
+        child: GestureDetector(
+          onTap: () {
+            adminAlrtDialog(
+                hallName: hallName,
+                requestModel: requestModel,
+                context: context,
+                onAccept: () {
+                  BlocProvider.of<AdminReplyCubit>(context).adminReplyAccept(
+                      hallId: hallId,
+                      reservatoinId: reservationId,
+                      userId: requestModel.id,
+                      requestId: requestModel.requestId);
+                },
+                onReject: () {
+                  BlocProvider.of<AdminReplyCubit>(context).adminReplyReject(
+                    hallId: hallId,
+                    reservatoinId: reservationId,
+                    userId: requestModel.id,
+                    requestId: requestModel.requestId,
+                  );
+                });
+          },
+          child: Card(
+            elevation: 3,
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    requestModel.name,
-                    overflow: TextOverflow.fade,
-                    style: Styles.textStyle18,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        requestModel.name,
+                        overflow: TextOverflow.fade,
+                        style: Styles.textStyle18,
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        'Date: ${requestModel.sendDate}',
+                        style: Styles.textStyle16,
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        'Start Time: ${DateFormat('MMMM dd, yyyy - hh:mm a').format(requestModel.startTime.toDate())}',
+                        style: Styles.textStyle16,
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        'End Time: ${DateFormat('MMMM dd, yyyy - hh:mm a').format(requestModel.endTime.toDate())}',
+                        style: Styles.textStyle16,
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'Date: ${requestModel.sendDate}',
-                    style: Styles.textStyle16,
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'Start Time: ${DateFormat('MMMM dd, yyyy - hh:mm a').format(requestModel.startTime.toDate())}',
-                    style: Styles.textStyle16,
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'End Time: ${DateFormat('MMMM dd, yyyy - hh:mm a').format(requestModel.endTime.toDate())}',
-                    style: Styles.textStyle16,
-                  ),
+                  if (requestModel.replyState.description == 'No reply yet')
+                    CircleAvatar(
+                      backgroundColor: Colors.amber,
+                      radius: 20,
+                      child: Image.asset(
+                        'assets/images/9032185_pending_chatting_load_chat_social media_icon.png',
+                        height: 30,
+                      ),
+                    ),
+                  if (requestModel.replyState != ReplyState.noReplyYet)
+                    CircleAvatar(
+                      backgroundColor:
+                          requestModel.replyState.description == 'Accepted'
+                              ? Colors.green
+                              : Colors.red,
+                      radius: 20,
+                      child: Icon(
+                        requestModel.replyState.description == 'Accepted'
+                            ? Icons.check
+                            : Icons.close,
+                        color: Colors.white,
+                      ),
+                    ),
                 ],
               ),
-              if (requestModel.replyState.description == 'No reply yet')
-                CircleAvatar(
-                  backgroundColor: Colors.amber,
-                  radius: 20,
-                  child: Image.asset(
-                    'assets/images/9032185_pending_chatting_load_chat_social media_icon.png',
-                    height: 30,
-                  ),
-                ),
-              if (requestModel.replyState != ReplyState.noReplyYet)
-                CircleAvatar(
-                  backgroundColor:
-                      requestModel.replyState.description == 'Accepted'
-                          ? Colors.green
-                          : Colors.red,
-                  radius: 20,
-                  child: Icon(
-                    requestModel.replyState.description == 'Accepted'
-                        ? Icons.check
-                        : Icons.close,
-                    color: Colors.white,
-                  ),
-                ),
-            ],
+            ),
           ),
-        ),
-      ),
+        )
+    
     );
   }
 }
