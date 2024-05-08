@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class cardSammer extends StatelessWidget {
-  cardSammer(
+class CardSammer extends StatelessWidget {
+const  CardSammer(
       {super.key,
       required this.title,
       required this.subTitle,
       required this.image});
-  String image;
-  String title;
-  String subTitle;
+final  String image;
+final  String title;
+final  String subTitle;
 
   @override
   Widget build(BuildContext context) {

@@ -3,14 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loc/core/helper/alert_dialog.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
 import 'package:loc/featuers/book_Hall/presentation/manager/cubits/select_time_cubit/select_time_cubit.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/all_Locs_view.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../../../generated/l10n.dart';
-import '../../manager/cubits/sent_reservation_cubit/sent_reservation_cubit.dart';
 import 'user_choices.dart';
 
 class BookLocViewBody extends StatefulWidget {

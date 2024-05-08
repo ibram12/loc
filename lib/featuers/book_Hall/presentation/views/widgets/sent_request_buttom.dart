@@ -60,12 +60,6 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
                           data: widget.startTime.toDate(),
                           halls: widget.hallsIds,
                           requestIdInUserCollection: requestIdInUserCollection);
-                  await addRequest(
-                    context,
-                    hallids: widget.hallsIds,
-                    endTime: widget.endTime,
-                    startTime: widget.startTime,
-                  );
                 } else {
                   showSnackBar(context, 'please select hall');
                 }
@@ -74,16 +68,5 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
             ));
       },
     );
-  }
-
-// Future<String> getHallName(List<String> hallIds)async {
-  addRequest(
-    BuildContext context, {
-    required List<String> hallids,
-    required Timestamp endTime,
-    required Timestamp startTime,
-  }) {
-    BlocProvider.of<AddRequestCubit>(context)
-        .addRequest(startTime, endTime, hallids);
   }
 }

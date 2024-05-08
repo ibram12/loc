@@ -6,6 +6,7 @@ import '../../../../core/utils/constants.dart';
 class UserRequests extends StatelessWidget {
   const UserRequests({super.key});
   static const String id = "UserRequests";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
