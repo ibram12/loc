@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 import '../../featuers/admin/data/models/request_model.dart';
 
 void adminAlrtDialog(
-    {required BuildContext context, required Function() onAccept, required Function() onReject,required RequestModel requestModel,required String hallName}) {
+    {required BuildContext context, required Function() onAccept, required Function() onEdit, required Function() onReject,required RequestModel requestModel,required String hallName}) {
 showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Alert'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Alert'),
+            
+            IconButton(onPressed: () => Navigator.of(context).pop(), icon:  Icon(Icons.close, color: Colors.red[900], size: 20),) 
+            ],
+          ),
           content: RichText(
   text: TextSpan(
     children: [
@@ -63,10 +69,20 @@ showDialog(
               onPressed: onAccept,
               child: const Text('Accept',style: TextStyle(color: Colors.green),),
             ),
-            TextButton(
-              onPressed: onReject,
-              child: const Text('Rejection the request',style: TextStyle(color: Colors.red),),
+            Row(
+              children: [
+                    TextButton(
+              onPressed: onEdit,
+              child: const Text('edit',style: TextStyle(color: Colors.blue),),
             ),
+                TextButton(
+                  onPressed: onReject,
+                  child: const Text('Rejection the request',style: TextStyle(color: Colors.red),),
+                ),
+              
+              ],
+            ),
+          
           ],
         );
       },

@@ -6,49 +6,41 @@ part 'featch_avilable_halls_state.dart';
 
 class FeatchAvilableHallsCubit extends Cubit<FeatchAvilableHallsState> {
   FeatchAvilableHallsCubit() : super(FeatchAvilableHallsInitial());
-Future<List<QueryDocumentSnapshot>> getAvilableHalls({
-  required Timestamp startTime,
-  required Timestamp endTime,
-}) async {
-  emit(FeatchAvilableHallsLoading());
-  List<QueryDocumentSnapshot> availableHalls = [];
-  QuerySnapshot<Map<String, dynamic>> querySnapshot =
-      await FirebaseFirestore.instance.collection('locs').get();
 
-  for (QueryDocumentSnapshot<Map<String, dynamic>> doc in querySnapshot.docs) {
-    bool isHallAvailable = true;
+  Stream<List<QueryDocumentSnapshot>> getAvilableHalls({
+    required Timestamp startTime,
+    required Timestamp endTime,
+  }) async* {
+    emit(FeatchAvilableHallsLoading());
 
-    if (doc.data().containsKey('reservations')) {
-      List<dynamic> reservations = doc.data()['reservations'];
+    try {
+      // Query for reservations that overlap with the specified time range
+      QuerySnapshot overlappingReservations = await FirebaseFirestore.instance
+          .collection('locs')
+          .where('reservations.startTime', isLessThan: endTime)
+          .where('reservations.endTime', isGreaterThan: startTime)
+          .get();
 
-      for (dynamic reservation in reservations) {
-        Timestamp reservationStartTime = reservation['startTime'];
-        Timestamp reservationEndTime = reservation['endTime'];
+      // Get the IDs of halls with overlapping reservations
+      List<String> hallIdsWithReservations = overlappingReservations.docs
+          .map((doc) => doc['hallId'] as String)
+          .toList();
 
-        // Check if the reservation overlaps with the provided time range
-        if ((reservationStartTime.compareTo(endTime) < 0 &&
-                reservationEndTime.compareTo(startTime) > 0) ||
-            (reservationStartTime.compareTo(startTime) == 0 &&
-                reservationEndTime.compareTo(endTime) == 0)) {
-          isHallAvailable = false;
-          break; // Exit the loop if an overlapping reservation is found
-        }
+      // Query for all halls
+      Stream<QuerySnapshot> allHallsStream = FirebaseFirestore.instance
+          .collection('locs')
+          .snapshots();
+
+      await for (QuerySnapshot allHallsSnapshot in allHallsStream) {
+        // Filter out halls with reservations overlapping with the specified time range
+        List<QueryDocumentSnapshot> availableHalls = allHallsSnapshot.docs
+            .where((hall) => !hallIdsWithReservations.contains(hall.id))
+            .toList();
+
+        yield availableHalls;
       }
-    }
-
-    if (isHallAvailable) {
-      availableHalls.add(doc);
+    } catch (error) {
+      emit(FeatchAvilableHallsError(message: error.toString()));
     }
   }
-
-  if (availableHalls.isEmpty) {
-    emit(FeatchAvilableHallsError(
-        message: 'Oops, there are no available halls for this time range'));
-  } else {
-    emit(FeatchAvilableHallsSuccess(docs: availableHalls));
-  }
-
-  return availableHalls;
-}
-
 }

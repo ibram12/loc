@@ -27,26 +27,10 @@ class _HallsListViewState extends State<HallsListView> {
   @override
   void initState() {
     super.initState();
-    _fetchAvailableHalls();
+    _hallsStream = BlocProvider.of<FeatchAvilableHallsCubit>(context).getAvilableHalls(startTime: widget.startTime, endTime: widget.endTime);
   }
 
-  void _fetchAvailableHalls() {
-    final cubit = BlocProvider.of<FeatchAvilableHallsCubit>(context);
-    cubit
-        .getAvilableHalls(
-      startTime: widget.startTime,
-      endTime: widget.endTime,
-    )
-        .then((availableHalls) {
-      setState(() {
-        _hallsStream = Stream.value(availableHalls);
-      });
-    }).catchError((error) {
-      setState(() {
-        _hallsStream = Stream.error(error);
-      });
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +41,13 @@ class _HallsListViewState extends State<HallsListView> {
           return const Text('Something went wrong');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
+        
         }
+
+        if (snapshot.data == null || snapshot.data!.isEmpty) {
+      return const Text('No data available');
+    }
+
         return Stack(alignment: Alignment.bottomCenter, children: [
           GridView.builder(
             itemCount: snapshot.data!.length,

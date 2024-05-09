@@ -16,8 +16,8 @@ class _AllHallsListViewState extends State<AllHallsListView> {
   final Stream<QuerySnapshot> _hallsStream =
       FirebaseFirestore.instance.collection('locs').snapshots();
   late Map<String, int> reservationsCounts = {};
- 
- initState() {
+
+  initState() {
     super.initState();
     _fetchReservationsCounts();
   }
@@ -35,6 +35,8 @@ class _AllHallsListViewState extends State<AllHallsListView> {
     setState(() {});
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Object?>>(
@@ -51,7 +53,8 @@ class _AllHallsListViewState extends State<AllHallsListView> {
                 crossAxisCount: 2,
               ),
               itemBuilder: (context, index) {
-         final reservationsCount = reservationsCounts[snapshot.data!.docs[index].id] ?? 0;
+                final reservationsCount =
+                    reservationsCounts[snapshot.data!.docs[index].id] ?? 0;
 
                 return AdminHallItem(
                   hallid: snapshot.data!.docs[index].id,

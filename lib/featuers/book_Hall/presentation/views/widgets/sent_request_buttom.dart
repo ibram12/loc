@@ -6,6 +6,7 @@ import '../../../../../core/helper/alert_dialog.dart';
 import '../../../../../core/helper/snack_bar.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/custom_botton.dart';
+import '../../../../../homePage.dart';
 import '../../manager/cubits/sent_reservation_cubit/sent_reservation_cubit.dart';
 
 class SentRequestButtom extends StatefulWidget {
@@ -38,6 +39,13 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
         if (state is SentReservationSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             showAlertDialog(
+              onOkPressed:  () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const MyHomePage()),
+                (route) => false
+                );
+          },
                 context: context, message: 'your request sent successfully');
           });
         } else if (state is SentReservationLoading) {

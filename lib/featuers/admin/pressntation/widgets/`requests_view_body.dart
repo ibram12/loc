@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_reply_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -47,9 +48,13 @@ class _RequestsViewBodyState extends State<RequestsViewBody> {
           widget.onNumberOfDocsChanged(snapshot.data?.docs.length ?? 0);
           return BlocConsumer<AdminReplyCubit, AdminReplyState>(
             listener: (context, state) {
-              if(state is AdminTakeAction){
-                Navigator.of(context).pop();
-              }
+          if (state is AdminReplyAccept) {
+          showSnackBar(context, 'Request Accepted Successfully',
+              color: Colors.green);
+        } else if (state is AdminReplyReject) {
+          showSnackBar(context, 'Request Rejected Successfully',
+              color: Colors.red);
+        }
             },
             builder: (context, state) {
               return ModalProgressHUD(

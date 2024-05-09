@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_reply_cubit.dart';
+import 'package:loc/featuers/admin/pressntation/manager/edit_request_cubit/edit_request_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/%60requests_view_body.dart';
 
 class RequestsView extends StatelessWidget {
@@ -16,8 +17,15 @@ class RequestsView extends StatelessWidget {
   final void Function(int) onNumberOfDocsChanged;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AdminReplyCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AdminReplyCubit(),
+        ),
+        BlocProvider(
+          create: (context) => EditRequestCubit(),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
@@ -27,7 +35,10 @@ class RequestsView extends StatelessWidget {
           ),
         ),
         body: RequestsViewBody(
-            hallId: hallId, onNumberOfDocsChanged: onNumberOfDocsChanged,hallName: hallName,),
+          hallId: hallId,
+          onNumberOfDocsChanged: onNumberOfDocsChanged,
+          hallName: hallName,
+        ),
       ),
     );
   }
