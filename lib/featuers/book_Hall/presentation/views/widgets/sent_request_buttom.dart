@@ -26,11 +26,7 @@ class SentRequestButtom extends StatefulWidget {
 class _SentRequestButtomState extends State<SentRequestButtom> {
   late Future<String> requestIdInUserCollection;
 
-  @override
-  void initState() {
-    super.initState();
 
-  }
 
   @override
   Widget build(BuildContext context) {

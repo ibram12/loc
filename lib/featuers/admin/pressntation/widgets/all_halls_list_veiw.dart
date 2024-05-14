@@ -34,9 +34,6 @@ class _AllHallsListViewState extends State<AllHallsListView> {
     }
     setState(() {});
   }
-
-  
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Object?>>(

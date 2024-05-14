@@ -22,35 +22,34 @@ class HallsListView extends StatefulWidget {
 }
 
 class _HallsListViewState extends State<HallsListView> {
-  late Stream<List<QueryDocumentSnapshot>> _hallsStream = Stream.value([]);
+  late Stream<QuerySnapshot<Object?>> _hallsStream;
   List<String> hallsIds = [];
   @override
   void initState() {
     super.initState();
-    _hallsStream = BlocProvider.of<FeatchAvilableHallsCubit>(context).getAvilableHalls(startTime: widget.startTime, endTime: widget.endTime);
+    _hallsStream = FirebaseFirestore.instance.collection('locs').snapshots();
+    BlocProvider.of<FeatchAvilableHallsCubit>(context)
+        .featchAvilableHallsDocs();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<QueryDocumentSnapshot>>(
+    return StreamBuilder<QuerySnapshot<Object?>>(
       stream: _hallsStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
-        
         }
 
-        if (snapshot.data == null || snapshot.data!.isEmpty) {
-      return const Text('No data available');
-    }
+        //     if (snapshot.data == null || snapshot.data!.isEmpty) {
+        //   return const Text('No data available');
+        // }
 
         return Stack(alignment: Alignment.bottomCenter, children: [
           GridView.builder(
-            itemCount: snapshot.data!.length,
+            itemCount: snapshot.data!.docs.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
@@ -66,9 +65,10 @@ class _HallsListViewState extends State<HallsListView> {
                     }
                   });
                 },
-                hallId: snapshot.data![index].id,
+                hallId: snapshot.data!.docs[index].id,
                 hallModel: HallModel.fromJson(
-                    snapshot.data![index].data() as Map<String, dynamic>,0),
+                    snapshot.data!.docs[index].data() as Map<String, dynamic>,
+                    0),
               );
             },
           ),

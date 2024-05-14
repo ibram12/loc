@@ -7,40 +7,25 @@ part 'featch_avilable_halls_state.dart';
 class FeatchAvilableHallsCubit extends Cubit<FeatchAvilableHallsState> {
   FeatchAvilableHallsCubit() : super(FeatchAvilableHallsInitial());
 
-  Stream<List<QueryDocumentSnapshot>> getAvilableHalls({
-    required Timestamp startTime,
-    required Timestamp endTime,
-  }) async* {
-    emit(FeatchAvilableHallsLoading());
+  Future<void> featchAvilableHallsDocs() async {
+    var myHalls = await FirebaseFirestore.instance.collection('locs').get();
 
-    try {
-      // Query for reservations that overlap with the specified time range
-      QuerySnapshot overlappingReservations = await FirebaseFirestore.instance
+    myHalls.docs.forEach((doc) async {
+      // Access each document here
+      var documentData = doc.data();
+      //  return documentData['hallId'];
+      var documentId = doc.id;
+        
+      var reservatoins =    await FirebaseFirestore.instance
           .collection('locs')
-          .where('reservations.startTime', isLessThan: endTime)
-          .where('reservations.endTime', isGreaterThan: startTime)
+          .doc(documentId)
+          .collection('reservations')
+          .where('replyState', isEqualTo: 'Accepted')
           .get();
-
-      // Get the IDs of halls with overlapping reservations
-      List<String> hallIdsWithReservations = overlappingReservations.docs
-          .map((doc) => doc['hallId'] as String)
-          .toList();
-
-      // Query for all halls
-      Stream<QuerySnapshot> allHallsStream = FirebaseFirestore.instance
-          .collection('locs')
-          .snapshots();
-
-      await for (QuerySnapshot allHallsSnapshot in allHallsStream) {
-        // Filter out halls with reservations overlapping with the specified time range
-        List<QueryDocumentSnapshot> availableHalls = allHallsSnapshot.docs
-            .where((hall) => !hallIdsWithReservations.contains(hall.id))
-            .toList();
-
-        yield availableHalls;
+      for (var hall in reservatoins.docs) {
+      
       }
-    } catch (error) {
-      emit(FeatchAvilableHallsError(message: error.toString()));
-    }
+     
+    });
   }
 }

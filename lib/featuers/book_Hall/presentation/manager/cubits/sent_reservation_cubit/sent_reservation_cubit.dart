@@ -18,6 +18,9 @@ class SentReservationCubit extends Cubit<SentReservationState> {
     required Future< String >requestIdInUserCollection,
   }) async {
     String? getUserName = await SherdPrefHelper().getUserName();
+  Future<String> getName()async{
+  String name = await  FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) => value.data()!['name']);
+  return name;}
 
     Map<String, dynamic> resrvationInfo = {
       'id': FirebaseAuth.instance.currentUser!.uid,
@@ -38,7 +41,7 @@ class SentReservationCubit extends Cubit<SentReservationState> {
         await reservationRef.set({
           'requestId': requestId,
           'id': FirebaseAuth.instance.currentUser!.uid,
-          'name': getUserName,
+          'name': getUserName?? await getName(),
           'startTime': startTime,
           'endTime': endTime,
           'date': '${data.day}/${data.month}/${data.year}',
