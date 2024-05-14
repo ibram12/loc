@@ -7,8 +7,8 @@ part 'select_time_state.dart';
 
 class SelectTimeCubit extends Cubit<SelectTimeState> {
   SelectTimeCubit() : super(SelectTimeInitial());
-  Future<void> selectStartTime(
-      BuildContext context,DateTime date,void Function(TimeOfDay) onselected) async {
+  Future<void> selectStartTime(BuildContext context, DateTime date,
+      void Function(TimeOfDay) onselected) async {
     final TimeOfDay? pickedStartTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
@@ -17,13 +17,13 @@ class SelectTimeCubit extends Cubit<SelectTimeState> {
       onselected(pickedStartTime);
       final pickedDateTime = DateTime(date.year, date.month, date.day,
           pickedStartTime.hour, pickedStartTime.minute);
-          Timestamp pickedTimesTemp = Timestamp.fromDate(pickedDateTime);
+      Timestamp pickedTimesTemp = Timestamp.fromDate(pickedDateTime);
       emit(SelectStartTimeSuccess(pickedTimesTemp));
     }
   }
 
-  void selectEndTime(
-      BuildContext context, DateTime selectedDate,void Function(TimeOfDay) onselected) async {
+  void selectEndTime(BuildContext context, DateTime selectedDate,
+      void Function(TimeOfDay) onselected) async {
     final TimeOfDay? pickedEndTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
@@ -32,20 +32,21 @@ class SelectTimeCubit extends Cubit<SelectTimeState> {
       onselected(pickedEndTime);
       final pickedEndDateTime = DateTime(selectedDate.year, selectedDate.month,
           selectedDate.day, pickedEndTime.hour, pickedEndTime.minute);
-          Timestamp pickedTimesTemp = Timestamp.fromDate(pickedEndDateTime);
+      Timestamp pickedTimesTemp = Timestamp.fromDate(pickedEndDateTime);
       emit(SelectEndTimeSuccess(pickedTimesTemp));
     }
   }
 
   void selectDate(BuildContext context, DateTime? date) async {
-    int cruntYear = DateTime.now().year;
-    DateTime lastDate = DateTime(cruntYear + 1);
+    //int cruntYear = DateTime.now().year;
+    DateTime now = DateTime.now();
+    //  DateTime lastDate = DateTime(cruntYear + 1);
     final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: lastDate,
-    );
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(now.year, now.month, now.day - now.weekday + 8)
+        );
     if (pickedDate != null && pickedDate != date) {
       emit(SelectDateSuccess(pickedDate));
     }

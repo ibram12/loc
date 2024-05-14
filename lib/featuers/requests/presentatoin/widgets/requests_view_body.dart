@@ -17,9 +17,7 @@ class _UserRequestBodyState extends State<UserRequestBody> {
   String id = FirebaseAuth.instance.currentUser!.uid;
   late Query query;
   late Stream<QuerySnapshot> requestsStream;
-  // void checkOntheData(){
-  //   if
-  // }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -38,16 +36,14 @@ class _UserRequestBodyState extends State<UserRequestBody> {
   stream: requestsStream,
   builder: (context, snapshot) {
     if (snapshot.hasError) {
-      return Text('Something went wrong');
+      return const Text('Something went wrong');
     } else if (snapshot.connectionState == ConnectionState.waiting) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     } else {
-      // Get the current week's starting and ending timestamps
       DateTime now = DateTime.now();
       DateTime startOfWeek = DateTime(now.year, now.month, now.day - now.weekday + 1);
       DateTime endOfWeek = DateTime(now.year, now.month, now.day - now.weekday + 8);
        
-      // Iterate over the documents to find the ones to delete
       List<DocumentSnapshot> documentsToDelete = [];
       snapshot.data!.docs.forEach((doc) {
         Timestamp startTime = doc.get('startTime');
@@ -56,12 +52,10 @@ class _UserRequestBodyState extends State<UserRequestBody> {
         }
       });
 
-      // Delete the documents that are not within the current week
       documentsToDelete.forEach((doc) {
         doc.reference.delete();
       });
 
-      // Render the remaining documents
       return ListView.builder(
         itemCount: snapshot.data!.docs.length,
         itemBuilder: (context, index) {
