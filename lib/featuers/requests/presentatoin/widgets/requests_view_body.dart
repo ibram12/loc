@@ -31,22 +31,45 @@ class _UserRequestBodyState extends State<UserRequestBody> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot<Object?>>(
-        stream: requestsStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Something went wrong');
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) {
-                return UserRequestItem(
-                    requestModel: UserRequestModel.fromDocumentSnapshot(
-                  snapshot.data!.docs[index],
-                ));
-              });
-        });
+    return  StreamBuilder<QuerySnapshot>(
+  stream: requestsStream,
+  builder: (context, snapshot) {
+    if (snapshot.hasError) {
+      return const Text('Something went wrong');
+    } else if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Center(child: CircularProgressIndicator());
+    } else {
+      DateTime now = DateTime.now();
+      DateTime startOfWeek = DateTime(now.year, now.month, now.day - now.weekday + 1);
+      DateTime endOfWeek = DateTime(now.year, now.month, now.day - now.weekday + 8);
+
+      List<DocumentSnapshot> documentsToDelete = [];
+      snapshot.data!.docs.forEach((doc) {
+        Timestamp startTime = doc.get('startTime');
+        if (!isWithinCurrentWeek(startTime.toDate(), startOfWeek, endOfWeek)) {
+          documentsToDelete.add(doc);
+        }
+      });
+
+      documentsToDelete.forEach((doc) {
+        doc.reference.delete();
+      });
+
+      // Render the remaining documents
+      return ListView.builder(
+        itemCount: snapshot.data!.docs.length,
+        itemBuilder: (context, index) {
+          return UserRequestItem(
+            requestModel: UserRequestModel.fromDocumentSnapshot(snapshot.data!.docs[index]),
+          );
+        },
+      );
+    }
+  },
+);
   }
+// Function to check if a date is within the current week
+bool isWithinCurrentWeek(DateTime date, DateTime startOfWeek, DateTime endOfWeek) {
+  return date.isAfter(startOfWeek) && date.isBefore(endOfWeek);
 }
+  }

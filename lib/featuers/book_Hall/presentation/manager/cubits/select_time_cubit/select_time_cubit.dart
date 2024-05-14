@@ -38,13 +38,12 @@ class SelectTimeCubit extends Cubit<SelectTimeState> {
   }
 
   void selectDate(BuildContext context, DateTime? date) async {
-    int cruntYear = DateTime.now().year;
-    DateTime lastDate = DateTime(cruntYear + 1);
+    DateTime now = DateTime.now();
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: lastDate,
+      lastDate: DateTime(now.year, now.month, now.day - now.weekday + 8),
     );
     if (pickedDate != null && pickedDate != date) {
       emit(SelectDateSuccess(pickedDate));
