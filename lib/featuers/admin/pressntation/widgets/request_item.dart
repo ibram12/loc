@@ -128,12 +128,12 @@ class RequestItem extends StatelessWidget {
                 if (requestModel.replyState != ReplyState.noReplyYet)
                   CircleAvatar(
                     backgroundColor:
-                        requestModel.replyState.description == 'Accepted'
+                        requestModel.replyState.description == ReplyState.accepted.description
                             ? Colors.green
                             : Colors.red,
                     radius: 20,
                     child: Icon(
-                      requestModel.replyState.description == 'Accepted'
+                      requestModel.replyState.description == ReplyState.accepted.description
                           ? Icons.check
                           : Icons.close,
                       color: Colors.white,

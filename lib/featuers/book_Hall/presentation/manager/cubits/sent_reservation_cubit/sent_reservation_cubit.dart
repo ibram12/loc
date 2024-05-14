@@ -20,6 +20,7 @@ class SentReservationCubit extends Cubit<SentReservationState> {
     String? getUserName = await SherdPrefHelper().getUserName();
   Future<String> getName()async{
   String name = await  FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) => value.data()!['name']);
+  SherdPrefHelper().setUserName(name);
   return name;}
 
     Map<String, dynamic> resrvationInfo = {
