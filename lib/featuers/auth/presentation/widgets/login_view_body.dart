@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/snack_bar.dart';
@@ -35,6 +36,8 @@ class _LogInViewBodyState extends State<LogInViewBody> {
     password.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LogInCubit, LogInState>(
@@ -64,7 +67,9 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 20),
-                    const CustomLogoAuth(),
+                    CustomLogoAuth(
+                      
+                    ),
                     const SizedBox(height: 20),
                     const Text("Login", style: Styles.textStyle30),
                     const SizedBox(height: 10),
@@ -95,9 +100,10 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                         hinttext: 'Password',
                         textEditingController: password),
                     InkWell(
-                       onTap: () {
-                        Navigator.of(context).pushNamed(PasswordRecoveryVeiw.id);
-                       },
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(PasswordRecoveryVeiw.id);
+                      },
                       child: Container(
                         margin: const EdgeInsets.only(top: 10, bottom: 20),
                         alignment: Alignment.topRight,
@@ -118,7 +124,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                           }
                         }),
                     const SizedBox(height: 20),
-                  
+
                     // Text("Don't Have An Account ? Resister" , textAlign: TextAlign.center,),
                     InkWell(
                       onTap: () {

@@ -24,7 +24,7 @@ class RequestsViewBody extends StatefulWidget {
 }
 
 class _RequestsViewBodyState extends State<RequestsViewBody> {
-  late CollectionReference reservations;
+  late Query reservations;
   @override
   void initState() {
     // TODO: implement initState
@@ -32,7 +32,7 @@ class _RequestsViewBodyState extends State<RequestsViewBody> {
     reservations = FirebaseFirestore.instance
         .collection('locs')
         .doc(widget.hallId)
-        .collection('reservations');
+        .collection('reservations').orderBy('replyState');
   }
 
   @override
