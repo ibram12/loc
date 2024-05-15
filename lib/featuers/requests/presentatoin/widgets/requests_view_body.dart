@@ -41,21 +41,22 @@ class _UserRequestBodyState extends State<UserRequestBody> {
       return const Center(child: CircularProgressIndicator());
     } else {
       DateTime now = DateTime.now();
-      DateTime startOfWeek = DateTime(now.year, now.month, now.day - now.weekday + 1);
-      DateTime endOfWeek = DateTime(now.year, now.month, now.day - now.weekday + 8);
+      DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+          DateTime endOfWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
        
-      List<DocumentSnapshot> documentsToDelete = [];
-      snapshot.data!.docs.forEach((doc) {
-        Timestamp startTime = doc.get('startTime');
-        if (!isWithinCurrentWeek(startTime.toDate(), startOfWeek, endOfWeek)) {
-          documentsToDelete.add(doc);
-        }
-      });
+    if (now.weekday == DateTime.saturday) {
+            List<DocumentSnapshot> documentsToDelete = [];
+            snapshot.data!.docs.forEach((doc) {
+              Timestamp startTime = doc.get('startTime');
+              if (!isWithinCurrentWeek(startTime.toDate(), startOfWeek, endOfWeek)) {
+                documentsToDelete.add(doc);
+              }
+            });
 
-      documentsToDelete.forEach((doc) {
-        doc.reference.delete();
-      });
-
+            documentsToDelete.forEach((doc) {
+              doc.reference.delete();
+            });
+          }
       return ListView.builder(
         itemCount: snapshot.data!.docs.length,
         itemBuilder: (context, index) {
@@ -70,6 +71,7 @@ class _UserRequestBodyState extends State<UserRequestBody> {
   }
 // Function to check if a date is within the current week
 bool isWithinCurrentWeek(DateTime date, DateTime startOfWeek, DateTime endOfWeek) {
-  return date.isAfter(startOfWeek) && date.isBefore(endOfWeek);
+    return date.isAfter(startOfWeek.subtract(const Duration(seconds: 1))) &&
+           date.isBefore(endOfWeek.add(const Duration(days: 1)));
 }
 }

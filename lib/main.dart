@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyanAccent),
         useMaterial3: true,
       ),
-      home: const SplashView(),
+      home: const MyHomePage(),
       routes: {
         SignUpView.id: (context) => const SignUpView(),
         LoginView.id: (context) => const LoginView(),
