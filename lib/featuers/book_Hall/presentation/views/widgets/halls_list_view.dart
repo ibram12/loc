@@ -23,62 +23,74 @@ class HallsListView extends StatefulWidget {
 
 class _HallsListViewState extends State<HallsListView> {
   late Stream<QuerySnapshot<Object?>> _hallsStream;
-  List<String> hallsIds = [];
+  List<String> availableHallsIds = [];
+  List<String> userhallsChoosed = [];
   @override
   void initState() {
     super.initState();
     _hallsStream = FirebaseFirestore.instance.collection('locs').snapshots();
-    BlocProvider.of<FeatchAvilableHallsCubit>(context)
-        .featchAvilableHallsDocs();
+    BlocProvider.of<FeatchAvilableHallsCubit>(context).featchAvilableHallsDocs(
+        startTime: widget.startTime, endTime: widget.endTime);
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot<Object?>>(
-      stream: _hallsStream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Something went wrong');
-        } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+    return BlocListener<FeatchAvilableHallsCubit, FeatchAvilableHallsState>(
+      listener: (context, state) {
+        if (state is FeatchAvilableHallsLoaded) {
+          setState(() {
+            availableHallsIds = state.availableHalls;
+          });
+        } else if (state is FeatchAvilableHallsError) {
+          print(state.message);
         }
-
-        //     if (snapshot.data == null || snapshot.data!.isEmpty) {
-        //   return const Text('No data available');
-        // }
-
-        return Stack(alignment: Alignment.bottomCenter, children: [
-          GridView.builder(
-            itemCount: snapshot.data!.docs.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-            ),
-            itemBuilder: (context, index) {
-              return HallItem(
-                selectedHalls: hallsIds,
-                onSelectionChanged: (isSelected, hallId) {
-                  setState(() {
-                    if (isSelected) {
-                      hallsIds.add(hallId);
-                    } else {
-                      hallsIds.removeAt(hallsIds.indexOf(hallId));
-                    }
-                  });
-                },
-                hallId: snapshot.data!.docs[index].id,
-                hallModel: HallModel.fromJson(
-                    snapshot.data!.docs[index].data() as Map<String, dynamic>,
-                    0),
-              );
-            },
-          ),
-          SentRequestButtom(
-            startTime: widget.startTime,
-            endTime: widget.endTime,
-            hallsIds: hallsIds,
-          )
-        ]);
       },
+      child: StreamBuilder<QuerySnapshot<Object?>>(
+        stream: _hallsStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return const Text('No data available');
+          }
+          var filteredDocs = snapshot.data!.docs
+              .where((doc) => availableHallsIds.contains(doc.id))
+              .toList();
+          return Stack(alignment: Alignment.bottomCenter, children: [
+            GridView.builder(
+              itemCount: filteredDocs.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              itemBuilder: (context, index) {
+                return HallItem(
+                  selectedHalls: userhallsChoosed,
+                  onSelectionChanged: (isSelected, hallId) {
+                    setState(() {
+                      if (isSelected) {
+                        userhallsChoosed.add(hallId);
+                      } else {
+                        userhallsChoosed
+                            .removeAt(userhallsChoosed.indexOf(hallId));
+                      }
+                    });
+                  },
+                  hallId: filteredDocs[index].id,
+                  hallModel: HallModel.fromJson(
+                      filteredDocs[index].data() as Map<String, dynamic>, 0),
+                );
+              },
+            ),
+            SentRequestButtom(
+              startTime: widget.startTime,
+              endTime: widget.endTime,
+              hallsIds: userhallsChoosed,
+            )
+          ]);
+        },
+      ),
     );
   }
 }

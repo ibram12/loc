@@ -7,25 +7,45 @@ part 'featch_avilable_halls_state.dart';
 class FeatchAvilableHallsCubit extends Cubit<FeatchAvilableHallsState> {
   FeatchAvilableHallsCubit() : super(FeatchAvilableHallsInitial());
 
-  Future<void> featchAvilableHallsDocs() async {
-    var myHalls = await FirebaseFirestore.instance.collection('locs').get();
+  Future<void> featchAvilableHallsDocs({
+    required Timestamp startTime,
+    required Timestamp endTime,
+  }) async {
+    emit(FeatchAvilableHallsLoading());
 
-    myHalls.docs.forEach((doc) async {
-      // Access each document here
-      var documentData = doc.data();
-      //  return documentData['hallId'];
-      var documentId = doc.id;
-        
-      var reservatoins =    await FirebaseFirestore.instance
-          .collection('locs')
-          .doc(documentId)
-          .collection('reservations')
-          .where('replyState', isEqualTo: 'Accepted')
-          .get();
-      for (var hall in reservatoins.docs) {
-      
+    try {
+      var myHalls = await FirebaseFirestore.instance.collection('locs').get();
+      List<String> availableHallsIds = [];
+
+      for (var doc in myHalls.docs) {
+        bool hasConflict = false;
+
+        var reservations = await FirebaseFirestore.instance
+            .collection('locs')
+            .doc(doc.id)
+            .collection('reservations')
+            .get();
+
+        for (var reservation in reservations.docs) {
+          Timestamp docStartTime = reservation.get('startTime');
+          Timestamp docEndTime = reservation.get('endTime');
+          bool conflict = startTime.toDate().isBefore(docEndTime.toDate()) &&
+              endTime.toDate().isAfter(docStartTime.toDate());
+
+          if (conflict) {
+            hasConflict = true;
+            break;
+          }
+        }
+
+        if (!hasConflict) {
+          availableHallsIds.add(doc.id);
+        } else {}
       }
-     
-    });
+
+      emit(FeatchAvilableHallsLoaded(availableHallsIds));
+    } catch (e) {
+      emit(FeatchAvilableHallsError(message: e.toString()));
+    }
   }
 }
