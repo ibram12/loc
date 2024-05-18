@@ -8,9 +8,11 @@ class RequestModel {
   final String name;
   final ReplyState replyState;
   final String requestId;
+  final bool daily;
   RequestModel(
-      {required this.requestId, 
-        required this.sendDate,
+      {required this.daily,
+        required this.requestId,
+      required this.sendDate,
       required this.startTime,
       required this.endTime,
       required this.name,
@@ -25,6 +27,7 @@ class RequestModel {
       startTime: documentSnapshot['startTime'],
       endTime: documentSnapshot['endTime'],
       replyState: _convertReplyState(documentSnapshot['replyState']),
+      daily: documentSnapshot['daily']
     );
   }
   static _convertReplyState(String replyState) {

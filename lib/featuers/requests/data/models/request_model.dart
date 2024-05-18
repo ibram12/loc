@@ -25,8 +25,10 @@ class UserRequestModel {
   final Timestamp startTime;
   final ReplyState replyState;
   final String requestId;
+  final bool daily;
 
   UserRequestModel({
+    required this.daily,
     required this.hallName,
     required this.endTime,
     required this.startTime,
@@ -40,9 +42,11 @@ class UserRequestModel {
       hallName: documentSnapshot['hallName'],
       endTime: documentSnapshot['endTime'],
       startTime: documentSnapshot['startTime'],
-      replyState: _convertReplyState(documentSnapshot['replyState'],
+      replyState: _convertReplyState(
+        documentSnapshot['replyState'],
       ),
       requestId: documentSnapshot['requestId'],
+       daily: documentSnapshot['daily'],
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,10 +50,13 @@ class HomePage extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       title: isArabic() ? "اماكن" : "loc",
       theme: ThemeData(
+        cupertinoOverrideTheme: const CupertinoThemeData(
+          textTheme: CupertinoTextThemeData() // This is required
+        ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyanAccent),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: const SplashView(),
       routes: {
         SignUpView.id: (context) => const SignUpView(),
         LoginView.id: (context) => const LoginView(),

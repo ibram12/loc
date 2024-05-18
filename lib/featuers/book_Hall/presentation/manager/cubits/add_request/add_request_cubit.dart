@@ -37,6 +37,7 @@ Future<String> addRequest(
       });
 
       await reservationRef.set({
+        'daily':false,
         'requestId': reservationRef.id,
         'hallName': name,
         'startTime': startTime,

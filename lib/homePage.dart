@@ -22,8 +22,9 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Card_Button(page: const BookLocView(), text: S.of(context).book_hall),
+            Card_Button(page: const BookLocView(), text: 'Add Event'),
             Card_Button(page: const AdminView(), text: S.of(context).add_khdma),
             const Card_Button(page: UserRequests(), text: 'your requests'),
 

@@ -17,18 +17,19 @@ class AdminReplyCubit extends Cubit<AdminReplyState> {
 
     emit(AdminReplyLoading());
 
-    await FirebaseFirestore.instance
-        .collection('locs')
-        .doc(hallId)
-        .collection('reservations')
-        .doc(reservatoinId)
-        .update({'replyState': ReplyState.accepted.description});
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('requests')
-        .doc(requestId)
-        .update({'replyState': ReplyState.accepted.description});
+    WriteBatch batch = FirebaseFirestore.instance.batch();
+
+    List<String> pathsToUpdate = [
+      'locs/$hallId/reservations/$reservatoinId',
+      'users/$userId/requests/$requestId',
+    ];
+
+    for (var path in pathsToUpdate) {
+      batch.update(FirebaseFirestore.instance.doc(path),
+          {'replyState': ReplyState.accepted.description});
+    }
+
+    batch.commit();
     emit(AdminReplyAccept());
   }
 
@@ -39,18 +40,17 @@ class AdminReplyCubit extends Cubit<AdminReplyState> {
       required String requestId}) async {
     emit(AdminTakeAction());
     emit(AdminReplyLoading());
-    await FirebaseFirestore.instance
-        .collection('locs')
-        .doc(hallId)
-        .collection('reservations')
-        .doc(reservatoinId)
-        .update({'replyState': ReplyState.unaccepted.description});
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('requests')
-        .doc(requestId)
-        .update({'replyState': ReplyState.unaccepted.description});
+    WriteBatch batch = FirebaseFirestore.instance.batch();
+
+    List<String> pathsToUpdate = [
+      'locs/$hallId/reservations/$reservatoinId',
+      'users/$userId/requests/$requestId',
+    ];
+    for (var path in pathsToUpdate) {
+      batch.update(FirebaseFirestore.instance.doc(path),
+          {'replyState': ReplyState.unaccepted.description});
+    }
+    batch.commit();
     emit(AdminReplyReject());
   }
 }
