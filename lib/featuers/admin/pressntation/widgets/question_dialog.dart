@@ -5,13 +5,13 @@ import 'package:loc/featuers/admin/data/models/request_model.dart';
 import 'package:loc/featuers/admin/pressntation/manager/admin_change_daily_state/admin_change_daily_state_cubit.dart';
 
 void showQuestionDialog({
-  required BuildContext context,
+  required BuildContext contextt,
   required RequestModel requestModel,
   required String reservationId,
   required String hallId,
 }) {
   showAdaptiveDialog(
-    context: context,
+    context: contextt,
     builder: (BuildContext context) {
       return AlertDialog(
         title: const Text('Alert'),
@@ -24,7 +24,7 @@ void showQuestionDialog({
               style: TextStyle(color: Colors.red),
             ),
             onPressed: () async {
-            await  BlocProvider.of<AdminChangeDailyStateCubit>(context)
+            await  BlocProvider.of<AdminChangeDailyStateCubit>(contextt)
                   .adminchageStateToNotDaily(
                       reservatoinId: reservationId,
                       hallId: hallId,
@@ -48,7 +48,7 @@ void showQuestionDialog({
     },
   ).then((result) {
     if (result == true) {
-      BlocProvider.of<AdminChangeDailyStateCubit>(context)
+      BlocProvider.of<AdminChangeDailyStateCubit>(contextt)
           .adminchageStateToDaily(
               reservatoinId: reservationId,
               hallId: hallId,

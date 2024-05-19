@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/core/helper/admin_alert_dialog.dart';
-import 'package:loc/core/helper/question_dialog.dart';
-import 'package:loc/core/text_styles/Styles.dart';
-import 'package:loc/featuers/admin/data/models/request_model.dart';
 import 'package:loc/featuers/admin/pressntation/manager/admin_change_daily_state/admin_change_daily_state_cubit.dart';
+import 'package:loc/featuers/admin/pressntation/widgets/question_dialog.dart';
+import 'package:loc/featuers/admin/data/models/request_model.dart';
 import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_reply_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/manager/edit_request_cubit/edit_request_cubit.dart';
-
+import 'package:loc/featuers/admin/pressntation/widgets/request_item_body.dart';
 import '../../../../core/helper/alert_dialog.dart';
+import '../../../../core/helper/snack_bar.dart';
 
 class RequestItem extends StatelessWidget {
   const RequestItem({
@@ -49,116 +49,64 @@ class RequestItem extends StatelessWidget {
           );
         }
       },
-      child: GestureDetector(
-        onLongPress: () {
-          showQuestionDialog(
-            context: context,
-            requestModel: requestModel,
-            reservationId: reservationId,
-            hallId: hallId,
-          );
-        },
-        onTap: () {
-          adminAlrtDialog(
-              onEdit: () {
-                Navigator.of(context).pop();
-                BlocProvider.of<EditRequestCubit>(context).selectStartTime(
-                    context,
-                    requestModel.startTime.toDate(),
-                    hallId,
-                    reservationId,
-                    requestModel.id,
-                    requestModel.requestId,
-                    requestModel.startTime);
-              },
-              hallName: hallName,
-              requestModel: requestModel,
-              context: context,
-              onAccept: () {
-                BlocProvider.of<AdminReplyCubit>(context).adminReplyAccept(
-                    hallId: hallId,
-                    reservatoinId: reservationId,
-                    userId: requestModel.id,
-                    requestId: requestModel.requestId);
-                Navigator.of(context).pop();
-              },
-              onReject: () {
-                BlocProvider.of<AdminReplyCubit>(context).adminReplyReject(
+      child:
+          BlocBuilder<AdminChangeDailyStateCubit, AdminChangeDailyStateState>(
+        builder: (context, state) {
+          if (state is AdminChangeDailyStateFalier) {
+            showSnackBar(context, 'sorry there was an error, please try later',
+                color: Colors.red);
+          }
+          return GestureDetector(
+              onLongPress: () {
+                showQuestionDialog(
+                  contextt: context,
+                  requestModel: requestModel,
+                  reservationId: reservationId,
                   hallId: hallId,
-                  reservatoinId: reservationId,
-                  userId: requestModel.id,
-                  requestId: requestModel.requestId,
                 );
-                Navigator.of(context).pop();
-              });
+              },
+              onTap: () {
+                adminAlrtDialog(
+                    onEdit: () {
+                      Navigator.of(context).pop();
+                      BlocProvider.of<EditRequestCubit>(context)
+                          .selectStartTime(
+                              context,
+                              requestModel.startTime.toDate(),
+                              hallId,
+                              reservationId,
+                              requestModel.id,
+                              requestModel.requestId,
+                              requestModel.startTime);
+                    },
+                    hallName: hallName,
+                    requestModel: requestModel,
+                    context: context,
+                    onAccept: () {
+                      BlocProvider.of<AdminReplyCubit>(context)
+                          .adminReplyAccept(
+                              hallId: hallId,
+                              reservatoinId: reservationId,
+                              userId: requestModel.id,
+                              requestId: requestModel.requestId);
+                      Navigator.of(context).pop();
+                    },
+                    onReject: () {
+                      BlocProvider.of<AdminReplyCubit>(context)
+                          .adminReplyReject(
+                        hallId: hallId,
+                        reservatoinId: reservationId,
+                        userId: requestModel.id,
+                        requestId: requestModel.requestId,
+                      );
+                      Navigator.of(context).pop();
+                    });
+              },
+              child: RequestItemBody(
+                  requestModel: requestModel,
+                  isLoading: state is AdminChangeDailyStateLoading),
+                  );
         },
-        child: Banner(
-          message: requestModel.daily == false ? 'Not Daily' : 'Daily',
-          color: requestModel.daily == false ? Colors.red : Colors.green,
-          location: BannerLocation.topEnd,
-          child: Card(
-            elevation: 3,
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        requestModel.name,
-                        overflow: TextOverflow.fade,
-                        style: Styles.textStyle18,
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'Date: ${requestModel.sendDate}',
-                        style: Styles.textStyle16,
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'Start Time: ${DateFormat('hh:mm a').format(requestModel.startTime.toDate())}',
-                        style: Styles.textStyle16,
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'End Time: ${DateFormat('hh:mm a').format(requestModel.endTime.toDate())}',
-                        style: Styles.textStyle16,
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-                  if (requestModel.replyState.description == 'No reply yet')
-                    CircleAvatar(
-                      backgroundColor: Colors.amber,
-                      radius: 20,
-                      child: Image.asset(
-                        'assets/images/9032185_pending_chatting_load_chat_social media_icon.png',
-                        height: 30,
-                      ),
-                    ),
-                  if (requestModel.replyState != ReplyState.noReplyYet)
-                    CircleAvatar(
-                      backgroundColor: requestModel.replyState.description ==
-                              ReplyState.accepted.description
-                          ? Colors.green
-                          : Colors.red,
-                      radius: 20,
-                      child: Icon(
-                        requestModel.replyState.description ==
-                                ReplyState.accepted.description
-                            ? Icons.check
-                            : Icons.close,
-                        color: Colors.white,
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
