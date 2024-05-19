@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/text_styles/Styles.dart';
+import 'package:loc/core/utils/constants.dart';
 import 'package:loc/core/widgets/password_text_field.dart';
 import 'package:loc/homePage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -22,11 +23,15 @@ class SginUpViewBody extends StatefulWidget {
 }
 
 class _SginUpViewBodyState extends State<SginUpViewBody> {
+  List<String> services = ['ملائكة', 'خدمة ابتدائي', 'خدمة ثانوي', 'اخرى'];
+  List<String> roles = ['مشرف', 'مستخدم'];
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController name = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
   bool isLoading = false;
+  String service = 'Service';
+  String role = 'Role';
   @override
   void dispose() {
     // TODO: implement dispose
@@ -40,20 +45,20 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(
       builder: (context, state) {
-      if (state is SignUpLoading) {
-        isLoading = true;
-      } else if (state is SignUpSuccess) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushNamedAndRemoveUntil(context, MyHomePage.id, (route) => false);
-          showSnackBar(context, 'Sign Up Successfully');
-        });
-      } else if (state is SignUpError) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          showSnackBar(context, state.message);
-        });
+        if (state is SignUpLoading) {
+          isLoading = true;
+        } else if (state is SignUpSuccess) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, MyHomePage.id, (route) => false);
+            showSnackBar(context, 'Sign Up Successfully');
+          });
+        } else if (state is SignUpError) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            showSnackBar(context, state.message);
+          });
           isLoading = false;
-
-      }
+        }
         return ModalProgressHUD(
           inAsyncCall: isLoading,
           child: Container(
@@ -70,8 +75,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                     const SizedBox(height: 20),
                     const Text("Sign Up", style: Styles.textStyle30),
                     const SizedBox(height: 10),
-                    const Text("Add New User",
-                        style: Styles.textStyle14),
+                    const Text("Add New User", style: Styles.textStyle14),
                     const SizedBox(height: 10),
                     const Text(
                       "Name",
@@ -79,8 +83,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                        hinttext: "ُYour Name",
-                        textEditingController: name),
+                        hinttext: "ُYour Name", textEditingController: name),
                     const SizedBox(height: 10),
                     const Text(
                       "Email",
@@ -101,13 +104,45 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                         hinttext: 'Password',
                         textEditingController: password),
                     const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DropdownButton(
+                            hint:  Text(service),
+                            items: services
+                                .map((e) => DropdownMenuItem(
+                                      child: Text(e),
+                                      value: e,
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                service = value!;
+                              });
+                            }),
+                        const SizedBox(height: 10),
+                        DropdownButton(
+                            hint:  Text(role),
+                            items: roles
+                                .map((e) => DropdownMenuItem(
+                                      child: Text(e),
+                                      value: e,
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                role = value!;
+                              });
+                            }),
+                      ],
+                    ),
                     CustomBotton(
                         width: double.infinity,
                         backgroundColor: Colors.orange,
                         text: "Sign Up",
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                           SherdPrefHelper().setUserName(name.text);
+                            SherdPrefHelper().setUserName(name.text);
                             BlocProvider.of<SignUpCubit>(context)
                                 .signUpWithEmailAndPassword(
                               email: email.text,
@@ -116,7 +151,6 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                             );
                           }
                         }),
-                    const SizedBox(height: 20),
                   ],
                 ),
               ),

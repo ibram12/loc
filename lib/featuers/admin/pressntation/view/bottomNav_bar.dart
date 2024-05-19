@@ -39,7 +39,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         animationDuration: const Duration(milliseconds: 500),
         height: 55,
         color: kPrimaryColor,
-        buttonBackgroundColor: Colors.orange,
+        buttonBackgroundColor: kPrimaryColor,
         backgroundColor: Colors.white,
         onTap: (index) {
           setState(() {
