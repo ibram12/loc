@@ -10,6 +10,8 @@ class SignUpCubit extends Cubit<SignUpState> {
   Future<void> signUpWithEmailAndPassword(
       {required String email,
       required String password,
+      required String role,
+      required String service,
       required String name}) async {
     try {
       emit(SignUpLoading());
@@ -21,7 +23,9 @@ class SignUpCubit extends Cubit<SignUpState> {
       Map<String, dynamic> userInfo = {
         'email': email,
         'name': name,
-        'id': credential.user!.uid
+        'id': credential.user!.uid,
+        'role': role,
+        'service': service
       };
       await DataBaseMethouds().addUserDetails(userInfo, credential.user!.uid);
       emit(SignUpSuccess());

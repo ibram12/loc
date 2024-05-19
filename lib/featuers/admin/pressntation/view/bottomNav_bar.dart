@@ -36,7 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         index: pageIndex,
-        animationDuration: const Duration(milliseconds: 500),
+        animationDuration: const Duration(milliseconds: 300),
         height: 55,
         color: kPrimaryColor,
         buttonBackgroundColor: kPrimaryColor,

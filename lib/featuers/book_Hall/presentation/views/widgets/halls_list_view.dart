@@ -79,7 +79,7 @@ class _HallsListViewState extends State<HallsListView> {
                   },
                   hallId: filteredDocs[index].id,
                   hallModel: HallModel.fromJson(
-                      filteredDocs[index].data() as Map<String, dynamic>, 0),
+                      filteredDocs[index].data() as Map<String, dynamic>),
                 );
               },
             ),

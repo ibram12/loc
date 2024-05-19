@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loc/core/helper/alert_dialog.dart';
 import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/text_styles/Styles.dart';
-import 'package:loc/core/utils/constants.dart';
 import 'package:loc/core/widgets/password_text_field.dart';
 import 'package:loc/homePage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -29,7 +29,6 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
   TextEditingController password = TextEditingController();
   TextEditingController name = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
-  bool isLoading = false;
   String service = 'Service';
   String role = 'Role';
   @override
@@ -46,21 +45,22 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
     return BlocBuilder<SignUpCubit, SignUpState>(
       builder: (context, state) {
         if (state is SignUpLoading) {
-          isLoading = true;
         } else if (state is SignUpSuccess) {
+          email.clear();
+          password.clear();
+          name.clear();
+          service = 'Service';
+          role = 'Role';
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, MyHomePage.id, (route) => false);
             showSnackBar(context, 'Sign Up Successfully');
           });
         } else if (state is SignUpError) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             showSnackBar(context, state.message);
           });
-          isLoading = false;
         }
         return ModalProgressHUD(
-          inAsyncCall: isLoading,
+          inAsyncCall: state is SignUpLoading,
           child: Container(
             padding: const EdgeInsets.all(20),
             child: SingleChildScrollView(
@@ -108,7 +108,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         DropdownButton(
-                            hint:  Text(service),
+                            hint: Text(service),
                             items: services
                                 .map((e) => DropdownMenuItem(
                                       child: Text(e),
@@ -122,7 +122,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                             }),
                         const SizedBox(height: 10),
                         DropdownButton(
-                            hint:  Text(role),
+                            hint: Text(role),
                             items: roles
                                 .map((e) => DropdownMenuItem(
                                       child: Text(e),
@@ -141,10 +141,29 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                         backgroundColor: Colors.orange,
                         text: "Sign Up",
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
+                          if (service == 'Service') {
+                            showAlertDialog(
+                                context: context,
+                                message: 'please select service type',
+                                onOkPressed: () {
+                                  Navigator.pop(context);
+                                });
+                          } else if (role == 'Role') {
+                            showAlertDialog(
+                                context: context,
+                                message: 'please select role type',
+                                onOkPressed: () {
+                                  Navigator.pop(context);
+                                });
+                          }
+                          if (formKey.currentState!.validate() &&
+                              role != 'Role' &&
+                              service != 'Service') {
                             SherdPrefHelper().setUserName(name.text);
                             BlocProvider.of<SignUpCubit>(context)
                                 .signUpWithEmailAndPassword(
+                              service: service,
+                              role: role,
                               email: email.text,
                               password: password.text,
                               name: name.text,
