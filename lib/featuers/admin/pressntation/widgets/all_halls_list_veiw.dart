@@ -5,6 +5,7 @@ import 'package:loc/featuers/admin/pressntation/widgets/admin_hall_item.dart';
 
 import '../../../../core/helper/delete_alert_dialog.dart';
 import '../../../../core/server/firebase_methoudes.dart';
+import '../../../../core/views/error_view.dart';
 import '../../data/models/admin_hall_model.dart';
 import '../manager/featch_end_times_cubit/featch_the_end_times_cubit.dart';
 
@@ -37,14 +38,14 @@ class _AllHallsListViewState extends State<AllHallsListView> {
           .collection('reservations')
           .get();
       reservationsCounts[hall.id] = reservations.docs.length;
-      remainingTimes[hall.id] = null; // Initialize remaining times with null
+      remainingTimes[hall.id] = null;
     }
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<FeatchTheEndTimesCubit, FeatchTheEndTimesState>(
+    return BlocConsumer<FeatchTheEndTimesCubit, FeatchTheEndTimesState>(
       listener: (context, state) {
         if (state is ThereWasReservationInTheCruntTime) {
           setState(() {
@@ -56,45 +57,60 @@ class _AllHallsListViewState extends State<AllHallsListView> {
           });
         }
       },
-      child: StreamBuilder<QuerySnapshot<Object?>>(
-        stream: _hallsStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Something went wrong');
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return GridView.builder(
-            itemCount: snapshot.data!.docs.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-            ),
-            itemBuilder: (context, index) {
-              final hallId = snapshot.data!.docs[index].id;
-              final reservationsCount = reservationsCounts[hallId] ?? 0;
-              final remainingTime = remainingTimes[hallId];
+      builder: (context, state) {
+        if(state is FeathTheEndTimesLoading){
+          return const Center(child: CircularProgressIndicator());
+        }
+        else if (state is ThereWasReservationInTheCruntTime||state is NoReservationInTheCruntTime) {
+           return  StreamBuilder<QuerySnapshot<Object?>>(
+          stream: _hallsStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Something went wrong');
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return GridView.builder(
+              itemCount: snapshot.data!.docs.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              itemBuilder: (context, index) {
+                final hallId = snapshot.data!.docs[index].id;
+                final reservationsCount = reservationsCounts[hallId] ?? 0;
+                final remainingTime = remainingTimes[hallId];
 
-              return AdminHallItem(
-                hallid: hallId,
-                onLongPress: () {
-                  showDeleteItemAlert(
-                    context: context,
-                    onPressed: () {
-                      DataBaseMethouds().deleteLoc(hallId);
-                      Navigator.pop(context);
-                    },
-                  );
-                },
-                hallModel: AdminHallModel.fromJson(
-                  snapshot.data!.docs[index].data() as Map<String, dynamic>,
-                  reservationsCount,
-                ),
-                remainingTime: remainingTime,
-              );
-            },
-          );
-        },
-      ),
+                return AdminHallItem(
+                  hallid: hallId,
+                  onLongPress: () {
+                    showDeleteItemAlert(
+                      context: context,
+                      onPressed: () {
+                        DataBaseMethouds().deleteLoc(hallId);
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                  hallModel: AdminHallModel.fromJson(
+                    snapshot.data!.docs[index].data() as Map<String, dynamic>,
+                    reservationsCount,
+                  ),
+                  remainingTime: remainingTime,
+                );
+              },
+            );
+          },
+        );
+        }else if (state is FeatchTheEndTimesFailer) {
+          return ErrorView(
+            onRetry: () {
+            BlocProvider.of<FeatchTheEndTimesCubit>(context).featchTheRemainingTime();
+          },);
+        }else{
+          return const SizedBox.shrink();
+        }
+        
+      },
     );
   }
 }

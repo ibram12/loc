@@ -57,7 +57,7 @@ class _AdminHallItemState extends State<AdminHallItem> {
         setState(() {
           _remainingTime = _remainingTime! - const Duration(seconds: 1);
           if (_remainingTime!.isNegative) {
-            _timer!.cancel();
+            timer.cancel();
             _remainingTime = null;
           }
         });
@@ -147,10 +147,13 @@ class _AdminHallItemState extends State<AdminHallItem> {
               top: 10,
               child: CircleAvatar(
                 backgroundColor: Colors.white70,
-                radius: 21,
+                radius: _remainingTime!.inMinutes > 60 ? 23 : 19,
                 child: Text(
                   formatDuration(_remainingTime!),
-                  style: const TextStyle(color: Colors.red, fontSize: 15),
+                  style:  TextStyle(
+                    fontSize: _remainingTime!.inMinutes > 60 ? 12 : 15,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ),
@@ -161,7 +164,13 @@ class _AdminHallItemState extends State<AdminHallItem> {
 }
 
 String formatDuration(Duration duration) {
-  final minutes = duration.inMinutes;
-  final seconds = duration.inSeconds % 60;
-  return '$minutes:${seconds.toString().padLeft(2, '0')}';
+  final hours = duration.inHours;
+  final minutes = duration.inMinutes.remainder(60);
+  final seconds = duration.inSeconds.remainder(60);
+  
+  if (hours > 0) {
+    return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  } else {
+    return '$minutes:${seconds.toString().padLeft(2, '0')}';
+  }
 }

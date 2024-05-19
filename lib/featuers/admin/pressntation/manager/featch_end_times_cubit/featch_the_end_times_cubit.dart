@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loc/featuers/admin/data/models/request_model.dart';
 import 'package:meta/meta.dart';
 
 part 'featch_the_end_times_state.dart';
@@ -27,10 +28,11 @@ class FeatchTheEndTimesCubit extends Cubit<FeatchTheEndTimesState> {
         for (var reservation in reservations.docs) {
           Timestamp docStartTime = reservation.get('startTime');
           Timestamp docEndTime = reservation.get('endTime');
+          String replayState = reservation.get('replyState');
           DateTime startTime = docStartTime.toDate();
           DateTime endTime = docEndTime.toDate();
 
-          if (now.isBefore(endTime) && now.isAfter(startTime)) {
+          if (now.isBefore(endTime) && now.isAfter(startTime)&& replayState==ReplyState.accepted.description) {
             hasConflict = true;
             remainingTime = endTime.difference(now);
             break;
@@ -38,13 +40,14 @@ class FeatchTheEndTimesCubit extends Cubit<FeatchTheEndTimesState> {
         }
 
         if (hasConflict && remainingTime != null) {
-          emit(ThereWasReservationInTheCruntTime(doc.id,remainingTime));
+          emit(ThereWasReservationInTheCruntTime(doc.id, remainingTime));
           print(remainingTime.toString());
         } else {
           emit(NoReservationInTheCruntTime(doc.id));
         }
       }
     } catch (e) {
+      print(e);
       emit(FeatchTheEndTimesFailer(e.toString()));
     }
   }

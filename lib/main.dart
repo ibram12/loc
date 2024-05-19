@@ -11,7 +11,7 @@ import 'package:loc/featuers/auth/presentation/views/login_view.dart';
 import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
 import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
 import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
-import 'package:loc/featuers/spalsh/presntation/view/error_view.dart';
+import 'package:loc/core/views/error_view.dart';
 import 'package:loc/featuers/spalsh/presntation/view/splash_view.dart';
 import 'package:loc/homePage.dart';
 import 'firebase_options.dart';
