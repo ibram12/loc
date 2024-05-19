@@ -9,10 +9,10 @@ import 'package:loc/homePage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
 import '../../../../core/widgets/Custom_TextField.dart';
-import '../manager/cubits/signUp_cubit/sign_up_cubit.dart';
+import '../manager/signUp_cubit/sign_up_cubit.dart';
 
-import '../manager/cubits/signUp_cubit/sign_up_state.dart';
-import '../widgets/custom_logo_auth.dart';
+import '../manager/signUp_cubit/sign_up_state.dart';
+import '../../../auth/presentation/widgets/custom_logo_auth.dart';
 
 class SginUpViewBody extends StatefulWidget {
   const SginUpViewBody({super.key});
@@ -70,7 +70,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                     const SizedBox(height: 20),
                     const Text("Sign Up", style: Styles.textStyle30),
                     const SizedBox(height: 10),
-                    const Text("Create Your Account",
+                    const Text("Add New User",
                         style: Styles.textStyle14),
                     const SizedBox(height: 10),
                     const Text(
@@ -79,7 +79,6 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                      
                         hinttext: "ُYour Name",
                         textEditingController: name),
                     const SizedBox(height: 10),
@@ -117,26 +116,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                             );
                           }
                         }),
-                  
                     const SizedBox(height: 20),
-                    // Text("Don't Have An Account ? Resister" , textAlign: TextAlign.center,),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Center(
-                        child: Text.rich(TextSpan(children: [
-                          TextSpan(
-                            text: "Already Have An Account ? ",
-                          ),
-                          TextSpan(
-                              text: "Login",
-                              style: TextStyle(
-                                  color: Colors.orange,
-                                  fontWeight: FontWeight.bold)),
-                        ])),
-                      ),
-                    )
                   ],
                 ),
               ),

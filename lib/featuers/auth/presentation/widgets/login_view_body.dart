@@ -8,7 +8,7 @@ import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/widgets/password_text_field.dart';
 import 'package:loc/featuers/auth/presentation/manager/cubits/logIn_cubit/log_in_cubit.dart';
 import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
-import 'package:loc/featuers/auth/presentation/views/sginup_view.dart';
+import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
 import 'package:loc/homePage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
@@ -126,23 +126,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                     const SizedBox(height: 20),
 
                     // Text("Don't Have An Account ? Resister" , textAlign: TextAlign.center,),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(SignUpView.id);
-                      },
-                      child: const Center(
-                        child: Text.rich(TextSpan(children: [
-                          TextSpan(
-                            text: "Don't Have An Account ? ",
-                          ),
-                          TextSpan(
-                              text: "Register",
-                              style: TextStyle(
-                                  color: Colors.orange,
-                                  fontWeight: FontWeight.bold)),
-                        ])),
-                      ),
-                    )
+                    
                   ],
                 ),
               ),

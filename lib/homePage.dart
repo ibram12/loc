@@ -6,6 +6,7 @@ import 'package:loc/featuers/book_Hall/presentation/views/book_loc_view.dart';
 import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:loc/widget/Card_Button.dart';
 
+import 'featuers/admin/pressntation/view/bottomNav_bar.dart';
 import 'generated/l10n.dart';
 
 
@@ -25,7 +26,7 @@ class MyHomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Card_Button(page: const BookLocView(), text: 'Add Event'),
-            Card_Button(page: const AdminView(), text: S.of(context).add_khdma),
+            Card_Button(page: const BottomNavBar(), text: S.of(context).add_khdma),
             const Card_Button(page: UserRequests(), text: 'your requests'),
 
           ],

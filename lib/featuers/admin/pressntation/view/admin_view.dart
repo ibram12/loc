@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/admin_view_body.dart';
-
 import '../../../../generated/l10n.dart';
 
 class AdminView extends StatelessWidget {
   const AdminView({super.key});
-
+  static const String id = 'admin_view';
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -13,6 +12,7 @@ class AdminView extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(S.of(context).add_hall),
       ),
+    
       body: const AdminViewBody(),
     );
   }

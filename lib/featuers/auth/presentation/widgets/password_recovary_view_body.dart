@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loc/core/utils/constants.dart';
-import 'package:loc/featuers/auth/presentation/views/sginup_view.dart';
+import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
 
 import '../../../../core/helper/snack_bar.dart';
 import '../../../../core/text_styles/Styles.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../manager/cubits/signUp_cubit/sign_up_cubit.dart';
+import '../manager/signUp_cubit/sign_up_cubit.dart';
 import '../widgets/signup_view_body.dart';
 
 class SignUpView extends StatelessWidget {
