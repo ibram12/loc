@@ -38,7 +38,7 @@ class RequestItemBody extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          'Date: ${requestModel.sendDate}',
+                          'Date: ${DateFormat('dd-MM-yyyy').format(requestModel.startTime.toDate())}',
                           style: Styles.textStyle16,
                         ),
                         const SizedBox(height: 5),

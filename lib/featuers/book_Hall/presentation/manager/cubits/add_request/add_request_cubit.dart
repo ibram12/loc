@@ -37,6 +37,8 @@ Future<String> addRequest(
       });
 
       await reservationRef.set({
+        'hallId': hallIds[i],
+        'id': FirebaseAuth.instance.currentUser!.uid,
         'daily':false,
         'requestId': reservationRef.id,
         'hallName': name,

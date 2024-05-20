@@ -21,6 +21,8 @@ extension ReplyStateExtension on ReplyState {
 
 class UserRequestModel {
   final String hallName;
+  final String hallId;
+  final String userId;
   final Timestamp endTime;
   final Timestamp startTime;
   final ReplyState replyState;
@@ -28,6 +30,8 @@ class UserRequestModel {
   final bool daily;
 
   UserRequestModel({
+    required this.hallId,
+    required this.userId,
     required this.daily,
     required this.hallName,
     required this.endTime,
@@ -39,6 +43,8 @@ class UserRequestModel {
   factory UserRequestModel.fromDocumentSnapshot(
       DocumentSnapshot documentSnapshot) {
     return UserRequestModel(
+      hallId: documentSnapshot['hallId'],
+      userId: documentSnapshot['id'],
       hallName: documentSnapshot['hallName'],
       endTime: documentSnapshot['endTime'],
       startTime: documentSnapshot['startTime'],
