@@ -43,3 +43,7 @@ class UserEditingRequestFailer extends UserEditingRequestState {
   final String message;
   UserEditingRequestFailer(this.message);
 }
+class ThereWasConflict extends UserEditingRequestState {
+  final String message;
+  ThereWasConflict(this.message);
+}

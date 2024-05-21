@@ -35,7 +35,6 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
     selectedDate = pickedDate;
     if (pickedDate != null && selectedDate != null) {
       emit(UserSelectTheDateSuccess(pickedDate));
-      //  _checkAllSelections(hallId: hallId, requestId: requestId, userId: userId);
     } else {
           emit(UserEditingRequestFailer('The operation has been cancelled'));
     }
@@ -55,7 +54,6 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
           selectedDate!.day, pickedStartTime.hour, pickedStartTime.minute);
       Timestamp pickedStartTimeTemp = Timestamp.fromDate(pickedDateTime);
       emit(UserSelectStartTimeSuccess(pickedStartTimeTemp));
-      // _checkAllSelections(hallId: hallId, requestId: requestId, userId: userId);
     } else {
       emit(UserEditingRequestFailer('The operation has been cancelled'));
     }
@@ -122,6 +120,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
         emit(UserEditingRequestLoading());
         WriteBatch batch = FirebaseFirestore.instance.batch();
         bool canEdit = false;
+        bool hasConflict = false;
         FirebaseFirestore.instance
             .collection('locs')
             .doc(hallId)
@@ -129,16 +128,24 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
             .get()
             .then((value) {
           value.docs.forEach((element) {
+
+            Timestamp docStartTime = element.get('startTime');
+
+          Timestamp docEndTime = element.get('endTime');
+
+            bool conflict = startDateTime.isBefore(docEndTime.toDate()) &&
+                endDateTime.isAfter(docStartTime.toDate());
+                if(conflict){
+                  hasConflict = true;
+                  emit(ThereWasConflict('There was a conflict with another reservation'));
+                  return;
+                }
             if (element.get('requestId') == requestId) {
               canEdit = true;
               batch.update(element.reference, {
                 'startTime': Timestamp.fromDate(startDateTime),
                 'endTime': Timestamp.fromDate(endDateTime),
               });
-            } else if (canEdit == false) {
-              emit(UserEditingRequestFailer(
-                  'You can\'t edit this request becuse Admin has already replied to it'));
-              return;
             }
           });
         }).then((_) {

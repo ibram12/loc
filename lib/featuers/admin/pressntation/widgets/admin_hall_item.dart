@@ -147,10 +147,10 @@ class _AdminHallItemState extends State<AdminHallItem> {
               top: 10,
               child: CircleAvatar(
                 backgroundColor: Colors.white70,
-                radius: _remainingTime!.inMinutes > 60 ? 23 : 19,
+                radius: _remainingTime!.inMinutes > 60 ? 23 : 21,
                 child: Text(
                   formatDuration(_remainingTime!),
-                  style:  TextStyle(
+                  style: TextStyle(
                     fontSize: _remainingTime!.inMinutes > 60 ? 12 : 15,
                     color: Colors.red,
                   ),
@@ -167,7 +167,7 @@ String formatDuration(Duration duration) {
   final hours = duration.inHours;
   final minutes = duration.inMinutes.remainder(60);
   final seconds = duration.inSeconds.remainder(60);
-  
+
   if (hours > 0) {
     return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   } else {

@@ -5,7 +5,6 @@ import 'package:loc/core/helper/alert_dialog.dart';
 import 'package:loc/core/helper/delightful_toast.dart';
 import 'package:loc/core/helper/dialog_with_textFiald.dart';
 import 'package:loc/core/helper/snack_bar.dart';
-import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/widgets/password_text_field.dart';
 
@@ -52,7 +51,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
       builder: (context, state) {
         if (state is AdminEnterWrongPassword) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            showDelightfulToast('Wrong Password', context);
+            showDelightfulToast(message:  'Wrong Password',context:  context,dismiss: true);
           });
         } else if (state is AdminEnterTruePassword) {
           Navigator.pop(context);//close the dialog
@@ -182,7 +181,6 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                                   adminPassword: signUpController.text,
                                   name: name.text,
                                 );
-                                Navigator.pop(context);
                               }
                             }, signUpKey);
                           }

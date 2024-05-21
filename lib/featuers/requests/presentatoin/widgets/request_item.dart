@@ -1,4 +1,4 @@
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/core/helper/alert_dialog.dart';
@@ -6,6 +6,8 @@ import 'package:loc/core/helper/questoin_alert_dialog.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/featuers/requests/data/models/request_model.dart';
 import 'package:loc/featuers/requests/presentatoin/manager/user_edit_request_cubit/user_editing_request_cubit.dart';
+
+import '../../../../core/helper/delightful_toast.dart';
 
 class UserRequestItem extends StatelessWidget {
   const UserRequestItem({super.key, required this.requestModel});
@@ -51,6 +53,10 @@ class UserRequestItem extends StatelessWidget {
               context: context,
               message: state.successMessage,
               onOkPressed: () => Navigator.pop(context));
+        }
+        if (state is ThereWasConflict) {
+          showDelightfulToast(
+              message: state.message, context: context, dismiss: false);
         }
       },
       builder: (context, state) {

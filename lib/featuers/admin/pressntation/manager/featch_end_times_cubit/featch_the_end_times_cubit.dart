@@ -32,7 +32,9 @@ class FeatchTheEndTimesCubit extends Cubit<FeatchTheEndTimesState> {
           DateTime startTime = docStartTime.toDate();
           DateTime endTime = docEndTime.toDate();
 
-          if (now.isBefore(endTime) && now.isAfter(startTime)&& replayState==ReplyState.accepted.description) {
+          if (now.isBefore(endTime) &&
+              now.isAfter(startTime) &&
+              replayState == ReplyState.accepted.description) {
             hasConflict = true;
             remainingTime = endTime.difference(now);
             break;

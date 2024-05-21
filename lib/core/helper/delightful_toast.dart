@@ -4,14 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 
-void showDelightfulToast(String message, BuildContext context) {
+void showDelightfulToast({required String message, required BuildContext context,required bool dismiss}) {
   DelightToastBar(builder: (context) {
     return ToastCard(
-      leading: const Icon(Icons.error,color: Colors.red,),
-      title: Text(message,style: Styles.textStyle14,),
+      color: Colors.red,
+      leading: const Icon(Icons.error,color: Colors.white,),
+      title: Text(message,style: Styles.textStyle14.copyWith(color: Colors.white),),
     );
   },
-  autoDismiss: true,
+  
+  autoDismiss: dismiss,
   snackbarDuration:Durations.extralong4
   ).show(context);
 }
