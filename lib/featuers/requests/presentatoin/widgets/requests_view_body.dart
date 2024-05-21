@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/featuers/requests/data/models/request_model.dart';
 import 'package:loc/featuers/requests/presentatoin/widgets/request_item.dart';
+
+import '../manager/user_edit_request_cubit/user_editing_request_cubit.dart';
 
 class UserRequestBody extends StatefulWidget {
   const UserRequestBody({
@@ -60,9 +63,13 @@ class _UserRequestBodyState extends State<UserRequestBody> {
       return ListView.builder(
         itemCount: snapshot.data!.docs.length,
         itemBuilder: (context, index) {
-          return UserRequestItem(
+        return  BlocProvider(
+            create: (context) => UserEditingRequestCubit(),
+            child:  UserRequestItem(
             requestModel: UserRequestModel.fromDocumentSnapshot(snapshot.data!.docs[index]),
-          );
+          ),
+            );
+          
         },
       );
     }

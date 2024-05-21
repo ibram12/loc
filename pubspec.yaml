@@ -34,6 +34,7 @@ dependencies:
   connectivity_plus: ^6.0.3
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
+  delightful_toast: ^1.1.0
   firebase_auth: ^4.15.3
   firebase_core: ^2.24.2
   firebase_messaging: ^14.9.2

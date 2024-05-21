@@ -1,9 +1,9 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:loc/featuers/admin/data/models/request_model.dart';
 import 'package:meta/meta.dart';
 
 part 'user_editing_request_state.dart';
@@ -16,8 +16,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
   TimeOfDay? selectedEndTime;
 
   void selectDate(
-    BuildContext context, // String hallId,
-    //  String requestId, String userId
+    BuildContext context,
   ) async {
     DateTime now = DateTime.now();
     int daysToAdd = (DateTime.friday - now.weekday + 7) % 7;
@@ -38,16 +37,12 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
       emit(UserSelectTheDateSuccess(pickedDate));
       //  _checkAllSelections(hallId: hallId, requestId: requestId, userId: userId);
     } else {
-      emit(UserEditingRequestFailer('The operation has been cancelled'));
+          emit(UserEditingRequestFailer('The operation has been cancelled'));
     }
   }
 
   Future<void> selectStartTime(
     BuildContext context,
-
-    // String hallId,
-    // String requestId,
-    // String userId
   ) async {
     final TimeOfDay? pickedStartTime = await showTimePicker(
       helpText: 'Edit start time',
@@ -134,9 +129,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
             .get()
             .then((value) {
           value.docs.forEach((element) {
-            if (element.get('requestId') == requestId &&
-                element.get('replyState') ==
-                    ReplyState.noReplyYet.description) {
+            if (element.get('requestId') == requestId) {
               canEdit = true;
               batch.update(element.reference, {
                 'startTime': Timestamp.fromDate(startDateTime),
@@ -152,6 +145,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
           if (!canEdit) {
             return; 
           }
+          
 
           FirebaseFirestore.instance
               .doc('users/$userId/requests/$requestId')
@@ -162,14 +156,8 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
             batch.commit().then((_) {
               emit(UserUptadingRequestSuccess(
                   'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
-            }).catchError((error) {
-              emit(UserEditingRequestFailer(error.toString()));
             });
-          }).catchError((error) {
-            emit(UserEditingRequestFailer(error.toString()));
           });
-        }).catchError((error) {
-          emit(UserEditingRequestFailer(error.toString()));
         });
       }
     }

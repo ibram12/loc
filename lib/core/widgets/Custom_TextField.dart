@@ -4,9 +4,10 @@ import 'package:loc/core/utils/constants.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
-     this.onSaved,
+    this.onSaved,
     required this.hinttext,
-    required this.textEditingController, this.obscureText,
+    required this.textEditingController,
+    this.obscureText, 
   });
   final void Function(String?)? onSaved;
   final String hinttext;
@@ -22,13 +23,11 @@ class CustomTextField extends StatelessWidget {
         }
         return null;
       },
-      obscureText:obscureText ?? false,
-      
+      obscureText: obscureText ?? false,
       controller: textEditingController,
       textAlign: TextAlign.center,
       onSaved: onSaved,
       decoration: InputDecoration(
-        
         hintText: hinttext,
         contentPadding: const EdgeInsets.symmetric(vertical: 10),
         border: const OutlineInputBorder(
@@ -36,12 +35,9 @@ class CustomTextField extends StatelessWidget {
             Radius.circular(10),
           ),
         ),
-        focusedBorder:  OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: kOrange
-          )
-        ),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: kOrange)),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
             width: 1,

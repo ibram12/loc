@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/alert_dialog.dart';
+import 'package:loc/core/helper/delightful_toast.dart';
+import 'package:loc/core/helper/dialog_with_textFiald.dart';
 import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/widgets/password_text_field.dart';
-import 'package:loc/homePage.dart';
+
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
 import '../../../../core/widgets/Custom_TextField.dart';
@@ -28,6 +30,9 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController name = TextEditingController();
+  TextEditingController signUpController = TextEditingController();
+  GlobalKey<FormState> signUpKey = GlobalKey();
+
   GlobalKey<FormState> formKey = GlobalKey();
   String service = 'Service';
   String role = 'Role';
@@ -38,14 +43,21 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
     email.dispose();
     password.dispose();
     name.dispose();
+    signUpController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(
       builder: (context, state) {
-        if (state is SignUpLoading) {
-        } else if (state is SignUpSuccess) {
+        if (state is AdminEnterWrongPassword) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            showDelightfulToast('Wrong Password', context);
+          });
+        } else if (state is AdminEnterTruePassword) {
+          Navigator.pop(context);//close the dialog
+        }
+        if (state is AdminBackToHisAccount) {
           email.clear();
           password.clear();
           name.clear();
@@ -66,7 +78,6 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
             child: SingleChildScrollView(
               child: Form(
                 key: formKey,
-                autovalidateMode: AutovalidateMode.always,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -159,15 +170,21 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                           if (formKey.currentState!.validate() &&
                               role != 'Role' &&
                               service != 'Service') {
-                            SherdPrefHelper().setUserName(name.text);
-                            BlocProvider.of<SignUpCubit>(context)
-                                .signUpWithEmailAndPassword(
-                              service: service,
-                              role: role,
-                              email: email.text,
-                              password: password.text,
-                              name: name.text,
-                            );
+                            showTextFieldDialog(context, signUpController,
+                                () async {
+                              if (signUpKey.currentState!.validate()) {
+                                await BlocProvider.of<SignUpCubit>(context)
+                                    .createUserWithEmailAndPassword(
+                                  service: service,
+                                  role: role,
+                                  email: email.text,
+                                  userpassword: password.text,
+                                  adminPassword: signUpController.text,
+                                  name: name.text,
+                                );
+                                Navigator.pop(context);
+                              }
+                            }, signUpKey);
                           }
                         }),
                   ],
