@@ -24,8 +24,8 @@ class UserRequestItem extends StatefulWidget {
 
 class _UserRequestItemState extends State<UserRequestItem> {
   @override
-  Widget build(BuildContext context) {
-    var myCubit = BlocProvider.of<UserEditingRequestCubit>(context);
+  Widget build(BuildContext contextt) {
+    var myCubit = BlocProvider.of<UserEditingRequestCubit>(contextt);
 
     return BlocConsumer<UserEditingRequestCubit, UserEditingRequestState>(
       listener: (context, editState) {
@@ -73,7 +73,7 @@ class _UserRequestItemState extends State<UserRequestItem> {
                       widget.requestModel.userId,
                       widget.requestModel.requestId,
                       widget.requestModel.hallId);
-                
+                ;
                 },
                 onPressed: () {
                   Navigator.pop(context);
@@ -90,14 +90,12 @@ class _UserRequestItemState extends State<UserRequestItem> {
             }
           },
           child: RequstCard(
-            
             requestModel: widget.requestModel,
             child: editState is UserEditingRequestLoading
                 ? const Center(child: CircularProgressIndicator())
                 : Row(
                     children: [
-                      RequestDetalisSection(
-                          requestModel: widget.requestModel),
+                      RequestDetalisSection(requestModel: widget.requestModel),
                       const Spacer(),
                       RequestStateSection(requestModel: widget.requestModel),
                     ],

@@ -44,7 +44,6 @@ class DataBaseMethouds {
           String docrRequestId = element.get('requestId');
           if (docrRequestId == requestId) {
             element.reference.delete();
-            break;
           }
         }
       });

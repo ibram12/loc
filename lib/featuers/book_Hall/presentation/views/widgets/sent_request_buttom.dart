@@ -24,7 +24,7 @@ class SentRequestButtom extends StatefulWidget {
 }
 
 class _SentRequestButtomState extends State<SentRequestButtom> {
-  late Future<String> requestIdInUserCollection;
+  late Future<List<String>> requestIdInUserCollection;
 
 
 
@@ -63,7 +63,7 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
                           startTime: widget.startTime,
                           data: widget.startTime.toDate(),
                           halls: widget.hallsIds,
-                          requestIdInUserCollection: requestIdInUserCollection);
+                          requestIdsInUserCollection: requestIdInUserCollection);
                 } else {
                   showSnackBar(context, 'please select hall');
                 }

@@ -15,7 +15,7 @@ class SentReservationCubit extends Cubit<SentReservationState> {
     required Timestamp startTime,
     required DateTime data,
     required List<String> halls,
-    required Future< String >requestIdInUserCollection,
+    required  Future<List<String>> requestIdsInUserCollection,
   }) async {
     String? getUserName = await SherdPrefHelper().getUserName();
   Future<String> getName()async{
@@ -33,8 +33,10 @@ class SentReservationCubit extends Cubit<SentReservationState> {
     };
     try {
       emit(SentReservationLoading());
-       String requestId = await requestIdInUserCollection;
+      List<String> requestIds = await requestIdsInUserCollection;
       for (int i = 0; i < halls.length; i++) {
+               String requestId = requestIds[i];
+
         DocumentReference reservationRef =
             await DataBaseMethouds().addReservation(resrvationInfo, halls[i]);
   

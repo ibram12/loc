@@ -10,12 +10,12 @@ part 'add_request_state.dart';
 class AddRequestCubit extends Cubit<AddRequestState> {
   AddRequestCubit() : super(AddRequestInitial());
 
-Future<String> addRequest(
+ Future <List<String>> addRequest(
     Timestamp startTime, Timestamp endTime, List<String> hallIds) async {
   emit(AddRequestLoading());
   try {
     String id = FirebaseAuth.instance.currentUser!.uid;
-    String reservationId = '';
+  List<  String> reservationId = [];
     for (int i = 0; i < hallIds.length; i++) {
       String name = await FirebaseFirestore.instance
           .collection('locs')
@@ -47,7 +47,8 @@ Future<String> addRequest(
         'replyState': ReplyState.noReplyYet.description,
       });
 
-      reservationId = reservationRef.id;
+      reservationId.add(reservationRef.id);
+
     }
 
     emit(AddRequestSuccess());

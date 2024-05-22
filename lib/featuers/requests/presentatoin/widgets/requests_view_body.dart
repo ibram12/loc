@@ -49,7 +49,7 @@ class _UserRequestBodyState extends State<UserRequestBody> {
       DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
           DateTime endOfWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
        
-    if (now.weekday == DateTime.thursday) {
+    if (now.weekday == DateTime.saturday) {
             List<DocumentSnapshot> documentsToDelete = [];
             snapshot.data!.docs.forEach((doc) {
               Timestamp startTime = doc.get('startTime');
