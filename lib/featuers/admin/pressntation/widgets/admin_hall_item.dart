@@ -156,7 +156,7 @@ class _AdminHallItemState extends State<AdminHallItem> {
                   ),
                 ),
               ),
-            ),
+            )
         ],
       ),
     );

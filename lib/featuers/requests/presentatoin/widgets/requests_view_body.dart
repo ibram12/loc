@@ -42,16 +42,18 @@ class _UserRequestBodyState extends State<UserRequestBody> {
       return const Text('Something went wrong');
     } else if (snapshot.connectionState == ConnectionState.waiting) {
       return const Center(child: CircularProgressIndicator());
+    }else if(snapshot.data!.docs.isEmpty){
+      return const Center(child: Text('No Requests Yet'),);
     } else {
       DateTime now = DateTime.now();
       DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
           DateTime endOfWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
        
-    if (now.weekday == DateTime.saturday) {
+    if (now.weekday == DateTime.thursday) {
             List<DocumentSnapshot> documentsToDelete = [];
             snapshot.data!.docs.forEach((doc) {
               Timestamp startTime = doc.get('startTime');
-              if (!isWithinCurrentWeek(startTime.toDate(), startOfWeek, endOfWeek)) {
+              if (isWithinCurrentWeek(startTime.toDate(), startOfWeek, endOfWeek)) {
                 documentsToDelete.add(doc);
               }
             });
@@ -67,7 +69,7 @@ class _UserRequestBodyState extends State<UserRequestBody> {
             create: (context) => UserEditingRequestCubit(),
             child:  UserRequestItem(
             requestModel: UserRequestModel.fromDocumentSnapshot(snapshot.data!.docs[index]),
-          ),
+                      ),
             );
           
         },

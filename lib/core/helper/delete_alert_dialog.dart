@@ -2,13 +2,13 @@
 
 import '../../generated/l10n.dart';
 
-void showDeleteItemAlert({required BuildContext context ,required void Function() onPressed}) {
+void showDeleteItemAlert({required BuildContext context ,required void Function() onPressed, required String title, required String content}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(S.of(context).title_alart),
-          content: Text(S.of(context).mass_alart),
+          title: Text(title) ,
+          content: Text('Are You Sure To Remove This $content?'),
           actions: [
             TextButton(
               onPressed: () {

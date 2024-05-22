@@ -84,6 +84,8 @@ class _AllHallsListViewState extends State<AllHallsListView> {
                   hallid: hallId,
                   onLongPress: () {
                     showDeleteItemAlert(
+                      title: 'Remove Hall',
+                      content: 'Hall',
                       context: context,
                       onPressed: () {
                         DataBaseMethouds().deleteLoc(hallId);

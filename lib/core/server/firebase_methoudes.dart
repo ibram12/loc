@@ -22,11 +22,32 @@ class DataBaseMethouds {
   }
 
   Future deleteLoc(String id) async {
-  await  FirebaseFirestore.instance.collection('locs').doc(id).delete();
+    await FirebaseFirestore.instance.collection('locs').doc(id).delete();
   }
 
-
-
-
+  Future<void> deleteMyRequest(
+      String userId, String requestId, String hallId) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('requests')
+        .doc(requestId)
+        .delete()
+        .then((value) async {
+    QuerySnapshot reservations =  await FirebaseFirestore.instance
+          .collection('locs')
+          .doc(hallId)
+          .collection('reservations')
+          .get();
+        
+        for (var element in reservations.docs) {
+          String docrRequestId = element.get('requestId');
+          if (docrRequestId == requestId) {
+            element.reference.delete();
+            break;
+          }
+        }
+      });
+  
+  }
 }
-
