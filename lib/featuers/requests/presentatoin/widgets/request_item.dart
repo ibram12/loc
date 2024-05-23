@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/alert_dialog.dart';
 import 'package:loc/core/helper/questoin_alert_dialog.dart';
+import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/server/firebase_methoudes.dart';
 import 'package:loc/featuers/requests/data/models/request_model.dart';
 import 'package:loc/featuers/requests/presentatoin/manager/user_edit_request_cubit/user_editing_request_cubit.dart';
@@ -23,10 +24,15 @@ class UserRequestItem extends StatefulWidget {
 }
 
 class _UserRequestItemState extends State<UserRequestItem> {
+  late UserEditingRequestCubit myCubit;
   @override
-  Widget build(BuildContext contextt) {
-    var myCubit = BlocProvider.of<UserEditingRequestCubit>(contextt);
-
+  void initState() {
+    // TODO: implement initState
+    myCubit = BlocProvider.of<UserEditingRequestCubit>(context);
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
     return BlocConsumer<UserEditingRequestCubit, UserEditingRequestState>(
       listener: (context, editState) {
         if (editState is UserSelectTheDateSuccess) {
@@ -66,6 +72,7 @@ class _UserRequestItemState extends State<UserRequestItem> {
             if (widget.requestModel.replyState == ReplyState.noReplyYet ||
                 widget.requestModel.replyState == ReplyState.accepted) {
               questionItemAlert(
+                editVisible: widget.requestModel.replyState == ReplyState.noReplyYet,
                 context: context,
                 onDelete: () async {
                   Navigator.pop(context);
@@ -73,7 +80,9 @@ class _UserRequestItemState extends State<UserRequestItem> {
                       widget.requestModel.userId,
                       widget.requestModel.requestId,
                       widget.requestModel.hallId);
-                ;
+                  if(mounted){
+                    showSnackBar(context, 'your request deleted successfully');
+                  }
                 },
                 onPressed: () {
                   Navigator.pop(context);
