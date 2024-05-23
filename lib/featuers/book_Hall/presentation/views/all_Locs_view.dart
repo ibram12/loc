@@ -24,6 +24,7 @@ class AllLocsView extends StatelessWidget {
       ] ,
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           automaticallyImplyLeading: false,
           backgroundColor: kPrimaryColor,
           title: Text(S.of(context).book_hall),

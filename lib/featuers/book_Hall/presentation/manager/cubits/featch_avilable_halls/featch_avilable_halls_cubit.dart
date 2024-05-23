@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../admin/data/models/request_model.dart';
+
 part 'featch_avilable_halls_state.dart';
 
 class FeatchAvilableHallsCubit extends Cubit<FeatchAvilableHallsState> {
@@ -11,7 +13,7 @@ class FeatchAvilableHallsCubit extends Cubit<FeatchAvilableHallsState> {
     required Timestamp startTime,
     required Timestamp endTime,
   }) async {
-    emit(FeatchAvilableHallsLoading());
+    emit(ThereNoAvilableHalls());
 
     try {
       var myHalls = await FirebaseFirestore.instance.collection('locs').get();
@@ -29,8 +31,9 @@ class FeatchAvilableHallsCubit extends Cubit<FeatchAvilableHallsState> {
         for (var reservation in reservations.docs) {
           Timestamp docStartTime = reservation.get('startTime');
           Timestamp docEndTime = reservation.get('endTime');
+          String replayState = reservation.get('replyState');
           bool conflict = startTime.toDate().isBefore(docEndTime.toDate()) &&
-              endTime.toDate().isAfter(docStartTime.toDate());
+              endTime.toDate().isAfter(docStartTime.toDate()) && replayState != ReplyState.unaccepted.description;
 
           if (conflict) {
             hasConflict = true;
@@ -40,7 +43,9 @@ class FeatchAvilableHallsCubit extends Cubit<FeatchAvilableHallsState> {
 
         if (!hasConflict) {
           availableHallsIds.add(doc.id);
-        } else {}
+        } else if (availableHallsIds.isEmpty) {
+             emit(ThereNoAvilableHalls());
+        }
       }
 
       emit(FeatchAvilableHallsLoaded(availableHallsIds));

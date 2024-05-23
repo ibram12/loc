@@ -5,7 +5,7 @@ sealed class FeatchAvilableHallsState {}
 
 final class FeatchAvilableHallsInitial extends FeatchAvilableHallsState {}
 
-final class FeatchAvilableHallsLoading extends FeatchAvilableHallsState {}
+final class ThereNoAvilableHalls extends FeatchAvilableHallsState {}
 
 final class FeatchAvilableHallsLoaded extends FeatchAvilableHallsState {
   final List<String> availableHalls;

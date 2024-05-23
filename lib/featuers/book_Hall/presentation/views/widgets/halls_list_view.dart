@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/featuers/book_Hall/data/models/hall_model.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/widgets/sent_request_buttom.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../manager/cubits/featch_avilable_halls/featch_avilable_halls_cubit.dart';
 import 'hall_item.dart';
 
@@ -35,30 +36,34 @@ class _HallsListViewState extends State<HallsListView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<FeatchAvilableHallsCubit, FeatchAvilableHallsState>(
-      listener: (context, state) {
-        if (state is FeatchAvilableHallsLoaded) {
-          setState(() {
-            availableHallsIds = state.availableHalls;
-          });
-        } else if (state is FeatchAvilableHallsError) {
-          print(state.message);
-        }
-      },
-      child: StreamBuilder<QuerySnapshot<Object?>>(
+    return BlocConsumer<FeatchAvilableHallsCubit, FeatchAvilableHallsState>(
+    listener: (context, state) {
+      if (state is FeatchAvilableHallsLoaded) {
+        setState(() {
+          availableHallsIds = state.availableHalls;
+        });
+      } else if (state is FeatchAvilableHallsError) {
+        print(state.message);
+      }
+    },
+    builder: (context, state) {
+      if(state is ThereNoAvilableHalls){
+        return Center(child: Image.asset('assets/images/unfind.png'));
+      }
+      return StreamBuilder<QuerySnapshot<Object?>>(
         stream: _hallsStream,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Something went wrong');
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Text('No data available');
-          }
+          } 
           var filteredDocs = snapshot.data!.docs
               .where((doc) => availableHallsIds.contains(doc.id))
               .toList();
-          return Stack(alignment: Alignment.bottomCenter, children: [
+          return Stack(
+            alignment: Alignment.bottomCenter,
+             children: [
             GridView.builder(
               itemCount: filteredDocs.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -90,7 +95,8 @@ class _HallsListViewState extends State<HallsListView> {
             )
           ]);
         },
-      ),
-    );
+      );
+    },
+  );
   }
 }
