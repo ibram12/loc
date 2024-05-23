@@ -8,14 +8,15 @@ import 'package:meta/meta.dart';
 import '../../../../../../core/server/shered_pref_helper.dart';
 part 'sent_reservation_state.dart';
 
-class SentReservationCubit extends Cubit<SentReservationState> {
-  SentReservationCubit() : super(SentReservationInitial());
+class SentReservationToAdminCubit extends Cubit<SentReservationState> {
+  SentReservationToAdminCubit() : super(SentReservationInitial());
   Future<void> sentReservation({
     required Timestamp endTime,
     required Timestamp startTime,
     required DateTime data,
     required List<String> halls,
     required  Future<List<String>> requestIdsInUserCollection,
+    required bool isDaily
   }) async {
     String? getUserName = await SherdPrefHelper().getUserName();
   Future<String> getName()async{
@@ -42,7 +43,7 @@ class SentReservationCubit extends Cubit<SentReservationState> {
   
 
         await reservationRef.set({
-          'daily':false,
+          'daily': isDaily,
           'requestId': requestId,
           'id': FirebaseAuth.instance.currentUser!.uid,
           'name': getUserName?? await getName(),

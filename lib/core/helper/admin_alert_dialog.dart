@@ -70,6 +70,7 @@ showDialog(
               child: const Text('Accept',style: TextStyle(color: Colors.green),),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                     TextButton(
               onPressed: onEdit,

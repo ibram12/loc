@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loc/core/helper/daily_questoin_dialog.dart';
 import 'package:loc/featuers/book_Hall/presentation/manager/cubits/add_request/add_request_cubit.dart';
 import '../../../../../core/helper/alert_dialog.dart';
 import '../../../../../core/helper/snack_bar.dart';
@@ -26,27 +27,37 @@ class SentRequestButtom extends StatefulWidget {
 class _SentRequestButtomState extends State<SentRequestButtom> {
   late Future<List<String>> requestIdInUserCollection;
 
-
+  Future<void> _sentReservation(bool daily) async {
+    Navigator.pop(context);
+    requestIdInUserCollection = BlocProvider.of<AddRequestToUserCubit>(context)
+        .addRequest(widget.startTime, widget.endTime, widget.hallsIds, daily);
+    await BlocProvider.of<SentReservationToAdminCubit>(context).sentReservation(
+        isDaily: daily,
+        endTime: widget.endTime,
+        startTime: widget.startTime,
+        data: widget.startTime.toDate(),
+        halls: widget.hallsIds,
+        requestIdsInUserCollection: requestIdInUserCollection);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SentReservationCubit, SentReservationState>(
+    return BlocBuilder<SentReservationToAdminCubit, SentReservationState>(
       builder: (context, state) {
         if (state is SentReservationSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             showAlertDialog(
-              onOkPressed:  () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const MyHomePage()),
-                (route) => false
-                );
-          },
-                context: context, message: 'your request sent successfully');
+                onOkPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyHomePage()),
+                      (route) => false);
+                },
+                context: context,
+                message: 'your request sent successfully');
           });
-        } else if (state is SentReservationLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
+        } 
         return Positioned(
             bottom: 10,
             child: CustomBotton(
@@ -54,16 +65,11 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
               text: 'sent request',
               onPressed: () async {
                 if (widget.hallsIds.isNotEmpty) {
-                  requestIdInUserCollection =
-                      BlocProvider.of<AddRequestCubit>(context).addRequest(
-                          widget.startTime, widget.endTime, widget.hallsIds);
-                  await BlocProvider.of<SentReservationCubit>(context)
-                      .sentReservation(
-                          endTime: widget.endTime,
-                          startTime: widget.startTime,
-                          data: widget.startTime.toDate(),
-                          halls: widget.hallsIds,
-                          requestIdsInUserCollection: requestIdInUserCollection);
+                  showDailyQuestion(
+                    context: context,
+                    onChoiseNotDaily: () async => await _sentReservation(false),
+                    onChoiseDaily: () async => await _sentReservation(true),
+                  );
                 } else {
                   showSnackBar(context, 'please select hall');
                 }

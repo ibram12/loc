@@ -19,11 +19,12 @@ class AllLocsView extends StatelessWidget {
     return MultiBlocProvider(
       providers:[
         BlocProvider(create: (context) => FeatchAvilableHallsCubit()),
-        BlocProvider(create: (context) => SentReservationCubit()),
-        BlocProvider(create: (context) => AddRequestCubit()),
+        BlocProvider(create: (context) => SentReservationToAdminCubit()),
+        BlocProvider(create: (context) => AddRequestToUserCubit()),
       ] ,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: kPrimaryColor,
           title: Text(S.of(context).book_hall),
         ),
