@@ -27,7 +27,6 @@ class _UserRequestItemState extends State<UserRequestItem> {
   late UserEditingRequestCubit myCubit;
   @override
   void initState() {
-    // TODO: implement initState
     myCubit = BlocProvider.of<UserEditingRequestCubit>(context);
     super.initState();
   }
@@ -80,7 +79,7 @@ class _UserRequestItemState extends State<UserRequestItem> {
                       widget.requestModel.userId,
                       widget.requestModel.requestId,
                       widget.requestModel.hallId);
-                  if(mounted){
+                  if(mounted){// bt3ml check 3la el widget de lsa mwgoda wala la bygy m3 el statfulWidget.
                     showSnackBar(context, 'your request deleted successfully');
                   }
                 },

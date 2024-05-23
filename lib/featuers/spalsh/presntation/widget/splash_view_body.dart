@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/auth/presentation/views/login_view.dart';
 import 'package:loc/core/views/error_view.dart';
@@ -17,11 +18,13 @@ class _SplashViewBodyState extends State<SplashViewBody>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> animation;
+  static const platform = MethodChannel('com.example.app/device_settings');
+
   @override
   void initState() {
     super.initState();
     displayAnimation();
-    checkInternetConection();
+    checkInternetConectionAndAutoTimeSetting();
   }
 
   void displayAnimation() {
@@ -34,9 +37,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     animationController.dispose();
-
     super.dispose();
   }
 
@@ -51,18 +52,39 @@ class _SplashViewBodyState extends State<SplashViewBody>
     );
   }
 
-  Future<void> checkInternetConection() async {
-     List<ConnectivityResult> connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult.contains(ConnectivityResult.none)) {
-     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => ErrorView(onRetry: checkInternetConection),
+  Future<void> checkInternetConectionAndAutoTimeSetting() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    bool isAutomaticTimeEnabled = await checkAutomaticTimeSetting();
+    if (connectivityResult == ConnectivityResult.none) {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ErrorView(
+          onRetry: checkInternetConectionAndAutoTimeSetting,
+          visable: true,
+        ),
+      ));
+    } else if (!isAutomaticTimeEnabled) {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ErrorView(
+          onRetry: checkInternetConectionAndAutoTimeSetting,
+          visable: false,
+        ),
       ));
     } else {
       navigate();
     }
   }
 
-  navigate() {
+  Future<bool> checkAutomaticTimeSetting() async {
+    try {
+      final bool result = await platform.invokeMethod('isAutomaticTimeEnabled');
+      return result;
+    } on PlatformException catch (e) {
+      print("Failed to get time setting: '${e.message}'.");
+      return false;
+    }
+  }
+
+  void navigate() {
     Future.delayed(const Duration(seconds: 3), () {
       User? user = FirebaseAuth.instance.currentUser;
       user == null

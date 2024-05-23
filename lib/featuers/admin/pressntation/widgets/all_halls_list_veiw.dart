@@ -105,6 +105,7 @@ class _AllHallsListViewState extends State<AllHallsListView> {
         );
         }else if (state is FeatchTheEndTimesFailer) {
           return ErrorView(
+            visable: true,
             onRetry: () {
             BlocProvider.of<FeatchTheEndTimesCubit>(context).featchTheRemainingTime();
           },);
