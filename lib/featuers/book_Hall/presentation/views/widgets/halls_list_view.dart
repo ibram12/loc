@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/featuers/book_Hall/data/models/hall_model.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/widgets/sent_request_buttom.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../manager/cubits/featch_avilable_halls/featch_avilable_halls_cubit.dart';
 import 'hall_item.dart';
 

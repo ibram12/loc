@@ -48,10 +48,10 @@ class AddRequestToUserCubit extends Cubit<AddRequestState> {
       });
 
       reservationId.add(reservationRef.id);
-
     }
 
     emit(AddRequestSuccess());
+
     return reservationId;
   } catch (e) {
     emit(AddRequestFailure(error: e.toString()));
