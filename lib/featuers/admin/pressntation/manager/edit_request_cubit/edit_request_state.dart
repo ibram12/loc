@@ -4,13 +4,46 @@ part of 'edit_request_cubit.dart';
 sealed class EditRequestState {}
 
 final class EditRequestInitial extends EditRequestState {}
-final class EditRequestLoading extends EditRequestState {}
 
-final class EditStartTImeSuccess extends EditRequestState {
-  final Timestamp startTime;
-  EditStartTImeSuccess(this.startTime);
+class EditRequestLoading extends EditRequestState {}
+
+class EditTheDateSuccess extends EditRequestState {
+  final DateTime dateTime;
+
+  EditTheDateSuccess(this.dateTime);
 }
-final class EditEndTimeSuccess extends EditRequestState {
+
+class EditStartTimeSuccess extends EditRequestState {
+  final Timestamp startTime;
+  EditStartTimeSuccess(this.startTime);
+}
+
+class EditEndTimeSuccess extends EditRequestState {
   final Timestamp endTime;
   EditEndTimeSuccess(this.endTime);
+}
+
+class UserUptadingRequestSuccess extends EditRequestState {
+  final String successMessage;
+
+  UserUptadingRequestSuccess(this.successMessage);
+}
+
+class TheStartTimeIsAfterTheEndTime extends EditRequestState {
+  final String errMassege;
+  TheStartTimeIsAfterTheEndTime(this.errMassege);
+}
+
+class TheStartTImeTheSameAsTheEndTime extends EditRequestState {
+  final String errMassege;
+  TheStartTImeTheSameAsTheEndTime(this.errMassege);
+}
+
+class EditRequestFailer extends EditRequestState {
+  final String message;
+  EditRequestFailer(this.message);
+}
+class ThereWasConflict extends EditRequestState {
+  final String message;
+  ThereWasConflict(this.message);
 }

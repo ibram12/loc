@@ -30,6 +30,7 @@ class _UserRequestItemState extends State<UserRequestItem> {
     myCubit = BlocProvider.of<UserEditingRequestCubit>(context);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserEditingRequestCubit, UserEditingRequestState>(
@@ -43,15 +44,19 @@ class _UserRequestItemState extends State<UserRequestItem> {
             widget.requestModel.requestId,
             widget.requestModel.userId,
           );
-        } else if (editState is TheStartTimeIsAfterTheEndTime ||
-            editState is TheStartTImeTheSameAsTheEndTime ||
-            editState is UserEditingRequestFailer) {
+        } else if (editState is TheStartTimeIsAfterTheEndTime) {
           showAlertDialog(
             context: context,
-            message: (editState as dynamic).message,
+            message: editState.errMassege,
             onOkPressed: () => Navigator.pop(context),
           );
-        } else if (editState is UserUptadingRequestSuccess) {
+        } else if (editState is TheStartTImeTheSameAsTheEndTime) {
+          showDelightfulToast(
+              message: editState.errMassege, context: context, dismiss: false);
+        } else if (editState is UserEditingRequestFailer){
+          showDelightfulToast(
+              message: editState.message, context: context, dismiss: false); 
+      } else if (editState is UserUptadingRequestSuccess) {
           showAlertDialog(
             context: context,
             message: editState.successMessage,
@@ -71,7 +76,8 @@ class _UserRequestItemState extends State<UserRequestItem> {
             if (widget.requestModel.replyState == ReplyState.noReplyYet ||
                 widget.requestModel.replyState == ReplyState.accepted) {
               questionItemAlert(
-                editVisible: widget.requestModel.replyState == ReplyState.noReplyYet,
+                editVisible:
+                    widget.requestModel.replyState == ReplyState.noReplyYet,
                 context: context,
                 onDelete: () async {
                   Navigator.pop(context);
@@ -79,7 +85,8 @@ class _UserRequestItemState extends State<UserRequestItem> {
                       widget.requestModel.userId,
                       widget.requestModel.requestId,
                       widget.requestModel.hallId);
-                  if(mounted){// bt3ml check 3la el widget de lsa mwgoda wala la bygy m3 el statfulWidget.
+                  if (mounted) {
+                    // bt3ml check 3la el widget de lsa mwgoda wala la bygy m3 el statfulWidget.
                     showSnackBar(context, 'your request deleted successfully');
                   }
                 },

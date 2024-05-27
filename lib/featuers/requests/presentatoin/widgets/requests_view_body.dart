@@ -7,11 +7,20 @@ import 'package:loc/featuers/requests/presentatoin/widgets/request_item.dart';
 import '../manager/show_user_requests_cubit/show_user_requests_state.dart';
 import '../manager/user_edit_request_cubit/user_editing_request_cubit.dart';
 
-class UserRequestBody extends StatelessWidget {
+class UserRequestBody extends StatefulWidget {
   const UserRequestBody({
     super.key,
   });
 
+  @override
+  State<UserRequestBody> createState() => _UserRequestBodyState();
+}
+
+class _UserRequestBodyState extends State<UserRequestBody> {
+  initState() {
+    BlocProvider.of<ShowUserRequestsCubit>(context).featchRequests();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ShowUserRequestsCubit, ShowUserRequestsState>(

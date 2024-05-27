@@ -10,9 +10,10 @@ import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_
 import 'package:loc/featuers/admin/pressntation/manager/edit_request_cubit/edit_request_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/request_item_body.dart';
 import '../../../../core/helper/alert_dialog.dart';
+import '../../../../core/helper/delightful_toast.dart';
 import '../../../../core/helper/snack_bar.dart';
 
-class RequestItem extends StatelessWidget {
+class RequestItem extends StatefulWidget {
   const RequestItem({
     super.key,
     required this.requestModel,
@@ -26,26 +27,54 @@ class RequestItem extends StatelessWidget {
   final String hallName;
 
   @override
+  State<RequestItem> createState() => _RequestItemState();
+}
+
+class _RequestItemState extends State<RequestItem> {
+  late EditRequestCubit myCubit;
+  @override
+  void initState() {
+    // TODO: implement initState
+    myCubit = BlocProvider.of<EditRequestCubit>(context);
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return BlocListener<EditRequestCubit, EditRequestState>(
       listener: (context, state) {
-        if (state is EditStartTImeSuccess) {
-          BlocProvider.of<EditRequestCubit>(context).selectEndTime(
-              context,
-              requestModel.endTime.toDate(),
-              hallId,
-              reservationId,
-              requestModel.id,
-              requestModel.requestId,
-              requestModel.endTime);
-        } else if (state is EditEndTimeSuccess) {
+      if (state is EditTheDateSuccess) {
+          myCubit.selectStartTime(context,widget.requestModel.startTime);
+        } else if (state is EditStartTimeSuccess) {
+          myCubit.selectEndTime(
+            context,
+            widget.hallId,
+            widget.requestModel.requestId,
+            widget.requestModel.id,
+            widget.requestModel.endTime
+          );
+        } else if (state is TheStartTimeIsAfterTheEndTime) {
           showAlertDialog(
-            onOkPressed: () {
-              Navigator.of(context).pop();
-            },
             context: context,
-            message:
-                'you have updated this request from ${DateFormat('hh:mm a').format(requestModel.startTime.toDate())} to ${DateFormat('hh:mm a').format(requestModel.endTime.toDate())}',
+            message: state.errMassege,
+            onOkPressed: () => Navigator.pop(context),
+          );
+        } else if (state is TheStartTImeTheSameAsTheEndTime) {
+          showDelightfulToast(
+              message: state.errMassege, context: context, dismiss: false);
+        } else if (state is EditRequestFailer){
+          showDelightfulToast(
+              message: state.message, context: context, dismiss: false); 
+      } else if (state is UserUptadingRequestSuccess) {
+          showAlertDialog(
+            context: context,
+            message: state.successMessage,
+            onOkPressed: () => Navigator.pop(context),
+          );
+        } else if (state is ThereWasConflict) {
+          showDelightfulToast(
+            message: state.message,
+            context: context,
+            dismiss: false,
           );
         }
       },
@@ -60,9 +89,9 @@ class RequestItem extends StatelessWidget {
               onLongPress: () {
                 showQuestionDialog(
                   contextt: context,
-                  requestModel: requestModel,
-                  reservationId: reservationId,
-                  hallId: hallId,
+                  requestModel: widget.requestModel,
+                  reservationId: widget.reservationId,
+                  hallId: widget.hallId,
                 );
               },
               onTap: () {
@@ -70,40 +99,35 @@ class RequestItem extends StatelessWidget {
                     onEdit: () {
                       Navigator.of(context).pop();
                       BlocProvider.of<EditRequestCubit>(context)
-                          .selectStartTime(
-                              context,
-                              requestModel.startTime.toDate(),
-                              hallId,
-                              reservationId,
-                              requestModel.id,
-                              requestModel.requestId,
-                              requestModel.startTime);
+                          .selectDate(
+                              context
+                            );
                     },
-                    hallName: hallName,
-                    requestModel: requestModel,
+                    hallName: widget.hallName,
+                    requestModel: widget.requestModel,
                     context: context,
                     onAccept: () {
                       BlocProvider.of<AdminReplyCubit>(context)
                           .adminReplyAccept(
-                              hallId: hallId,
-                              reservatoinId: reservationId,
-                              userId: requestModel.id,
-                              requestId: requestModel.requestId);
+                              hallId: widget.hallId,
+                              reservatoinId: widget.reservationId,
+                              userId: widget.requestModel.id,
+                              requestId: widget.requestModel.requestId);
                       Navigator.of(context).pop();
                     },
                     onReject: () {
                       BlocProvider.of<AdminReplyCubit>(context)
                           .adminReplyReject(
-                        hallId: hallId,
-                        reservatoinId: reservationId,
-                        userId: requestModel.id,
-                        requestId: requestModel.requestId,
+                        hallId: widget.hallId,
+                        reservatoinId: widget.reservationId,
+                        userId: widget.requestModel.id,
+                        requestId: widget.requestModel.requestId,
                       );
                       Navigator.of(context).pop();
                     });
               },
               child: RequestItemBody(
-                  requestModel: requestModel,
+                  requestModel: widget.requestModel,
                   isLoading: state is AdminChangeDailyStateLoading),
                   );
         },

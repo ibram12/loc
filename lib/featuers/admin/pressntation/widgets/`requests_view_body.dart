@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_reply_cubit.dart';
+import 'package:loc/featuers/admin/pressntation/manager/edit_request_cubit/edit_request_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../data/models/request_model.dart';
@@ -53,20 +54,23 @@ class _RequestsViewBodyState extends State<RequestsViewBody> {
         return BlocConsumer<AdminReplyCubit, AdminReplyState>(
           listener: (context, state) {
             if (state is AdminReplyAccept) {
-              showSnackBar(context, 'Request Accepted Successfully', color: Colors.green);
+              showSnackBar(context, 'Request Accepted Successfully',
+                  color: Colors.green);
             } else if (state is AdminReplyReject) {
-              showSnackBar(context, 'Request Rejected Successfully', color: Colors.red);
+              showSnackBar(context, 'Request Rejected Successfully',
+                  color: Colors.red);
             }
           },
           builder: (context, state) {
-            
             // Debug statement to check the current weekday
             print('Current weekday: ${DateTime.now().weekday}');
 
             if (DateTime.now().weekday == DateTime.saturday) {
               DateTime now = DateTime.now();
-              DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
-              DateTime endOfWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
+              DateTime startOfWeek =
+                  now.subtract(Duration(days: now.weekday - 1));
+              DateTime endOfWeek =
+                  now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
 
               // Debug statements to check the date range
               print('Start of week: $startOfWeek');
@@ -81,7 +85,8 @@ class _RequestsViewBodyState extends State<RequestsViewBody> {
                 // Debug statements to check each document's date
                 print('Document start time: $startTimeDate');
 
-                if (!isWithinCurrentWeek(startTimeDate, startOfWeek, endOfWeek)) {
+                if (!isWithinCurrentWeek(
+                    startTimeDate, startOfWeek, endOfWeek)) {
                   documentsToDelete.add(doc);
                   // Debug statement to check which documents are marked for deletion
                   print('Document marked for deletion: ${doc.id}');
@@ -95,17 +100,21 @@ class _RequestsViewBodyState extends State<RequestsViewBody> {
                 print('Document deleted: ${doc.id}');
               });
             }
-          
+
             return ModalProgressHUD(
               inAsyncCall: state is AdminReplyLoading,
               child: ListView.builder(
                 itemCount: snapshot.data?.docs.length,
                 itemBuilder: (context, index) {
-                  return RequestItem(
-                    hallName: widget.hallName,
-                    hallId: widget.hallId,
-                    reservationId: snapshot.data!.docs[index].id,
-                    requestModel: RequestModel.fromDocumentSnapshot(snapshot.data!.docs[index]),
+                  return BlocProvider(
+                    create: (context) => EditRequestCubit(),
+                    child: RequestItem(
+                      hallName: widget.hallName,
+                      hallId: widget.hallId,
+                      reservationId: snapshot.data!.docs[index].id,
+                      requestModel: RequestModel.fromDocumentSnapshot(
+                          snapshot.data!.docs[index]),
+                    ),
                   );
                 },
               ),
@@ -116,7 +125,8 @@ class _RequestsViewBodyState extends State<RequestsViewBody> {
     );
   }
 
-  bool isWithinCurrentWeek(DateTime date, DateTime startOfWeek, DateTime endOfWeek) {
+  bool isWithinCurrentWeek(
+      DateTime date, DateTime startOfWeek, DateTime endOfWeek) {
     return date.isAfter(startOfWeek.subtract(const Duration(seconds: 1))) &&
         date.isBefore(endOfWeek.add(const Duration(days: 1)));
   }
