@@ -7,6 +7,9 @@ import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_
 import 'package:loc/featuers/admin/pressntation/view/reservation_table_view.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/%60requests_view_body.dart';
 
+import '../manager/get_hall_requests_cubit/get_hall_requests_cubit.dart';
+
+
 class RequestsView extends StatelessWidget {
   const RequestsView(
       {super.key,
@@ -23,9 +26,11 @@ class RequestsView extends StatelessWidget {
         BlocProvider(
           create: (context) => AdminReplyCubit(),
         ),
-    
         BlocProvider(
-          create: (context)=>AdminChangeDailyStateCubit(),)
+          create: (context) => AdminChangeDailyStateCubit(),
+        ),
+        BlocProvider(create: (context) => GetHallRequestsCubit()..featchRequests(hallId: hallId),
+        ),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -39,7 +44,7 @@ class RequestsView extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return  ReservatoinTableView(
+                    return ReservatoinTableView(
                       docId: hallId,
                     );
                   }));

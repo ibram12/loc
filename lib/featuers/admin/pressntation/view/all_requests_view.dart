@@ -24,7 +24,8 @@ class AllRequests extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AdminChangeDailyStateCubit(),
-        )
+        ),
+      
       ],
       child: Scaffold(
         appBar: AppBar(
