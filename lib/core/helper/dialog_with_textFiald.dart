@@ -6,7 +6,7 @@ import 'package:loc/core/widgets/Custom_TextField.dart';
 import '../text_styles/Styles.dart';
 import '../widgets/custom_botton.dart';
 
-void showTextFieldDialog(BuildContext context,TextEditingController controller,void Function() onPressed,GlobalKey<FormState> key ) {
+void showTextFieldDialog(BuildContext context,TextEditingController controller,void Function() onPressed,GlobalKey<FormState> key,String title,String lable,String hint) {
   showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -27,21 +27,21 @@ void showTextFieldDialog(BuildContext context,TextEditingController controller,v
                         child: const Icon(Icons.cancel)),
                     //  SizedBox(width: 30,),
                     const Spacer(),
-                    Text("Enter Password",
+                    Text(title,
                         style: Styles.textStyle14.copyWith(color: Colors.black)),
                     const Spacer(),
                   ],
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Password',
+                 Text(
+                  lable,
                   
                   style: Styles.textStyle14,
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
                   textEditingController: controller,
-                  hinttext: 'Enter your password ',),
+                  hinttext: hint,),
                 const SizedBox(height: 20),
                 Center(
                   child: CustomBotton(

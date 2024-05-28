@@ -10,6 +10,7 @@ import 'package:loc/core/widgets/password_text_field.dart';
 
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
+import '../../../../core/utils/constants.dart';
 import '../../../../core/widgets/Custom_TextField.dart';
 import '../manager/signUp_cubit/sign_up_cubit.dart';
 
@@ -24,13 +25,13 @@ class SginUpViewBody extends StatefulWidget {
 }
 
 class _SginUpViewBodyState extends State<SginUpViewBody> {
-  List<String> services = ['ملائكة', 'خدمة ابتدائي', 'خدمة ثانوي', 'اخرى'];
-  List<String> roles = ['مشرف', 'مستخدم'];
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController signUpController = TextEditingController();
   GlobalKey<FormState> signUpKey = GlobalKey();
+  GlobalKey<FormState> key = GlobalKey();
+  TextEditingController dilogController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey();
   String service = 'Service';
@@ -51,10 +52,11 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
       builder: (context, state) {
         if (state is AdminEnterWrongPassword) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            showDelightfulToast(message:  'Wrong Password',context:  context,dismiss: true);
+            showDelightfulToast(
+                message: 'Wrong Password', context: context, dismiss: true);
           });
         } else if (state is AdminEnterTruePassword) {
-          Navigator.pop(context);//close the dialog
+          Navigator.pop(context); //close the dialog
         }
         if (state is AdminBackToHisAccount) {
           email.clear();
@@ -119,21 +121,31 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                       children: [
                         DropdownButton(
                             hint: Text(service),
-                            items: services
+                            items: kServices
                                 .map((e) => DropdownMenuItem(
                                       child: Text(e),
                                       value: e,
                                     ))
                                 .toList(),
                             onChanged: (value) {
-                              setState(() {
-                                service = value!;
-                              });
+                              if (value == 'اخرى') {
+                                showTextFieldDialog(context, dilogController,
+                                    () {
+                                  setState(() {
+                                    service = dilogController.text;
+                                  });
+                                  Navigator.pop(context);
+                                }, key,'Enter Service Type', 'Service', 'Service Type');
+                              } else {
+                                setState(() {
+                                  service = value!;
+                                });
+                              }
                             }),
                         const SizedBox(height: 10),
                         DropdownButton(
                             hint: Text(role),
-                            items: roles
+                            items: kRoles
                                 .map((e) => DropdownMenuItem(
                                       child: Text(e),
                                       value: e,
@@ -182,7 +194,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                                   name: name.text,
                                 );
                               }
-                            }, signUpKey);
+                            }, signUpKey,'Enter Admin Password', 'Admin Password', 'Admin Password');
                           }
                         }),
                   ],
