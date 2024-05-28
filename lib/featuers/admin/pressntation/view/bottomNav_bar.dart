@@ -17,7 +17,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int pageIndex = 1;
 
   late List<Widget> pagesList;
-  late Widget crruntPage;
   late AdminView adminView;
   late SignUpView signUpView;
   late DayByDayTableView timeLineView;

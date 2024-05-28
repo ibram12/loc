@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loc/featuers/admin/pressntation/view/all_requests_view.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/admin_view_body.dart';
 import '../../../../core/utils/constants.dart';
 import '../../../../generated/l10n.dart';
@@ -14,6 +15,12 @@ class AdminView extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: kPrimaryColor,
         title: Text(S.of(context).add_hall),
+        actions: [
+          IconButton(
+            onPressed: () =>Navigator.of(context).pushNamed(AllRequests.id) ,
+            icon: const Icon(Icons.edit_document),
+          )
+        ],
       ),
     
       body: const AdminViewBody(),

@@ -9,7 +9,7 @@ import 'package:loc/core/widgets/password_text_field.dart';
 import 'package:loc/featuers/auth/presentation/manager/cubits/logIn_cubit/log_in_cubit.dart';
 import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
 import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
-import 'package:loc/homePage.dart';
+import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
 

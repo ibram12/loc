@@ -7,12 +7,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/core/utils/simple_bloc_observer.dart';
 import 'package:loc/featuers/admin/pressntation/view/add_hall_view.dart';
+import 'package:loc/featuers/admin/pressntation/view/all_requests_view.dart';
 import 'package:loc/featuers/auth/presentation/views/login_view.dart';
 import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
 import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
 import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:loc/featuers/spalsh/presntation/view/splash_view.dart';
-import 'package:loc/homePage.dart';
+import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
 
@@ -64,6 +65,7 @@ class HomePage extends StatelessWidget {
         PasswordRecoveryVeiw.id: (context) => const PasswordRecoveryVeiw(),
         AddHallView.id:(context) =>   const AddHallView(),
         UserRequests.id:(context) =>  const UserRequests(),
+        AllRequests.id:(context) =>  const AllRequests(),
       },
     );
   }

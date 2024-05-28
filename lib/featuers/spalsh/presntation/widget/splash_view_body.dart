@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/auth/presentation/views/login_view.dart';
 import 'package:loc/core/views/error_view.dart';
-import 'package:loc/homePage.dart';
+import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
