@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../admin/data/models/request_model.dart';
+
 part 'user_editing_request_state.dart';
 
 class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
@@ -191,8 +193,10 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
 
             Timestamp docEndTime = element.get('endTime');
 
+            String replayState = element.get('replyState');
+
             bool conflict = startDateTime.isBefore(docEndTime.toDate()) &&
-                endDateTime.isAfter(docStartTime.toDate());
+                endDateTime.isAfter(docStartTime.toDate())&& replayState != ReplyState.unaccepted.description;
             if (conflict) {
               hasConflict = true;
               emit(ThereWasConflict(

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
+import '../../../data/models/request_model.dart';
+
 part 'edit_request_state.dart';
 
 class EditRequestCubit extends Cubit<EditRequestState> {
@@ -113,7 +115,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
           });
           break;
         }
-        emit(UserUptadingRequestSuccess(
+        emit(EditRequestSuccess(
             'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
       } else {
         _checkAllSelections(
@@ -128,82 +130,79 @@ class EditRequestCubit extends Cubit<EditRequestState> {
     }
   }
 
-  void _checkAllSelections(
-      {required String hallId,
-      required String requestId,
-      required String userId,
-      required BuildContext context,
-      required String reservationId}) {
-    if (selectedDate != null &&
-        selectedStartTime != null &&
-        selectedEndTime != null) {
-      final startDateTime = DateTime(
-        selectedDate!.year,
-        selectedDate!.month,
-        selectedDate!.day,
-        selectedStartTime!.hour,
-        selectedStartTime!.minute,
-      );
+  void _checkAllSelections({
+  required String hallId,
+  required String requestId,
+  required String userId,
+  required BuildContext context,
+  required String reservationId,
+}) {
+  if (selectedDate != null &&
+      selectedStartTime != null &&
+      selectedEndTime != null) {
+    final startDateTime = DateTime(
+      selectedDate!.year,
+      selectedDate!.month,
+      selectedDate!.day,
+      selectedStartTime!.hour,
+      selectedStartTime!.minute,
+    );
 
-      final endDateTime = DateTime(
-        selectedDate!.year,
-        selectedDate!.month,
-        selectedDate!.day,
-        selectedEndTime!.hour,
-        selectedEndTime!.minute,
-      );
+    final endDateTime = DateTime(
+      selectedDate!.year,
+      selectedDate!.month,
+      selectedDate!.day,
+      selectedEndTime!.hour,
+      selectedEndTime!.minute,
+    );
 
-      if (startDateTime.isAfter(endDateTime)) {
-        emit(TheStartTimeIsAfterTheEndTime(
-            'The start time is after the end time'));
-      } else if (startDateTime == endDateTime) {
-        emit(TheStartTImeTheSameAsTheEndTime(
-            'The start time can\'t be the same as the end time'));
-      } else {
-        emit(EditRequestLoading());
-         bool canEdit = false;
-        bool conflictFound = false;
-        FirebaseFirestore.instance
-            .collection('locs')
-            .doc(hallId)
-            .collection('reservations')
-            .get()
-            .then((value) {
-          value.docs.forEach((element) async {
-            Timestamp docStartTime = element.get('startTime');
+    if (startDateTime.isAfter(endDateTime)) {
+      emit(TheStartTimeIsAfterTheEndTime('The start time is after the end time'));
+    } else if (startDateTime == endDateTime) {
+      emit(TheStartTImeTheSameAsTheEndTime('The start time can\'t be the same as the end time'));
+    } else {
+      emit(EditRequestLoading());
+      bool conflictFound = false;
 
-            Timestamp docEndTime = element.get('endTime');
+      FirebaseFirestore.instance
+          .collection('locs')
+          .doc(hallId)
+          .collection('reservations')
+          .get()
+          .then((value) async {
+        for (var element in value.docs) {
+          Timestamp docStartTime = element.get('startTime');
+          Timestamp docEndTime = element.get('endTime');
+          String replayState = element.get('replyState');
 
-            bool conflict = startDateTime.isBefore(docEndTime.toDate()) &&
-                endDateTime.isAfter(docStartTime.toDate());
-            if (conflict) {
-              conflictFound = true;
-              emit(ThereWasConflict(
-                  'There was a conflict with another reservation'));
-              return;
-            }
-            List<String> pathsToUpdate = [
-              'locs/$hallId/reservations/$reservationId',
-              'users/$userId/requests/$requestId',
-            ];
+          bool conflict = startDateTime.isBefore(docEndTime.toDate()) &&
+              endDateTime.isAfter(docStartTime.toDate()) &&
+              replayState != ReplyState.unaccepted.description;
 
-            for (var path in pathsToUpdate) {
-              await FirebaseFirestore.instance.doc(path).update({
-                'startTime': Timestamp.fromDate(startDateTime),
-                'endTime': Timestamp.fromDate(endDateTime),
-              });
-              break;
-            }
-            emit(UserUptadingRequestSuccess(
-                'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
-             canEdit = true;
-          });
-        }).then((_) {
-          if (!canEdit || conflictFound) {
-            return;
+          if (conflict) {
+            conflictFound = true;
+            emit(ThereWasConflict('There was a conflict with another reservation'));
+            break;
           }
-        });
-      }
+        }
+
+        if (!conflictFound) {
+          List<String> pathsToUpdate = [
+            'locs/$hallId/reservations/$reservationId',
+            'users/$userId/requests/$requestId',
+          ];
+
+          for (var path in pathsToUpdate) {
+            await FirebaseFirestore.instance.doc(path).update({
+              'startTime': Timestamp.fromDate(startDateTime),
+              'endTime': Timestamp.fromDate(endDateTime),
+            });
+          }
+          emit(EditRequestSuccess(
+              'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
+        }
+      });
     }
   }
+}
 }

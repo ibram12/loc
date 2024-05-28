@@ -23,10 +23,10 @@ class EditEndTimeSuccess extends EditRequestState {
   EditEndTimeSuccess(this.endTime);
 }
 
-class UserUptadingRequestSuccess extends EditRequestState {
+class EditRequestSuccess extends EditRequestState {
   final String successMessage;
 
-  UserUptadingRequestSuccess(this.successMessage);
+  EditRequestSuccess(this.successMessage);
 }
 
 class TheStartTimeIsAfterTheEndTime extends EditRequestState {

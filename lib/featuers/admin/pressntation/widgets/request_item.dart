@@ -63,7 +63,7 @@ class _RequestItemState extends State<RequestItem> {
         } else if (state is EditRequestFailer) {
           showDelightfulToast(
               message: state.message, context: context, dismiss: false);
-        } else if (state is UserUptadingRequestSuccess) {
+        } else if (state is EditRequestSuccess) {
           showAlertDialog(
             context: context,
             message: state.successMessage,
