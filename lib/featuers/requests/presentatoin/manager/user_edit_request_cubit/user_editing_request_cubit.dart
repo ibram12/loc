@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
     if (pickedDate != null && selectedDate != null) {
       emit(UserSelectTheDateSuccess(pickedDate));
     } else {
-          emit(UserEditingRequestFailer('The operation has been cancelled'));
+      emit(UserEditingRequestFailer('The operation has been cancelled'));
     }
   }
 
@@ -59,8 +58,13 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
     }
   }
 
-  void selectEndTime(BuildContext context, String hallId, String requestId,
-      String userId) async {
+  void selectEndTime(
+      BuildContext context,
+      String hallId,
+      String requestId,
+      String userId,
+      Timestamp initialStartTime,
+      Timestamp initialEndTime) async {
     final TimeOfDay? pickedEndTime = await showTimePicker(
       helpText: 'Edit end time',
       context: context,
@@ -76,11 +80,66 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
           pickedEndTime.minute);
       Timestamp pickedEndTimeTemp = Timestamp.fromDate(pickedEndDateTime);
       emit(UserSelectEndTimeSuccess(pickedEndTimeTemp));
-      _checkAllSelections(
-          hallId: hallId,
-          requestId: requestId,
-          userId: userId,
-          context: context);
+      final startDateTime = DateTime(
+        selectedDate!.year,
+        selectedDate!.month,
+        selectedDate!.day,
+        selectedStartTime!.hour,
+        selectedStartTime!.minute,
+      );
+
+      final endDateTime = DateTime(
+        selectedDate!.year,
+        selectedDate!.month,
+        selectedDate!.day,
+        selectedEndTime!.hour,
+        selectedEndTime!.minute,
+      );
+      if (endDateTime.isAfter(initialStartTime.toDate()) &&
+          startDateTime.isBefore(initialEndTime.toDate())) {
+        WriteBatch batch = FirebaseFirestore.instance.batch();
+        FirebaseFirestore.instance
+            .collection('locs')
+            .doc(hallId)
+            .collection('reservations')
+            .get()
+            .then((value) {
+          bool requestFound = false;
+          for (var element in value.docs) {
+            if (element.get('requestId') == requestId) {
+              requestFound = true;
+              List<String> pathsToUpdate = [
+                'locs/$hallId/reservations/${element.reference.id}',
+                'users/$userId/requests/$requestId',
+              ];
+
+              for (var path in pathsToUpdate) {
+                batch.update(FirebaseFirestore.instance.doc(path), {
+                  'startTime': Timestamp.fromDate(startDateTime),
+                  'endTime': Timestamp.fromDate(endDateTime),
+                });
+              }
+              break; 
+            }
+          }
+
+          if (requestFound) {
+            batch.commit().then((_) {
+              emit(UserUptadingRequestSuccess(
+                  'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
+            }).catchError((error) {
+              emit(
+                  UserEditingRequestFailer('Failed to update request: $error'));
+            });
+          }
+        });
+      } else {
+        _checkAllSelections(
+            hallId: hallId,
+            requestId: requestId,
+            userId: userId,
+            context: context);
+      }
     } else {
       emit(UserEditingRequestFailer('The operation has been cancelled'));
     }
@@ -128,18 +187,18 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
             .get()
             .then((value) {
           value.docs.forEach((element) {
-
             Timestamp docStartTime = element.get('startTime');
 
-          Timestamp docEndTime = element.get('endTime');
+            Timestamp docEndTime = element.get('endTime');
 
             bool conflict = startDateTime.isBefore(docEndTime.toDate()) &&
                 endDateTime.isAfter(docStartTime.toDate());
-                if(conflict){
-                  hasConflict = true;
-                  emit(ThereWasConflict('There was a conflict with another reservation'));
-                  return;
-                }
+            if (conflict) {
+              hasConflict = true;
+              emit(ThereWasConflict(
+                  'There was a conflict with another reservation'));
+              return;
+            }
             if (element.get('requestId') == requestId) {
               canEdit = true;
               batch.update(element.reference, {
@@ -149,10 +208,9 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
             }
           });
         }).then((_) {
-          if (!canEdit) {
-            return; 
+          if (!canEdit || hasConflict) {
+            return;
           }
-          
 
           FirebaseFirestore.instance
               .doc('users/$userId/requests/$requestId')

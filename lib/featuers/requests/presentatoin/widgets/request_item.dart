@@ -8,6 +8,7 @@ import 'package:loc/featuers/requests/data/models/request_model.dart';
 import 'package:loc/featuers/requests/presentatoin/manager/user_edit_request_cubit/user_editing_request_cubit.dart';
 import 'package:loc/featuers/requests/presentatoin/widgets/request_detalis_section.dart';
 import '../../../../core/helper/delightful_toast.dart';
+import '../manager/show_user_requests_cubit/show_user_requests_cubit.dart';
 import 'Request_card.dart';
 import 'requset_state_section.dart';
 
@@ -31,6 +32,8 @@ class _UserRequestItemState extends State<UserRequestItem> {
     super.initState();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserEditingRequestCubit, UserEditingRequestState>(
@@ -43,6 +46,8 @@ class _UserRequestItemState extends State<UserRequestItem> {
             widget.requestModel.hallId,
             widget.requestModel.requestId,
             widget.requestModel.userId,
+            widget.requestModel.startTime,
+            widget.requestModel.endTime,
           );
         } else if (editState is TheStartTimeIsAfterTheEndTime) {
           showAlertDialog(
@@ -57,11 +62,15 @@ class _UserRequestItemState extends State<UserRequestItem> {
           showDelightfulToast(
               message: editState.message, context: context, dismiss: false); 
       } else if (editState is UserUptadingRequestSuccess) {
-          showAlertDialog(
-            context: context,
-            message: editState.successMessage,
-            onOkPressed: () => Navigator.pop(context),
-          );
+     BlocProvider.of<ShowUserRequestsCubit>(context).featchRequests();
+
+  final successMessage = editState.successMessage ?? "Operation completed successfully.";
+
+  showAlertDialog(
+    context: context,
+    message: successMessage,
+    onOkPressed: () => Navigator.pop(context),
+  );
         } else if (editState is ThereWasConflict) {
           showDelightfulToast(
             message: editState.message,

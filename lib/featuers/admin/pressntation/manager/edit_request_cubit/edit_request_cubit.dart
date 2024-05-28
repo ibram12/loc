@@ -8,7 +8,7 @@ part 'edit_request_state.dart';
 
 class EditRequestCubit extends Cubit<EditRequestState> {
   EditRequestCubit() : super(EditRequestInitial());
-    DateTime? selectedDate;
+  DateTime? selectedDate;
   TimeOfDay? selectedStartTime;
   TimeOfDay? selectedEndTime;
 
@@ -33,7 +33,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
     if (pickedDate != null && selectedDate != null) {
       emit(EditTheDateSuccess(pickedDate));
     } else {
-          emit(EditRequestFailer('The operation has been cancelled'));
+      emit(EditRequestFailer('The operation has been cancelled'));
     }
   }
 
@@ -44,7 +44,6 @@ class EditRequestCubit extends Cubit<EditRequestState> {
     int hour = initialStartTime.toDate().hour;
     int minute = initialStartTime.toDate().minute;
     final TimeOfDay? pickedStartTime = await showTimePicker(
-
       helpText: 'Edit start time',
       context: context,
       initialTime: TimeOfDay(hour: hour, minute: minute),
@@ -60,8 +59,14 @@ class EditRequestCubit extends Cubit<EditRequestState> {
     }
   }
 
-  void selectEndTime(BuildContext context, String hallId, String requestId,
-      String userId, Timestamp initialEndTime) async {
+  void selectEndTime(
+      BuildContext context,
+      String hallId,
+      String requestId,
+      String userId,
+      Timestamp initialEndTime,
+      Timestamp initialStartTime,
+      String reservationId) async {
     int hour = initialEndTime.toDate().hour;
     int minute = initialEndTime.toDate().minute;
     final TimeOfDay? pickedEndTime = await showTimePicker(
@@ -79,11 +84,45 @@ class EditRequestCubit extends Cubit<EditRequestState> {
           pickedEndTime.minute);
       Timestamp pickedEndTimeTemp = Timestamp.fromDate(pickedEndDateTime);
       emit(EditEndTimeSuccess(pickedEndTimeTemp));
-      _checkAllSelections(
-          hallId: hallId,
-          requestId: requestId,
-          userId: userId,
-          context: context);
+      final startDateTime = DateTime(
+        selectedDate!.year,
+        selectedDate!.month,
+        selectedDate!.day,
+        selectedStartTime!.hour,
+        selectedStartTime!.minute,
+      );
+
+      final endDateTime = DateTime(
+        selectedDate!.year,
+        selectedDate!.month,
+        selectedDate!.day,
+        selectedEndTime!.hour,
+        selectedEndTime!.minute,
+      );
+      if (endDateTime.isAfter(initialStartTime.toDate()) &&
+          startDateTime.isBefore(initialEndTime.toDate())) {
+        List<String> pathsToUpdate = [
+          'locs/$hallId/reservations/$reservationId',
+          'users/$userId/requests/$requestId',
+        ];
+
+        for (var path in pathsToUpdate) {
+          await FirebaseFirestore.instance.doc(path).update({
+            'startTime': Timestamp.fromDate(startDateTime),
+            'endTime': Timestamp.fromDate(endDateTime),
+          });
+          break;
+        }
+        emit(UserUptadingRequestSuccess(
+            'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
+      } else {
+        _checkAllSelections(
+            hallId: hallId,
+            requestId: requestId,
+            userId: userId,
+            context: context,
+            reservationId: reservationId);
+      }
     } else {
       emit(EditRequestFailer('The operation has been cancelled'));
     }
@@ -93,7 +132,8 @@ class EditRequestCubit extends Cubit<EditRequestState> {
       {required String hallId,
       required String requestId,
       required String userId,
-      required BuildContext context}) {
+      required BuildContext context,
+      required String reservationId}) {
     if (selectedDate != null &&
         selectedStartTime != null &&
         selectedEndTime != null) {
@@ -121,53 +161,47 @@ class EditRequestCubit extends Cubit<EditRequestState> {
             'The start time can\'t be the same as the end time'));
       } else {
         emit(EditRequestLoading());
-        WriteBatch batch = FirebaseFirestore.instance.batch();
-        bool canEdit = false;
-        bool hasConflict = false;
+         bool canEdit = false;
+        bool conflictFound = false;
         FirebaseFirestore.instance
             .collection('locs')
             .doc(hallId)
             .collection('reservations')
             .get()
             .then((value) {
-          value.docs.forEach((element) {
-
+          value.docs.forEach((element) async {
             Timestamp docStartTime = element.get('startTime');
 
-          Timestamp docEndTime = element.get('endTime');
+            Timestamp docEndTime = element.get('endTime');
 
             bool conflict = startDateTime.isBefore(docEndTime.toDate()) &&
                 endDateTime.isAfter(docStartTime.toDate());
-                if(conflict){
-                  hasConflict = true;
-                  emit(ThereWasConflict('There was a conflict with another reservation'));
-                  return;
-                }
-            if (element.get('requestId') == requestId) {
-              canEdit = true;
-              batch.update(element.reference, {
+            if (conflict) {
+              conflictFound = true;
+              emit(ThereWasConflict(
+                  'There was a conflict with another reservation'));
+              return;
+            }
+            List<String> pathsToUpdate = [
+              'locs/$hallId/reservations/$reservationId',
+              'users/$userId/requests/$requestId',
+            ];
+
+            for (var path in pathsToUpdate) {
+              await FirebaseFirestore.instance.doc(path).update({
                 'startTime': Timestamp.fromDate(startDateTime),
                 'endTime': Timestamp.fromDate(endDateTime),
               });
+              break;
             }
+            emit(UserUptadingRequestSuccess(
+                'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
+             canEdit = true;
           });
         }).then((_) {
-          if (!canEdit) {
-            return; 
+          if (!canEdit || conflictFound) {
+            return;
           }
-          
-
-          FirebaseFirestore.instance
-              .doc('users/$userId/requests/$requestId')
-              .update({
-            'startTime': Timestamp.fromDate(startDateTime),
-            'endTime': Timestamp.fromDate(endDateTime),
-          }).then((_) {
-            batch.commit().then((_) {
-              emit(UserUptadingRequestSuccess(
-                  'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
-            });
-          });
         });
       }
     }

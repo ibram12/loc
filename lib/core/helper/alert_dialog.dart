@@ -7,6 +7,7 @@ void showAlertDialog({
   required Function() onOkPressed,
 }) {
   showCupertinoDialog(
+    barrierDismissible: true,
     context: context,
     builder: (context) => CupertinoAlertDialog(
       title: Text(message),

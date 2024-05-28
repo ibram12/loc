@@ -24,7 +24,7 @@ class UserSelectEndTimeSuccess extends UserEditingRequestState {
 }
 
 class UserUptadingRequestSuccess extends UserEditingRequestState {
-  final String successMessage;
+  final String? successMessage;
 
   UserUptadingRequestSuccess(this.successMessage);
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:loc/core/helper/admin_alert_dialog.dart';
 import 'package:loc/featuers/admin/pressntation/manager/admin_change_daily_state/admin_change_daily_state_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/question_dialog.dart';
@@ -38,20 +37,20 @@ class _RequestItemState extends State<RequestItem> {
     myCubit = BlocProvider.of<EditRequestCubit>(context);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return BlocListener<EditRequestCubit, EditRequestState>(
+    return BlocConsumer<EditRequestCubit, EditRequestState>(
       listener: (context, state) {
-      if (state is EditTheDateSuccess) {
-          myCubit.selectStartTime(context,widget.requestModel.startTime);
+        if (state is EditTheDateSuccess) {
+          myCubit.selectStartTime(context, widget.requestModel.startTime);
         } else if (state is EditStartTimeSuccess) {
           myCubit.selectEndTime(
-            context,
-            widget.hallId,
-            widget.requestModel.requestId,
-            widget.requestModel.id,
-            widget.requestModel.endTime
-          );
+              context,
+              widget.hallId,
+              widget.requestModel.requestId,
+              widget.requestModel.id,
+              widget.requestModel.endTime,widget.requestModel.startTime,widget.reservationId);
         } else if (state is TheStartTimeIsAfterTheEndTime) {
           showAlertDialog(
             context: context,
@@ -61,10 +60,10 @@ class _RequestItemState extends State<RequestItem> {
         } else if (state is TheStartTImeTheSameAsTheEndTime) {
           showDelightfulToast(
               message: state.errMassege, context: context, dismiss: false);
-        } else if (state is EditRequestFailer){
+        } else if (state is EditRequestFailer) {
           showDelightfulToast(
-              message: state.message, context: context, dismiss: false); 
-      } else if (state is UserUptadingRequestSuccess) {
+              message: state.message, context: context, dismiss: false);
+        } else if (state is UserUptadingRequestSuccess) {
           showAlertDialog(
             context: context,
             message: state.successMessage,
@@ -78,14 +77,16 @@ class _RequestItemState extends State<RequestItem> {
           );
         }
       },
-      child:
-          BlocBuilder<AdminChangeDailyStateCubit, AdminChangeDailyStateState>(
-        builder: (context, state) {
-          if (state is AdminChangeDailyStateFalier) {
-            showSnackBar(context, 'sorry there was an error, please try later',
-                color: Colors.red);
-          }
-          return GestureDetector(
+      builder: (context, editstate) {
+        return BlocBuilder<AdminChangeDailyStateCubit,
+            AdminChangeDailyStateState>(
+          builder: (context, state) {
+            if (state is AdminChangeDailyStateFalier) {
+              showSnackBar(
+                  context, 'sorry there was an error, please try later',
+                  color: Colors.red);
+            }
+            return GestureDetector(
               onLongPress: () {
                 showQuestionDialog(
                   contextt: context,
@@ -99,9 +100,7 @@ class _RequestItemState extends State<RequestItem> {
                     onEdit: () {
                       Navigator.of(context).pop();
                       BlocProvider.of<EditRequestCubit>(context)
-                          .selectDate(
-                              context
-                            );
+                          .selectDate(context);
                     },
                     hallName: widget.hallName,
                     requestModel: widget.requestModel,
@@ -128,10 +127,11 @@ class _RequestItemState extends State<RequestItem> {
               },
               child: RequestItemBody(
                   requestModel: widget.requestModel,
-                  isLoading: state is AdminChangeDailyStateLoading),
-                  );
-        },
-      ),
+                  isLoading: state is AdminChangeDailyStateLoading ||editstate is EditRequestLoading),
+            );
+          },
+        );
+      },
     );
   }
 }
