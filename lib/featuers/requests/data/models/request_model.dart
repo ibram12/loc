@@ -20,6 +20,7 @@ extension ReplyStateExtension on ReplyState {
 }
 
 class UserRequestModel {
+  final String id;
   final String hallName;
   final String hallId;
   final String userId;
@@ -30,6 +31,7 @@ class UserRequestModel {
   final bool daily;
 
   UserRequestModel({
+    required this.id,
     required this.hallId,
     required this.userId,
     required this.daily,
@@ -43,6 +45,7 @@ class UserRequestModel {
   factory UserRequestModel.fromDocumentSnapshot(
       DocumentSnapshot documentSnapshot) {
     return UserRequestModel(
+      id: documentSnapshot.id,
       hallId: documentSnapshot['hallId'],
       userId: documentSnapshot['id'],
       hallName: documentSnapshot['hallName'],

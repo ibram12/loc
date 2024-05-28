@@ -4,23 +4,13 @@ import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/featuers/requests/presentatoin/manager/show_user_requests_cubit/show_user_requests_cubit.dart';
 import 'package:loc/featuers/requests/presentatoin/widgets/request_item.dart';
 
+import '../../../../core/helper/snack_bar.dart';
 import '../manager/show_user_requests_cubit/show_user_requests_state.dart';
-import '../manager/user_edit_request_cubit/user_editing_request_cubit.dart';
 
-class UserRequestBody extends StatefulWidget {
+class UserRequestBody extends StatelessWidget {
   const UserRequestBody({
     super.key,
   });
-
-  @override
-  State<UserRequestBody> createState() => _UserRequestBodyState();
-}
-
-class _UserRequestBodyState extends State<UserRequestBody> {
-  initState() {
-    BlocProvider.of<ShowUserRequestsCubit>(context).featchRequests();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +22,19 @@ class _UserRequestBodyState extends State<UserRequestBody> {
           return Center(child: Text(state.message));
         } else if (state is UserRequestsLoaded) {
           if (state.requests.isEmpty) {
-            return const Center(child: Text('No Requests Yet',style:Styles.textStyle18));
+            return const Center(
+                child: Text('No Requests Yet', style: Styles.textStyle18));
           } else {
             return ListView.builder(
               itemCount: state.requests.length,
               itemBuilder: (context, index) {
-                return BlocProvider(
-                  create: (context) => UserEditingRequestCubit(),
-                  child: UserRequestItem(
-                    requestModel: state.requests[index],
-                  ),
+                return UserRequestItem(
+                  onRequestDeleted: ()async {
+                      showSnackBar(
+                          context, 'your request deleted successfully');
+    
+                  },
+                  requestModel: state.requests[index],
                 );
               },
             );

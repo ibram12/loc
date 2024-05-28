@@ -29,8 +29,9 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
 
   Future<void> _sentReservation(bool daily) async {
     Navigator.pop(context);
-    requestIdInUserCollection = BlocProvider.of<AddRequestToUserCubit>(context)
+    requestIdInUserCollection =  BlocProvider.of<AddRequestToUserCubit>(context)
         .addRequest(widget.startTime, widget.endTime, widget.hallsIds, daily);
+
     await BlocProvider.of<SentReservationToAdminCubit>(context).sentReservation(
         isDaily: daily,
         endTime: widget.endTime,

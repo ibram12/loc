@@ -30,6 +30,7 @@ class AddRequestToUserCubit extends Cubit<AddRequestState> {
           .doc(id)
           .collection('requests')
           .add({
+        'hallId': hallIds[i],
         'hallName': name,
         'startTime': startTime,
         'endTime': endTime,

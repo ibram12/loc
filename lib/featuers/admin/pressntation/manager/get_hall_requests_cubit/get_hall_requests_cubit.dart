@@ -17,7 +17,7 @@ class GetHallRequestsCubit extends Cubit<GetHallRequestsState> {
           .doc(hallId)
           .collection('reservations')
           .orderBy('replyState');
-     query.snapshots().listen((snapshot) {
+     query.snapshots().listen((snapshot) {//TODO: HANDLE THIS IN FUTURE
         _checkAndDeleteRequests(query);
         List<Map<String, dynamic>> requests = snapshot.docs.map((doc) {
           return {

@@ -43,6 +43,7 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
   
 
         await reservationRef.set({
+          'hallId': halls[i],
           'daily': isDaily,
           'requestId': requestId,
           'id': FirebaseAuth.instance.currentUser!.uid,

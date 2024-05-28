@@ -23,6 +23,7 @@ class AllRequestsViewBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return RequestItem(
                     requestModel: RequestModel(
+                      hallId: '',
                         name: 'Ahmed',
                         sendDate: '2022-10-20',
                         replyState: ReplyState.noReplyYet,

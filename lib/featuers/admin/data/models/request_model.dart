@@ -9,9 +9,12 @@ class RequestModel {
   final ReplyState replyState;
   final String requestId;
   final bool daily;
+  final String hallId;
   RequestModel(
-      {required this.daily,
-        required this.requestId,
+      {
+      required this.hallId,
+        required this.daily,
+      required this.requestId,
       required this.sendDate,
       required this.startTime,
       required this.endTime,
@@ -20,15 +23,15 @@ class RequestModel {
       required this.id});
   factory RequestModel.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
     return RequestModel(
-      requestId: documentSnapshot['requestId'],
-      id: documentSnapshot['id'],
-      sendDate: documentSnapshot['date'],
-      name: documentSnapshot['name'],
-      startTime: documentSnapshot['startTime'],
-      endTime: documentSnapshot['endTime'],
-      replyState: _convertReplyState(documentSnapshot['replyState']),
-      daily: documentSnapshot['daily']
-    );
+        hallId: documentSnapshot['hallId'],
+        requestId: documentSnapshot['requestId'],
+        id: documentSnapshot['id'],
+        sendDate: documentSnapshot['date'],
+        name: documentSnapshot['name'],
+        startTime: documentSnapshot['startTime'],
+        endTime: documentSnapshot['endTime'],
+        replyState: _convertReplyState(documentSnapshot['replyState']),
+        daily: documentSnapshot['daily']);
   }
   static _convertReplyState(String replyState) {
     switch (replyState) {
