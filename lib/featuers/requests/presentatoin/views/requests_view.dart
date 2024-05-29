@@ -12,7 +12,7 @@ class UserRequests extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ShowUserRequestsCubit()..featchRequests(),
+      create: (context) => ShowUserRequestsCubit()..fetchRequests(),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,

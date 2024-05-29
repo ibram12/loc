@@ -13,7 +13,7 @@ class AdminReplyCubit extends Cubit<AdminReplyState> {
       required String hallId,
       required String userId,
       required String requestId}) async {
-    emit(AdminTakeAction());
+
 
     emit(AdminReplyLoading());
 
@@ -38,7 +38,7 @@ class AdminReplyCubit extends Cubit<AdminReplyState> {
       required String hallId,
       required String userId,
       required String requestId}) async {
-    emit(AdminTakeAction());
+
     emit(AdminReplyLoading());
     WriteBatch batch = FirebaseFirestore.instance.batch();
 

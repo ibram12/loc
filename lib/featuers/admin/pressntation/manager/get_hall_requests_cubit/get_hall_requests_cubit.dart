@@ -17,7 +17,7 @@ class GetHallRequestsCubit extends Cubit<GetHallRequestsState> {
           .doc(hallId)
           .collection('reservations')
           .orderBy('replyState');
-     query.snapshots().listen((snapshot) {//TODO: HANDLE THIS IN FUTURE
+     query.snapshots().listen((snapshot) {
         _checkAndDeleteRequests(query);
         List<Map<String, dynamic>> requests = snapshot.docs.map((doc) {
           return {
@@ -25,10 +25,20 @@ class GetHallRequestsCubit extends Cubit<GetHallRequestsState> {
             'request': RequestModel.fromDocumentSnapshot(doc),
           };
         }).toList();
-        emit(GetHallRequestsSuccess(requests));
-      });
+        if (!isClosed) {
+  emit(GetHallRequestsSuccess(requests));
+}
+      },onError: (error){
+        if (!isClosed) {
+          print('Error fetching snapshots: $error');
+  emit(GetHallRequestsError('Failed to fetch requests$error'));
+}
+      }
+      );
     } catch (e) {
-      emit(GetHallRequestsError('Failed to fetch requests'));
+      if (!isClosed) {
+  emit(GetHallRequestsError('Failed to fetch requests'));
+}
     }
   }
 

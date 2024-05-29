@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 enum ReplyState {
   accepted,
@@ -42,24 +43,27 @@ class UserRequestModel {
     required this.requestId,
   });
 
-  factory UserRequestModel.fromDocumentSnapshot(
-      DocumentSnapshot documentSnapshot) {
+  factory UserRequestModel.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
+    final data = documentSnapshot.data() as Map<String, dynamic>?;
+     String userId =FirebaseAuth.instance.currentUser!.uid;
+    if (data == null) {
+      throw StateError('Missing data for document ID ${documentSnapshot.id}');
+    }
+
     return UserRequestModel(
       id: documentSnapshot.id,
-      hallId: documentSnapshot['hallId'],
-      userId: documentSnapshot['id'],
-      hallName: documentSnapshot['hallName'],
-      endTime: documentSnapshot['endTime'],
-      startTime: documentSnapshot['startTime'],
-      replyState: _convertReplyState(
-        documentSnapshot['replyState'],
-      ),
-      requestId: documentSnapshot['requestId'],
-       daily: documentSnapshot['daily'],
+      hallId: data['hallId'], 
+      userId: data['userId'] ?? userId, 
+      hallName: data['hallName'] ,
+      endTime: data['endTime'],
+      startTime: data['startTime'] ,
+      replyState: _convertReplyState(data['replyState']),
+      requestId: data['requestId'] ,
+      daily: data['daily'] ,
     );
   }
 
-  static _convertReplyState(String replyState) {
+  static ReplyState _convertReplyState(String replyState) {
     switch (replyState) {
       case 'Accepted':
         return ReplyState.accepted;

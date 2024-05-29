@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/core/helper/delightful_toast.dart';
@@ -27,7 +25,6 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
   late SelectTimeCubit selectTimeCubit;
   @override
   void initState() {
-    // TODO: implement initState
     selectTimeCubit = BlocProvider.of<SelectTimeCubit>(context);
     super.initState();
   }
@@ -68,7 +65,7 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                   Column(
                     children: [
                       Text(
-                          '${S.of(context).time_range}: \n on ${DateFormat('yyyy-MM-dd').format(_date!)} at ${DateFormat('hh:mm a').format(_startTime!.toDate())}, to ${DateFormat('hh:mm a').format(_endTime!.toDate())}'),
+                          '${S.of(context).time_range}: \n on ${DateFormat('yyyy-MM-dd').format(_date!)} at \n${DateFormat('hh:mm a').format(_startTime!.toDate())}, to ${DateFormat('hh:mm a').format(_endTime!.toDate())}'),
                       const SizedBox(
                         height: 20,
                       ),
@@ -83,6 +80,7 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                                   endTime: _endTime!,
                                 ),
                               ),
+                            
                             );
                           }),
                       const SizedBox(
