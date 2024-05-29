@@ -1,3 +1,5 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:loc/core/helper/dialog_with_textFiald.dart';
 import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/widgets/password_text_field.dart';
+import 'package:loc/featuers/admin/pressntation/widgets/multi_drop_down_button_to_services.dart';
 
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
@@ -30,11 +33,9 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
   TextEditingController name = TextEditingController();
   TextEditingController signUpController = TextEditingController();
   GlobalKey<FormState> signUpKey = GlobalKey();
-  GlobalKey<FormState> key = GlobalKey();
-  TextEditingController dilogController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey();
-  String service = 'Service';
+  List<String> services = [];
   String role = 'Role';
   @override
   void dispose() {
@@ -44,6 +45,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
     password.dispose();
     name.dispose();
     signUpController.dispose();
+  
   }
 
   @override
@@ -62,7 +64,6 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
           email.clear();
           password.clear();
           name.clear();
-          service = 'Service';
           role = 'Role';
           WidgetsBinding.instance.addPostFrameCallback((_) {
             showSnackBar(context, 'Sign Up Successfully');
@@ -95,7 +96,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                        hinttext: "ُYour Name", textEditingController: name),
+                        hinttext: "User Name", textEditingController: name),
                     const SizedBox(height: 10),
                     const Text(
                       "Email",
@@ -103,7 +104,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                        hinttext: "ُEnter Your Email",
+                        hinttext: "ُEnter User Email",
                         textEditingController: email),
                     const SizedBox(height: 10),
                     const Text(
@@ -116,54 +117,42 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                         hinttext: 'Password',
                         textEditingController: password),
                     const SizedBox(height: 20),
-                    Row(
+                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        DropdownButton(
-                            hint: Text(service),
-                            items: kServices
-                                .map((e) => DropdownMenuItem(
-                                      child: Text(e),
-                                      value: e,
-                                    ))
-                                .toList(),
-                            onChanged: (value) {
-                              if (value == 'اخرى') {
-                                showTextFieldDialog(context, dilogController,
-                                    () {
-                                  setState(() {
-                                    service = dilogController.text;
-                                  });
-                                  Navigator.pop(context);
-                                }, key,'Enter Service Type', 'Service', 'Service Type');
-                              } else {
-                                setState(() {
-                                  service = value!;
-                                });
-                              }
-                            }),
-                        const SizedBox(height: 10),
-                        DropdownButton(
-                            hint: Text(role),
-                            items: kRoles
-                                .map((e) => DropdownMenuItem(
-                                      child: Text(e),
-                                      value: e,
-                                    ))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                role = value!;
-                              });
-                            }),
+                        Expanded(
+                          child: MultiSelectDropdown(
+                            items: kServices,
+                            hint: 'Select Services',
+                            onSelected: (selectedServices) {
+                              services = selectedServices;
+                              print(services);
+                            },
+                          ),
+                        ),
                       ],
                     ),
+                    const SizedBox(height: 10),
+                    DropdownButton(
+                        hint: Text(role),
+                        items: kRoles
+                            .map((e) => DropdownMenuItem(
+                                  child: Text(e),
+                                  value: e,
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            role = value!;
+                          });
+                        }),
+                    const SizedBox(height: 10),
                     CustomBotton(
                         width: double.infinity,
                         backgroundColor: Colors.orange,
                         text: "Sign Up",
                         onPressed: () {
-                          if (service == 'Service') {
+                          if (services.isEmpty) {
                             showAlertDialog(
                                 context: context,
                                 message: 'please select service type',
@@ -180,13 +169,13 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                           }
                           if (formKey.currentState!.validate() &&
                               role != 'Role' &&
-                              service != 'Service') {
+                              services.isNotEmpty) {
                             showTextFieldDialog(context, signUpController,
                                 () async {
                               if (signUpKey.currentState!.validate()) {
                                 await BlocProvider.of<SignUpCubit>(context)
                                     .createUserWithEmailAndPassword(
-                                  service: service,
+                                  services: services,
                                   role: role,
                                   email: email.text,
                                   userpassword: password.text,
@@ -194,7 +183,8 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                                   name: name.text,
                                 );
                               }
-                            }, signUpKey,'Enter Admin Password', 'Admin Password', 'Admin Password');
+                            }, signUpKey, 'Enter Admin Password',
+                                'Admin Password', 'Admin Password');
                           }
                         }),
                   ],

@@ -11,7 +11,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String email,
     required String userpassword,
     required String role,
-    required String service,
+    required List<String> services,
     required String name,
     required String adminPassword,
   }) async {
@@ -46,7 +46,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         'name': name,
         'id': credential.user!.uid,
         'role': role,
-        'service': service,
+        'service': services,
       };
       emit(AdminEnterTruePassword());
       await DataBaseMethouds().addUserDetails(userInfo, credential.user!.uid);
