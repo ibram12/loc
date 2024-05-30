@@ -6,7 +6,7 @@ import 'package:loc/core/widgets/Custom_TextField.dart';
 import '../text_styles/Styles.dart';
 import '../widgets/custom_botton.dart';
 
-void showTextFieldDialog(BuildContext context,TextEditingController controller,void Function() onPressed,GlobalKey<FormState> key,String title,String lable,String hint) {
+void showTextFieldDialog(BuildContext context,TextEditingController controller,void Function() onPressed,GlobalKey<FormState> key,String title,String lable,String hint,bool obscureText) {
   showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -40,6 +40,7 @@ void showTextFieldDialog(BuildContext context,TextEditingController controller,v
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
+                  obscureText: obscureText,
                   textEditingController: controller,
                   hinttext: hint,),
                 const SizedBox(height: 20),
@@ -50,6 +51,7 @@ void showTextFieldDialog(BuildContext context,TextEditingController controller,v
                     backgroundColor: kPrimaryColor,
                     textColor: Colors.white,
                     text: 'Add',
+                  
                   ),
                 )
               ],

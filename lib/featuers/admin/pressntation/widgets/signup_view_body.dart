@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -45,7 +44,6 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
     password.dispose();
     name.dispose();
     signUpController.dispose();
-  
   }
 
   @override
@@ -59,6 +57,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
           });
         } else if (state is AdminEnterTruePassword) {
           Navigator.pop(context); //close the dialog
+          signUpController.clear();
         }
         if (state is AdminBackToHisAccount) {
           email.clear();
@@ -117,36 +116,25 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                         hinttext: 'Password',
                         textEditingController: password),
                     const SizedBox(height: 20),
-                     Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                           child: MultiSelectDropdown(
                             items: kServices,
                             hint: 'Select Services',
-                            onSelected: (selectedServices) {
+                            onServiceSelected: (selectedServices) {
                               services = selectedServices;
-                              print(services);
+                            },
+                            onRoleSelected: (String selectedRole) {
+                              role = selectedRole;
                             },
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 10),
-                    DropdownButton(
-                        hint: Text(role),
-                        items: kRoles
-                            .map((e) => DropdownMenuItem(
-                                  child: Text(e),
-                                  value: e,
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            role = value!;
-                          });
-                        }),
-                    const SizedBox(height: 10),
+                  
                     CustomBotton(
                         width: double.infinity,
                         backgroundColor: Colors.orange,
@@ -184,7 +172,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                                 );
                               }
                             }, signUpKey, 'Enter Admin Password',
-                                'Admin Password', 'Admin Password');
+                                'Admin Password', 'Admin Password',true);
                           }
                         }),
                   ],

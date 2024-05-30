@@ -28,7 +28,7 @@ class CustomBotton extends StatelessWidget {
                 borderRadius: borderRadius ?? BorderRadius.circular(16)),
             backgroundColor: backgroundColor ?? Colors.white),
         onPressed: onPressed,
-        child: Text(
+        child:  Text(
           text,
           style: Styles.textStyle18.copyWith(
             color: textColor ?? Colors.black,
