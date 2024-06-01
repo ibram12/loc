@@ -20,3 +20,5 @@ const  List<String> kServices = [
     'اخرى'
   ];
 const   List<String> kRoles = ['User','Moderator','Admin'];
+
+const String kDeletoinListName = 'deletedHallId';

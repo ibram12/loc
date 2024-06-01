@@ -23,7 +23,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(const HomePage());
 }
 
@@ -57,7 +56,7 @@ class HomePage extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyanAccent),
         useMaterial3: true,
       ),
-      home: const SignUpView(),
+      home: const SplashView(),
       routes: {
         SignUpView.id: (context) => const SignUpView(),
         LoginView.id: (context) => const LoginView(),

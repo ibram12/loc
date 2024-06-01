@@ -55,39 +55,33 @@ class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
   Future<void> _checkAndDeleteRequests(Query query) async {
     try {
       DateTime now = DateTime.now();
-      DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
-      DateTime endOfWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
 
-      String? lastDeletionDateStr = await SherdPrefHelper().getLastDeletionDate();
+      String? lastDeletionDateStr =
+          await SherdPrefHelper().getLastDeletionDate();
       DateTime lastDeletionDate = lastDeletionDateStr != null
           ? DateTime.parse(lastDeletionDateStr)
-          : DateTime(2023);
+          : DateTime(now.year, now.month, now.day);
 
-      if (now.weekday == DateTime.saturday && !_isSameDay(now, lastDeletionDate)) {
+      if (now.weekday == DateTime.saturday &&
+          !_isSameDay(now, lastDeletionDate)) {
         QuerySnapshot snapshot = await query.get();
         List<DocumentSnapshot> documentsToDelete = [];
         for (var doc in snapshot.docs) {
-          Timestamp? startTime;
           bool? daily;
           try {
-            startTime = doc.get('startTime');
             daily = doc.get('daily');
           } catch (e) {
-            print('Error accessing document fields: $e');
-            continue;  // Skip this document if it has missing fields
+            continue; // Skip this document if it has missing fields
           }
 
-          if (startTime != null && daily != null) {
-            if (isWithinCurrentWeek(startTime.toDate(), startOfWeek, endOfWeek) && !daily) {
-              documentsToDelete.add(doc);
+          if (daily == false) {
+            documentsToDelete.add(doc);
+            for (var doc in documentsToDelete) {
+              await doc.reference.delete();
             }
+            await SherdPrefHelper().setDeletionDate(now.toIso8601String());
           }
         }
-
-        for (var doc in documentsToDelete) {
-          await doc.reference.delete();
-        }
-        await SherdPrefHelper().setDeletionDate(now.toIso8601String());
       }
     } catch (e) {
       print('Error in _checkAndDeleteRequests: $e');
@@ -95,10 +89,13 @@ class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
   }
 
   bool _isSameDay(DateTime date1, DateTime date2) {
-    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
   }
 
-  bool isWithinCurrentWeek(DateTime date, DateTime startOfWeek, DateTime endOfWeek) {
+  bool isWithinCurrentWeek(
+      DateTime date, DateTime startOfWeek, DateTime endOfWeek) {
     return date.isAfter(startOfWeek.subtract(const Duration(seconds: 1))) &&
         date.isBefore(endOfWeek.add(const Duration(days: 1)));
   }

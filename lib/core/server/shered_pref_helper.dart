@@ -5,7 +5,6 @@ class SherdPrefHelper {
   static String lastDeletionDateKey = 'lastDeletionDate';
 
 
-
   Future<bool> setUserName(String? getUserName) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(name, getUserName??'');
@@ -16,11 +15,15 @@ class SherdPrefHelper {
 return prefs.setString(lastDeletionDateKey, now??DateTime(1970).toString());
   }
 
+
+
   
   Future<String?> getUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(name);
   }
+
+
 
   Future<String?> getLastDeletionDate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
