@@ -15,10 +15,11 @@ class SentRequestButtom extends StatefulWidget {
       {super.key,
       required this.hallsIds,
       required this.startTime,
-      required this.endTime});
+      required this.endTime, required this.selectedService});
   final List<String> hallsIds;
   final Timestamp startTime;
   final Timestamp endTime;
+  final String selectedService;
 
   @override
   State<SentRequestButtom> createState() => _SentRequestButtomState();
@@ -29,8 +30,8 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
 
   Future<void> _sentReservation(bool daily) async {
     Navigator.pop(context);
-    requestIdInUserCollection =  BlocProvider.of<AddRequestToUserCubit>(context)
-        .addRequest(widget.startTime, widget.endTime, widget.hallsIds, daily);
+    requestIdInUserCollection = BlocProvider.of<AddRequestToUserCubit>(context)
+        .addRequest(widget.startTime, widget.endTime, widget.hallsIds, daily,widget.selectedService);
 
     await BlocProvider.of<SentReservationToAdminCubit>(context).sentReservation(
         isDaily: daily,
@@ -38,7 +39,9 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
         startTime: widget.startTime,
         data: widget.startTime.toDate(),
         halls: widget.hallsIds,
-        requestIdsInUserCollection: requestIdInUserCollection);
+        requestIdsInUserCollection: requestIdInUserCollection,
+        selectedService: widget.selectedService
+        );
   }
 
   @override
@@ -58,7 +61,7 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
                 context: context,
                 message: 'your request sent successfully');
           });
-        } 
+        }
         return Positioned(
             bottom: 10,
             child: CustomBotton(

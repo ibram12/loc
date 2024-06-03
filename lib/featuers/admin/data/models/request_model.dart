@@ -10,10 +10,12 @@ class RequestModel {
   final String requestId;
   final bool daily;
   final String hallId;
+  final String service;
   RequestModel(
       {
-      required this.hallId,
-        required this.daily,
+        required this.service,
+        required this.hallId,
+      required this.daily,
       required this.requestId,
       required this.sendDate,
       required this.startTime,
@@ -23,6 +25,7 @@ class RequestModel {
       required this.id});
   factory RequestModel.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
     return RequestModel(
+      service: documentSnapshot['service'],
         hallId: documentSnapshot['hallId'],
         requestId: documentSnapshot['requestId'],
         id: documentSnapshot['id'],

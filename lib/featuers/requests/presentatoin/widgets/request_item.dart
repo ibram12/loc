@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/alert_dialog.dart';
 import 'package:loc/core/helper/questoin_alert_dialog.dart';
 import 'package:loc/core/server/firebase_methoudes.dart';
-import 'package:loc/featuers/requests/data/models/request_model.dart';
+import 'package:loc/featuers/requests/data/models/user_request_model.dart';
 import 'package:loc/featuers/requests/presentatoin/manager/user_edit_request_cubit/user_editing_request_cubit.dart';
 import 'package:loc/featuers/requests/presentatoin/widgets/request_detalis_section.dart';
 import '../../../../core/helper/delightful_toast.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../data/models/request_model.dart';
+import '../../data/models/user_request_model.dart';
 
 class RequestStateSection extends StatelessWidget {
   const RequestStateSection({super.key, required this.requestModel});

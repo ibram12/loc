@@ -33,6 +33,7 @@ class AllLocsView extends StatelessWidget {
         body: AllLocsViewBody(
           startTime: startTime,
           endTime: endTime,
+          selectedService:selectedService
         ),
       ),
     );

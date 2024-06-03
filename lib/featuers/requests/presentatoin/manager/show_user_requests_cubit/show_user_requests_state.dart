@@ -1,6 +1,6 @@
 
 
-import '../../../data/models/request_model.dart';
+import '../../../data/models/user_request_model.dart';
 
  class ShowUserRequestsState {}
 

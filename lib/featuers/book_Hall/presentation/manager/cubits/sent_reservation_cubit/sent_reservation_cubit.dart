@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loc/core/server/firebase_methoudes.dart';
-import 'package:loc/featuers/requests/data/models/request_model.dart';
+import 'package:loc/featuers/requests/data/models/user_request_model.dart';
 import 'package:meta/meta.dart';
 import '../../../../../../core/server/shered_pref_helper.dart';
 part 'sent_reservation_state.dart';
@@ -16,7 +16,8 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
     required DateTime data,
     required List<String> halls,
     required  Future<List<String>> requestIdsInUserCollection,
-    required bool isDaily
+    required bool isDaily,
+    required String selectedService
   }) async {
     String? getUserName = await SherdPrefHelper().getUserName();
   Future<String> getName()async{
@@ -52,6 +53,7 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
           'endTime': endTime,
           'date': '${data.day}/${data.month}/${data.year}',
           'replyState': ReplyState.noReplyYet.description,
+          'service':selectedService,
         });
       }
       emit(SentReservationSuccess());

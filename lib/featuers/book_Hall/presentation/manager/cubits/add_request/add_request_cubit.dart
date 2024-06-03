@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../../requests/data/models/request_model.dart';
+import '../../../../../requests/data/models/user_request_model.dart';
 
 part 'add_request_state.dart';
 
@@ -11,7 +11,7 @@ class AddRequestToUserCubit extends Cubit<AddRequestState> {
   AddRequestToUserCubit() : super(AddRequestInitial());
 
  Future <List<String>> addRequest(
-    Timestamp startTime, Timestamp endTime, List<String> hallIds,bool daily) async {
+    Timestamp startTime, Timestamp endTime, List<String> hallIds,bool daily,String selectedService) async {
   emit(AddRequestLoading());
   try {
     String id = FirebaseAuth.instance.currentUser!.uid;
@@ -46,6 +46,7 @@ class AddRequestToUserCubit extends Cubit<AddRequestState> {
         'startTime': startTime,
         'endTime': endTime,
         'replyState': ReplyState.noReplyYet.description,
+        'service': selectedService
       });
 
       reservationId.add(reservationRef.id);

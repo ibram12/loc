@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loc/featuers/requests/data/models/request_model.dart';
+import 'package:loc/featuers/requests/data/models/user_request_model.dart';
 
 class RequstCard extends StatelessWidget {
   const RequstCard(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:loc/featuers/requests/data/models/request_model.dart';
+import 'package:loc/featuers/requests/data/models/user_request_model.dart';
 
 import '../../../../core/text_styles/Styles.dart';
 
@@ -17,6 +17,8 @@ class RequestDetalisSection extends StatelessWidget {
           overflow: TextOverflow.fade,
           style: Styles.textStyle18,
         ),
+Text(requestModel.service,style: Styles.textStyle18.copyWith(color: Colors.green),),
+
         const SizedBox(height: 5),
         Text(
           'Date: ${DateFormat('MMMM dd, yyyy').format(requestModel.startTime.toDate())}',

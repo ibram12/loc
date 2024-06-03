@@ -30,8 +30,10 @@ class UserRequestModel {
   final ReplyState replyState;
   final String requestId;
   final bool daily;
+  final String service;
 
   UserRequestModel({
+    required this.service,
     required this.id,
     required this.hallId,
     required this.userId,
@@ -43,23 +45,25 @@ class UserRequestModel {
     required this.requestId,
   });
 
-  factory UserRequestModel.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
+  factory UserRequestModel.fromDocumentSnapshot(
+      DocumentSnapshot documentSnapshot) {
     final data = documentSnapshot.data() as Map<String, dynamic>?;
-     String userId =FirebaseAuth.instance.currentUser!.uid;
+    String userId = FirebaseAuth.instance.currentUser!.uid;
     if (data == null) {
       throw StateError('Missing data for document ID ${documentSnapshot.id}');
     }
 
     return UserRequestModel(
+      service: data['service'],
       id: documentSnapshot.id,
-      hallId: data['hallId'], 
-      userId: data['userId'] ?? userId, 
-      hallName: data['hallName'] ,
+      hallId: data['hallId'],
+      userId: data['userId'] ?? userId,
+      hallName: data['hallName'],
       endTime: data['endTime'],
-      startTime: data['startTime'] ,
+      startTime: data['startTime'],
       replyState: _convertReplyState(data['replyState']),
-      requestId: data['requestId'] ,
-      daily: data['daily'] ,
+      requestId: data['requestId'],
+      daily: data['daily'],
     );
   }
 

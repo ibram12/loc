@@ -8,22 +8,24 @@ import 'halls_list_view.dart';
 
 class AllLocsViewBody extends StatelessWidget {
   const AllLocsViewBody(
-      {super.key, required this.startTime, required this.endTime});
+      {super.key, required this.startTime, required this.endTime, required this.selectedService});
   final Timestamp startTime;
   final Timestamp endTime;
+  final String selectedService;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SentReservationToAdminCubit, SentReservationState>(
         builder: (context, state) {
-          bool isLoading=state is SentReservationLoading;
+      bool isLoading = state is SentReservationLoading;
       return PopScope(
-        canPop:!isLoading,
+        canPop: !isLoading,
         child: ModalProgressHUD(
           inAsyncCall: isLoading,
           child: Stack(children: [
             HallsListView(
               startTime: startTime,
               endTime: endTime,
+              selectedService:selectedService
             ),
           ]),
         ),

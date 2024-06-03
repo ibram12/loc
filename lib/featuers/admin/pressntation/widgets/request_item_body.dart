@@ -36,6 +36,7 @@ class RequestItemBody extends StatelessWidget {
                           overflow: TextOverflow.fade,
                           style: Styles.textStyle18,
                         ),
+                        Text(requestModel.service,style: Styles.textStyle18.copyWith(color: Colors.green),),
                         const SizedBox(height: 5),
                         Text(
                           'Date: ${DateFormat('dd-MM-yyyy').format(requestModel.startTime.toDate())}',

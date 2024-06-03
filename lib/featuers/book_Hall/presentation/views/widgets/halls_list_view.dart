@@ -11,11 +11,12 @@ class HallsListView extends StatefulWidget {
   const HallsListView({
     Key? key,
     required this.startTime,
-    required this.endTime,
+    required this.endTime, required this.selectedService,
   }) : super(key: key);
 
   final Timestamp startTime;
   final Timestamp endTime;
+  final String selectedService;
 
   @override
   State<HallsListView> createState() => _HallsListViewState();
@@ -36,66 +37,65 @@ class _HallsListViewState extends State<HallsListView> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FeatchAvilableHallsCubit, FeatchAvilableHallsState>(
-    listener: (context, state) {
-      if (state is FeatchAvilableHallsLoaded) {
-        setState(() {
-          availableHallsIds = state.availableHalls;
-        });
-      } else if (state is FeatchAvilableHallsError) {
-        print(state.message);
-      }
-    },
-    builder: (context, state) {
-      if(state is ThereNoAvilableHalls){
-        return Center(child: Image.asset('assets/images/unfind.png'));
-      }
-      return StreamBuilder<QuerySnapshot<Object?>>(
-        stream: _hallsStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Something went wrong');
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } 
-          var filteredDocs = snapshot.data!.docs
-              .where((doc) => availableHallsIds.contains(doc.id))
-              .toList();
-          return Stack(
-            alignment: Alignment.bottomCenter,
-             children: [
-            GridView.builder(
-              itemCount: filteredDocs.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+      listener: (context, state) {
+        if (state is FeatchAvilableHallsLoaded) {
+          setState(() {
+            availableHallsIds = state.availableHalls;
+          });
+        } else if (state is FeatchAvilableHallsError) {
+          print(state.message);
+        }
+      },
+      builder: (context, state) {
+        if (state is ThereNoAvilableHalls) {
+          return Center(child: Image.asset('assets/images/unfind.png'));
+        }
+        return StreamBuilder<QuerySnapshot<Object?>>(
+          stream: _hallsStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Something went wrong');
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            var filteredDocs = snapshot.data!.docs
+                .where((doc) => availableHallsIds.contains(doc.id))
+                .toList();
+            return Stack(alignment: Alignment.bottomCenter, children: [
+              GridView.builder(
+                itemCount: filteredDocs.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemBuilder: (context, index) {
+                  return HallItem(
+                    selectedHalls: userhallsChoosed,
+                    onSelectionChanged: (isSelected, hallId) {
+                      setState(() {
+                        if (isSelected) {
+                          userhallsChoosed.add(hallId);
+                        } else {
+                          userhallsChoosed
+                              .removeAt(userhallsChoosed.indexOf(hallId));
+                        }
+                      });
+                    },
+                    hallId: filteredDocs[index].id,
+                    hallModel: HallModel.fromJson(
+                        filteredDocs[index].data() as Map<String, dynamic>),
+                  );
+                },
               ),
-              itemBuilder: (context, index) {
-                return HallItem(
-                  selectedHalls: userhallsChoosed,
-                  onSelectionChanged: (isSelected, hallId) {
-                    setState(() {
-                      if (isSelected) {
-                        userhallsChoosed.add(hallId);
-                      } else {
-                        userhallsChoosed
-                            .removeAt(userhallsChoosed.indexOf(hallId));
-                      }
-                    });
-                  },
-                  hallId: filteredDocs[index].id,
-                  hallModel: HallModel.fromJson(
-                      filteredDocs[index].data() as Map<String, dynamic>),
-                );
-              },
-            ),
-            SentRequestButtom(
-              startTime: widget.startTime,
-              endTime: widget.endTime,
-              hallsIds: userhallsChoosed,
-            )
-          ]);
-        },
-      );
-    },
-  );
+              SentRequestButtom(
+                startTime: widget.startTime,
+                endTime: widget.endTime,
+                hallsIds: userhallsChoosed,
+                selectedService:widget. selectedService
+              )
+            ]);
+          },
+        );
+      },
+    );
   }
 }

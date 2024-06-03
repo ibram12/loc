@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:loc/featuers/requests/data/models/request_model.dart';
+import 'package:loc/featuers/requests/data/models/user_request_model.dart';
 import 'show_user_requests_state.dart';
 
 class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
