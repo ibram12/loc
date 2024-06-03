@@ -11,9 +11,10 @@ import '../manager/cubits/sent_reservation_cubit/sent_reservation_cubit.dart';
 
 class AllLocsView extends StatelessWidget {
   const AllLocsView(
-      {super.key, required this.startTime, required this.endTime});
+      {super.key, required this.startTime, required this.endTime,required this.selectedService});
   final Timestamp startTime;
   final Timestamp endTime;
+  final String selectedService;
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

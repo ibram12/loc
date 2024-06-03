@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/core/helper/delightful_toast.dart';
+import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
 import 'package:loc/featuers/book_Hall/presentation/manager/cubits/select_time_cubit/select_time_cubit.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/all_Locs_view.dart';
@@ -23,6 +24,8 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
   Timestamp? _endTime;
   DateTime? _date;
   late SelectTimeCubit selectTimeCubit;
+  String? _selectedText;
+
   @override
   void initState() {
     selectTimeCubit = BlocProvider.of<SelectTimeCubit>(context);
@@ -44,48 +47,52 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
         } else if (state is SelectTimeFailer) {
           showDelightfulToast(
               message: state.message, context: context, dismiss: false);
-        }else if (state is TheStartTimeAfterTheEndTimeError) {
+        } else if (state is TheStartTimeAfterTheEndTimeError) {
           showDelightfulToast(
               message: state.message, context: context, dismiss: false);
-        }else if(state is TheEndTimeAsSameAsStartTimeError){
+        } else if (state is TheEndTimeAsSameAsStartTimeError) {
           showDelightfulToast(
               message: state.message, context: context, dismiss: false);
         }
-          
-        
       },
       builder: (context, state) {
         return Center(
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const UserChoices(),
-                if (_startTime != null && _endTime != null && _date != null && state is SelectTimeSuccess)
+                UserChoices(
+                  onServiceSelected: (String? selectedService) {
+                    setState(() {
+                      _selectedText = selectedService;
+                    });
+                  },
+                ),
+                if (state is SelectTimeSuccess)
                   Column(
                     children: [
-                      Text(
-                          '${S.of(context).time_range}: \n on ${DateFormat('yyyy-MM-dd').format(_date!)} at \n${DateFormat('hh:mm a').format(_startTime!.toDate())}, to ${DateFormat('hh:mm a').format(_endTime!.toDate())}'),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                    
                       CustomBotton(
                           backgroundColor: kPrimaryColor,
                           text: state is Loading ? 'Loading...' : 'Submit',
                           onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => AllLocsView(
-                                  startTime: _startTime!,
-                                  endTime: _endTime!,
+                            if (_selectedText != null) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => AllLocsView(
+                                    selectedService: _selectedText!,
+                                    startTime: _startTime!,
+                                    endTime: _endTime!,
+                                  ),
                                 ),
-                              ),
-                            
-                            );
+                              );
+                            } else {
+                              showSnackBar(context, 'please, Select Service');
+                            }
                           }),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                          const SizedBox(height: 20),
+                            Text(
+                          '${S.of(context).time_range}: \n on ${DateFormat('yyyy-MM-dd').format(_date!)} at \n${DateFormat('hh:mm a').format(_startTime!.toDate())}, to ${DateFormat('hh:mm a').format(_endTime!.toDate())}\n to make:${_selectedText ?? 'SELECT YOUR SERVICE'} '),
+                
                     ],
                   ),
               ],
