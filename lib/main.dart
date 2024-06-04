@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
     });
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // locale: const Locale('ar'),
+      //  locale: const Locale('ar'),
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

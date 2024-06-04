@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/utils/constants.dart';
+import 'package:loc/featuers/week_time_line/presentation/views/time_line_view.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../admin/pressntation/view/bottomNav_bar.dart';
@@ -57,26 +59,25 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
   Widget build(BuildContext context) {
     return isLoading
         ? const Center(child: CircularProgressIndicator())
-        : SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const SizedBox(
-                  width: double.infinity,
-                ),
-                Image.asset(kLogo),
-                const SizedBox(
-                  height: 79,
-                ),
-                const Card_Button(page: BookLocView(), text: 'Add Event'),
-                Visibility(
-                    visible: isAdmin,
-                    child: Card_Button(
-                        page: const BottomNavBar(),
-                        text: S.of(context).add_khdma)),
-              ],
+        : Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(
+              width: double.infinity,
             ),
-          );
+            ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.asset(kLogo)),
+              const Card_Button(page: TimeLineVeiw(), text: 'Time Line'),
+
+            const Card_Button(page: BookLocView(), text: 'Add Event'),
+            Visibility(
+                visible: isAdmin,
+                child: Card_Button(
+                    page: const BottomNavBar(),
+                    text: S.of(context).add_khdma)),
+          ],
+        );
   }
 }

@@ -19,5 +19,21 @@ const  List<String> kServices = [
     'كشافه',
     'اخرى'
   ];
+
+const Map<String, Color> kServiceColors = {
+  'ملائكه': Colors.red,
+  'خدمه ابتدائي بنين': Colors.blue,
+  'خدمه ابتدائي بنات': Colors.green,
+  'خدمه اعدادي بنين': Colors.yellow,
+  'خدمه اعدادي بنات': Colors.orange,
+  'خدمه ثانوي بنين': Colors.purple,
+  'خدمه ثانوي بنات': Colors.pink,
+  'جامعين': Colors.brown,
+  'رجاله': Colors.teal,
+  'حديثي الزواج': Colors.cyan,
+  'كشافه': Colors.lime,
+  'اخرى': Colors.grey
+};
+
 const   List<String> kRoles = ['User','Moderator','Admin'];
 
