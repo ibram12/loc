@@ -23,6 +23,7 @@ class AllRequestsViewBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return RequestItem(
                     requestModel: RequestModel(
+                        imageUrl: '', 
                       service: '',
                       hallId: '',
                         name: 'Ahmed',

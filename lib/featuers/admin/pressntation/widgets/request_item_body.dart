@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/featuers/admin/data/models/request_model.dart';
@@ -5,7 +6,8 @@ import 'package:loc/featuers/admin/data/models/request_model.dart';
 import '../../../../core/text_styles/Styles.dart';
 
 class RequestItemBody extends StatelessWidget {
-  const RequestItemBody({super.key, required this.requestModel, required this.isLoading});
+  const RequestItemBody(
+      {super.key, required this.requestModel, required this.isLoading});
   final RequestModel requestModel;
   final bool isLoading;
   @override
@@ -31,12 +33,32 @@ class RequestItemBody extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          requestModel.name,
-                          overflow: TextOverflow.fade,
-                          style: Styles.textStyle18,
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 34,
+                              child: CachedNetworkImage(
+                                  placeholder: (context, url) => const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      fit: BoxFit.fill,
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error,color: Colors.red,),
+                                  imageUrl: requestModel.imageUrl),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              requestModel.name,
+                              overflow: TextOverflow.fade,
+                              style: Styles.textStyle18,
+                            ),
+                          ],
                         ),
-                        Text(requestModel.service,style: Styles.textStyle18.copyWith(color: Colors.green),),
+                        Text(
+                          requestModel.service,
+                          style:
+                              Styles.textStyle18.copyWith(color: Colors.green),
+                        ),
                         const SizedBox(height: 5),
                         Text(
                           'Date: ${DateFormat('dd-MM-yyyy').format(requestModel.startTime.toDate())}',

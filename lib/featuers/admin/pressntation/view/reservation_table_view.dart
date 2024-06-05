@@ -40,6 +40,7 @@ class _ReservatoinTableViewState extends State<ReservatoinTableView> {
                   PaginatedDataTable(
                     columns: const [
                       DataColumn(label: Text('name')),
+                      DataColumn(label: Text('service')),
                       DataColumn(label: Text('date')),
                       DataColumn(label: Text('start time')),
                       DataColumn(label: Text('end time')),

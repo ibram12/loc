@@ -16,6 +16,7 @@ class MyData extends  DataTableSource{
     return DataRow(
       cells: [
       DataCell(Text(reservation.name)),
+      DataCell(Text(reservation.service)),
       DataCell(Text(DateFormat('yyyy-MM-dd').format(reservation.startTime.toDate()))),
       DataCell(Text(DateFormat('hh:mm a').format(reservation.startTime.toDate()))),
       DataCell(Text(DateFormat('hh:mm a').format(reservation.endTime.toDate()))),

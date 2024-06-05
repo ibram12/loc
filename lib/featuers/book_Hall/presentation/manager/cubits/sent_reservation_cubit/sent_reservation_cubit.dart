@@ -42,7 +42,8 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
 
         DocumentReference reservationRef =
             await DataBaseMethouds().addReservation(resrvationInfo, halls[i]);
-  
+           String? userImage = FirebaseAuth.instance.currentUser!.photoURL;
+
 
         await reservationRef.set({
           'hallId': halls[i],
@@ -55,6 +56,7 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
           'date': '${data.day}/${data.month}/${data.year}',
           'replyState': isAdmin == true ? ReplyState.accepted.description : ReplyState.noReplyYet.description,
           'service':selectedService,
+          'image':userImage
         });
       }
       emit(SentReservationSuccess());

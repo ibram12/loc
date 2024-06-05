@@ -11,10 +11,12 @@ class RequestModel {
   final bool daily;
   final String hallId;
   final String service;
+  final String imageUrl;
   RequestModel(
       {
+        required this.imageUrl,
         required this.service,
-        required this.hallId,
+      required this.hallId,
       required this.daily,
       required this.requestId,
       required this.sendDate,
@@ -25,7 +27,7 @@ class RequestModel {
       required this.id});
   factory RequestModel.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
     return RequestModel(
-      service: documentSnapshot['service'],
+        service: documentSnapshot['service'],
         hallId: documentSnapshot['hallId'],
         requestId: documentSnapshot['requestId'],
         id: documentSnapshot['id'],
@@ -34,7 +36,7 @@ class RequestModel {
         startTime: documentSnapshot['startTime'],
         endTime: documentSnapshot['endTime'],
         replyState: _convertReplyState(documentSnapshot['replyState']),
-        daily: documentSnapshot['daily']);
+        daily: documentSnapshot['daily'], imageUrl: documentSnapshot['image']);
   }
   static _convertReplyState(String replyState) {
     switch (replyState) {
