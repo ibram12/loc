@@ -8,11 +8,9 @@ import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/widgets/password_text_field.dart';
 import 'package:loc/featuers/auth/presentation/manager/cubits/logIn_cubit/log_in_cubit.dart';
 import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
-import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
 import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
-
 import '../../../../core/widgets/Custom_TextField.dart';
 import '../widgets/custom_logo_auth.dart';
 
@@ -28,6 +26,11 @@ class _LogInViewBodyState extends State<LogInViewBody> {
   TextEditingController password = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
   bool isLoading = false;
+
+
+  
+
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -35,8 +38,6 @@ class _LogInViewBodyState extends State<LogInViewBody> {
     email.dispose();
     password.dispose();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +68,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 20),
-                    CustomLogoAuth(
-                      
-                    ),
+                    CustomLogoAuth(),
                     const SizedBox(height: 20),
                     const Text("Login", style: Styles.textStyle30),
                     const SizedBox(height: 10),
@@ -126,7 +125,6 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                     const SizedBox(height: 20),
 
                     // Text("Don't Have An Account ? Resister" , textAlign: TextAlign.center,),
-                    
                   ],
                 ),
               ),
