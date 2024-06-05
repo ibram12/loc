@@ -34,6 +34,7 @@ dependencies:
   connectivity_plus: ^6.0.3
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
+  dartz: ^0.10.0
   delightful_toast: ^1.1.0
   device_info_plus: ^10.1.0
   firebase_auth: ^4.15.3
@@ -45,6 +46,7 @@ dependencies:
   flutter_bloc: ^8.1.5
   flutter_localizations:
     sdk: flutter
+  image_cropper: ^6.0.0
   image_picker: ^1.1.0
   intl: any
   lottie: ^3.1.0

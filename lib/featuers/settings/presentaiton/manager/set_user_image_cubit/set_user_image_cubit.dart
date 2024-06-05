@@ -34,6 +34,7 @@ class SetUserImageCubit extends Cubit<SetUserImageState> {
         });
 
     await SherdPrefHelper().setUserImage(await _saveImageLocally(image));
+    FirebaseAuth.instance.currentUser!.updatePhotoURL(url);//my be you not need it
 
     if (!isClosed) {
   emit(SetUserImageSuccess(imageUrl: url));

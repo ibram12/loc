@@ -57,7 +57,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
           });
         } else if (state is AdminEnterTruePassword) {
           Navigator.pop(context); //close the dialog
-          signUpController.clear();
+        
         }
         if (state is AdminBackToHisAccount) {
           email.clear();

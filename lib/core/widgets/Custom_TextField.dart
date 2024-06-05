@@ -19,6 +19,7 @@ final void Function(String?)? onChanged;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: TextInputType.emailAddress,
       onChanged: onChanged,
       validator: (value) {
         if (value == '') {
