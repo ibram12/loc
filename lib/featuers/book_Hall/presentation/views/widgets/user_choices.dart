@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/text_styles/Styles.dart';
+import 'package:loc/core/widgets/Custom_TextField.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../manager/cubits/select_time_cubit/select_time_cubit.dart';
 
@@ -18,6 +22,7 @@ class UserChoices extends StatefulWidget {
 }
 
 class _UserChoicesState extends State<UserChoices> {
+  TextEditingController controller = TextEditingController();
   Future<List> _fetchTexts() async {
     String userid = FirebaseAuth.instance.currentUser!.uid;
     final snapshot =
@@ -25,13 +30,26 @@ class _UserChoicesState extends State<UserChoices> {
     return snapshot.data()?['service'] as List;
   }
 
+  bool? isAdmin;
+  Future<void> _checkRole() async {
+    isAdmin = await SherdPrefHelper().getUserRole();
+  }
+
   String? _selectedText;
 
   late SelectTimeCubit selectTimeCubit;
   @override
   void initState() {
+    _checkRole();
     selectTimeCubit = BlocProvider.of<SelectTimeCubit>(context);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
   }
 
   @override
@@ -74,13 +92,30 @@ class _UserChoicesState extends State<UserChoices> {
                         });
                         widget.onServiceSelected(_selectedText);
                       },
-                    ))
+                    )),
+                isAdmin == false
+                    ? const SizedBox()
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child: CustomTextField(
+                              onChanged: (service) {
+                                if (controller.text == '') {
+                                  widget.onServiceSelected(_selectedText);
+                                } else {
+                                  widget.onServiceSelected(controller.text);
+                                }
+                              },
+                              hinttext: 'New Service',
+                              textEditingController: controller),
+                        ),
+                      ),
               ],
             );
           }
         },
       ),
-      
     ]);
   }
 }

@@ -7,16 +7,19 @@ class CustomTextField extends StatelessWidget {
     this.onSaved,
     required this.hinttext,
     required this.textEditingController,
-    this.obscureText, 
+    this.obscureText, this.onChanged, 
   });
   final void Function(String?)? onSaved;
   final String hinttext;
   final TextEditingController textEditingController;
   final bool? obscureText;
+final void Function(String?)? onChanged;
+
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       validator: (value) {
         if (value == '') {
           return 'value is required';

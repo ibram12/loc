@@ -5,8 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/week_time_line/presentation/views/time_line_view.dart';
-
-import '../../../../generated/l10n.dart';
 import '../../../admin/pressntation/view/bottomNav_bar.dart';
 import '../../../book_Hall/presentation/views/book_loc_view.dart';
 import 'Card_Button.dart';
@@ -69,14 +67,18 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: Image.asset(kLogo)),
-              const Card_Button(page: TimeLineVeiw(), text: 'Time Line'),
+              const Card_Button(
+                page: TimeLineVeiw(), text: 'Time Line',icon: Icons.calendar_month,),
 
-            const Card_Button(page: BookLocView(), text: 'Add Event'),
+            const Card_Button(
+              page: BookLocView(), text: 'Add Event',icon: Icons.add,),
             Visibility(
                 visible: isAdmin,
-                child: Card_Button(
-                    page: const BottomNavBar(),
-                    text: S.of(context).add_khdma)),
+                child: const Card_Button(
+                  color: Colors.red,
+                    page: BottomNavBar(),
+                    icon: Icons.admin_panel_settings_rounded,
+                    text: 'Admin Panel')),
           ],
         );
   }

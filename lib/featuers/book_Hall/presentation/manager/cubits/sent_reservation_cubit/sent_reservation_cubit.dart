@@ -24,6 +24,7 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
   String name = await  FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) => value.data()!['name']);
   SherdPrefHelper().setUserName(name);
   return name;}
+    bool? isAdmin = await SherdPrefHelper().getUserRole();
 
     Map<String, dynamic> resrvationInfo = {
       'id': FirebaseAuth.instance.currentUser!.uid,
@@ -52,7 +53,7 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
           'startTime': startTime,
           'endTime': endTime,
           'date': '${data.day}/${data.month}/${data.year}',
-          'replyState': ReplyState.noReplyYet.description,
+          'replyState': isAdmin == true ? ReplyState.accepted.description : ReplyState.noReplyYet.description,
           'service':selectedService,
         });
       }

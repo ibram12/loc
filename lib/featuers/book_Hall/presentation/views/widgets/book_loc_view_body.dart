@@ -75,7 +75,7 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                           backgroundColor: kPrimaryColor,
                           text: state is Loading ? 'Loading...' : 'Submit',
                           onPressed: () {
-                            if (_selectedText != null) {
+                            if (_selectedText != null && _selectedText != '') {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => AllLocsView(

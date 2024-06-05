@@ -51,8 +51,8 @@ class HomePage extends StatelessWidget {
       title: isArabic() ? "اماكن" : "loc",
       theme: ThemeData(
         cupertinoOverrideTheme: const CupertinoThemeData(
-          textTheme: CupertinoTextThemeData() // This is required
-        ),
+          textTheme: CupertinoTextThemeData(), // This is required
+                ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyanAccent),
         useMaterial3: true,
       ),
