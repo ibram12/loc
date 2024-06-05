@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:loc/featuers/admin/pressntation/view/admin_view.dart';
-import 'package:loc/featuers/admin/pressntation/view/day_by_day_table_view.dart';
+import 'package:loc/featuers/admin/pressntation/view/all_users_view.dart';
 import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
 
 import '../../../../core/utils/constants.dart';
@@ -19,13 +19,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
   late List<Widget> pagesList;
   late AdminView adminView;
   late SignUpView signUpView;
-  late DayByDayTableView timeLineView;
+  late AllUsersView timeLineView;
 
   @override
   void initState() {
     adminView = const AdminView();
     signUpView = const SignUpView();
-    timeLineView = const DayByDayTableView();
+    timeLineView = const AllUsersView();
     pagesList = [timeLineView, adminView, signUpView];
     super.initState();
   }
@@ -47,7 +47,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         },
         items: const [
           Icon(
-            Icons.calendar_month_outlined,
+            Icons.people_alt_sharp,
             color: Colors.white,
           ),
           Icon(

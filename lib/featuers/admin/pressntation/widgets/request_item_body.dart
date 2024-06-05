@@ -58,6 +58,7 @@ class RequestItemBody extends StatelessWidget {
                           requestModel.service,
                           style:
                               Styles.textStyle18.copyWith(color: Colors.green),
+                              overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 5),
                         Text(
