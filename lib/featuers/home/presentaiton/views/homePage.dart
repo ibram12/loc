@@ -21,9 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String? userName ;
   Future<void> getUserName() async {
   userName =await SherdPrefHelper().getUserName();
-  setState(() {
-    
-  });
+  setState(() {});
   }
 
   @override

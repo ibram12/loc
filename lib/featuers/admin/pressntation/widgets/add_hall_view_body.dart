@@ -64,7 +64,6 @@ class _AddHallViewBodyState extends State<AddHallViewBody> {
                 CustomImageContaner(
                   onSelected: (value) {
                      packedImage = value;
-
                   },
                 ),
                 Padding(

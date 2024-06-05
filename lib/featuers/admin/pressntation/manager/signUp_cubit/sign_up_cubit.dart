@@ -47,6 +47,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         'id': credential.user!.uid,
         'role': role,
         'service': services,
+        'image': '',
       };
       emit(AdminEnterTruePassword());
       await DataBaseMethouds().addUserDetails(userInfo, credential.user!.uid);
