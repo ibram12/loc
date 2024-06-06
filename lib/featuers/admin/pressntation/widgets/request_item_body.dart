@@ -37,14 +37,16 @@ class RequestItemBody extends StatelessWidget {
                           children: [
                             CircleAvatar(
                               radius: 34,
-                              child: CachedNetworkImage(
-                                  placeholder: (context, url) => const Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                      fit: BoxFit.fill,
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error,color: Colors.red,),
-                                  imageUrl: requestModel.imageUrl),
+                              child: ClipOval(
+                                child: requestModel.imageUrl == '' ? Image.asset('assets/images/person.png') : CachedNetworkImage(
+                                    placeholder: (context, url) => const Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                        fit: BoxFit.fill,
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error,color: Colors.red,),
+                                    imageUrl: requestModel.imageUrl),
+                              ),
                             ),
                             const SizedBox(width: 10),
                             Text(

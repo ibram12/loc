@@ -55,9 +55,8 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
             showDelightfulToast(
                 message: 'Wrong Password', context: context, dismiss: true);
           });
-        } else if (state is AdminEnterTruePassword) {
+        } else if (state is AdminEnterTruePassword || state is SignUpError) {
           Navigator.pop(context); //close the dialog
-        
         }
         if (state is AdminBackToHisAccount) {
           email.clear();

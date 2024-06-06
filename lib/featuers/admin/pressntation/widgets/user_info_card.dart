@@ -18,7 +18,7 @@ class UserInfoCard extends StatelessWidget {
           backgroundColor: Colors.transparent,
           radius: 34,
           child: ClipOval(
-            child: CachedNetworkImage(
+            child: userInfoModel.imageUrl == '' ? Image.asset('assets/images/person.png') : CachedNetworkImage(
                 placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator(),
                     ),
@@ -59,7 +59,7 @@ class UserInfoCard extends StatelessWidget {
             ),
           ],
         ),
-        trailing: IconButton( 
+        trailing: IconButton( // TODO: admin can edit user info
           padding: const EdgeInsets.only(left: 15),
           onPressed: () {},
           icon: const Icon(Icons.edit),

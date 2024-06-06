@@ -37,7 +37,7 @@ class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
         List<Meeting> locMeetings = reservationsSnap.docs.map((doc) {
           var data = doc.data() as Map<String, dynamic>;
           ReservatoinModel reservation =
-              ReservatoinModel.fromDoucumentSnapshot(data);//last update
+              ReservatoinModel.fromDoucumentSnapshot(data);
           return Meeting.fromReservatoinModel(reservation, doc.id,name);
         }).toList();
 
