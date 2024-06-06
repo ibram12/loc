@@ -22,29 +22,174 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "add_event": MessageLookupByLibrary.simpleMessage("Add Event"),
         "add_hall": MessageLookupByLibrary.simpleMessage("Add Hall"),
         "add_khdma": MessageLookupByLibrary.simpleMessage("add loc"),
         "add_loc": MessageLookupByLibrary.simpleMessage("add loc"),
+        "add_new_user": MessageLookupByLibrary.simpleMessage("Add New User"),
         "add_reservation":
             MessageLookupByLibrary.simpleMessage("Add a reservation"),
+        "add_reservation_something_went_wrong":
+            MessageLookupByLibrary.simpleMessage("Something went wrong"),
+        "admin_feature_wrong_password":
+            MessageLookupByLibrary.simpleMessage("Wrong Password"),
+        "admin_panel": MessageLookupByLibrary.simpleMessage("Admin Panel"),
+        "admin_password":
+            MessageLookupByLibrary.simpleMessage("Admin Password"),
+        "app_users": MessageLookupByLibrary.simpleMessage("App Users"),
+        "at": MessageLookupByLibrary.simpleMessage("at"),
         "book_hall": MessageLookupByLibrary.simpleMessage("Book Hall"),
+        "book_hall_something_went_wrong":
+            MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "cancal": MessageLookupByLibrary.simpleMessage("Cancal"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "choose_date": MessageLookupByLibrary.simpleMessage("Choose the date"),
+        "edit_end_time": MessageLookupByLibrary.simpleMessage("Edit end time"),
+        "edit_start_time":
+            MessageLookupByLibrary.simpleMessage("Edit start time"),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
         "end_time": MessageLookupByLibrary.simpleMessage("End Time"),
+        "enter_admin_password":
+            MessageLookupByLibrary.simpleMessage("Enter Admin Password"),
+        "enter_service_type":
+            MessageLookupByLibrary.simpleMessage("Enter Service Type"),
+        "enter_user_email":
+            MessageLookupByLibrary.simpleMessage("Enter User Email"),
+        "enter_your_email":
+            MessageLookupByLibrary.simpleMessage("Enter Your Email"),
+        "failed_to_fetch_requests":
+            MessageLookupByLibrary.simpleMessage("Failed to fetch requests"),
         "floor": MessageLookupByLibrary.simpleMessage("floor"),
+        "forgot_password":
+            MessageLookupByLibrary.simpleMessage("Forgot Password ?"),
+        "forr": MessageLookupByLibrary.simpleMessage("for"),
+        "hall": MessageLookupByLibrary.simpleMessage("Hall"),
         "halls": MessageLookupByLibrary.simpleMessage("Halls"),
+        "home_made_a_reservation_from":
+            MessageLookupByLibrary.simpleMessage("made a reservation from"),
+        "inn": MessageLookupByLibrary.simpleMessage("in"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "login_cubit_messages_wrong_email_or_password":
+            MessageLookupByLibrary.simpleMessage("Wrong email or password"),
+        "login_email": MessageLookupByLibrary.simpleMessage("Email"),
+        "login_password": MessageLookupByLibrary.simpleMessage("Password"),
+        "login_to_continue_using_the_app": MessageLookupByLibrary.simpleMessage(
+            "Login To Continue Using The App"),
+        "make_reservation":
+            MessageLookupByLibrary.simpleMessage("Make Reservation"),
         "mass_alart": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to remove this item?"),
+        "name": MessageLookupByLibrary.simpleMessage("Name"),
         "name_app": MessageLookupByLibrary.simpleMessage("loc"),
         "name_loc": MessageLookupByLibrary.simpleMessage("name loc"),
+        "new_service": MessageLookupByLibrary.simpleMessage("New Service"),
+        "no_users_yet": MessageLookupByLibrary.simpleMessage("No Users yet"),
+        "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "on": MessageLookupByLibrary.simpleMessage("on"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "pick_the_date": MessageLookupByLibrary.simpleMessage("Pick the date"),
+        "please_select_hall":
+            MessageLookupByLibrary.simpleMessage("please select hall"),
+        "please_select_role_type":
+            MessageLookupByLibrary.simpleMessage("please select role type"),
+        "please_select_service":
+            MessageLookupByLibrary.simpleMessage("please, Select Service"),
+        "please_select_service_type":
+            MessageLookupByLibrary.simpleMessage("please select service type"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "remove": MessageLookupByLibrary.simpleMessage("Remove"),
+        "remove_hall": MessageLookupByLibrary.simpleMessage("Remove Hall"),
+        "role": MessageLookupByLibrary.simpleMessage("Role"),
+        "select_services":
+            MessageLookupByLibrary.simpleMessage("Select Services"),
+        "select_time_cubit_in_book_hall_feature_pick_the_date":
+            MessageLookupByLibrary.simpleMessage("Pick the date"),
+        "select_time_cubit_in_book_hall_feature_pick_the_end_time":
+            MessageLookupByLibrary.simpleMessage("Pick the end time"),
+        "select_time_cubit_in_book_hall_feature_pick_the_start_time":
+            MessageLookupByLibrary.simpleMessage("Pick the start time"),
+        "select_time_cubit_in_book_hall_feature_the_end_time_cant_be_the_same_as_the_start_time":
+            MessageLookupByLibrary.simpleMessage(
+                "The end time can\'t be the same as the start time"),
+        "select_time_cubit_in_book_hall_feature_the_operation_has_been_cancelled":
+            MessageLookupByLibrary.simpleMessage(
+                "The operation has been cancelled"),
+        "select_time_cubit_in_book_hall_feature_the_start_time_cant_be_after_the_end_time":
+            MessageLookupByLibrary.simpleMessage(
+                "The start time can\'t be after the end time"),
+        "select_your_service":
+            MessageLookupByLibrary.simpleMessage("SELECT YOUR SERVICE"),
+        "sent_request": MessageLookupByLibrary.simpleMessage("sent request"),
+        "service": MessageLookupByLibrary.simpleMessage("Service"),
+        "service_type": MessageLookupByLibrary.simpleMessage("Service Type"),
         "set_end_time": MessageLookupByLibrary.simpleMessage("Select End Time"),
         "set_start_time":
             MessageLookupByLibrary.simpleMessage("Select Start Time"),
+        "show_user_requests_in_requests_feature_failed_to_fetch_requests":
+            MessageLookupByLibrary.simpleMessage("Failed to fetch requests"),
+        "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "sign_up_cubit_in_admin_the_password_provided_is_too_weak":
+            MessageLookupByLibrary.simpleMessage(
+                "The password provided is too weak."),
+        "sign_up_successfully":
+            MessageLookupByLibrary.simpleMessage("Sign Up Successfully"),
+        "something_went_wrong_please_try_later":
+            MessageLookupByLibrary.simpleMessage(
+                "Something went wrong, please try later."),
         "start_time": MessageLookupByLibrary.simpleMessage("Start Time"),
+        "submit": MessageLookupByLibrary.simpleMessage("Submit"),
+        "the_account_already_exists_for_that_email":
+            MessageLookupByLibrary.simpleMessage(
+                "The account already exists for that email."),
+        "the_operation_has_been_cancelled":
+            MessageLookupByLibrary.simpleMessage(
+                "The operation has been cancelled"),
+        "the_start_time_cant_be_the_same_as_the_end_time":
+            MessageLookupByLibrary.simpleMessage(
+                "The start time can\'t be the same as the end time"),
+        "the_start_time_is_after_the_end_time":
+            MessageLookupByLibrary.simpleMessage(
+                "The start time is after the end time"),
+        "there_was_a_conflict_with_another_reservation":
+            MessageLookupByLibrary.simpleMessage(
+                "There was a conflict with another reservation"),
+        "time_line": MessageLookupByLibrary.simpleMessage("Time Line"),
+        "time_line_loading": MessageLookupByLibrary.simpleMessage("Loading..."),
         "time_range":
             MessageLookupByLibrary.simpleMessage("Selected Time Range"),
         "title": MessageLookupByLibrary.simpleMessage("loc"),
-        "title_alart": MessageLookupByLibrary.simpleMessage("Remove Item")
+        "title_alart": MessageLookupByLibrary.simpleMessage("Remove Item"),
+        "to": MessageLookupByLibrary.simpleMessage("to"),
+        "to_make": MessageLookupByLibrary.simpleMessage("to make"),
+        "user_edit_request_cubit_in_requests_feature_edit_end_time":
+            MessageLookupByLibrary.simpleMessage("Edit end time"),
+        "user_edit_request_cubit_in_requests_feature_edit_start_time":
+            MessageLookupByLibrary.simpleMessage("Edit start time"),
+        "user_edit_request_cubit_in_requests_feature_edit_the_date":
+            MessageLookupByLibrary.simpleMessage("Edit the date"),
+        "user_edit_request_cubit_in_requests_feature_failed_to_update_request":
+            MessageLookupByLibrary.simpleMessage("Failed to update request"),
+        "user_edit_request_cubit_in_requests_feature_the_operation_has_been_cancelled":
+            MessageLookupByLibrary.simpleMessage(
+                "The operation has been cancelled"),
+        "user_edit_request_cubit_in_requests_feature_the_start_time_cant_be_the_same_as_the_end_time":
+            MessageLookupByLibrary.simpleMessage(
+                "The start time can\'t be the same as the end time"),
+        "user_edit_request_cubit_in_requests_feature_the_start_time_is_after_the_end_time":
+            MessageLookupByLibrary.simpleMessage(
+                "The start time is after the end time"),
+        "user_edit_request_cubit_in_requests_feature_there_was_a_conflict_with_another_reservation":
+            MessageLookupByLibrary.simpleMessage(
+                "There was a conflict with another reservation"),
+        "user_edit_request_cubit_in_requests_feature_you_have_updated_your_request_from":
+            MessageLookupByLibrary.simpleMessage(
+                "You Have Updated Your Request from"),
+        "user_name": MessageLookupByLibrary.simpleMessage("User Name"),
+        "wellcome": MessageLookupByLibrary.simpleMessage("Wellcome"),
+        "you_have_updated_your_request_from":
+            MessageLookupByLibrary.simpleMessage(
+                "You Have Updated Your Request from"),
+        "your_request_sent_successfully": MessageLookupByLibrary.simpleMessage(
+            "your request sent successfully")
       };
 }
