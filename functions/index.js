@@ -25,9 +25,9 @@ exports.scheduledFunction = functions.pubsub.schedule('every saturday 00:00').on
     const usersSnapshot = await db.collection('users').get();
     const batch = db.batch();
 
+    // Deleting from requests subcollection
     for (const userDoc of usersSnapshot.docs) {
       const requestsQuery = userDoc.ref.collection('requests');
-      
       const requestsSnapshot = await requestsQuery.get();
 
       requestsSnapshot.forEach(requestDoc => {
@@ -38,9 +38,20 @@ exports.scheduledFunction = functions.pubsub.schedule('every saturday 00:00').on
       });
     }
 
+    // Deleting from reservations subcollection
+    const locsSnapshot = await db.collection('locs').get();
+    for (const locDoc of locsSnapshot.docs) {
+      const reservationsQuery = locDoc.ref.collection('reservations');
+      const reservationsSnapshot = await reservationsQuery.get();
+
+      reservationsSnapshot.forEach(reservationDoc => {
+        batch.delete(reservationDoc.ref);
+      });
+    }
+
     await batch.commit();
     await deletionDateRef.set({ date: admin.firestore.Timestamp.fromDate(now) });
-    console.log('Deleted documents from the requests subcollection.');
+    console.log('Deleted documents from the requests and reservations subcollections.');
   }
   return null;
 });
