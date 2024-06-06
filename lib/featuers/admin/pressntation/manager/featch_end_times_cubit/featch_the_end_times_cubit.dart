@@ -49,8 +49,9 @@ class FeatchTheEndTimesCubit extends Cubit<FeatchTheEndTimesState> {
         }
       }
     } catch (e) {
-      print(e);
-      emit(FeatchTheEndTimesFailer(e.toString()));
+      if (!isClosed) {
+  emit(FeatchTheEndTimesFailer(e.toString()));
+}
     }
   }
 }

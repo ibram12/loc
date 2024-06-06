@@ -40,7 +40,9 @@ class _AllHallsListViewState extends State<AllHallsListView> {
       reservationsCounts[hall.id] = reservations.docs.length;
       remainingTimes[hall.id] = null;
     }
-    setState(() {});
+    if (mounted) {
+  setState(() {});
+}
   }
 
   @override
