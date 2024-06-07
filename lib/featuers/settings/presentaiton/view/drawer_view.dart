@@ -7,6 +7,8 @@ import 'package:loc/featuers/settings/presentaiton/manager/set_user_image_cubit/
 import 'package:loc/featuers/settings/presentaiton/widgets/drower_body.dart';
 import 'package:loc/featuers/settings/presentaiton/widgets/user_image.dart';
 
+import '../../../../generated/l10n.dart';
+
 class DrawerView extends StatelessWidget {
   const DrawerView({super.key});
 
@@ -26,7 +28,7 @@ class DrawerView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Profile',
+                    S.of(context).profile,
                     style: Styles.textStyle18.copyWith(color: Colors.white),
                   ),
                   const UserImage(),

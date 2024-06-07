@@ -6,6 +6,7 @@ import 'package:loc/featuers/settings/presentaiton/view/drawer_view.dart';
 
 
 import '../../../../core/server/shered_pref_helper.dart';
+import '../../../../generated/l10n.dart';
 import '../widgets/home_view_body.dart';
 
 
@@ -35,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title:  Text('Wellcome ${userName ?? ''}',style: Styles.textStyle18,),
+        title:  Text('${S.of(context).wellcome} ${userName ?? ''}',style: Styles.textStyle18,),
         leading:   Builder(
           builder: (context) {
             return IconButton(

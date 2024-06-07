@@ -45,13 +45,13 @@ class _AddHallViewBodyState extends State<AddHallViewBody> {
       builder: (context, state) {
         if (state is AddHallSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            showSnackBar(context, 'Hall added successfully');
+            showSnackBar(context, S.of(context).Hall_added_successfully);
           });
           location.clear();
           floor.clear();
         } else if (state is AddHallError) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            showSnackBar(context, 'something went wrong,try later');
+            showSnackBar(context, S.of(context).something_went_wrong_please_try_later);
           });
         }
         return ModalProgressHUD(
@@ -102,7 +102,7 @@ class _AddHallViewBodyState extends State<AddHallViewBody> {
                         await BlocProvider.of<AddHallCubit>(context)
                             .addHall(floor.text, location.text, packedImage);
                       } else if (packedImage.path == '') {
-                        showSnackBar(context, 'Please select image');
+                        showSnackBar(context, S.of(context).Please_select_image);
                       }
                     },
                     child: Text(S.of(context).add_loc)),

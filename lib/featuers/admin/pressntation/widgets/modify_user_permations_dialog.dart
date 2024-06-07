@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../data/models/user_info_model.dart';
 
 void showModifyUserPermationsDialog({
@@ -12,8 +13,8 @@ void showModifyUserPermationsDialog({
       context: context,
       builder: (builder) {
         return AlertDialog(
-          title: const Text('Modify permissions'),
-          content: Text('Modify permissions for ${userInfoModel.name}?'),
+          title:  Text(S.of(context).modify_permissions),
+          content: Text('${S.of(context).modify_permissions_for} ${userInfoModel.name}?'),
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -22,21 +23,21 @@ void showModifyUserPermationsDialog({
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text('Cancel'),
+                  child:  Text(S.of(context).cancal),
                 ),
                 Column(
                   children: [
                     TextButton(
                         onPressed: onEditServicesPressed,
-                        child: const Text(
-                          'Edit Services',
-                          style: TextStyle(color: Colors.deepOrange),
+                        child:  Text(
+                          S.of(context).edit_services,
+                          style: const TextStyle(color: Colors.deepOrange),
                         )),
                     TextButton(
                         onPressed: onEditRolePressed,
-                        child: const Text(
-                          'Edit Role',
-                          style: TextStyle(
+                        child:  Text(
+                          S.of(context).edit_role,
+                          style: const TextStyle(
                               color: Color.fromARGB(255, 248, 224, 4)),
                         )),
                   ],

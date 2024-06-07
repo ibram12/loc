@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:loc/featuers/requests/data/models/user_request_model.dart';
 
 import '../../../../core/text_styles/Styles.dart';
+import '../../../../generated/l10n.dart';
 
 class RequestDetalisSection extends StatelessWidget {
   const RequestDetalisSection({super.key, required this.requestModel});
@@ -21,17 +22,17 @@ Text(requestModel.service,style: Styles.textStyle18.copyWith(color: Colors.green
 
         const SizedBox(height: 5),
         Text(
-          'Date: ${DateFormat('MMMM dd, yyyy').format(requestModel.startTime.toDate())}',
+          '${S.of(context).date}: ${DateFormat('MMMM dd, yyyy').format(requestModel.startTime.toDate())}',
           style: Styles.textStyle16,
         ),
         const SizedBox(height: 5),
         Text(
-          'Start Time: ${DateFormat('hh:mm a').format(requestModel.startTime.toDate())}',
+          '${S.of(context).start_time}: ${DateFormat('hh:mm a').format(requestModel.startTime.toDate())}',
           style: Styles.textStyle16,
         ),
         const SizedBox(height: 5),
         Text(
-          'End Time: ${DateFormat('hh:mm a').format(requestModel.endTime.toDate())}',
+          '${S.of(context).end_time}: ${DateFormat('hh:mm a').format(requestModel.endTime.toDate())}',
           style: Styles.textStyle16,
         ),
       ],

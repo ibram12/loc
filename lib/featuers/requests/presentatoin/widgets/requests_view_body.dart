@@ -5,6 +5,7 @@ import 'package:loc/featuers/requests/presentatoin/manager/show_user_requests_cu
 import 'package:loc/featuers/requests/presentatoin/widgets/request_item.dart';
 
 import '../../../../core/helper/snack_bar.dart';
+import '../../../../generated/l10n.dart';
 import '../manager/show_user_requests_cubit/show_user_requests_state.dart';
 
 class UserRequestBody extends StatelessWidget {
@@ -23,8 +24,8 @@ class UserRequestBody extends StatelessWidget {
           return Center(child: Text(state.message));
         } else if (state is UserRequestsLoaded) {
           if (state.requests.isEmpty) {
-            return const Center(
-                child: Text('No Requests Yet', style: Styles.textStyle18));
+            return  Center(
+                child: Text(S.of(context).no_requests_yet, style: Styles.textStyle18));
           } else {
             return ListView.builder(
               itemCount: state.requests.length,
@@ -32,7 +33,7 @@ class UserRequestBody extends StatelessWidget {
                 return UserRequestItem(
                   onRequestDeleted: ()async {
                       showSnackBar(
-                          context, 'your request deleted successfully');
+                          context, S.of(context).your_request_deleted_successfully);
     
                   },
                   requestModel: state.requests[index],

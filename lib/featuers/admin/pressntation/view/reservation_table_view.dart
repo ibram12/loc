@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/reversations_table_body.dart';
+import '../../../../generated/l10n.dart';
+
 
 class ReservatoinTableView extends StatefulWidget {
   const ReservatoinTableView({super.key, required this.docId});
@@ -32,18 +34,20 @@ class _ReservatoinTableViewState extends State<ReservatoinTableView> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.data == null) {
-              return const Center(child: Text('No Data Found'));
+              return  Center(child: Text(
+              S.of(context).no_data_found
+              ));
             }
             return SingleChildScrollView(
               child: Column(
                 children: [
                   PaginatedDataTable(
-                    columns: const [
-                      DataColumn(label: Text('name')),
-                      DataColumn(label: Text('service')),
-                      DataColumn(label: Text('date')),
-                      DataColumn(label: Text('start time')),
-                      DataColumn(label: Text('end time')),
+                    columns:  [
+                      DataColumn(label: Text(S.of(context).name)),
+                      DataColumn(label: Text(S.of(context).service)),
+                      DataColumn(label: Text(S.of(context).date)),
+                      DataColumn(label: Text(S.of(context).start_time)),
+                      DataColumn(label: Text(S.of(context).end_time)),
                     ],
                     rowsPerPage: 10,
                     header: Row(
@@ -53,8 +57,8 @@ class _ReservatoinTableViewState extends State<ReservatoinTableView> {
                               Navigator.of(context).pop();
                             },
                             icon: const Icon(Icons.arrow_back)),
-                        const Text(
-                          'reservations',
+                         Text(
+                          S.of(context).reservations,
                           style: Styles.textStyle20,
                         ),
                       ],

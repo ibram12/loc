@@ -7,6 +7,7 @@ import '../../../../../core/helper/alert_dialog.dart';
 import '../../../../../core/helper/snack_bar.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/custom_botton.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../../home/presentaiton/views/homePage.dart';
 import '../../manager/cubits/sent_reservation_cubit/sent_reservation_cubit.dart';
 
@@ -59,14 +60,14 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
                       (route) => false);
                 },
                 context: context,
-                message: 'your request sent successfully');
+                message: S.of(context).your_request_sent_successfully);
           });
         }
         return Positioned(
             bottom: 10,
             child: CustomBotton(
               width: MediaQuery.of(context).size.width / 2,
-              text: 'sent request',
+              text: S.of(context).sent_request,
               onPressed: () async {
                 if (widget.hallsIds.isNotEmpty) {
                   showDailyQuestion(
@@ -75,7 +76,7 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
                     onChoiseDaily: () async => await _sentReservation(true),
                   );
                 } else {
-                  showSnackBar(context, 'please select hall');
+                  showSnackBar(context, S.of(context).please_select_hall);
                 }
               },
               backgroundColor: kPrimaryColor,

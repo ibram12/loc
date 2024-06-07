@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loc/featuers/requests/data/models/user_request_model.dart';
 
+import '../../../../generated/l10n.dart';
+
 class RequstCard extends StatelessWidget {
   const RequstCard(
       {super.key, required this.requestModel, required this.child,});
@@ -9,7 +11,7 @@ class RequstCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Banner(
-      message: requestModel.daily == false ? 'Not Daily' : 'Daily',
+      message: requestModel.daily == false ? S.of(context).daily : S.of(context).not_daily,
       location: BannerLocation.topEnd,
       color: requestModel.daily == false ? Colors.red : Colors.green,
       child: Card(

@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/featuers/week_time_line/presentation/manager/show_time_line_cubit/show_time_line_cubit.dart';
 import 'package:loc/featuers/week_time_line/presentation/views/widgets/time_line_view_body.dart';
 
+import '../../../../generated/l10n.dart';
+
 class TimeLineVeiw extends StatelessWidget {
   const TimeLineVeiw({super.key});
 
@@ -15,7 +17,7 @@ class TimeLineVeiw extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
     forceMaterialTransparency: true,
-          title: const Text('Time Line'),
+          title:  Text(S.of(context).time_line),
         ),
         body: const TimeLineViewBody(),
       ),

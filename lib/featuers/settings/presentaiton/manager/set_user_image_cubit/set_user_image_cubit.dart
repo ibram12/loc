@@ -30,7 +30,7 @@ class SetUserImageCubit extends Cubit<SetUserImageState> {
         .collection('users')
         .doc(userId)
         .update({'image': url}).catchError((error, stackTrace) {
-          emit(SetUserImageError(error: 'your image uploaded'));
+          emit(SetUserImageError(error: 'your image Not uploaded'));
         });
 
     await SherdPrefHelper().setUserImage(await _saveImageLocally(image));

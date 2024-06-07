@@ -6,6 +6,7 @@ import 'package:loc/core/helper/alert_dialog.dart';
 import 'package:loc/featuers/week_time_line/presentation/manager/show_time_line_cubit/show_time_line_cubit.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import '../../../../../generated/l10n.dart';
 import 'reservations_data_sourece.dart';
 
 class TimeLineViewBody extends StatefulWidget {
@@ -50,7 +51,7 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
               showAlertDialog(
                   context: context,
                   message:
-                      '${date.appointments![0].userName} made a reservation from ${DateFormat('hh:mm a').format(date.appointments![0].from)} to ${DateFormat('hh:mm a').format(date.appointments![0].to)} for ${date.appointments![0].eventName} in ${date.appointments![0].hallName}',
+                      '${date.appointments![0].userName} ${S.of(context).home_made_a_reservation_from} ${DateFormat('hh:mm a').format(date.appointments![0].from)} ${S.of(context).to} ${DateFormat('hh:mm a').format(date.appointments![0].to)} ${S.of(context).forr} ${date.appointments![0].eventName} ${S.of(context).inn} ${date.appointments![0].hallName}',
                   onOkPressed: () => Navigator.pop(context));
             } else {}
           },

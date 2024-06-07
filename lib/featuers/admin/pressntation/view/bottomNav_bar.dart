@@ -39,7 +39,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         height: 55,
         color: kPrimaryColor,
         buttonBackgroundColor: kPrimaryColor,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         onTap: (index) {
           setState(() {
             pageIndex = index;

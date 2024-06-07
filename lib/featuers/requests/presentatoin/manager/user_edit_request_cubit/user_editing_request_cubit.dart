@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../../../../admin/data/models/request_model.dart';
 
 part 'user_editing_request_state.dart';
@@ -27,7 +28,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
 
     DateTime nextFriday = now.add(Duration(days: daysToAdd));
     final DateTime? pickedDate = await showDatePicker(
-      helpText: 'Pick the date',
+      helpText: S.of(context).pick_the_date,
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
@@ -37,7 +38,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
     if (pickedDate != null && selectedDate != null) {
       emit(UserSelectTheDateSuccess(pickedDate));
     } else {
-      emit(UserEditingRequestFailer('The operation has been cancelled'));
+      emit(UserEditingRequestFailer(S.of(context).the_operation_has_been_cancelled));
     }
   }
 
@@ -45,7 +46,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
     BuildContext context,
   ) async {
     final TimeOfDay? pickedStartTime = await showTimePicker(
-      helpText: 'Edit start time',
+      helpText: S.of(context).edit_start_time,
       context: context,
       initialTime: TimeOfDay.now(),
     );
@@ -56,7 +57,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
       Timestamp pickedStartTimeTemp = Timestamp.fromDate(pickedDateTime);
       emit(UserSelectStartTimeSuccess(pickedStartTimeTemp));
     } else {
-      emit(UserEditingRequestFailer('The operation has been cancelled'));
+      emit(UserEditingRequestFailer(S.of(context).the_operation_has_been_cancelled));
     }
   }
 
@@ -68,7 +69,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
       Timestamp initialStartTime,
       Timestamp initialEndTime) async {
     final TimeOfDay? pickedEndTime = await showTimePicker(
-      helpText: 'Edit end time',
+      helpText: S.of(context).edit_end_time,
       context: context,
       initialTime: TimeOfDay.now(),
     );
@@ -128,10 +129,10 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
           if (requestFound) {
             batch.commit().then((_) {
               emit(UserUptadingRequestSuccess(
-                  'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
+                  '${S.of(context).user_edit_request_cubit_in_requests_feature_you_have_updated_your_request_from}: ${selectedStartTime!.format(context)} ${S.of(context).to} ${selectedEndTime!.format(context)} ${S.of(context).on} ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
             }).catchError((error) {
               emit(
-                  UserEditingRequestFailer('Failed to update request: $error'));
+                  UserEditingRequestFailer('${S.of(context).user_edit_request_cubit_in_requests_feature_failed_to_update_request} $error'));
             });
           }
         });
@@ -143,7 +144,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
             context: context);
       }
     } else {
-      emit(UserEditingRequestFailer('The operation has been cancelled'));
+      emit(UserEditingRequestFailer(S.of(context).the_operation_has_been_cancelled));
     }
   }
 
@@ -173,10 +174,10 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
 
       if (startDateTime.isAfter(endDateTime)) {
         emit(TheStartTimeIsAfterTheEndTime(
-            'The start time is after the end time'));
+            S.of(context).the_start_time_is_after_the_end_time));
       } else if (startDateTime == endDateTime) {
         emit(TheStartTImeTheSameAsTheEndTime(
-            'The start time can\'t be the same as the end time'));
+            S.of(context).the_start_time_cant_be_the_same_as_the_end_time));
       } else {
         emit(UserEditingRequestLoading());
         WriteBatch batch = FirebaseFirestore.instance.batch();
@@ -200,7 +201,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
             if (conflict) {
               hasConflict = true;
               emit(ThereWasConflict(
-                  'There was a conflict with another reservation'));
+                  S.of(context).there_was_a_conflict_with_another_reservation));
               return;
             }
             if (element.get('requestId') == requestId) {
@@ -224,7 +225,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
           }).then((_) {
             batch.commit().then((_) {
               emit(UserUptadingRequestSuccess(
-                  'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
+                  '${S.of(context).user_edit_request_cubit_in_requests_feature_you_have_updated_your_request_from}: ${selectedStartTime!.format(context)} ${S.of(context).to} ${selectedEndTime!.format(context)} ${S.of(context).on} ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
             });
           });
         });

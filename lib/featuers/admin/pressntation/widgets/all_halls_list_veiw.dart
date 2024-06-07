@@ -6,6 +6,7 @@ import 'package:loc/featuers/admin/pressntation/widgets/admin_hall_item.dart';
 import '../../../../core/helper/delete_alert_dialog.dart';
 import '../../../../core/server/firebase_methoudes.dart';
 import '../../../../core/views/error_view.dart';
+import '../../../../generated/l10n.dart';
 import '../../data/models/admin_hall_model.dart';
 import '../manager/featch_end_times_cubit/featch_the_end_times_cubit.dart';
 
@@ -68,7 +69,7 @@ class _AllHallsListViewState extends State<AllHallsListView> {
           stream: _hallsStream,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return const Text('Something went wrong');
+              return  Text(S.of(context).something_went_wrong_please_try_later);
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -86,8 +87,8 @@ class _AllHallsListViewState extends State<AllHallsListView> {
                   hallid: hallId,
                   onLongPress: () {
                     showDeleteItemAlert(
-                      title: 'Remove Hall',
-                      content: 'Hall',
+                      title: S.of(context).remove_hall,
+                      content: S.of(context).hall,
                       context: context,
                       onPressed: () {
                         DataBaseMethouds().deleteLoc(hallId);

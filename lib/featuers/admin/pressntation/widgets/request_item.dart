@@ -11,6 +11,7 @@ import 'package:loc/featuers/admin/pressntation/widgets/request_item_body.dart';
 import '../../../../core/helper/alert_dialog.dart';
 import '../../../../core/helper/delightful_toast.dart';
 import '../../../../core/helper/snack_bar.dart';
+import '../../../../generated/l10n.dart';
 
 class RequestItem extends StatefulWidget {
   const RequestItem({
@@ -89,7 +90,7 @@ class _RequestItemState extends State<RequestItem> {
             builder: (context, state) {
               if (state is AdminChangeDailyStateFalier) {
                 showSnackBar(
-                    context, 'sorry there was an error, please try later',
+                    context, S.of(context).something_went_wrong_please_try_later,
                     color: Colors.red);
               }
               return GestureDetector(
@@ -134,7 +135,7 @@ class _RequestItemState extends State<RequestItem> {
                   } else {
                     setState(() {
                       showDelightfulToast(
-                          message: 'this request is already Unaccepted',
+                          message: S.of(context).this_request_is_already_Unaccepted,
                           context: context,
                           dismiss: true);
                     });

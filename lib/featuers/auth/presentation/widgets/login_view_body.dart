@@ -12,6 +12,7 @@ import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
 import '../../../../core/widgets/Custom_TextField.dart';
+import '../../../../generated/l10n.dart';
 import '../widgets/custom_logo_auth.dart';
 
 class LogInViewBody extends StatefulWidget {
@@ -53,7 +54,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
         } else if (state is LogInSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
             Navigator.pushReplacementNamed(context, MyHomePage.id);
-            showSnackBar(context, 'Wellcome');
+            showSnackBar(context, S.of(context).wellcome);
           });
         }
         return ModalProgressHUD(
@@ -70,13 +71,13 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                     const SizedBox(height: 20),
                     CustomLogoAuth(),
                     const SizedBox(height: 20),
-                    const Text("Login", style: Styles.textStyle30),
+                     Text(S.of(context).login, style: Styles.textStyle30),
                     const SizedBox(height: 10),
-                    const Text("Login To Continue Using The App",
+                     Text(S.of(context).login_to_continue_using_the_app,
                         style: Styles.textStyle14),
                     const SizedBox(height: 20),
-                    const Text(
-                      "Email",
+                     Text(
+                      S.of(context).email,
                       style: Styles.textStyle18,
                     ),
                     const SizedBox(height: 10),
@@ -84,11 +85,11 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                         onSaved: (value) {
                           email.text = value!;
                         },
-                        hinttext: "ُEnter Your Email",
+                        hinttext: S.of(context).enter_user_email,
                         textEditingController: email),
                     const SizedBox(height: 10),
-                    const Text(
-                      "Password",
+                     Text(
+                      S.of(context).login_password,
                       style: Styles.textStyle18,
                     ),
                     const SizedBox(height: 10),
@@ -96,7 +97,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                         onSaved: (value) {
                           password.text = value!;
                         },
-                        hinttext: 'Password',
+                        hinttext: S.of(context).password,
                         textEditingController: password),
                     InkWell(
                       onTap: () {
@@ -106,19 +107,19 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                       child: Container(
                         margin: const EdgeInsets.only(top: 10, bottom: 20),
                         alignment: Alignment.topRight,
-                        child: const Text("Forgot Password ?",
+                        child:  Text(S.of(context).forgot_password,
                             style: Styles.textStyle14),
                       ),
                     ),
                     CustomBotton(
                         width: double.infinity,
                         backgroundColor: Colors.orange,
-                        text: "login",
+                        text: S.of(context).login,
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
                             BlocProvider.of<LogInCubit>(context)
-                                .logInWithEmailAndPassword(
+                                .logInWithEmailAndPassword(context,
                                     email.text, password.text);
                           }
                         }),

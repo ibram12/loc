@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/featuers/book_Hall/data/models/hall_model.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/widgets/sent_request_buttom.dart';
+import '../../../../../generated/l10n.dart';
 import '../../manager/cubits/featch_avilable_halls/featch_avilable_halls_cubit.dart';
 import 'hall_item.dart';
 
@@ -54,7 +55,7 @@ class _HallsListViewState extends State<HallsListView> {
           stream: _hallsStream,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return const Text('Something went wrong');
+              return  Text(S.of(context).something_went_wrong);
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }

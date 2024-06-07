@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/text_styles/Styles.dart';
+import '../../../../generated/l10n.dart';
 
 class BottomSheetBody extends StatelessWidget {
   const BottomSheetBody(
@@ -24,8 +25,8 @@ class BottomSheetBody extends StatelessWidget {
                 backgroundColor: Colors.grey.shade300,
                 child: const Icon(Icons.camera_alt),
               ),
-              const Text(
-                'Camera',
+               Text(
+                S.of(context).Camera,
                 style: Styles.textStyle14,
               )
             ]),
@@ -38,8 +39,8 @@ class BottomSheetBody extends StatelessWidget {
                 backgroundColor: Colors.grey.shade300,
                 child: const Icon(Icons.image),
               ),
-              const Text(
-                'Gallery',
+               Text(
+                S.of(context).Gallery,
                 style: Styles.textStyle14,
               )
             ]),

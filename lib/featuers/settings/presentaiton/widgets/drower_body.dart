@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/text_styles/Styles.dart';
+import '../../../../generated/l10n.dart';
 import 'theme_switcher.dart';
 import 'translate_switcher.dart';
 
@@ -20,7 +21,7 @@ class DrowerBody extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'App Theme',
+                    S.of(context).App_Theme,
                     style: Styles.textStyle16.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
@@ -37,7 +38,7 @@ class DrowerBody extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'App Language',
+                    S.of(context).App_Language,
                     style: Styles.textStyle16.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(

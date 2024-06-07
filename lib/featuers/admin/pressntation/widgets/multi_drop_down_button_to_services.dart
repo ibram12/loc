@@ -6,6 +6,7 @@ import 'package:loc/featuers/admin/pressntation/manager/signUp_cubit/sign_up_sta
 
 import '../../../../core/helper/dialog_with_textFiald.dart';
 import '../../../../core/utils/constants.dart';
+import '../../../../generated/l10n.dart';
 
 class MultiSelectDropdown extends StatefulWidget {
   const MultiSelectDropdown(
@@ -46,7 +47,6 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
         );
       },
     );
-    print('items is $selectedItems');
     if (selectedItems != null) {
       setState(() {
         _initSelectedItems = selectedItems;
@@ -111,8 +111,8 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
                     widget.onRoleSelected(value!);
                   }),
               TextButton(
-                child: const Text(
-                  'Add New Service?',
+                child:  Text(
+                  S.of(context).add_New_Service,
                   style: Styles.textStyle14,
                 ),
                 onPressed: () {
@@ -124,7 +124,7 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
                       dilogController.clear();
                     });
                     Navigator.pop(context);
-                  }, key, 'Enter Service Type', 'Service', 'Service Type',
+                  }, key, S.of(context).enter_service_type, S.of(context).service, S.of(context).service_type,
                       false);
                 },
               ),

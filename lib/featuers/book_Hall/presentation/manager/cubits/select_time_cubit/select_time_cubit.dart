@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../../generated/l10n.dart';
+
 part 'select_time_state.dart';
 
 class SelectTimeCubit extends Cubit<SelectTimeState> {
@@ -15,7 +17,7 @@ class SelectTimeCubit extends Cubit<SelectTimeState> {
   Future<void> selectStartTime(
       BuildContext context,) async {
     final TimeOfDay? pickedStartTime = await showTimePicker(
-      helpText: 'Pick the start time',
+      helpText: S.of(context).select_time_cubit_in_book_hall_feature_pick_the_start_time,
       context: context,
       initialTime: TimeOfDay.now(),
     );
@@ -26,14 +28,15 @@ class SelectTimeCubit extends Cubit<SelectTimeState> {
       startTime = pickedTimesTemp;
       emit(SelectStartTimeSuccess(pickedTimesTemp));
     } else {
-      emit(SelectTimeFailer('The operation has been cancelled'));
+      // ignore: use_build_context_synchronously
+      emit(SelectTimeFailer(S.of(context).the_operation_has_been_cancelled));
     }
   }
 
   void selectEndTime(BuildContext context, 
     ) async {
     final TimeOfDay? pickedEndTime = await showTimePicker(
-      helpText: 'Pick the end time',
+      helpText: S.of(context).select_time_cubit_in_book_hall_feature_pick_the_end_time,
       context: context,
       initialTime: TimeOfDay.now(),
     );
@@ -43,9 +46,10 @@ class SelectTimeCubit extends Cubit<SelectTimeState> {
       Timestamp pickedTimesTemp = Timestamp.fromDate(pickedEndDateTime);
       endTime = pickedTimesTemp;
       emit(SelectEndTimeSuccess(pickedTimesTemp));
-      _checkOnUserChoices();
+      _checkOnUserChoices(context);
     }else{
-      emit(SelectTimeFailer('The operation has been cancelled'));
+      // ignore: use_build_context_synchronously
+      emit(SelectTimeFailer(S.of(context).the_operation_has_been_cancelled));
     }
   }
 
@@ -60,7 +64,7 @@ class SelectTimeCubit extends Cubit<SelectTimeState> {
 
     DateTime nextFriday = now.add(Duration(days: daysToAdd));
     final DateTime? pickedDate = await showDatePicker(
-        helpText: 'Pick the date',
+        helpText: S.of(context).select_time_cubit_in_book_hall_feature_pick_the_date,
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime.now(),
@@ -69,17 +73,18 @@ class SelectTimeCubit extends Cubit<SelectTimeState> {
       date = pickedDate;
       emit(SelectDateSuccess(pickedDate));
     } else {
-      emit(SelectTimeFailer('The operation has been cancelled'));
+      // ignore: use_build_context_synchronously
+      emit(SelectTimeFailer(S.of(context).the_operation_has_been_cancelled));
     }
   }
 
-  void _checkOnUserChoices() {
+  void _checkOnUserChoices(BuildContext context) {
     emit(Loading());
     if (date != null && startTime != null && endTime != null) {
       if(startTime!.toDate().isAfter(endTime!.toDate())) {
-        emit(TheStartTimeAfterTheEndTimeError('The start time can\'t be after the end time'));
+        emit(TheStartTimeAfterTheEndTimeError(S.of(context).the_start_time_is_after_the_end_time));
       }else if(startTime == endTime) {
-        emit(TheEndTimeAsSameAsStartTimeError('The end time can\'t be the same as the start time'));
+        emit(TheEndTimeAsSameAsStartTimeError(S.of(context).the_start_time_cant_be_the_same_as_the_end_time));
       }else{
         emit(SelectTimeSuccess());
       }

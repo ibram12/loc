@@ -11,6 +11,7 @@ import 'package:loc/featuers/admin/pressntation/widgets/modify_user_permations_d
 import 'package:loc/featuers/admin/data/models/user_info_model.dart';
 
 import '../../../../core/text_styles/Styles.dart';
+import '../../../../generated/l10n.dart';
 import 'modify_user_service_dialog.dart';
 
 class UserInfoCard extends StatefulWidget {
@@ -28,7 +29,7 @@ class _UserInfoCardState extends State<UserInfoCard> {
       listener: (context, state) {
           if (state is ModifyRolePermissionsSuccess) {
             showSnackBar(context,
-                'you have modified ${widget.userInfoModel.name} role to ${widget.userInfoModel.role}');
+                '${S.of(context).you_have_modified} ${widget.userInfoModel.name} ${S.of(context).role_to} ${widget.userInfoModel.role}');
       
         } else if (state is ModifyPermissionsError) {
           showDelightfulToast(
@@ -37,7 +38,7 @@ class _UserInfoCardState extends State<UserInfoCard> {
             showAlertDialog(
                 context: context,
                 message:
-                    'Services has been modified to ${widget.userInfoModel.services.join(', ')}',
+                    '${S.of(context).services_has_been_modified_to} ${widget.userInfoModel.services.join(', ')}',
                 onOkPressed: () {
                   Navigator.pop(context);
                 });
@@ -114,6 +115,7 @@ class _UserInfoCardState extends State<UserInfoCard> {
                                 (role) {
                               BlocProvider.of<ModifyPermissionsCubit>(context)
                                   .modifyRolePermissions(
+                                    context: context,
                                       selectedRole: role,
                                       userId: widget.userInfoModel.id);
                             });
@@ -126,6 +128,7 @@ class _UserInfoCardState extends State<UserInfoCard> {
                               onEditServicesSelected: (selectedServices) {
                                 BlocProvider.of<ModifyPermissionsCubit>(context)
                                     .modifyServicePermissions(
+                                      context: context,
                                         modifiedServices: selectedServices,
                                         userId: widget.userInfoModel.id);
                                 Navigator.pop(context);

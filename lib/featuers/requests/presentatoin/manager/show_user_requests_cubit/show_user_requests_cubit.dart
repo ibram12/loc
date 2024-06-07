@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:loc/featuers/requests/data/models/user_request_model.dart';
+import '../../../../../generated/l10n.dart';
 import 'show_user_requests_state.dart';
 
 class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
@@ -9,7 +11,7 @@ class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
 
   final String id = FirebaseAuth.instance.currentUser!.uid;
 
-  Future<void> fetchRequests() async {
+  Future<void> fetchRequests(BuildContext context) async {
     try {
       emit(UserRequestsLoading());
       Query query = FirebaseFirestore.instance
@@ -25,7 +27,6 @@ class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
                 try {
                   return UserRequestModel.fromDocumentSnapshot(doc);
                 } catch (e) {
-                  print('Error creating UserRequestModel from document: $e');
                   return null;
                 }
               })
@@ -37,15 +38,14 @@ class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
           }
         },
         onError: (error) {
-          print('Error fetching snapshots: $error');
           if (!isClosed) {
-            emit(UserRequestsError('Failed to fetch requests'));
+            emit(UserRequestsError(S.of(context).failed_to_fetch_requests));
           }
         },
       );
     } catch (e) {
       if (!isClosed) {
-        emit(UserRequestsError('Failed to fetch requests'));
+        emit(UserRequestsError(S.of(context).failed_to_fetch_requests));
       }
     }
   }

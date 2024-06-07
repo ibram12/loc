@@ -73,7 +73,7 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                     
                       CustomBotton(
                           backgroundColor: kPrimaryColor,
-                          text: state is Loading ? 'Loading...' : 'Submit',
+                          text: state is Loading ? S.of(context).time_line_loading : S.of(context).submit,
                           onPressed: () {
                             if (_selectedText != null && _selectedText != '') {
                               Navigator.of(context).push(
@@ -86,12 +86,12 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                                 ),
                               );
                             } else {
-                              showSnackBar(context, 'please, Select Service');
+                              showSnackBar(context, S.of(context).please_select_service);
                             }
                           }),
                           const SizedBox(height: 20),
                             Text(
-                          '${S.of(context).time_range}: \n on ${DateFormat('yyyy-MM-dd').format(_date!)} at \n${DateFormat('hh:mm a').format(_startTime!.toDate())}, to ${DateFormat('hh:mm a').format(_endTime!.toDate())}\n to make:${_selectedText ?? 'SELECT YOUR SERVICE'} '),
+                          '${S.of(context).time_range}: \n on ${DateFormat('yyyy-MM-dd').format(_date!)} ${S.of(context).at} \n${DateFormat('hh:mm a').format(_startTime!.toDate())}, ${S.of(context).to} ${DateFormat('hh:mm a').format(_endTime!.toDate())}\n ${S.of(context).to_make}:${_selectedText ?? S.of(context).select_your_service} '),
                 
                     ],
                   ),

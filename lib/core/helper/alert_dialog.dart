@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
+
 
 
   void showAlertDialog({
@@ -20,9 +22,9 @@ import 'package:flutter/material.dart';
                 onPressed: () {
                   onOkPressed();
                 },
-                child: const Text(
-                  'Ok',
-                  style: TextStyle(color: Colors.green),
+                child:  Text(
+                  S.of(context).Ok,
+                  style: const TextStyle(color: Colors.green),
                 ),
               ),
             ],

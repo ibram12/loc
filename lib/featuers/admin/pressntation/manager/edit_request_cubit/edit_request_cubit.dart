@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../../../data/models/request_model.dart';
 
 part 'edit_request_state.dart';
@@ -25,7 +26,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
 
     DateTime nextFriday = now.add(Duration(days: daysToAdd));
     final DateTime? pickedDate = await showDatePicker(
-      helpText: 'Pick the date',
+      helpText: S.of(context).pick_the_date,
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
@@ -35,7 +36,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
     if (pickedDate != null && selectedDate != null) {
       emit(EditTheDateSuccess(pickedDate));
     } else {
-      emit(EditRequestFailer('The operation has been cancelled'));
+      emit(EditRequestFailer(S.of(context).the_operation_has_been_cancelled));
     }
   }
 
@@ -46,7 +47,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
     int hour = initialStartTime.toDate().hour;
     int minute = initialStartTime.toDate().minute;
     final TimeOfDay? pickedStartTime = await showTimePicker(
-      helpText: 'Edit start time',
+      helpText: S.of(context).edit_start_time,
       context: context,
       initialTime: TimeOfDay(hour: hour, minute: minute),
     );
@@ -57,7 +58,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
       Timestamp pickedStartTimeTemp = Timestamp.fromDate(pickedDateTime);
       emit(EditStartTimeSuccess(pickedStartTimeTemp));
     } else {
-      emit(EditRequestFailer('The operation has been cancelled'));
+      emit(EditRequestFailer(S.of(context).the_operation_has_been_cancelled));
     }
   }
 
@@ -72,7 +73,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
     int hour = initialEndTime.toDate().hour;
     int minute = initialEndTime.toDate().minute;
     final TimeOfDay? pickedEndTime = await showTimePicker(
-      helpText: 'Edit end time',
+      helpText: S.of(context).edit_end_time,
       context: context,
       initialTime: TimeOfDay(hour: hour, minute: minute),
     );
@@ -116,7 +117,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
           break;
         }
         emit(EditRequestSuccess(
-            'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
+            '${S.of(context).you_have_updated_request_from} ${selectedStartTime!.format(context)} ${S.of(context).to} ${selectedEndTime!.format(context)} ${S.of(context).on} ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
       } else {
         _checkAllSelections(
             hallId: hallId,
@@ -126,7 +127,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
             reservationId: reservationId);
       }
     } else {
-      emit(EditRequestFailer('The operation has been cancelled'));
+      emit(EditRequestFailer(S.of(context).the_operation_has_been_cancelled));
     }
   }
 
@@ -157,9 +158,9 @@ class EditRequestCubit extends Cubit<EditRequestState> {
     );
 
     if (startDateTime.isAfter(endDateTime)) {
-      emit(TheStartTimeIsAfterTheEndTime('The start time is after the end time'));
+      emit(TheStartTimeIsAfterTheEndTime(S.of(context).the_start_time_is_after_the_end_time));
     } else if (startDateTime == endDateTime) {
-      emit(TheStartTImeTheSameAsTheEndTime('The start time can\'t be the same as the end time'));
+      emit(TheStartTImeTheSameAsTheEndTime(S.of(context).the_start_time_cant_be_the_same_as_the_end_time));
     } else {
       emit(EditRequestLoading());
       bool conflictFound = false;
@@ -181,7 +182,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
 
           if (conflict) {
             conflictFound = true;
-            emit(ThereWasConflict('There was a conflict with another reservation'));
+            emit(ThereWasConflict(S.of(context).there_was_a_conflict_with_another_reservation));
             break;
           }
         }
@@ -199,7 +200,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
             });
           }
           emit(EditRequestSuccess(
-              'You Have Updated Your Request from ${selectedStartTime!.format(context)} to ${selectedEndTime!.format(context)} on ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
+              '${S.of(context).you_have_updated_request_from} ${selectedStartTime!.format(context)} ${S.of(context).to} ${selectedEndTime!.format(context)} ${S.of(context).on} ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));
         }
       });
     }

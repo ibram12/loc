@@ -8,6 +8,8 @@ import 'package:loc/featuers/admin/data/models/user_info_model.dart';
 import 'package:loc/featuers/admin/pressntation/manager/Modify_permissions_cubit/modify_permissions_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/user_info_card.dart';
 
+import '../../../../generated/l10n.dart';
+
 class AllUsersViewBody extends StatefulWidget {
   const AllUsersViewBody({super.key});
 
@@ -34,9 +36,9 @@ class _AllUsersViewBodyState extends State<AllUsersViewBody> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.data == null) {
-            return const Center(
+            return  Center(
                 child: Text(
-              'No Users yet',
+              S.of(context).no_users_yet,
               style: Styles.textStyle18,
             ));
           }

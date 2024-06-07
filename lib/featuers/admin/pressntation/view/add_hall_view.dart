@@ -22,7 +22,7 @@ class AddHallView extends StatelessWidget {
           title: Text(S.of(context).add_hall),
         ),
         
-        body: AddHallViewBody(),
+        body: const AddHallViewBody(),
       ),
     );
   }

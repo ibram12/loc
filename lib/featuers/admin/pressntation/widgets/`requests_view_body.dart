@@ -5,6 +5,7 @@ import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../core/text_styles/Styles.dart';
+import '../../../../generated/l10n.dart';
 import '../manager/get_hall_requests_cubit/get_hall_requests_cubit.dart';
 import 'request_item.dart';
 
@@ -39,16 +40,16 @@ class _RequestsViewBodyState extends State<RequestsViewBody> {
         } else if (state is GetHallRequestsSuccess) {
           requests = state.requests;
           if (state.requests.isEmpty) {
-            return const Center(
-                child: Text('No Requests Yet', style: Styles.textStyle18));
+            return  Center(
+                child: Text(S.of(context).no_requests_yet, style: Styles.textStyle18));
           } else {
             return BlocConsumer<AdminReplyCubit, AdminReplyState>(
               listener: (context, state) {
                 if (state is AdminReplyAccept) {
-                  showSnackBar(context, 'Request Accepted Successfully',
+                  showSnackBar(context, S.of(context).Request_Accepted_Successfully,
                       color: Colors.green);
                 } else if (state is AdminReplyReject) {
-                  showSnackBar(context, 'Request Rejected Successfully',
+                  showSnackBar(context, S.of(context).Request_Rejected_Successfully,
                       color: Colors.red);
                 }
               },

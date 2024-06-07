@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:loc/featuers/admin/data/models/request_model.dart';
+import 'package:loc/generated/l10n.dart';
 import 'package:meta/meta.dart';
 
 part 'get_hall_requests_state.dart';
@@ -9,7 +11,7 @@ part 'get_hall_requests_state.dart';
 class GetHallRequestsCubit extends Cubit<GetHallRequestsState> {
   GetHallRequestsCubit() : super(GetHallRequestsInitial());
 
-  Future<void> fetchRequests({required String hallId}) async {
+  Future<void> fetchRequests({required String hallId, required BuildContext context}) async {
     try {
       emit(GetHallRequestsLoading());
       Query query = FirebaseFirestore.instance
@@ -29,13 +31,12 @@ class GetHallRequestsCubit extends Cubit<GetHallRequestsState> {
         }
       }, onError: (error) {
         if (!isClosed) {
-          print('Error fetching snapshots: $error');
-          emit(GetHallRequestsError('Failed to fetch requests$error'));
+          emit(GetHallRequestsError('${S.of(context).failed_to_fetch_requests}$error'));
         }
       });
     } catch (e) {
       if (!isClosed) {
-        emit(GetHallRequestsError('Failed to fetch requests'));
+        emit(GetHallRequestsError(S.of(context).failed_to_fetch_requests));
       }
     }
   }

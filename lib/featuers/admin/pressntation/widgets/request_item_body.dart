@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:loc/featuers/admin/data/models/request_model.dart';
 
 import '../../../../core/text_styles/Styles.dart';
+import '../../../../generated/l10n.dart';
 
 class RequestItemBody extends StatelessWidget {
   const RequestItemBody(
@@ -13,7 +14,7 @@ class RequestItemBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Banner(
-      message: requestModel.daily == false ? 'Not Daily' : 'Daily',
+      message: requestModel.daily == false ? S.of(context).not_daily : S.of(context).daily,
       color: requestModel.daily == false ? Colors.red : Colors.green,
       location: BannerLocation.topEnd,
       child: Card(
@@ -64,17 +65,17 @@ class RequestItemBody extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          'Date: ${DateFormat('dd-MM-yyyy').format(requestModel.startTime.toDate())}',
+                          '${S.of(context).date}: ${DateFormat('dd-MM-yyyy').format(requestModel.startTime.toDate())}',
                           style: Styles.textStyle16,
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          'Start Time: ${DateFormat('hh:mm a').format(requestModel.startTime.toDate())}',
+                          '${S.of(context).start_time}: ${DateFormat('hh:mm a').format(requestModel.startTime.toDate())}',
                           style: Styles.textStyle16,
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          'End Time: ${DateFormat('hh:mm a').format(requestModel.endTime.toDate())}',
+                          '${S.of(context).end_time}: ${DateFormat('hh:mm a').format(requestModel.endTime.toDate())}',
                           style: Styles.textStyle16,
                         ),
                       ],

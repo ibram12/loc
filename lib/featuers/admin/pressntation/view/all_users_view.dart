@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/text_styles/Styles.dart';
+import '../../../../generated/l10n.dart';
 import '../widgets/all_users_view_body.dart';
 
 class AllUsersView extends StatefulWidget {
@@ -18,7 +19,7 @@ class _AllUsersViewState extends State<AllUsersView> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: const Text('App Users',style: Styles.textStyle20,),
+        title:  Text(S.of(context).all_users,style: Styles.textStyle20,),
       ),
       body:const AllUsersViewBody()
     );

@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/server/firebase_methoudes.dart';
+import 'package:loc/generated/l10n.dart';
 
 import 'sign_up_state.dart';
 
@@ -14,6 +16,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     required List<String> services,
     required String name,
     required String adminPassword,
+    required BuildContext context
   }) async {
     emit(SignUpLoading());
 
@@ -66,14 +69,14 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(AdminBackToHisAccount());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        emit(SignUpError('The password provided is too weak.'));
+        emit(SignUpError(S.of(context).The_password_provided_is_too_weak));
       } else if (e.code == 'email-already-in-use') {
-        emit(SignUpError('The account already exists for that email.'));
+        emit(SignUpError(S.of(context).The_account_already_exists_for_that_email));
       } else {
-        emit(SignUpError('Something went wrong, please try later.'));
+        emit(SignUpError(S.of(context).something_went_wrong_please_try_later));
       }
     } catch (e) {
-      emit(SignUpError('Something went wrong, please try later.'));
+      emit(SignUpError(S.of(context).something_went_wrong_please_try_later));
     }
   }
 }

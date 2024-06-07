@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/core/widgets/Custom_TextField.dart';
 
+import '../../generated/l10n.dart';
 import '../text_styles/Styles.dart';
 import '../widgets/custom_botton.dart';
 
@@ -50,7 +51,7 @@ void showTextFieldDialog(BuildContext context,TextEditingController controller,v
                     width:100,
                     backgroundColor: kPrimaryColor,
                     textColor: Colors.white,
-                    text: 'Add',
+                    text: S.of(context).add,
                   
                   ),
                 )

@@ -7,6 +7,7 @@ import 'package:loc/featuers/requests/data/models/user_request_model.dart';
 import 'package:loc/featuers/requests/presentatoin/manager/user_edit_request_cubit/user_editing_request_cubit.dart';
 import 'package:loc/featuers/requests/presentatoin/widgets/request_detalis_section.dart';
 import '../../../../core/helper/delightful_toast.dart';
+import '../../../../generated/l10n.dart';
 import 'Request_card.dart';
 import 'requset_state_section.dart';
 
@@ -106,7 +107,7 @@ class _UserRequestItemState extends State<UserRequestItem> {
                 showAlertDialog(
                   context: context,
                   message:
-                      'You can\'t edit this request because Admin has already replied to it',
+                      S.of(context).cant_edit_request_admin_replied,
                   onOkPressed: () => Navigator.pop(context),
                 );
               }

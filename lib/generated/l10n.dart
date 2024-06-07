@@ -1167,6 +1167,436 @@ class S {
       args: [],
     );
   }
+
+  /// `استعادة كلمة المرور`
+  String get password_recovery {
+    return Intl.message(
+      'استعادة كلمة المرور',
+      name: 'password_recovery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send Reset To My Email`
+  String get send_reset_to_my_email {
+    return Intl.message(
+      'Send Reset To My Email',
+      name: 'send_reset_to_my_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't have an account?`
+  String get dont_have_an_account {
+    return Intl.message(
+      'Don\'t have an account?',
+      name: 'dont_have_an_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create`
+  String get create {
+    return Intl.message(
+      'Create',
+      name: 'create',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `your requests`
+  String get app_bar_title_your_requests {
+    return Intl.message(
+      'your requests',
+      name: 'app_bar_title_your_requests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Requests Yet`
+  String get no_requests_yet {
+    return Intl.message(
+      'No Requests Yet',
+      name: 'no_requests_yet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your request deleted successfully`
+  String get your_request_deleted_successfully {
+    return Intl.message(
+      'Your request deleted successfully',
+      name: 'your_request_deleted_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Can't edit request, admin replied`
+  String get cant_edit_request_admin_replied {
+    return Intl.message(
+      'Can\'t edit request, admin replied',
+      name: 'cant_edit_request_admin_replied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not Daily`
+  String get not_daily {
+    return Intl.message(
+      'Not Daily',
+      name: 'not_daily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Daily`
+  String get daily {
+    return Intl.message(
+      'Daily',
+      name: 'daily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App Theme`
+  String get App_Theme {
+    return Intl.message(
+      'App Theme',
+      name: 'App_Theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App Language`
+  String get App_Language {
+    return Intl.message(
+      'App Language',
+      name: 'App_Language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hall added successfully`
+  String get Hall_added_successfully {
+    return Intl.message(
+      'Hall added successfully',
+      name: 'Hall_added_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select image`
+  String get Please_select_image {
+    return Intl.message(
+      'Please select image',
+      name: 'Please_select_image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All Users`
+  String get all_users {
+    return Intl.message(
+      'All Users',
+      name: 'all_users',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Data Found`
+  String get no_data_found {
+    return Intl.message(
+      'No Data Found',
+      name: 'no_data_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request Accepted Successfully`
+  String get Request_Accepted_Successfully {
+    return Intl.message(
+      'Request Accepted Successfully',
+      name: 'Request_Accepted_Successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request Rejected Successfully`
+  String get Request_Rejected_Successfully {
+    return Intl.message(
+      'Request Rejected Successfully',
+      name: 'Request_Rejected_Successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `this request is already Unaccepted`
+  String get this_request_is_already_Unaccepted {
+    return Intl.message(
+      'this request is already Unaccepted',
+      name: 'this_request_is_already_Unaccepted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reservations`
+  String get reservations {
+    return Intl.message(
+      'Reservations',
+      name: 'reservations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Service?`
+  String get add_New_Service {
+    return Intl.message(
+      'Add New Service?',
+      name: 'add_New_Service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `save`
+  String get save {
+    return Intl.message(
+      'save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camera`
+  String get Camera {
+    return Intl.message(
+      'Camera',
+      name: 'Camera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gallery`
+  String get Gallery {
+    return Intl.message(
+      'Gallery',
+      name: 'Gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Hall`
+  String get Remove_Hall {
+    return Intl.message(
+      'Remove Hall',
+      name: 'Remove_Hall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hall`
+  String get Hall {
+    return Intl.message(
+      'Hall',
+      name: 'Hall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have updated request from`
+  String get you_have_updated_request_from {
+    return Intl.message(
+      'You have updated request from',
+      name: 'you_have_updated_request_from',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password provided is too weak.`
+  String get The_password_provided_is_too_weak {
+    return Intl.message(
+      'The password provided is too weak.',
+      name: 'The_password_provided_is_too_weak',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The account already exists for that email.`
+  String get The_account_already_exists_for_that_email {
+    return Intl.message(
+      'The account already exists for that email.',
+      name: 'The_account_already_exists_for_that_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alert`
+  String get alert {
+    return Intl.message(
+      'Alert',
+      name: 'alert',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `needs to book`
+  String get needs_to_book {
+    return Intl.message(
+      'needs to book',
+      name: 'needs_to_book',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `from`
+  String get from {
+    return Intl.message(
+      'from',
+      name: 'from',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept`
+  String get Accept {
+    return Intl.message(
+      'Accept',
+      name: 'Accept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get Edit {
+    return Intl.message(
+      'Edit',
+      name: 'Edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reject`
+  String get Reject {
+    return Intl.message(
+      'Reject',
+      name: 'Reject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ok`
+  String get Ok {
+    return Intl.message(
+      'Ok',
+      name: 'Ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `is This reservatoin Daily ?`
+  String get is_This_reservatoin_Daily {
+    return Intl.message(
+      'is This reservatoin Daily ?',
+      name: 'is_This_reservatoin_Daily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are You Sure To Remove This`
+  String get Are_You_Sure_To_Remove_This {
+    return Intl.message(
+      'Are You Sure To Remove This',
+      name: 'Are_You_Sure_To_Remove_This',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get add {
+    return Intl.message(
+      'Add',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you Need To Edit Your Request ?`
+  String get Do_you_Need_To_Edit_Your_Request {
+    return Intl.message(
+      'Do you Need To Edit Your Request ?',
+      name: 'Do_you_Need_To_Edit_Your_Request',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you Need To Delete Your Request ?`
+  String get Do_you_Need_To_Delete_Your_Request {
+    return Intl.message(
+      'Do you Need To Delete Your Request ?',
+      name: 'Do_you_Need_To_Delete_Your_Request',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get Delete {
+    return Intl.message(
+      'Delete',
+      name: 'Delete',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
