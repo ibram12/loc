@@ -27,10 +27,9 @@ class _UserInfoCardState extends State<UserInfoCard> {
     return BlocConsumer<ModifyPermissionsCubit, ModifyPermissionsState>(
       listener: (context, state) {
           if (state is ModifyRolePermissionsSuccess) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
             showSnackBar(context,
                 'you have modified ${widget.userInfoModel.name} role to ${widget.userInfoModel.role}');
-          });
+      
         } else if (state is ModifyPermissionsError) {
           showDelightfulToast(
               message: state.message, context: context, dismiss: false);

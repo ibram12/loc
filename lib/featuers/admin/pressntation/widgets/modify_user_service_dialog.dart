@@ -1,5 +1,4 @@
-  import 'package:flutter/material.dart';
-import 'package:loc/core/utils/constants.dart';
+import 'package:flutter/material.dart';
 import 'package:loc/featuers/admin/data/models/user_info_model.dart';
 
 import 'multi_drop_down_button_to_services.dart';
@@ -9,23 +8,52 @@ void showMultiSelectDialog({
   required UserInfoModel userInfoModel,
   required Function(List selectedServices) onEditServicesSelected,
 }) async {
-      showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return MultiSelectDialog(
-          items: kServices,
-          initiallySelectedItems: userInfoModel.services,
-          onPressed: (selectedServices) {
-            onEditServicesSelected(selectedServices);
-          },
-        );
-      },
-    );
-    // print('items is $selectedItems');
-    // if (selectedItems != null) {
-    //   // setState(() {
-    //   //   _initSelectedItems = selectedItems;
-    //   // });
-    //   // widget.onServiceSelected(selectedItems);
-    // }
-  }
+  List<String> services = [
+    'ملائكه',
+    'خدمه ابتدائي بنين',
+    'خدمه ابتدائي بنات',
+    'خدمه اعدادي بنين',
+    'خدمه اعدادي بنات',
+    'خدمه ثانوي بنين',
+    'خدمه ثانوي بنات',
+    'جامعين',
+    'رجاله',
+    'حديثي الزواج',
+    'كشافه',
+  ];
+  
+  List allServices = [];
+
+  Set prescribedElements = {
+    'ملائكه',
+    'خدمه ابتدائي بنين',
+    'خدمه ابتدائي بنات',
+    'خدمه اعدادي بنين',
+    'خدمه اعدادي بنات',
+    'خدمه ثانوي بنين',
+    'خدمه ثانوي بنات',
+    'جامعين',
+    'رجاله',
+    'حديثي الزواج',
+    'كشافه',
+  };
+
+  allServices.addAll(services);
+
+  allServices.addAll(userInfoModel.services.where((service) => !prescribedElements.contains(service)));
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+
+      return MultiSelectDialog(
+        items: allServices,
+        initiallySelectedItems: userInfoModel.services,
+        onPressed: (selectedServices) {
+          onEditServicesSelected(selectedServices);
+        },
+      );
+    },
+  );
+
+}
