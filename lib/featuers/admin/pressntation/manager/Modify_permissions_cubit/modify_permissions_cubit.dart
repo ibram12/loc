@@ -8,8 +8,15 @@ class ModifyPermissionsCubit extends Cubit<ModifyPermissionsState> {
   ModifyPermissionsCubit() : super(ModifyPermissionsInitial());
 
   Future<void> modifyServicePermissions(
-      {required String userId, required String selectedRole}) async {
-  
+      {required String userId, required List modifiedServices}) async {
+  emit(ModifyPermissionsLoading());
+  await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .update({'service': modifiedServices}).catchError(
+      (error) => emit(ModifyPermissionsError('something went wrong , please try later')),
+        );
+    emit(ModifyServicePermissionsSuccess());
   }
 
   Future<void> modifyRolePermissions({required String userId, required String selectedRole}) async {

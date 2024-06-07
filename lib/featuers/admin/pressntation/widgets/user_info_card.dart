@@ -2,15 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loc/core/helper/alert_dialog.dart';
 import 'package:loc/core/helper/delightful_toast.dart';
 import 'package:loc/core/helper/snack_bar.dart';
-import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/admin/pressntation/manager/Modify_permissions_cubit/modify_permissions_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/edit_role_dialog.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/modify_user_permations_dialog.dart';
 import 'package:loc/featuers/admin/data/models/user_info_model.dart';
 
 import '../../../../core/text_styles/Styles.dart';
+import 'modify_user_service_dialog.dart';
 
 class UserInfoCard extends StatefulWidget {
   const UserInfoCard({super.key, required this.userInfoModel});
@@ -23,9 +24,9 @@ class UserInfoCard extends StatefulWidget {
 class _UserInfoCardState extends State<UserInfoCard> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ModifyPermissionsCubit, ModifyPermissionsState>(
-      builder: (context, state) {
-        if (state is ModifyRolePermissionsSuccess) {
+    return BlocConsumer<ModifyPermissionsCubit, ModifyPermissionsState>(
+      listener: (context, state) {
+          if (state is ModifyRolePermissionsSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             showSnackBar(context,
                 'you have modified ${widget.userInfoModel.name} role to ${widget.userInfoModel.role}');
@@ -33,7 +34,19 @@ class _UserInfoCardState extends State<UserInfoCard> {
         } else if (state is ModifyPermissionsError) {
           showDelightfulToast(
               message: state.message, context: context, dismiss: false);
+        } else if (state is ModifyServicePermissionsSuccess) {
+            showAlertDialog(
+                context: context,
+                message:
+                    'Services has been modified to ${widget.userInfoModel.services.join(', ')}',
+                onOkPressed: () {
+                  Navigator.pop(context);
+                });
+        
         }
+      },
+      builder: (context, state) {
+      
         return Card(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           elevation: 3,
@@ -106,7 +119,20 @@ class _UserInfoCardState extends State<UserInfoCard> {
                                       userId: widget.userInfoModel.id);
                             });
                           },
-                          onEditServicesPressed: () {},
+                          onEditServicesPressed: () {
+                            Navigator.pop(context);
+                            showMultiSelectDialog(
+                              context: context,
+                              userInfoModel: widget.userInfoModel,
+                              onEditServicesSelected: (selectedServices) {
+                                BlocProvider.of<ModifyPermissionsCubit>(context)
+                                    .modifyServicePermissions(
+                                        modifiedServices: selectedServices,
+                                        userId: widget.userInfoModel.id);
+                                Navigator.pop(context);
+                              },
+                            );
+                          },
                         );
                       },
                       icon: const Icon(Icons.edit),

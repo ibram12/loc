@@ -12,13 +12,13 @@ class MultiSelectDropdown extends StatefulWidget {
       {super.key,
       required this.items,
       required this.hint,
-      required this.onServiceSelected, required this.onRoleSelected});
+      required this.onServiceSelected,
+      required this.onRoleSelected});
 
   final List<String> items;
   final String hint;
   final void Function(List<String>) onServiceSelected;
-    final void Function(String) onRoleSelected;
-
+  final void Function(String) onRoleSelected;
 
   @override
   _MultiSelectDropdownState createState() => _MultiSelectDropdownState();
@@ -96,36 +96,36 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-                DropdownButton(
-                        hint: Text(role),
-                        items: kRoles
-                            .map((e) => DropdownMenuItem(
-                                  child: Text(e),
-                                  value: e,
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            role = value!;
-                          });
-                          widget.onRoleSelected(value!);
-                        }),
+              DropdownButton(
+                  hint: Text(role),
+                  items: kRoles
+                      .map((e) => DropdownMenuItem(
+                            child: Text(e),
+                            value: e,
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      role = value!;
+                    });
+                    widget.onRoleSelected(value!);
+                  }),
               TextButton(
                 child: const Text(
                   'Add New Service?',
                   style: Styles.textStyle14,
                 ),
                 onPressed: () {
-                  showTextFieldDialog(
-                    context, dilogController, () {
+                  showTextFieldDialog(context, dilogController, () {
                     setState(() {
                       _initSelectedItems.add(dilogController.text);
                       widget.onServiceSelected(_initSelectedItems);
-              
+
                       dilogController.clear();
                     });
                     Navigator.pop(context);
-                  }, key, 'Enter Service Type', 'Service', 'Service Type',false);
+                  }, key, 'Enter Service Type', 'Service', 'Service Type',
+                      false);
                 },
               ),
             ],
@@ -137,18 +137,18 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
 }
 
 class MultiSelectDialog extends StatefulWidget {
-  final List<String> items;
-  final List<String> initiallySelectedItems;
-
-  MultiSelectDialog(
-      {required this.items, required this.initiallySelectedItems});
+  final List<dynamic> items;
+  final List<dynamic> initiallySelectedItems;
+  final void Function(List)? onPressed;
+  const MultiSelectDialog(
+      {super.key, required this.items, required this.initiallySelectedItems, this.onPressed});
 
   @override
   _MultiSelectDialogState createState() => _MultiSelectDialogState();
 }
 
 class _MultiSelectDialogState extends State<MultiSelectDialog> {
-  List<String> _tempSelectedItems = [];
+  List<dynamic> _tempSelectedItems = [];
 
   @override
   void initState() {
@@ -187,10 +187,14 @@ class _MultiSelectDialogState extends State<MultiSelectDialog> {
           },
         ),
         ElevatedButton(
-          child: const Text('OK'),
-          onPressed: () {
+          onPressed:    () {
+            if(widget.onPressed != null){
+              widget.onPressed!(_tempSelectedItems);
+            }else{
             Navigator.pop(context, _tempSelectedItems);
+            }
           },
+          child: const Text('OK'),
         ),
       ],
     );
