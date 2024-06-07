@@ -68,18 +68,18 @@ showDialog(
           actions: [
             TextButton(
               onPressed: onAccept,
-              child:  Text(S.of(context).Accept,style: const TextStyle(color: Colors.green),),
+              child:  Text(S.of(context).accept,style: const TextStyle(color: Colors.green),),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                     TextButton(
               onPressed: onEdit,
-              child:  Text(S.of(context).Edit,style: const TextStyle(color: Colors.blue),),
+              child:  Text(S.of(context).edit,style: const TextStyle(color: Colors.blue),),
             ),
                 TextButton(
                   onPressed: onReject,
-                  child:  Text(S.of(context).Reject,style: const TextStyle(color: Colors.red),),
+                  child:  Text(S.of(context).reject,style: const TextStyle(color: Colors.red),),
                 ),
               
               ],

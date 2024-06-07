@@ -23,7 +23,7 @@ import '../../generated/l10n.dart';
                   onOkPressed();
                 },
                 child:  Text(
-                  S.of(context).Ok,
+                  S.of(context).ok,
                   style: const TextStyle(color: Colors.green),
                 ),
               ),

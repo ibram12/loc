@@ -8,6 +8,7 @@ import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/widgets/Custom_TextField.dart';
 import '../../../../../core/utils/constants.dart';
+import '../../../../../generated/l10n.dart';
 import '../../manager/cubits/select_time_cubit/select_time_cubit.dart';
 
 class UserChoices extends StatefulWidget {
@@ -59,7 +60,7 @@ class _UserChoicesState extends State<UserChoices> {
           style: ElevatedButton.styleFrom(backgroundColor: kOrange),
           onPressed: () => selectTimeCubit.selectDate(context),
           child: Text(
-            'Make Reservation',
+            S.of(context).make_reservation,
             style: Styles.textStyle18.copyWith(color: Colors.black),
           )),
       FutureBuilder(
@@ -107,7 +108,7 @@ class _UserChoicesState extends State<UserChoices> {
                                   widget.onServiceSelected(controller.text);
                                 }
                               },
-                              hinttext: 'New Service',
+                              hinttext: S.of(context).new_service,
                               textEditingController: controller),
                         ),
                       ),

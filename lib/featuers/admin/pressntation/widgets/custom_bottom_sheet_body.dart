@@ -26,7 +26,7 @@ class BottomSheetBody extends StatelessWidget {
                 child: const Icon(Icons.camera_alt),
               ),
                Text(
-                S.of(context).Camera,
+                S.of(context).camera,
                 style: Styles.textStyle14,
               )
             ]),
@@ -40,7 +40,7 @@ class BottomSheetBody extends StatelessWidget {
                 child: const Icon(Icons.image),
               ),
                Text(
-                S.of(context).Gallery,
+                S.of(context).gallery,
                 style: Styles.textStyle14,
               )
             ]),

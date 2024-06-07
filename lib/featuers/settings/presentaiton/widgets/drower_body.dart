@@ -21,7 +21,7 @@ class DrowerBody extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    S.of(context).App_Theme,
+                    S.of(context).appTheme,
                     style: Styles.textStyle16.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
@@ -38,7 +38,7 @@ class DrowerBody extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    S.of(context).App_Language,
+                    S.of(context).appLanguage,
                     style: Styles.textStyle16.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(

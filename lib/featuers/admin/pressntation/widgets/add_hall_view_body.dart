@@ -45,7 +45,7 @@ class _AddHallViewBodyState extends State<AddHallViewBody> {
       builder: (context, state) {
         if (state is AddHallSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            showSnackBar(context, S.of(context).Hall_added_successfully);
+            showSnackBar(context, S.of(context).hall_added_successfully);
           });
           location.clear();
           floor.clear();
@@ -102,7 +102,7 @@ class _AddHallViewBodyState extends State<AddHallViewBody> {
                         await BlocProvider.of<AddHallCubit>(context)
                             .addHall(floor.text, location.text, packedImage);
                       } else if (packedImage.path == '') {
-                        showSnackBar(context, S.of(context).Please_select_image);
+                        showSnackBar(context, S.of(context).please_select_image);
                       }
                     },
                     child: Text(S.of(context).add_loc)),

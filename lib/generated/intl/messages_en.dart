@@ -22,39 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "Accept": MessageLookupByLibrary.simpleMessage("Accept"),
-        "App_Language": MessageLookupByLibrary.simpleMessage("App Language"),
-        "App_Theme": MessageLookupByLibrary.simpleMessage("App Theme"),
-        "Are_You_Sure_To_Remove_This":
-            MessageLookupByLibrary.simpleMessage("Are You Sure To Remove This"),
-        "Camera": MessageLookupByLibrary.simpleMessage("Camera"),
-        "Delete": MessageLookupByLibrary.simpleMessage("Delete"),
-        "Do_you_Need_To_Delete_Your_Request":
-            MessageLookupByLibrary.simpleMessage(
-                "Do you Need To Delete Your Request ?"),
-        "Do_you_Need_To_Edit_Your_Request":
-            MessageLookupByLibrary.simpleMessage(
-                "Do you Need To Edit Your Request ?"),
-        "Edit": MessageLookupByLibrary.simpleMessage("Edit"),
-        "Gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
-        "Hall": MessageLookupByLibrary.simpleMessage("Hall"),
-        "Hall_added_successfully":
-            MessageLookupByLibrary.simpleMessage("Hall added successfully"),
-        "Ok": MessageLookupByLibrary.simpleMessage("Ok"),
-        "Please_select_image":
-            MessageLookupByLibrary.simpleMessage("Please select image"),
-        "Reject": MessageLookupByLibrary.simpleMessage("Reject"),
-        "Remove_Hall": MessageLookupByLibrary.simpleMessage("Remove Hall"),
-        "Request_Accepted_Successfully": MessageLookupByLibrary.simpleMessage(
-            "Request Accepted Successfully"),
-        "Request_Rejected_Successfully": MessageLookupByLibrary.simpleMessage(
-            "Request Rejected Successfully"),
-        "The_account_already_exists_for_that_email":
-            MessageLookupByLibrary.simpleMessage(
-                "The account already exists for that email."),
-        "The_password_provided_is_too_weak":
-            MessageLookupByLibrary.simpleMessage(
-                "The password provided is too weak."),
+        "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "add_New_Service":
             MessageLookupByLibrary.simpleMessage("Add New Service?"),
@@ -74,14 +42,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Admin Password"),
         "alert": MessageLookupByLibrary.simpleMessage("Alert"),
         "all_users": MessageLookupByLibrary.simpleMessage("All Users"),
+        "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
+        "appTheme": MessageLookupByLibrary.simpleMessage("App Theme"),
         "app_bar_title_your_requests":
             MessageLookupByLibrary.simpleMessage("your requests"),
         "app_users": MessageLookupByLibrary.simpleMessage("App Users"),
+        "are_You_Sure_To_Remove_This":
+            MessageLookupByLibrary.simpleMessage("Are You Sure To Remove This"),
         "at": MessageLookupByLibrary.simpleMessage("at"),
         "book_hall": MessageLookupByLibrary.simpleMessage("Book Hall"),
         "book_hall_something_went_wrong":
             MessageLookupByLibrary.simpleMessage("Something went wrong"),
-        "cancal": MessageLookupByLibrary.simpleMessage("Cancal"),
+        "camera": MessageLookupByLibrary.simpleMessage("Camera"),
+        "cancal": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cant_edit_request_admin_replied": MessageLookupByLibrary.simpleMessage(
             "Can\'t edit request, admin replied"),
@@ -89,8 +62,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "daily": MessageLookupByLibrary.simpleMessage("Daily"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "do_you_Need_To_Delete_Your_Request":
+            MessageLookupByLibrary.simpleMessage(
+                "Do you Need To Delete Your Request?"),
+        "do_you_Need_To_Edit_Your_Request":
+            MessageLookupByLibrary.simpleMessage(
+                "Do you Need To Edit Your Request?"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
+        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "edit_end_time": MessageLookupByLibrary.simpleMessage("Edit end time"),
         "edit_role": MessageLookupByLibrary.simpleMessage("Edit Role"),
         "edit_services": MessageLookupByLibrary.simpleMessage("Edit Services"),
@@ -110,16 +91,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Failed to fetch requests"),
         "floor": MessageLookupByLibrary.simpleMessage("floor"),
         "forgot_password":
-            MessageLookupByLibrary.simpleMessage("Forgot Password ?"),
+            MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "forr": MessageLookupByLibrary.simpleMessage("for"),
         "from": MessageLookupByLibrary.simpleMessage("from"),
+        "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "hall": MessageLookupByLibrary.simpleMessage("Hall"),
+        "hall_added_successfully":
+            MessageLookupByLibrary.simpleMessage("Hall added successfully"),
         "halls": MessageLookupByLibrary.simpleMessage("Halls"),
         "home_made_a_reservation_from":
             MessageLookupByLibrary.simpleMessage("made a reservation from"),
         "inn": MessageLookupByLibrary.simpleMessage("in"),
         "is_This_reservatoin_Daily":
-            MessageLookupByLibrary.simpleMessage("is This reservatoin Daily ?"),
+            MessageLookupByLibrary.simpleMessage("is This reservation Daily?"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "login_cubit_messages_wrong_email_or_password":
             MessageLookupByLibrary.simpleMessage("Wrong email or password"),
@@ -153,6 +137,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pick_the_date": MessageLookupByLibrary.simpleMessage("Pick the date"),
         "please_select_hall":
             MessageLookupByLibrary.simpleMessage("please select hall"),
+        "please_select_image":
+            MessageLookupByLibrary.simpleMessage("Please select image"),
         "please_select_role_type":
             MessageLookupByLibrary.simpleMessage("please select role type"),
         "please_select_service":
@@ -160,8 +146,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_select_service_type":
             MessageLookupByLibrary.simpleMessage("please select service type"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "reject": MessageLookupByLibrary.simpleMessage("Reject"),
         "remove": MessageLookupByLibrary.simpleMessage("Remove"),
+        "remove_Hall": MessageLookupByLibrary.simpleMessage("Remove Hall"),
         "remove_hall": MessageLookupByLibrary.simpleMessage("Remove Hall"),
+        "request_Accepted_Successfully": MessageLookupByLibrary.simpleMessage(
+            "Request Accepted Successfully"),
+        "request_Rejected_Successfully": MessageLookupByLibrary.simpleMessage(
+            "Request Rejected Successfully"),
         "reservations": MessageLookupByLibrary.simpleMessage("Reservations"),
         "role": MessageLookupByLibrary.simpleMessage("Role"),
         "role_to": MessageLookupByLibrary.simpleMessage("Role to"),
@@ -216,6 +208,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "the_operation_has_been_cancelled":
             MessageLookupByLibrary.simpleMessage(
                 "The operation has been cancelled"),
+        "the_password_provided_is_too_weak":
+            MessageLookupByLibrary.simpleMessage(
+                "The password provided is too weak."),
         "the_start_time_cant_be_the_same_as_the_end_time":
             MessageLookupByLibrary.simpleMessage(
                 "The start time can\'t be the same as the end time"),
@@ -260,7 +255,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "You Have Updated Your Request from"),
         "user_name": MessageLookupByLibrary.simpleMessage("User Name"),
-        "wellcome": MessageLookupByLibrary.simpleMessage("Wellcome"),
+        "wellcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "you_have_modified":
             MessageLookupByLibrary.simpleMessage("You have modified"),
         "you_have_updated_request_from": MessageLookupByLibrary.simpleMessage(

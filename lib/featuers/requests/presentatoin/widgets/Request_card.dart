@@ -11,7 +11,7 @@ class RequstCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Banner(
-      message: requestModel.daily == false ? S.of(context).daily : S.of(context).not_daily,
+      message: requestModel.daily == false ? S.of(context).not_daily : S.of(context).daily,
       location: BannerLocation.topEnd,
       color: requestModel.daily == false ? Colors.red : Colors.green,
       child: Card(

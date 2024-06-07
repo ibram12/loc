@@ -8,7 +8,7 @@ void showDeleteItemAlert({required BuildContext context ,required void Function(
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title) ,
-          content: Text('${S.of(context).Are_You_Sure_To_Remove_This} $content?'),
+          content: Text('${S.of(context).are_You_Sure_To_Remove_This} $content?'),
           actions: [
             TextButton(
               onPressed: () {

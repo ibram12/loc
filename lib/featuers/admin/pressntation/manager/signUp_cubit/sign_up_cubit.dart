@@ -69,9 +69,9 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(AdminBackToHisAccount());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        emit(SignUpError(S.of(context).The_password_provided_is_too_weak));
+        emit(SignUpError(S.of(context).the_password_provided_is_too_weak));
       } else if (e.code == 'email-already-in-use') {
-        emit(SignUpError(S.of(context).The_account_already_exists_for_that_email));
+        emit(SignUpError(S.of(context).the_account_already_exists_for_that_email));
       } else {
         emit(SignUpError(S.of(context).something_went_wrong_please_try_later));
       }

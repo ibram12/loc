@@ -46,10 +46,10 @@ class _RequestsViewBodyState extends State<RequestsViewBody> {
             return BlocConsumer<AdminReplyCubit, AdminReplyState>(
               listener: (context, state) {
                 if (state is AdminReplyAccept) {
-                  showSnackBar(context, S.of(context).Request_Accepted_Successfully,
+                  showSnackBar(context, S.of(context).request_Accepted_Successfully,
                       color: Colors.green);
                 } else if (state is AdminReplyReject) {
-                  showSnackBar(context, S.of(context).Request_Rejected_Successfully,
+                  showSnackBar(context, S.of(context).request_Rejected_Successfully,
                       color: Colors.red);
                 }
               },

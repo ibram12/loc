@@ -110,10 +110,10 @@ class S {
     );
   }
 
-  /// `Cancal`
+  /// `Cancel`
   String get cancal {
     return Intl.message(
-      'Cancal',
+      'Cancel',
       name: 'cancal',
       desc: '',
       args: [],
@@ -710,10 +710,10 @@ class S {
     );
   }
 
-  /// `Wellcome`
+  /// `Welcome`
   String get wellcome {
     return Intl.message(
-      'Wellcome',
+      'Welcome',
       name: 'wellcome',
       desc: '',
       args: [],
@@ -770,10 +770,10 @@ class S {
     );
   }
 
-  /// `Forgot Password ?`
+  /// `Forgot Password?`
   String get forgot_password {
     return Intl.message(
-      'Forgot Password ?',
+      'Forgot Password?',
       name: 'forgot_password',
       desc: '',
       args: [],
@@ -1279,40 +1279,40 @@ class S {
   }
 
   /// `App Theme`
-  String get App_Theme {
+  String get appTheme {
     return Intl.message(
       'App Theme',
-      name: 'App_Theme',
+      name: 'appTheme',
       desc: '',
       args: [],
     );
   }
 
   /// `App Language`
-  String get App_Language {
+  String get appLanguage {
     return Intl.message(
       'App Language',
-      name: 'App_Language',
+      name: 'appLanguage',
       desc: '',
       args: [],
     );
   }
 
   /// `Hall added successfully`
-  String get Hall_added_successfully {
+  String get hall_added_successfully {
     return Intl.message(
       'Hall added successfully',
-      name: 'Hall_added_successfully',
+      name: 'hall_added_successfully',
       desc: '',
       args: [],
     );
   }
 
   /// `Please select image`
-  String get Please_select_image {
+  String get please_select_image {
     return Intl.message(
       'Please select image',
-      name: 'Please_select_image',
+      name: 'please_select_image',
       desc: '',
       args: [],
     );
@@ -1339,20 +1339,20 @@ class S {
   }
 
   /// `Request Accepted Successfully`
-  String get Request_Accepted_Successfully {
+  String get request_Accepted_Successfully {
     return Intl.message(
       'Request Accepted Successfully',
-      name: 'Request_Accepted_Successfully',
+      name: 'request_Accepted_Successfully',
       desc: '',
       args: [],
     );
   }
 
   /// `Request Rejected Successfully`
-  String get Request_Rejected_Successfully {
+  String get request_Rejected_Successfully {
     return Intl.message(
       'Request Rejected Successfully',
-      name: 'Request_Rejected_Successfully',
+      name: 'request_Rejected_Successfully',
       desc: '',
       args: [],
     );
@@ -1399,40 +1399,30 @@ class S {
   }
 
   /// `Camera`
-  String get Camera {
+  String get camera {
     return Intl.message(
       'Camera',
-      name: 'Camera',
+      name: 'camera',
       desc: '',
       args: [],
     );
   }
 
   /// `Gallery`
-  String get Gallery {
+  String get gallery {
     return Intl.message(
       'Gallery',
-      name: 'Gallery',
+      name: 'gallery',
       desc: '',
       args: [],
     );
   }
 
   /// `Remove Hall`
-  String get Remove_Hall {
+  String get remove_Hall {
     return Intl.message(
       'Remove Hall',
-      name: 'Remove_Hall',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Hall`
-  String get Hall {
-    return Intl.message(
-      'Hall',
-      name: 'Hall',
+      name: 'remove_Hall',
       desc: '',
       args: [],
     );
@@ -1449,20 +1439,10 @@ class S {
   }
 
   /// `The password provided is too weak.`
-  String get The_password_provided_is_too_weak {
+  String get the_password_provided_is_too_weak {
     return Intl.message(
       'The password provided is too weak.',
-      name: 'The_password_provided_is_too_weak',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The account already exists for that email.`
-  String get The_account_already_exists_for_that_email {
-    return Intl.message(
-      'The account already exists for that email.',
-      name: 'The_account_already_exists_for_that_email',
+      name: 'the_password_provided_is_too_weak',
       desc: '',
       args: [],
     );
@@ -1499,49 +1479,39 @@ class S {
   }
 
   /// `Accept`
-  String get Accept {
+  String get accept {
     return Intl.message(
       'Accept',
-      name: 'Accept',
+      name: 'accept',
       desc: '',
       args: [],
     );
   }
 
   /// `Edit`
-  String get Edit {
+  String get edit {
     return Intl.message(
       'Edit',
-      name: 'Edit',
+      name: 'edit',
       desc: '',
       args: [],
     );
   }
 
   /// `Reject`
-  String get Reject {
+  String get reject {
     return Intl.message(
       'Reject',
-      name: 'Reject',
+      name: 'reject',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ok`
-  String get Ok {
-    return Intl.message(
-      'Ok',
-      name: 'Ok',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `is This reservatoin Daily ?`
+  /// `is This reservation Daily?`
   String get is_This_reservatoin_Daily {
     return Intl.message(
-      'is This reservatoin Daily ?',
+      'is This reservation Daily?',
       name: 'is_This_reservatoin_Daily',
       desc: '',
       args: [],
@@ -1549,10 +1519,10 @@ class S {
   }
 
   /// `Are You Sure To Remove This`
-  String get Are_You_Sure_To_Remove_This {
+  String get are_You_Sure_To_Remove_This {
     return Intl.message(
       'Are You Sure To Remove This',
-      name: 'Are_You_Sure_To_Remove_This',
+      name: 'are_You_Sure_To_Remove_This',
       desc: '',
       args: [],
     );
@@ -1568,31 +1538,31 @@ class S {
     );
   }
 
-  /// `Do you Need To Edit Your Request ?`
-  String get Do_you_Need_To_Edit_Your_Request {
+  /// `Do you Need To Edit Your Request?`
+  String get do_you_Need_To_Edit_Your_Request {
     return Intl.message(
-      'Do you Need To Edit Your Request ?',
-      name: 'Do_you_Need_To_Edit_Your_Request',
+      'Do you Need To Edit Your Request?',
+      name: 'do_you_Need_To_Edit_Your_Request',
       desc: '',
       args: [],
     );
   }
 
-  /// `Do you Need To Delete Your Request ?`
-  String get Do_you_Need_To_Delete_Your_Request {
+  /// `Do you Need To Delete Your Request?`
+  String get do_you_Need_To_Delete_Your_Request {
     return Intl.message(
-      'Do you Need To Delete Your Request ?',
-      name: 'Do_you_Need_To_Delete_Your_Request',
+      'Do you Need To Delete Your Request?',
+      name: 'do_you_Need_To_Delete_Your_Request',
       desc: '',
       args: [],
     );
   }
 
   /// `Delete`
-  String get Delete {
+  String get delete {
     return Intl.message(
       'Delete',
-      name: 'Delete',
+      name: 'delete',
       desc: '',
       args: [],
     );

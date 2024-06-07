@@ -22,36 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "Accept": MessageLookupByLibrary.simpleMessage("قبول"),
-        "App_Language": MessageLookupByLibrary.simpleMessage("اللغة"),
-        "App_Theme": MessageLookupByLibrary.simpleMessage("الوضع"),
-        "Are_You_Sure_To_Remove_This":
-            MessageLookupByLibrary.simpleMessage("هل انت متأكد من حذف هذا"),
-        "Camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
-        "Delete": MessageLookupByLibrary.simpleMessage("حذف"),
-        "Do_you_Need_To_Delete_Your_Request":
-            MessageLookupByLibrary.simpleMessage("هل تحتاج لحذف طلبك؟"),
-        "Do_you_Need_To_Edit_Your_Request":
-            MessageLookupByLibrary.simpleMessage("هل تحتاج لتعديل طلبك؟"),
-        "Edit": MessageLookupByLibrary.simpleMessage("تعديل"),
-        "Gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
-        "Hall": MessageLookupByLibrary.simpleMessage("قاعة"),
-        "Hall_added_successfully":
-            MessageLookupByLibrary.simpleMessage("تم اضافة القاعة بنجاح"),
-        "Ok": MessageLookupByLibrary.simpleMessage("موافق"),
-        "Please_select_image":
-            MessageLookupByLibrary.simpleMessage("ارجوك, قم باختيار صورة"),
-        "Reject": MessageLookupByLibrary.simpleMessage("رفض"),
-        "Remove_Hall": MessageLookupByLibrary.simpleMessage("مسح القاعة"),
-        "Request_Accepted_Successfully":
-            MessageLookupByLibrary.simpleMessage("تم قبول الطلب بنجاح"),
-        "Request_Rejected_Successfully":
-            MessageLookupByLibrary.simpleMessage("تم رفض الطلب بنجاح"),
-        "The_account_already_exists_for_that_email":
-            MessageLookupByLibrary.simpleMessage(
-                "الحساب موجود بالفعل لهذا البريد الإلكتروني."),
-        "The_password_provided_is_too_weak":
-            MessageLookupByLibrary.simpleMessage("كلمة المرور المقدمة ضعيفة."),
+        "accept": MessageLookupByLibrary.simpleMessage("قبول"),
         "add": MessageLookupByLibrary.simpleMessage("اضافة"),
         "add_New_Service":
             MessageLookupByLibrary.simpleMessage("اضافة خدمة جديدة"),
@@ -71,13 +42,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("كلمة مرور المسؤول"),
         "alert": MessageLookupByLibrary.simpleMessage("تنبيه"),
         "all_users": MessageLookupByLibrary.simpleMessage("جميع المستخدمين"),
+        "appLanguage": MessageLookupByLibrary.simpleMessage("اللغة"),
+        "appTheme": MessageLookupByLibrary.simpleMessage("الوضع"),
         "app_bar_title_your_requests":
             MessageLookupByLibrary.simpleMessage("طلباتك"),
         "app_users": MessageLookupByLibrary.simpleMessage("مستخدمي التطبيق"),
+        "are_You_Sure_To_Remove_This":
+            MessageLookupByLibrary.simpleMessage("هل انت متأكد من حذف هذا"),
         "at": MessageLookupByLibrary.simpleMessage("عند"),
         "book_hall": MessageLookupByLibrary.simpleMessage("حجز قاعة"),
         "book_hall_something_went_wrong":
             MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
+        "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancal": MessageLookupByLibrary.simpleMessage("اغلاق"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "cant_edit_request_admin_replied": MessageLookupByLibrary.simpleMessage(
@@ -85,8 +61,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "choose_date": MessageLookupByLibrary.simpleMessage("اختر التاريخ"),
         "daily": MessageLookupByLibrary.simpleMessage("دائم"),
         "date": MessageLookupByLibrary.simpleMessage("تاريخ"),
+        "delete": MessageLookupByLibrary.simpleMessage("حذف"),
+        "do_you_Need_To_Delete_Your_Request":
+            MessageLookupByLibrary.simpleMessage("هل تحتاج لحذف طلبك؟"),
+        "do_you_Need_To_Edit_Your_Request":
+            MessageLookupByLibrary.simpleMessage("هل تحتاج لتعديل طلبك؟"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("لا تملك حسابًا؟"),
+        "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
         "edit_end_time":
             MessageLookupByLibrary.simpleMessage("تحرير وقت الانتهاء"),
         "edit_role": MessageLookupByLibrary.simpleMessage("تحرير الصلاحيه"),
@@ -110,7 +92,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
         "forr": MessageLookupByLibrary.simpleMessage("من أجل"),
         "from": MessageLookupByLibrary.simpleMessage("من"),
+        "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
         "hall": MessageLookupByLibrary.simpleMessage("القاعة"),
+        "hall_added_successfully":
+            MessageLookupByLibrary.simpleMessage("تم اضافة القاعة بنجاح"),
         "halls": MessageLookupByLibrary.simpleMessage("القاعات"),
         "home_made_a_reservation_from":
             MessageLookupByLibrary.simpleMessage("تم الحجز من"),
@@ -153,6 +138,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pick_the_date": MessageLookupByLibrary.simpleMessage("اختر التاريخ"),
         "please_select_hall":
             MessageLookupByLibrary.simpleMessage("يرجى اختيار القاعة"),
+        "please_select_image":
+            MessageLookupByLibrary.simpleMessage("ارجوك, قم باختيار صورة"),
         "please_select_role_type":
             MessageLookupByLibrary.simpleMessage("يرجى اختيار نوع الدور"),
         "please_select_service":
@@ -160,8 +147,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_select_service_type":
             MessageLookupByLibrary.simpleMessage("يرجى اختيار نوع الخدمة"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
+        "reject": MessageLookupByLibrary.simpleMessage("رفض"),
         "remove": MessageLookupByLibrary.simpleMessage("ازالة"),
+        "remove_Hall": MessageLookupByLibrary.simpleMessage("مسح القاعة"),
         "remove_hall": MessageLookupByLibrary.simpleMessage("إزالة القاعة"),
+        "request_Accepted_Successfully":
+            MessageLookupByLibrary.simpleMessage("تم قبول الطلب بنجاح"),
+        "request_Rejected_Successfully":
+            MessageLookupByLibrary.simpleMessage("تم رفض الطلب بنجاح"),
         "reservations": MessageLookupByLibrary.simpleMessage("الحجوزات"),
         "role": MessageLookupByLibrary.simpleMessage("الصلاحيه"),
         "role_to": MessageLookupByLibrary.simpleMessage("الصلاحيه إلى"),
@@ -213,6 +206,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "الحساب موجود بالفعل لهذا البريد الإلكتروني."),
         "the_operation_has_been_cancelled":
             MessageLookupByLibrary.simpleMessage("تم إلغاء العملية"),
+        "the_password_provided_is_too_weak":
+            MessageLookupByLibrary.simpleMessage("كلمة المرور المقدمة ضعيفة."),
         "the_start_time_cant_be_the_same_as_the_end_time":
             MessageLookupByLibrary.simpleMessage(
                 "وقت البدء لا يمكن أن يكون نفس وقت الانتهاء"),
