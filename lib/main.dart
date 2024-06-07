@@ -13,7 +13,9 @@ import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:loc/featuers/settings/presentaiton/manager/local_cubit/local_cubit.dart';
 import 'package:loc/featuers/spalsh/presntation/view/splash_view.dart';
 import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
+import 'featuers/settings/presentaiton/manager/theme_cubit/theme_cubit.dart';
 import 'firebase_options.dart';
+import 'generated/l10n.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,42 +31,48 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LocaleCubit(),
-      child: BlocBuilder<LocaleCubit, Locale>(
-        builder: (context, locale) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            locale: locale,
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en'),
-              Locale('ar'),
-            ],
-            theme: ThemeData(
-              cupertinoOverrideTheme: const CupertinoThemeData(
-                textTheme: CupertinoTextThemeData(),
-              ),
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyanAccent),
-              useMaterial3: true,
-            ),
-            home: const SplashView(),
-            routes: {
-              SignUpView.id: (context) => const SignUpView(),
-              LoginView.id: (context) => const LoginView(),
-              MyHomePage.id: (context) => const MyHomePage(),
-              PasswordRecoveryVeiw.id: (context) => const PasswordRecoveryVeiw(),
-              AddHallView.id: (context) => const AddHallView(),
-              UserRequests.id: (context) => const UserRequests(),
-              AllRequests.id: (context) => const AllRequests(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => LocaleCubit()),
+        BlocProvider(create: (context) => ThemeCubit()),
+      ],
+      child: BlocBuilder<ThemeCubit, ThemeMode>(
+        builder: (context, themeMode) {
+          return BlocBuilder<LocaleCubit, Locale>(
+            builder: (context, locale) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                locale: locale,
+                themeMode: themeMode,
+                theme: ThemeData.light(),
+                darkTheme: ThemeData.dark(
+                ).copyWith(
+                  scaffoldBackgroundColor: Colors.grey.shade900,
+                ),
+                localizationsDelegates: const [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  S.delegate
+                ],
+                supportedLocales: const [
+                  Locale('en'),
+                  Locale('ar'),
+                ],
+                home: const SplashView(),
+                routes: {
+                  SignUpView.id: (context) => const SignUpView(),
+                  LoginView.id: (context) => const LoginView(),
+                  MyHomePage.id: (context) => const MyHomePage(),
+                  PasswordRecoveryVeiw.id: (context) => const PasswordRecoveryVeiw(),
+                  AddHallView.id: (context) => const AddHallView(),
+                  UserRequests.id: (context) => const UserRequests(),
+                  AllRequests.id: (context) => const AllRequests(),
+                },
+              );
             },
           );
         },
       ),
-    );
-  }
+    );  }
 }

@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../manager/theme_cubit/theme_cubit.dart';
 // import 'package:provider/provider.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,37 +18,21 @@ class SwitchThemeApp extends StatefulWidget {
 }
 
 class _SwitchThemeAppState extends State<SwitchThemeApp> {
-  bool isActive = true;
-
-  // void onThemeChange(bool value, AppNotifier theme) async {
-  //   if (value == false) {
-  //     theme.setTheme(darkTheme);
-  //   } else {
-  //     theme.setTheme(lightTheme);
-  //   }
-
-  //   final pref = await SharedPreferences.getInstance();
-  //   pref.setBool('themeMode', value);
-  
-  // }
-
   @override
   Widget build(BuildContext context) {
-  //  final themeMode = Provider.of<AppNotifier>(context);
+    final themeCubit = context.read<ThemeCubit>();
+
     return Switch(
       activeTrackColor: Colors.grey,
       inactiveTrackColor: Colors.grey,
-        activeColor: Colors.white,
-        activeThumbImage: const AssetImage('assets/images/moon.png'),
-        inactiveThumbImage: const AssetImage('assets/images/sun.webp'),
-        inactiveThumbColor: Colors.black12,
-        value: isActive, //  themeMode.getTheme == darkTheme ? false : isActive,
-        onChanged: (value) {
-          setState(() {
-            isActive = value;
-          });
-        //  onThemeChange(value, themeMode);
-        
-        });
+      activeColor: Colors.white,
+      activeThumbImage: const AssetImage('assets/images/moon.png'),
+      inactiveThumbImage: const AssetImage('assets/images/sun.webp'),
+      inactiveThumbColor: Colors.black12,
+      value: context.watch<ThemeCubit>().state == ThemeMode.dark,
+      onChanged: (value) {
+        themeCubit.switchTheme();
+      },
+    );
   }
 }
