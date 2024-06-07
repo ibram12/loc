@@ -1087,6 +1087,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Something went wrong, please try later`
+  String get something_went_wrong {
+    return Intl.message(
+      'Something went wrong, please try later',
+      name: 'something_went_wrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have modified`
+  String get you_have_modified {
+    return Intl.message(
+      'You have modified',
+      name: 'you_have_modified',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Role to`
+  String get role_to {
+    return Intl.message(
+      'Role to',
+      name: 'role_to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services has been modified to`
+  String get services_has_been_modified_to {
+    return Intl.message(
+      'Services has been modified to',
+      name: 'services_has_been_modified_to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Modify permissions`
+  String get modify_permissions {
+    return Intl.message(
+      'Modify permissions',
+      name: 'modify_permissions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Modify permissions for`
+  String get modify_permissions_for {
+    return Intl.message(
+      'Modify permissions for',
+      name: 'modify_permissions_for',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Services`
+  String get edit_services {
+    return Intl.message(
+      'Edit Services',
+      name: 'edit_services',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Role`
+  String get edit_role {
+    return Intl.message(
+      'Edit Role',
+      name: 'edit_role',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/text_styles/Styles.dart';
+import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/settings/presentaiton/manager/set_user_image_cubit/set_user_image_cubit.dart';
+import 'package:loc/featuers/settings/presentaiton/widgets/drower_body.dart';
 import 'package:loc/featuers/settings/presentaiton/widgets/user_image.dart';
 
 class DrawerView extends StatelessWidget {
@@ -18,7 +20,7 @@ class DrawerView extends StatelessWidget {
           children: <Widget>[
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Colors.blue, // Replace with kPrimaryColor
+                color: kOrange
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,22 +33,8 @@ class DrawerView extends StatelessWidget {
                 ],
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                // Handle the onTap
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                // Handle the onTap
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
+            
+            const DrowerBody()
           ],
         ),
       ),

@@ -100,5 +100,13 @@
     "user_edit_request_cubit_in_requests_feature_the_operation_has_been_cancelled": "The operation has been cancelled",
     "user_edit_request_cubit_in_requests_feature_the_start_time_is_after_the_end_time": "The start time is after the end time",
     "user_edit_request_cubit_in_requests_feature_the_start_time_cant_be_the_same_as_the_end_time": "The start time can't be the same as the end time",
-    "user_edit_request_cubit_in_requests_feature_there_was_a_conflict_with_another_reservation": "There was a conflict with another reservation"
-}
+    "user_edit_request_cubit_in_requests_feature_there_was_a_conflict_with_another_reservation": "There was a conflict with another reservation",
+    "something_went_wrong": "Something went wrong, please try later",
+    "you_have_modified": "You have modified",
+    "role_to": "Role to",
+    "services_has_been_modified_to": "Services has been modified to",
+    "modify_permissions": "Modify permissions",
+    "modify_permissions_for": "Modify permissions for",
+    "edit_services": "Edit Services",
+    "edit_role": "Edit Role"
+  }

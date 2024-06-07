@@ -46,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "choose_date": MessageLookupByLibrary.simpleMessage("اختر التاريخ"),
         "edit_end_time":
             MessageLookupByLibrary.simpleMessage("تحرير وقت الانتهاء"),
+        "edit_role": MessageLookupByLibrary.simpleMessage("تحرير الصلاحيه"),
+        "edit_services": MessageLookupByLibrary.simpleMessage("تعديل الخدمات"),
         "edit_start_time":
             MessageLookupByLibrary.simpleMessage("تحرير وقت البدء"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
@@ -81,6 +83,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "make_reservation": MessageLookupByLibrary.simpleMessage("إجراء حجز"),
         "mass_alart": MessageLookupByLibrary.simpleMessage(
             "هل انت متاكد انك تريد ازالة هذا العنصر"),
+        "modify_permissions":
+            MessageLookupByLibrary.simpleMessage("تعديل الأذونات"),
+        "modify_permissions_for":
+            MessageLookupByLibrary.simpleMessage("تعديل الأذونات لـ"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم"),
         "name_app": MessageLookupByLibrary.simpleMessage("اماكن"),
         "name_loc": MessageLookupByLibrary.simpleMessage("اسم المكان"),
@@ -102,7 +108,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "remove": MessageLookupByLibrary.simpleMessage("ازالة"),
         "remove_hall": MessageLookupByLibrary.simpleMessage("إزالة القاعة"),
-        "role": MessageLookupByLibrary.simpleMessage("الدور"),
+        "role": MessageLookupByLibrary.simpleMessage("الصلاحيه"),
+        "role_to": MessageLookupByLibrary.simpleMessage("الصلاحيه إلى"),
         "select_services": MessageLookupByLibrary.simpleMessage("اختر الخدمات"),
         "select_time_cubit_in_book_hall_feature_pick_the_date":
             MessageLookupByLibrary.simpleMessage("اختر التاريخ"),
@@ -123,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sent_request": MessageLookupByLibrary.simpleMessage("تم إرسال الطلب"),
         "service": MessageLookupByLibrary.simpleMessage("الخدمة"),
         "service_type": MessageLookupByLibrary.simpleMessage("نوع الخدمة"),
+        "services_has_been_modified_to":
+            MessageLookupByLibrary.simpleMessage("تم تعديل الخدمات إلى"),
         "set_end_time":
             MessageLookupByLibrary.simpleMessage("حدد وقت الانتهاء"),
         "set_start_time": MessageLookupByLibrary.simpleMessage("حدد وقت البدء"),
@@ -134,6 +143,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "كلمة المرور المقدمة ضعيفة جدًا."),
         "sign_up_successfully":
             MessageLookupByLibrary.simpleMessage("تم التسجيل بنجاح"),
+        "something_went_wrong": MessageLookupByLibrary.simpleMessage(
+            "حدث خطأ ما، يرجى المحاولة لاحقًا"),
         "something_went_wrong_please_try_later":
             MessageLookupByLibrary.simpleMessage(
                 "حدث خطأ ما، يرجى المحاولة لاحقًا."),
@@ -180,6 +191,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لقد قمت بتحديث طلبك من"),
         "user_name": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "wellcome": MessageLookupByLibrary.simpleMessage("مرحبا"),
+        "you_have_modified":
+            MessageLookupByLibrary.simpleMessage("لقد قمت بتعديل"),
         "you_have_updated_your_request_from":
             MessageLookupByLibrary.simpleMessage("لقد قمت بتحديث طلبك من"),
         "your_request_sent_successfully":

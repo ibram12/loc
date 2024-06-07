@@ -45,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "choose_date": MessageLookupByLibrary.simpleMessage("Choose the date"),
         "edit_end_time": MessageLookupByLibrary.simpleMessage("Edit end time"),
+        "edit_role": MessageLookupByLibrary.simpleMessage("Edit Role"),
+        "edit_services": MessageLookupByLibrary.simpleMessage("Edit Services"),
         "edit_start_time":
             MessageLookupByLibrary.simpleMessage("Edit start time"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -79,6 +81,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Make Reservation"),
         "mass_alart": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to remove this item?"),
+        "modify_permissions":
+            MessageLookupByLibrary.simpleMessage("Modify permissions"),
+        "modify_permissions_for":
+            MessageLookupByLibrary.simpleMessage("Modify permissions for"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "name_app": MessageLookupByLibrary.simpleMessage("loc"),
         "name_loc": MessageLookupByLibrary.simpleMessage("name loc"),
@@ -100,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "remove": MessageLookupByLibrary.simpleMessage("Remove"),
         "remove_hall": MessageLookupByLibrary.simpleMessage("Remove Hall"),
         "role": MessageLookupByLibrary.simpleMessage("Role"),
+        "role_to": MessageLookupByLibrary.simpleMessage("Role to"),
         "select_services":
             MessageLookupByLibrary.simpleMessage("Select Services"),
         "select_time_cubit_in_book_hall_feature_pick_the_date":
@@ -122,6 +129,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sent_request": MessageLookupByLibrary.simpleMessage("sent request"),
         "service": MessageLookupByLibrary.simpleMessage("Service"),
         "service_type": MessageLookupByLibrary.simpleMessage("Service Type"),
+        "services_has_been_modified_to": MessageLookupByLibrary.simpleMessage(
+            "Services has been modified to"),
         "set_end_time": MessageLookupByLibrary.simpleMessage("Select End Time"),
         "set_start_time":
             MessageLookupByLibrary.simpleMessage("Select Start Time"),
@@ -133,6 +142,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "The password provided is too weak."),
         "sign_up_successfully":
             MessageLookupByLibrary.simpleMessage("Sign Up Successfully"),
+        "something_went_wrong": MessageLookupByLibrary.simpleMessage(
+            "Something went wrong, please try later"),
         "something_went_wrong_please_try_later":
             MessageLookupByLibrary.simpleMessage(
                 "Something went wrong, please try later."),
@@ -186,6 +197,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "You Have Updated Your Request from"),
         "user_name": MessageLookupByLibrary.simpleMessage("User Name"),
         "wellcome": MessageLookupByLibrary.simpleMessage("Wellcome"),
+        "you_have_modified":
+            MessageLookupByLibrary.simpleMessage("You have modified"),
         "you_have_updated_your_request_from":
             MessageLookupByLibrary.simpleMessage(
                 "You Have Updated Your Request from"),

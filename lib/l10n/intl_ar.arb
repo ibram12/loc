@@ -43,7 +43,7 @@
     "book_hall_something_went_wrong": "حدث خطأ ما",
     "remove_hall": "إزالة القاعة",
     "hall": "القاعة",
-    "role": "الدور",
+    "role": "الصلاحيه",
     "sign_up": "تسجيل",
     "add_new_user": "إضافة مستخدم جديد",
     "name": "الاسم",
@@ -100,5 +100,13 @@
     "user_edit_request_cubit_in_requests_feature_the_operation_has_been_cancelled": "تم إلغاء العملية",
     "user_edit_request_cubit_in_requests_feature_the_start_time_is_after_the_end_time": "وقت البدء بعد وقت الانتهاء",
     "user_edit_request_cubit_in_requests_feature_the_start_time_cant_be_the_same_as_the_end_time": "وقت البدء لا يمكن أن يكون نفس وقت الانتهاء",
-    "user_edit_request_cubit_in_requests_feature_there_was_a_conflict_with_another_reservation": "كان هناك تعارض مع حجز آخر"
+    "user_edit_request_cubit_in_requests_feature_there_was_a_conflict_with_another_reservation": "كان هناك تعارض مع حجز آخر",
+    "something_went_wrong": "حدث خطأ ما، يرجى المحاولة لاحقًا",
+    "you_have_modified": "لقد قمت بتعديل",
+    "role_to": "الصلاحيه إلى",
+    "services_has_been_modified_to": "تم تعديل الخدمات إلى",
+    "modify_permissions": "تعديل الأذونات",
+    "modify_permissions_for": "تعديل الأذونات لـ",
+    "edit_services": "تعديل الخدمات",
+    "edit_role": "تحرير الصلاحيه"
 }
