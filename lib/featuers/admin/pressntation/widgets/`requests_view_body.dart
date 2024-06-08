@@ -4,10 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/featuers/admin/data/models/request_model.dart';
 import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_reply_cubit.dart';
-import 'package:loc/featuers/admin/pressntation/manager/get_hall_requests_cubit/get_hall_requests_cubit.dart';
+import 'package:loc/featuers/admin/pressntation/manager/get_hall_requests_cubit/check_on_hall_requests_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../../../../core/text_styles/Styles.dart';
 import '../../../../generated/l10n.dart';
 import 'request_item.dart';
 
@@ -42,7 +41,7 @@ class _RequestsViewBodyState extends State<RequestsViewBody> {
         .doc(widget.hallId)
         .collection('reservations')
         .orderBy('replyState');
-    BlocProvider.of<GetHallRequestsCubit>(context)
+    BlocProvider.of<CheckOnRequestsCubit>(context)
         .checkAndDeleteRequests(query);
     stream = query.snapshots();
   }

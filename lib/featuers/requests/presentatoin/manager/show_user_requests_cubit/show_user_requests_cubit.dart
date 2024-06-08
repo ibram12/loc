@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:loc/featuers/requests/data/models/user_request_model.dart';
 import '../../../../../core/server/shered_pref_helper.dart';
 import '../../../../../generated/l10n.dart';
@@ -32,8 +33,8 @@ class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
                   return null;
                 }
               })
-              .where((request) => request != null) 
-              .cast<UserRequestModel>() 
+              .where((request) => request != null)
+              .cast<UserRequestModel>()
               .toList();
           if (!isClosed) {
             emit(UserRequestsLoaded(requests));
@@ -51,29 +52,27 @@ class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
       }
     }
   }
+
   Future<void> _checkAndDeleteRequests(Query query) async {
     try {
       DateTime now = DateTime.now();
-
-      String? lastDeletionDateStr =
-          await SherdPrefHelper().getLastDeletionDate();
-      DateTime lastDeletionDate = lastDeletionDateStr != null
-          ? DateTime.parse(lastDeletionDateStr)
-          : DateTime(2023);
-       
-      if (now.weekday == DateTime.saturday &&
-          !_isSameDay(now, lastDeletionDate)) {
+      DateTime suterDay = getSuterDayOfCurrentWeek(now);
+      print(suterDay);
+    
+    
         QuerySnapshot snapshot = await query.get();
         List<DocumentSnapshot> documentsToDelete = [];
         for (var doc in snapshot.docs) {
           bool? daily;
+          Timestamp? startTime;
           try {
+           startTime = doc.get('startTime');
             daily = doc.get('daily');
           } catch (e) {
             continue; // Skip this document if it has missing fields
           }
-
-          if (daily == false) {
+      //if condition to check if the start and daily is not null
+          if (daily == false&&startTime!.toDate().isBefore(suterDay)) {
             documentsToDelete.add(doc);
             for (var doc in documentsToDelete) {
               await doc.reference.delete();
@@ -81,15 +80,17 @@ class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
             await SherdPrefHelper().setDeletionDate(now.toIso8601String());
           }
         }
-      }
+      
     } catch (e) {
       print('Error in _checkAndDeleteRequests: $e');
     }
   }
 
-  bool _isSameDay(DateTime date1, DateTime date2) {
-    return date1.year == date2.year &&
-        date1.month == date2.month &&
-        date1.day == date2.day;
-  }
+DateTime getSuterDayOfCurrentWeek(DateTime date) {
+  int daysSinceSuterDay = (date.weekday + 1) % 7; 
+  DateTime suterDay = date.subtract(Duration(days: daysSinceSuterDay));
+  return DateTime(suterDay.year, suterDay.month, suterDay.day);
+}
+
+
 }

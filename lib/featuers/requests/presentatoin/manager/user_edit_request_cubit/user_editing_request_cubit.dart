@@ -109,7 +109,8 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
             .then((value) {
           bool requestFound = false;
           for (var element in value.docs) {
-            if (element.get('requestId') == requestId) {
+            if(element.exists){
+                if (element.get('requestId') == requestId) {
               requestFound = true;
               List<String> pathsToUpdate = [
                 'locs/$hallId/reservations/${element.reference.id}',
@@ -124,6 +125,10 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
               }
               break; 
             }
+            }else{
+              emit(UserEditingRequestFailer('you can not edit this request because it is not found'));
+            }
+          
           }
 
           if (requestFound) {
@@ -137,7 +142,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
           }
         });
       } else {
-        _checkAllSelections(
+        _checkAllInAllReservaions(
             hallId: hallId,
             requestId: requestId,
             userId: userId,
@@ -148,7 +153,7 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
     }
   }
 
-  void _checkAllSelections(
+  void _checkAllInAllReservaions(
       {required String hallId,
       required String requestId,
       required String userId,
