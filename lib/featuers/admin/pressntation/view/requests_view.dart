@@ -29,7 +29,7 @@ class RequestsView extends StatelessWidget {
         BlocProvider(
           create: (context) => AdminChangeDailyStateCubit(),
         ),
-        BlocProvider(create: (context) => GetHallRequestsCubit()..fetchRequests(hallId: hallId,context: context),
+        BlocProvider(create: (context) => GetHallRequestsCubit()
         ),
       ],
       child: Scaffold(

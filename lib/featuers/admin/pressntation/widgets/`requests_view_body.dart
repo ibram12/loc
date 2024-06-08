@@ -1,12 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/snack_bar.dart';
+import 'package:loc/featuers/admin/data/models/request_model.dart';
 import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_reply_cubit.dart';
+import 'package:loc/featuers/admin/pressntation/manager/get_hall_requests_cubit/get_hall_requests_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../core/text_styles/Styles.dart';
 import '../../../../generated/l10n.dart';
-import '../manager/get_hall_requests_cubit/get_hall_requests_cubit.dart';
 import 'request_item.dart';
 
 class RequestsViewBody extends StatefulWidget {
@@ -28,54 +30,63 @@ class RequestsViewBody extends StatefulWidget {
 class _RequestsViewBodyState extends State<RequestsViewBody> {
   List<Map<String, dynamic>> requests = [];
 
+  late Query query;
+  late Stream<QuerySnapshot> stream;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    query = FirebaseFirestore.instance
+        .collection('locs')
+        .doc(widget.hallId)
+        .collection('reservations')
+        .orderBy('replyState');
+    BlocProvider.of<GetHallRequestsCubit>(context)
+        .checkAndDeleteRequests(query);
+    stream = query.snapshots();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetHallRequestsCubit, GetHallRequestsState>(
-      builder: (context, state) {
-        if (state is GetHallRequestsLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is GetHallRequestsError) {
-          return Center(child: Text(state.message));
-        } else if (state is GetHallRequestsSuccess) {
-          requests = state.requests;
-          if (state.requests.isEmpty) {
-            return  Center(
-                child: Text(S.of(context).no_requests_yet, style: Styles.textStyle18));
-          } else {
-            return BlocConsumer<AdminReplyCubit, AdminReplyState>(
-              listener: (context, state) {
-                if (state is AdminReplyAccept) {
-                  showSnackBar(context, S.of(context).request_Accepted_Successfully,
-                      color: Colors.green);
-                } else if (state is AdminReplyReject) {
-                  showSnackBar(context, S.of(context).request_Rejected_Successfully,
-                      color: Colors.red);
-                }
-              },
-              builder: (context, state) {
-                return ModalProgressHUD(
-                  inAsyncCall: state is AdminReplyLoading,
-                  child: ListView.builder(
-                    itemCount: requests.length,
-                    itemBuilder: (context, index) {
-                      return RequestItem(
-                        hallName: widget.hallName,
-                        hallId: widget.hallId,
-                        reservationId: requests[index]['id'],
-                        requestModel: requests[index]['request'],
-                      );
-                    },
-                  ),
-                );
-              },
-            );
-          }
-        } else {
-          return Center(
-            child: Image.asset('assets/images/erorr.png'),
-          );
+    return BlocConsumer<AdminReplyCubit, AdminReplyState>(
+      listener: (context, state) {
+        if (state is AdminReplyAccept) {
+          showSnackBar(context, S.of(context).request_Accepted_Successfully,
+              color: Colors.green);
+        } else if (state is AdminReplyReject) {
+          showSnackBar(context, S.of(context).request_Rejected_Successfully,
+              color: Colors.red);
         }
+      },
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: state is AdminReplyLoading,
+          child: StreamBuilder<QuerySnapshot>(
+              stream: stream,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.data == null ||
+                    snapshot.data!.docs.isEmpty) {
+                  return const Center(child: Text('No Data Found'));
+                } else if (snapshot.hasError) {
+                  return Center(child: Image.asset('assets/images/error.png'));
+                }
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    return RequestItem(
+                      hallName: widget.hallName,
+                      hallId: widget.hallId,
+                      reservationId: snapshot.data!.docs[index].id,
+                      requestModel: RequestModel.fromDocumentSnapshot(
+                          snapshot.data!.docs[index]),
+                    );
+                  },
+                );
+              }),
+        );
       },
     );
   }
