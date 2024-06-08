@@ -4,6 +4,7 @@ class SherdPrefHelper {
   static String name = 'userName';
   static String role = 'role';
     static String userImage = 'userImage';  
+    static String lastDeletionDateKey = 'lastDeletionDateKey';
 
 
   Future<bool> setUserName(String? getUserName) async {
@@ -15,10 +16,20 @@ class SherdPrefHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setBool(role, isAdmin);
   }
+    Future<bool> setDeletionDate(String? now)async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+return prefs.setString(lastDeletionDateKey, now??DateTime(1970).toString());
+  }
+  
+
 
     Future<bool> setUserImage(String? imageUrl) async {  
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(userImage, imageUrl ?? '');
+  }
+  Future<String?> getLastDeletionDate() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(lastDeletionDateKey);
   }
 
 
