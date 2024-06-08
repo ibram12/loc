@@ -11,7 +11,7 @@ class RequestModel {
   final bool daily;
   final String hallId;
   final String service;
-  final String imageUrl;
+  final String? imageUrl;
   RequestModel(
       {
         required this.imageUrl,

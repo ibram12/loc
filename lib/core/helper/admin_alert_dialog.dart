@@ -66,12 +66,9 @@ showDialog(
   ),
 ),
           actions: [
-            TextButton(
-              onPressed: onAccept,
-              child:  Text(S.of(context).accept,style: const TextStyle(color: Colors.green),),
-            ),
+          
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                     TextButton(
               onPressed: onEdit,
@@ -81,7 +78,10 @@ showDialog(
                   onPressed: onReject,
                   child:  Text(S.of(context).reject,style: const TextStyle(color: Colors.red),),
                 ),
-              
+                TextButton(
+              onPressed: onAccept,
+              child:  Text(S.of(context).accept,style: const TextStyle(color: Colors.green),),
+            ),
               ],
             ),
           

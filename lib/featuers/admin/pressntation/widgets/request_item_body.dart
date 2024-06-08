@@ -39,14 +39,14 @@ class RequestItemBody extends StatelessWidget {
                             CircleAvatar(
                               radius: 34,
                               child: ClipOval(
-                                child: requestModel.imageUrl == '' ? Image.asset('assets/images/person.png') : CachedNetworkImage(
+                                child: requestModel.imageUrl == null ? Image.asset('assets/images/person.png') : CachedNetworkImage(
                                     placeholder: (context, url) => const Center(
                                           child: CircularProgressIndicator(),
                                         ),
                                         fit: BoxFit.fill,
                                     errorWidget: (context, url, error) =>
                                         const Icon(Icons.error,color: Colors.red,),
-                                    imageUrl: requestModel.imageUrl),
+                                    imageUrl: requestModel.imageUrl!),
                               ),
                             ),
                             const SizedBox(width: 10),
