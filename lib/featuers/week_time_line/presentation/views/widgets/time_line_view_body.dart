@@ -43,8 +43,8 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
           return Center(child: Text('Error: ${state.error}'));
         }
         return SfCalendar(
-          minDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
-          maxDate: DateTime(DateTime.now().year, DateTime.now().month , 7),
+           minDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
+           maxDate: DateTime(DateTime.now().year, DateTime.now().month + 2, 0),
           
           onTap: (CalendarTapDetails date) {
             if (date.appointments != null) {
@@ -57,7 +57,7 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
           },
           view: CalendarView.workWeek,
           firstDayOfWeek: 6,
-          showDatePickerButton: false,
+          showDatePickerButton: true,
           timeSlotViewSettings: const TimeSlotViewSettings(
             timeIntervalHeight: 60,
             startHour: 6,

@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/week_time_line/presentation/views/time_line_view.dart';
 import '../../../../generated/l10n.dart';
 import '../../../admin/pressntation/view/bottomNav_bar.dart';
 import '../../../book_Hall/presentation/views/book_loc_view.dart';
+import '../manager/delete_old_data_cubit/delete_old_data_cubit.dart';
 import 'Card_Button.dart';
 
 class HomeVeiwBody extends StatefulWidget {
@@ -20,7 +22,6 @@ class HomeVeiwBody extends StatefulWidget {
 class _HomeVeiwBodyState extends State<HomeVeiwBody> {
   bool isAdmin = false;
   bool isLoading = true;
-
   void checkRole() async {
      if (FirebaseAuth.instance.currentUser != null) {
       String id = FirebaseAuth.instance.currentUser!.uid;
@@ -46,6 +47,8 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
   void initState() {
     super.initState();
     checkRole();
+        BlocProvider.of<DeleteOldDataCubit>(context).deleteOldData();
+
   }
 
   @override

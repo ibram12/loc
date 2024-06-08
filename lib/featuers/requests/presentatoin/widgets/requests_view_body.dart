@@ -1,52 +1,66 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loc/core/text_styles/Styles.dart';
-import 'package:loc/featuers/requests/presentatoin/manager/show_user_requests_cubit/show_user_requests_cubit.dart';
 import 'package:loc/featuers/requests/presentatoin/widgets/request_item.dart';
-
 import '../../../../core/helper/snack_bar.dart';
 import '../../../../generated/l10n.dart';
-import '../manager/show_user_requests_cubit/show_user_requests_state.dart';
+import '../../data/models/user_request_model.dart';
 
-class UserRequestBody extends StatelessWidget {
+class UserRequestBody extends StatefulWidget {
   const UserRequestBody({
     super.key,
   });
 
   @override
+  State<UserRequestBody> createState() => _UserRequestBodyState();
+}
 
+class _UserRequestBodyState extends State<UserRequestBody> {
+  late Query query;
+  late Stream<QuerySnapshot> stream;
+  final String id = FirebaseAuth.instance.currentUser!.uid;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    query = FirebaseFirestore.instance
+        .collection('users')
+        .doc(id)
+        .collection('requests')
+        .orderBy('startTime', descending: true);
+
+    stream = query.snapshots();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ShowUserRequestsCubit, ShowUserRequestsState>(
-      builder: (context, state) {
-        if (state is UserRequestsLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is UserRequestsError) {
-          return Center(child: Text(state.message));
-        } else if (state is UserRequestsLoaded) {
-          if (state.requests.isEmpty) {
-            return  Center(
-                child: Text(S.of(context).no_requests_yet, style: Styles.textStyle18));
-          } else {
-            return ListView.builder(
-              itemCount: state.requests.length,
-              itemBuilder: (context, index) {
-                return UserRequestItem(
-                  onRequestDeleted: ()async {
-                      showSnackBar(
-                          context, S.of(context).your_request_deleted_successfully);
-    
-                  },
-                  requestModel: state.requests[index],
-                );
-              },
+    return StreamBuilder<QuerySnapshot>(
+        stream: stream,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
+          }else if(snapshot.data!.docs.isEmpty) {
+            return Center(
+              child: Text(S.of(context).no_requests_yet),
+            );
+          }else if(snapshot.hasError) {
+            return Center(child: Text(S.of(context).failed_to_fetch_requests));
           }
-        } else {
-          return Center(
-            child: Image.asset('assets/images/erorr.png'),
+          return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              return UserRequestItem(
+                onRequestDeleted: () async {
+                  showSnackBar(
+                      context, S.of(context).your_request_deleted_successfully);
+                },
+                requestModel: UserRequestModel.fromDocumentSnapshot(
+                    snapshot.data!.docs[index]),
+              );
+            },
           );
-        }
-      },
-    );
+        });
   }
 }

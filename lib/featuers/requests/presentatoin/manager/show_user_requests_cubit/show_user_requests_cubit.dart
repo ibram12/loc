@@ -2,9 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 import 'package:loc/featuers/requests/data/models/user_request_model.dart';
-import '../../../../../core/server/shered_pref_helper.dart';
 import '../../../../../generated/l10n.dart';
 import 'show_user_requests_state.dart';
 
@@ -77,7 +75,6 @@ class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
             for (var doc in documentsToDelete) {
               await doc.reference.delete();
             }
-            await SherdPrefHelper().setDeletionDate(now.toIso8601String());
           }
         }
       

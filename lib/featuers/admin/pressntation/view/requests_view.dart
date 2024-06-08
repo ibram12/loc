@@ -7,7 +7,6 @@ import 'package:loc/featuers/admin/pressntation/manager/admin_reply_cubit/admin_
 import 'package:loc/featuers/admin/pressntation/view/reservation_table_view.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/%60requests_view_body.dart';
 
-import '../manager/get_hall_requests_cubit/check_on_hall_requests_cubit.dart';
 
 
 class RequestsView extends StatelessWidget {
@@ -29,8 +28,7 @@ class RequestsView extends StatelessWidget {
         BlocProvider(
           create: (context) => AdminChangeDailyStateCubit(),
         ),
-        BlocProvider(create: (context) => CheckOnRequestsCubit()
-        ),
+
       ],
       child: Scaffold(
         appBar: AppBar(
