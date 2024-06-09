@@ -57,18 +57,15 @@ class SelectTimeCubit extends Cubit<SelectTimeState> {
     BuildContext context,
   ) async {
     DateTime now = DateTime.now();
-    int daysToAdd = (DateTime.friday - now.weekday + 7) % 7;
-    if (daysToAdd == 0) {
-      daysToAdd = 7;
-    }
+  
 
-    DateTime nextFriday = now.add(Duration(days: daysToAdd));
     final DateTime? pickedDate = await showDatePicker(
         helpText: S.of(context).select_time_cubit_in_book_hall_feature_pick_the_date,
         context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: nextFriday);
+        initialDate: now,
+        firstDate: now,
+        lastDate:   DateTime(now.year, now.month + 1, 0),
+);
     if (pickedDate != null) {
       date = pickedDate;
       emit(SelectDateSuccess(pickedDate));

@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "admin_password":
             MessageLookupByLibrary.simpleMessage("كلمة مرور المسؤول"),
         "alert": MessageLookupByLibrary.simpleMessage("تنبيه"),
+        "all_halls": MessageLookupByLibrary.simpleMessage("جميع القاعات"),
         "all_users": MessageLookupByLibrary.simpleMessage("جميع المستخدمين"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("اللغة"),
         "appTheme": MessageLookupByLibrary.simpleMessage("الوضع"),
@@ -62,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "daily": MessageLookupByLibrary.simpleMessage("دائم"),
         "date": MessageLookupByLibrary.simpleMessage("تاريخ"),
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
+        "delete_request_alert": MessageLookupByLibrary.simpleMessage(
+            "هل انت متأكد من حذف هذا الطلب؟"),
         "do_you_Need_To_Delete_Your_Request":
             MessageLookupByLibrary.simpleMessage("هل تحتاج لحذف طلبك؟"),
         "do_you_Need_To_Edit_Your_Request":
@@ -155,6 +158,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم قبول الطلب بنجاح"),
         "request_Rejected_Successfully":
             MessageLookupByLibrary.simpleMessage("تم رفض الطلب بنجاح"),
+        "request_deleted_successfully":
+            MessageLookupByLibrary.simpleMessage("تم حذف الطلب بنجاح"),
+        "request_which_belongs_to":
+            MessageLookupByLibrary.simpleMessage("الطلب الذي يعود لـ"),
         "reservations": MessageLookupByLibrary.simpleMessage("الحجوزات"),
         "role": MessageLookupByLibrary.simpleMessage("الصلاحيه"),
         "role_to": MessageLookupByLibrary.simpleMessage("الصلاحيه إلى"),

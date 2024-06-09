@@ -34,19 +34,39 @@ class DataBaseMethouds {
         .doc(requestId)
         .delete()
         .then((value) async {
-    QuerySnapshot reservations =  await FirebaseFirestore.instance
+      QuerySnapshot reservations = await FirebaseFirestore.instance
           .collection('locs')
           .doc(hallId)
           .collection('reservations')
           .get();
-        
-        for (var element in reservations.docs) {
-          String docrRequestId = element.get('requestId');
-          if (docrRequestId == requestId) {
-            element.reference.delete();
-          }
+
+      for (var element in reservations.docs) {
+        String docrRequestId = element.get('requestId');
+        if (docrRequestId == requestId) {
+          element.reference.delete();
         }
-      });
-  
+      }
+    });
+  }
+
+  Future<void> deleteRequestFromAdminPanel(
+      {required String userId,
+      required String requestId,
+      required String hallId,
+      required String requestIdInReservation}) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('requests')
+        .doc(requestId)
+        .delete()
+        .then((value) async {
+              await FirebaseFirestore.instance
+          .collection('locs')
+          .doc(hallId)
+          .collection('reservations')
+          .doc(requestIdInReservation)
+          .delete();
+    });
   }
 }

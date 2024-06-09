@@ -148,7 +148,11 @@
      "add":"اضافة",
      "do_you_Need_To_Edit_Your_Request":"هل تحتاج لتعديل طلبك؟",
      "do_you_Need_To_Delete_Your_Request":"هل تحتاج لحذف طلبك؟",
-     "delete":"حذف"
+     "delete":"حذف",
+     "all_halls":"جميع القاعات",
+     "delete_request_alert": "هل انت متأكد من حذف هذا الطلب؟",
+     "request_which_belongs_to": "الطلب الذي يعود لـ",
+     "request_deleted_successfully":"تم حذف الطلب بنجاح"	
 
 
 

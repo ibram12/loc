@@ -1567,6 +1567,46 @@ class S {
       args: [],
     );
   }
+
+  /// `All Halls`
+  String get all_halls {
+    return Intl.message(
+      'All Halls',
+      name: 'all_halls',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this request?`
+  String get delete_request_alert {
+    return Intl.message(
+      'Are you sure you want to delete this request?',
+      name: 'delete_request_alert',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request which belongs to`
+  String get request_which_belongs_to {
+    return Intl.message(
+      'Request which belongs to',
+      name: 'request_which_belongs_to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request deleted successfully`
+  String get request_deleted_successfully {
+    return Intl.message(
+      'Request deleted successfully',
+      name: 'request_deleted_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

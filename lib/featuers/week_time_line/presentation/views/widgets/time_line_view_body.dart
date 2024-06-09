@@ -28,7 +28,15 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
   MeetingDataSource? events;
   List<String> hallNames = ['all Halls'];
   late Query query;
-bool isEnglish = true;
+late  bool isEnglish;
+
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    selectedHall = S.of(context).all_halls;
+    hallNames[0] = selectedHall;
+  }
   @override
   void initState() {
     super.initState();
@@ -143,7 +151,7 @@ bool isEnglish = true;
 
   Future<void> isArabic() async {
     final prefs = SharedPreferences.getInstance();
-     await prefs.then((value) => value.getString('locale') == 'ar');
-     isEnglish =await prefs.then((value) => value.getString('locale') == 'en');
+    await prefs.then((value) => value.getString('locale') == 'ar');
+    isEnglish = await prefs.then((value) => value.getString('locale') == 'en');
   }
 }

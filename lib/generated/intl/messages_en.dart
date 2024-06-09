@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "admin_password":
             MessageLookupByLibrary.simpleMessage("Admin Password"),
         "alert": MessageLookupByLibrary.simpleMessage("Alert"),
+        "all_halls": MessageLookupByLibrary.simpleMessage("All Halls"),
         "all_users": MessageLookupByLibrary.simpleMessage("All Users"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
         "appTheme": MessageLookupByLibrary.simpleMessage("App Theme"),
@@ -63,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "daily": MessageLookupByLibrary.simpleMessage("Daily"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "delete_request_alert": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete this request?"),
         "do_you_Need_To_Delete_Your_Request":
             MessageLookupByLibrary.simpleMessage(
                 "Do you Need To Delete Your Request?"),
@@ -154,6 +157,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Request Accepted Successfully"),
         "request_Rejected_Successfully": MessageLookupByLibrary.simpleMessage(
             "Request Rejected Successfully"),
+        "request_deleted_successfully": MessageLookupByLibrary.simpleMessage(
+            "Request deleted successfully"),
+        "request_which_belongs_to":
+            MessageLookupByLibrary.simpleMessage("Request which belongs to"),
         "reservations": MessageLookupByLibrary.simpleMessage("Reservations"),
         "role": MessageLookupByLibrary.simpleMessage("Role"),
         "role_to": MessageLookupByLibrary.simpleMessage("Role to"),

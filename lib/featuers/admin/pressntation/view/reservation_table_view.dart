@@ -16,6 +16,7 @@ class ReservatoinTableView extends StatefulWidget {
 
 class _ReservatoinTableViewState extends State<ReservatoinTableView> {
   late Query reversations;
+  late Stream<QuerySnapshot> stream;
   @override
   void initState() {
     super.initState();
@@ -23,13 +24,14 @@ class _ReservatoinTableViewState extends State<ReservatoinTableView> {
         .collection('locs')
         .doc(widget.docId)
         .collection('reservations').orderBy('startTime', descending: true);
+        stream = reversations.snapshots();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-          future: reversations.get(),
+      body: StreamBuilder(
+          stream: stream,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -48,6 +50,7 @@ class _ReservatoinTableViewState extends State<ReservatoinTableView> {
                       DataColumn(label: Text(S.of(context).date)),
                       DataColumn(label: Text(S.of(context).start_time)),
                       DataColumn(label: Text(S.of(context).end_time)),
+                      DataColumn(label: Text(S.of(context).delete)),
                     ],
                     rowsPerPage: 10,
                     header: Row(
@@ -64,6 +67,7 @@ class _ReservatoinTableViewState extends State<ReservatoinTableView> {
                       ],
                     ),
                     source: MyData(
+                       context: context,
                       data: snapshot.data!.docs,
                     ),
                   )

@@ -21,18 +21,13 @@ class UserEditingRequestCubit extends Cubit<UserEditingRequestState> {
     BuildContext context,
   ) async {
     DateTime now = DateTime.now();
-    int daysToAdd = (DateTime.friday - now.weekday + 7) % 7;
-    if (daysToAdd == 0) {
-      daysToAdd = 7;
-    }
 
-    DateTime nextFriday = now.add(Duration(days: daysToAdd));
     final DateTime? pickedDate = await showDatePicker(
       helpText: S.of(context).pick_the_date,
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: nextFriday,
+      initialDate: now,
+      firstDate: now,
+      lastDate: DateTime(now.year, now.month + 1, 0),
     );
     selectedDate = pickedDate;
     if (pickedDate != null && selectedDate != null) {
