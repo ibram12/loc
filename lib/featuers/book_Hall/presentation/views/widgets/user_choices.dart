@@ -55,7 +55,8 @@ class _UserChoicesState extends State<UserChoices> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return Column(
+      children: [
       ElevatedButton(
           style: ElevatedButton.styleFrom(backgroundColor: kOrange),
           onPressed: () => selectTimeCubit.selectDate(context),
@@ -79,21 +80,33 @@ class _UserChoicesState extends State<UserChoices> {
             }
             return Column(
               children: [
-                ...?servises?.map((text) => RadioListTile<String>(
-                      //... used to genrate widgets insted of the list count
-                      title: Text(text),
-                      activeColor: kOrange,
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 40),
-                      value: text,
-                      groupValue: _selectedText,
-                      onChanged: (String? value) {
+                DropdownButton<String>(
+                  
+                  hint: Text(
+                    S.of(context).service,
+                  ),
+                    iconEnabledColor: kPrimaryColor,
+                    value: _selectedText,
+                    items: servises!.map((role) {
+                      return DropdownMenuItem<String>(
+                        
+                        value: role,
+                        child: Text(
+                          role,
+                          style:
+                              const TextStyle(overflow: TextOverflow.ellipsis),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (String? newHallName) {
+                      if (newHallName != null) {
                         setState(() {
-                          _selectedText = value;
+                           _selectedText = newHallName;
+                          widget.onServiceSelected(_selectedText);
                         });
-                        widget.onServiceSelected(_selectedText);
-                      },
-                    )),
+                      } else {}
+                    },
+                  ),
                 isAdmin == false
                     ? const SizedBox()
                     : Padding(
