@@ -12,36 +12,36 @@ part 'show_time_line_state.dart';
 class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
   ShowTimeLineCubit() : super(ShowTimeLineInitial());
 
-  Future<void> getTheTimeLine() async {
+  Future<void> getTheTimeLine({required String hallName}) async {
     List<Meeting> meetings = [];
     emit(ShowTimeLineLoading());
+
+    print("$hallName in the cubit=========");
     try {
       QuerySnapshot locations =
           await FirebaseFirestore.instance.collection('locs').get();
+          
       for (var loc in locations.docs) {
-        String name = await FirebaseFirestore.instance
-          .collection('locs')
-          .doc(loc.id)
-          .get()
-          .then((value) {
-        return value.data()!['name'];
-      });
-        QuerySnapshot reservationsSnap = await FirebaseFirestore.instance
-            .collection('locs')
-            .doc(loc.id)
-            .collection('reservations')
-            .where('replyState',
-                isNotEqualTo: ReplyState.unaccepted.description)
-            .get();
+        String name = loc['name'];
 
-        List<Meeting> locMeetings = reservationsSnap.docs.map((doc) {
-          var data = doc.data() as Map<String, dynamic>;
-          ReservatoinModel reservation =
-              ReservatoinModel.fromDoucumentSnapshot(data);
-          return Meeting.fromReservatoinModel(reservation, doc.id,name);
-        }).toList();
+        if (hallName == 'all Halls' || hallName == name) {
+          QuerySnapshot reservationsSnap = await FirebaseFirestore.instance
+              .collection('locs')
+              .doc(loc.id)
+              .collection('reservations')
+              .where('replyState',
+                  isNotEqualTo: ReplyState.unaccepted.description)
+              .get();
 
-        meetings.addAll(locMeetings);
+          List<Meeting> locMeetings = reservationsSnap.docs.map((doc) {
+            var data = doc.data() as Map<String, dynamic>;
+            ReservatoinModel reservation =
+                ReservatoinModel.fromDoucumentSnapshot(data);
+            return Meeting.fromReservatoinModel(reservation, doc.id, name);
+          }).toList();
+
+          meetings.addAll(locMeetings);
+        }
       }
       emit(ShowTimeLineSuccess(meetings));
     } catch (e) {

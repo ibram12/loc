@@ -46,7 +46,6 @@ class _TimeLineVeiwState extends State<TimeLineVeiw> {
                     builder: (context) => TimeLineVeiw(calendarView: calendarView),
                   ),
                 );
-                print(calendarView);
               },
               icon: const Icon(Icons.table_view_rounded),
             ),
