@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/core/helper/alert_dialog.dart';
 import 'package:loc/featuers/week_time_line/presentation/manager/show_time_line_cubit/show_time_line_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../../../../core/utils/constants.dart';
@@ -25,35 +28,33 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
   MeetingDataSource? events;
   List<String> hallNames = ['all Halls'];
   late Query query;
-
+bool isEnglish = true;
   @override
   void initState() {
     super.initState();
     getHalls();
     query = FirebaseFirestore.instance.collection('locs');
     _fetchTimeLine();
+    isArabic();
   }
 
   void _fetchTimeLine() {
-    BlocProvider.of<ShowTimeLineCubit>(context).getTheTimeLine(hallName: selectedHall);
-    print("$selectedHall in fetchTimeLine");
+    BlocProvider.of<ShowTimeLineCubit>(context)
+        .getTheTimeLine(hallName: selectedHall);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ShowTimeLineCubit, ShowTimeLineState>(
       builder: (context, state) {
-        print("$selectedHall in build");
         if (state is ShowTimeLineLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ShowTimeLineSuccess) {
           events = MeetingDataSource(state.reservations);
-          print("Events updated: ${events?.appointments?.length ?? 0}");
         } else if (state is ShowTimeLineError) {
           return Center(child: Text('Error: ${state.error}'));
         }
 
-        // Force the widget to rebuild by using a key
         return Stack(children: [
           SfCalendar(
             key: ValueKey(events),
@@ -64,7 +65,8 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
               if (date.appointments != null) {
                 showAlertDialog(
                     context: context,
-                    message: '${date.appointments![0].userName} ${S.of(context).home_made_a_reservation_from} ${DateFormat('hh:mm a').format(date.appointments![0].from)} ${S.of(context).to} ${DateFormat('hh:mm a').format(date.appointments![0].to)} ${S.of(context).forr} ${date.appointments![0].eventName} ${S.of(context).inn} ${date.appointments![0].hallName}',
+                    message:
+                        '${date.appointments![0].userName} ${S.of(context).home_made_a_reservation_from} ${DateFormat('hh:mm a').format(date.appointments![0].from)} ${S.of(context).to} ${DateFormat('hh:mm a').format(date.appointments![0].to)} ${S.of(context).forr} ${date.appointments![0].eventName} ${S.of(context).inn} ${date.appointments![0].hallName}',
                     onOkPressed: () => Navigator.pop(context));
               }
             },
@@ -81,7 +83,8 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
           ),
           Positioned(
             top: 0,
-            right: 10,
+            right: isEnglish == true ? 10 : null,
+            left: isEnglish == false ? 10 : null,
             child: FutureBuilder(
                 future: query.get(),
                 builder: (context, snapshot) {
@@ -99,19 +102,19 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
                         value: role,
                         child: Text(
                           role,
-                          style: const TextStyle(color: kPrimaryColor),
+                          style:
+                              const TextStyle(overflow: TextOverflow.ellipsis),
                         ),
                       );
                     }).toList(),
                     onChanged: (String? newHallName) {
-                      if (newHallName != null && hallNames.contains(newHallName)) {
+                      if (newHallName != null &&
+                          hallNames.contains(newHallName)) {
                         setState(() {
                           selectedHall = newHallName;
                           _fetchTimeLine();
                         });
-                      } else {
-                        print('Selected role is not in the list');
-                      }
+                      } else {}
                     },
                   );
                 }),
@@ -136,5 +139,11 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
         });
       });
     });
+  }
+
+  Future<void> isArabic() async {
+    final prefs = SharedPreferences.getInstance();
+     await prefs.then((value) => value.getString('locale') == 'ar');
+     isEnglish =await prefs.then((value) => value.getString('locale') == 'en');
   }
 }

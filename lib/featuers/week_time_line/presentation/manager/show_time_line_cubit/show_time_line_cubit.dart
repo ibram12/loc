@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loc/featuers/admin/data/models/request_model.dart';
-import 'package:meta/meta.dart';
 
 import '../../../data/models/reservation_info_model.dart';
 import '../../../data/models/reservation_model.dart';
@@ -16,7 +15,6 @@ class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
     List<Meeting> meetings = [];
     emit(ShowTimeLineLoading());
 
-    print("$hallName in the cubit=========");
     try {
       QuerySnapshot locations =
           await FirebaseFirestore.instance.collection('locs').get();
