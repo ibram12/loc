@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/week_time_line/presentation/views/time_line_view.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 import '../../../../generated/l10n.dart';
 import '../../../admin/pressntation/view/bottomNav_bar.dart';
 import '../../../book_Hall/presentation/views/book_loc_view.dart';
@@ -66,7 +67,9 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
               borderRadius: BorderRadius.circular(100),
               child: Image.asset(kLogo)),
                Card_Button(
-                page: const TimeLineVeiw(), text: S.of(context).time_line,icon: Icons.calendar_month,),
+                page: const TimeLineVeiw(
+                  calendarView: CalendarView.month,
+                ), text: S.of(context).time_line,icon: Icons.calendar_month,),
 
              Card_Button(
               page: const BookLocView(), text: S.of(context).add_event,icon: Icons.add,),

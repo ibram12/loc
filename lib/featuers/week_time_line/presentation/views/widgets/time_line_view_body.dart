@@ -10,7 +10,8 @@ import '../../../../../generated/l10n.dart';
 import 'reservations_data_sourece.dart';
 
 class TimeLineViewBody extends StatefulWidget {
-  const TimeLineViewBody({super.key});
+  const TimeLineViewBody({super.key, required this.calendarView});
+  final CalendarView calendarView;
 
   @override
   State<TimeLineViewBody> createState() => _TimeLineViewBodyState();
@@ -19,12 +20,13 @@ class TimeLineViewBody extends StatefulWidget {
 class _TimeLineViewBodyState extends State<TimeLineViewBody> {
   MeetingDataSource? events;
 
+
   @override
   void initState() {
     super.initState();
     BlocProvider.of<ShowTimeLineCubit>(context).getTheTimeLine().then(
       (results) {
-        SchedulerBinding.instance.addPostFrameCallback((timesTamp) {
+        SchedulerBinding.instance.addPostFrameCallback((timestamp) {
           setState(() {});
         });
       },
@@ -43,9 +45,8 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
           return Center(child: Text('Error: ${state.error}'));
         }
         return SfCalendar(
-           minDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
-           maxDate: DateTime(DateTime.now().year, DateTime.now().month + 2, 0),
-          
+          minDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
+          maxDate: DateTime(DateTime.now().year, DateTime.now().month + 1, 0),
           onTap: (CalendarTapDetails date) {
             if (date.appointments != null) {
               showAlertDialog(
@@ -53,15 +54,14 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
                   message:
                       '${date.appointments![0].userName} ${S.of(context).home_made_a_reservation_from} ${DateFormat('hh:mm a').format(date.appointments![0].from)} ${S.of(context).to} ${DateFormat('hh:mm a').format(date.appointments![0].to)} ${S.of(context).forr} ${date.appointments![0].eventName} ${S.of(context).inn} ${date.appointments![0].hallName}',
                   onOkPressed: () => Navigator.pop(context));
-            } else {}
+            }
           },
-          view: CalendarView.workWeek,
+          view: widget.calendarView,
           firstDayOfWeek: 6,
           showDatePickerButton: true,
           timeSlotViewSettings: const TimeSlotViewSettings(
             timeIntervalHeight: 60,
             startHour: 6,
-            
             endHour: 23,
             nonWorkingDays: [],
           ),

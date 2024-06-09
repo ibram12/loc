@@ -25,6 +25,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     String? password = '';
 
     try {
+      emit(SignUpLoading());
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: adminEmail!,
         password: adminPassword,

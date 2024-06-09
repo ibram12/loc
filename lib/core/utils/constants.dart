@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 const String kFontFamily = 'Poppins';
 const Color kPrimaryColor = Colors.deepOrange;
@@ -34,4 +35,5 @@ const Map<String, Color> kServiceColors = {
 };
 
 const   List<String> kRoles = ['User','Moderator','Admin'];
+const List<CalendarView> kCalendarViews = [CalendarView.day, CalendarView.workWeek,CalendarView.month];
 
