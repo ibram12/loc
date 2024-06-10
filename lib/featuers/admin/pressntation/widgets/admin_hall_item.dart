@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:loc/featuers/admin/data/models/admin_hall_model.dart';
 import 'package:loc/featuers/admin/pressntation/view/requests_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/text_styles/Styles.dart';
 
@@ -29,6 +30,14 @@ class _AdminHallItemState extends State<AdminHallItem> {
   int revarsations = 0;
   late Duration? _remainingTime;
   Timer? _timer;
+  bool? isDarkMode;
+
+  Future<void> fetchThemeMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isDarkMode = prefs.getBool('themeMode') == true;
+    });
+  }
 
   @override
   void initState() {
@@ -37,6 +46,7 @@ class _AdminHallItemState extends State<AdminHallItem> {
     if (_remainingTime != null) {
       _startTimer();
     }
+    fetchThemeMode();
   }
 
   @override
@@ -73,6 +83,11 @@ class _AdminHallItemState extends State<AdminHallItem> {
 
   @override
   Widget build(BuildContext context) {
+    if (isDarkMode == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
@@ -96,7 +111,7 @@ class _AdminHallItemState extends State<AdminHallItem> {
             padding: const EdgeInsets.all(10),
             child: Material(
               clipBehavior: Clip.antiAlias,
-              color: Colors.white,
+              color: isDarkMode! ? Colors.black: Colors.white ,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),

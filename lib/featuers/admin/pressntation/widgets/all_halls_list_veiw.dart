@@ -90,8 +90,8 @@ class _AllHallsListViewState extends State<AllHallsListView> {
                       title: S.of(context).remove_hall,
                       content: S.of(context).hall,
                       context: context,
-                      onPressed: () {
-                        DataBaseMethouds().deleteLoc(hallId);
+                      onPressed: ()async {
+                      await  DataBaseMethouds().deleteLoc(hallId);
                         Navigator.pop(context);
                       },
                     );

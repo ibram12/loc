@@ -151,7 +151,6 @@ late  bool isEnglish;
 
   Future<void> isArabic() async {
     final prefs = SharedPreferences.getInstance();
-    await prefs.then((value) => value.getString('locale') == 'ar');
     isEnglish = await prefs.then((value) => value.getString('locale') == 'en');
   }
 }

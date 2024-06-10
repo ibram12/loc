@@ -81,18 +81,17 @@ class _UserChoicesState extends State<UserChoices> {
             return Column(
               children: [
                 DropdownButton<String>(
-                  
                   hint: Text(
                     S.of(context).service,
                   ),
                     iconEnabledColor: kPrimaryColor,
                     value: _selectedText,
-                    items: servises!.map((role) {
+                    items: servises!.map((service) {
                       return DropdownMenuItem<String>(
                         
-                        value: role,
+                        value: service,
                         child: Text(
-                          role,
+                          service,
                           style:
                               const TextStyle(overflow: TextOverflow.ellipsis),
                         ),

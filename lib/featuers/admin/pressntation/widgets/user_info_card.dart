@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/alert_dialog.dart';
 import 'package:loc/core/helper/delightful_toast.dart';
 import 'package:loc/core/helper/snack_bar.dart';
+import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/admin/pressntation/manager/Modify_permissions_cubit/modify_permissions_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/edit_role_dialog.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/modify_user_permations_dialog.dart';
@@ -75,12 +76,12 @@ class _UserInfoCardState extends State<UserInfoCard> {
                 children: [
                   TextSpan(
                     text: '${widget.userInfoModel.name} ',
-                    style: Styles.textStyle18.copyWith(color: Colors.black),
+                    style: Styles.textStyle18
                   ),
                   TextSpan(
                     text: '(${widget.userInfoModel.role})',
                     style:
-                        Styles.textStyle14.copyWith(color: Colors.deepOrange),
+                        Styles.textStyle14.copyWith(color:kPrimaryColor),
                   ),
                 ],
               ),
