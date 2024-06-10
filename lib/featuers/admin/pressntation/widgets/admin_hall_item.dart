@@ -10,15 +10,15 @@ import '../../../../core/text_styles/Styles.dart';
 
 class AdminHallItem extends StatefulWidget {
   const AdminHallItem({
-    super.key,
+    Key? key,
     required this.hallModel,
     required this.onLongPress,
     required this.hallid,
     this.remainingTime,
-  });
+  }) : super(key: key);
 
   final AdminHallModel hallModel;
-  final void Function() onLongPress;
+  final VoidCallback onLongPress;
   final String hallid;
   final Duration? remainingTime;
 
@@ -42,7 +42,9 @@ class _AdminHallItemState extends State<AdminHallItem> {
   @override
   void initState() {
     super.initState();
-    _remainingTime = widget.remainingTime;
+    setState(() {
+  _remainingTime = widget.remainingTime;
+});
     if (_remainingTime != null) {
       _startTimer();
     }
@@ -88,6 +90,7 @@ class _AdminHallItemState extends State<AdminHallItem> {
         child: CircularProgressIndicator(),
       );
     }
+
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
@@ -111,7 +114,7 @@ class _AdminHallItemState extends State<AdminHallItem> {
             padding: const EdgeInsets.all(10),
             child: Material(
               clipBehavior: Clip.antiAlias,
-              color: isDarkMode! ? Colors.black: Colors.white ,
+              color: isDarkMode! ? Colors.black : Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),

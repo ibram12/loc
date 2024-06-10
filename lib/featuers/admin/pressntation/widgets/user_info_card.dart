@@ -10,6 +10,7 @@ import 'package:loc/featuers/admin/pressntation/manager/Modify_permissions_cubit
 import 'package:loc/featuers/admin/pressntation/widgets/edit_role_dialog.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/modify_user_permations_dialog.dart';
 import 'package:loc/featuers/admin/data/models/user_info_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/text_styles/Styles.dart';
 import '../../../../generated/l10n.dart';
@@ -24,30 +25,48 @@ class UserInfoCard extends StatefulWidget {
 }
 
 class _UserInfoCardState extends State<UserInfoCard> {
+  bool? isDarkMode;
+
+  Future<void> featchThemeMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+  isDarkMode = prefs.getBool('themeMode') == true;
+});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    featchThemeMode();
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (isDarkMode == null) {
+      return const Center(
+        
+      );
+    }
     return BlocConsumer<ModifyPermissionsCubit, ModifyPermissionsState>(
       listener: (context, state) {
-          if (state is ModifyRolePermissionsSuccess) {
-            showSnackBar(context,
-                '${S.of(context).you_have_modified} ${widget.userInfoModel.name} ${S.of(context).role_to} ${widget.userInfoModel.role}');
-      
+        if (state is ModifyRolePermissionsSuccess) {
+          showSnackBar(context,
+              '${S.of(context).you_have_modified} ${widget.userInfoModel.name} ${S.of(context).role_to} ${widget.userInfoModel.role}');
         } else if (state is ModifyPermissionsError) {
           showDelightfulToast(
               message: state.message, context: context, dismiss: false);
         } else if (state is ModifyServicePermissionsSuccess) {
-            showAlertDialog(
-                context: context,
-                message:
-                    '${S.of(context).services_has_been_modified_to} ${widget.userInfoModel.services.join(', ')}',
-                onOkPressed: () {
-                  Navigator.pop(context);
-                });
-        
+          showAlertDialog(
+              context: context,
+              message:
+                  '${S.of(context).services_has_been_modified_to} ${widget.userInfoModel.services.join(', ')}',
+              onOkPressed: () {
+                Navigator.pop(context);
+              });
         }
       },
       builder: (context, state) {
-      
         return Card(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           elevation: 3,
@@ -75,13 +94,14 @@ class _UserInfoCardState extends State<UserInfoCard> {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: '${widget.userInfoModel.name} ',
-                    style: Styles.textStyle18
-                  ),
+                      text: '${widget.userInfoModel.name} ',
+                      style: Styles.textStyle18.copyWith(
+                        color: isDarkMode!?Colors.white:Colors.black
+                      )
+                      ),
                   TextSpan(
                     text: '(${widget.userInfoModel.role})',
-                    style:
-                        Styles.textStyle14.copyWith(color:kPrimaryColor),
+                    style: Styles.textStyle14.copyWith(color: kPrimaryColor),
                   ),
                 ],
               ),
@@ -116,7 +136,7 @@ class _UserInfoCardState extends State<UserInfoCard> {
                                 (role) {
                               BlocProvider.of<ModifyPermissionsCubit>(context)
                                   .modifyRolePermissions(
-                                    context: context,
+                                      context: context,
                                       selectedRole: role,
                                       userId: widget.userInfoModel.id);
                             });
@@ -129,7 +149,7 @@ class _UserInfoCardState extends State<UserInfoCard> {
                               onEditServicesSelected: (selectedServices) {
                                 BlocProvider.of<ModifyPermissionsCubit>(context)
                                     .modifyServicePermissions(
-                                      context: context,
+                                        context: context,
                                         modifiedServices: selectedServices,
                                         userId: widget.userInfoModel.id);
                                 Navigator.pop(context);

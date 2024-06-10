@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/featuers/book_Hall/data/models/hall_model.dart';
 import 'package:loc/featuers/book_Hall/presentation/views/widgets/sent_request_buttom.dart';
+import '../../../../../core/widgets/hall_list_view_loading_indecator.dart';
 import '../../../../../generated/l10n.dart';
 import '../../manager/cubits/featch_avilable_halls/featch_avilable_halls_cubit.dart';
 import 'hall_item.dart';
@@ -12,7 +13,8 @@ class HallsListView extends StatefulWidget {
   const HallsListView({
     Key? key,
     required this.startTime,
-    required this.endTime, required this.selectedService,
+    required this.endTime,
+    required this.selectedService,
   }) : super(key: key);
 
   final Timestamp startTime;
@@ -49,15 +51,19 @@ class _HallsListViewState extends State<HallsListView> {
       },
       builder: (context, state) {
         if (state is ThereNoAvilableHalls) {
-          return Center(child: Image.asset('assets/images/unfind.png'));
+            return const HallListViewLoadingIndecator(
+                scrollDirection: Axis.vertical,
+              );
         }
         return StreamBuilder<QuerySnapshot<Object?>>(
           stream: _hallsStream,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return  Text(S.of(context).something_went_wrong);
+              return Text(S.of(context).something_went_wrong);
             } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const HallListViewLoadingIndecator(
+                scrollDirection: Axis.vertical,
+              );
             }
             var filteredDocs = snapshot.data!.docs
                 .where((doc) => availableHallsIds.contains(doc.id))
@@ -88,11 +94,10 @@ class _HallsListViewState extends State<HallsListView> {
                 },
               ),
               SentRequestButtom(
-                startTime: widget.startTime,
-                endTime: widget.endTime,
-                hallsIds: userhallsChoosed,
-                selectedService:widget. selectedService
-              )
+                  startTime: widget.startTime,
+                  endTime: widget.endTime,
+                  hallsIds: userhallsChoosed,
+                  selectedService: widget.selectedService)
             ]);
           },
         );

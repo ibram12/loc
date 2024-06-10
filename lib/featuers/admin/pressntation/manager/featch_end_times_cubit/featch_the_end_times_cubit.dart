@@ -16,7 +16,7 @@ class FeatchTheEndTimesCubit extends Cubit<FeatchTheEndTimesState> {
       DateTime now = DateTime.now();
 
       for (var doc in myHalls.docs) {
-        bool hasConflict = false;
+      //  bool hasConflict = false;
         Duration? remainingTime;
 
         var reservations = await FirebaseFirestore.instance
@@ -26,32 +26,32 @@ class FeatchTheEndTimesCubit extends Cubit<FeatchTheEndTimesState> {
             .get();
 
         for (var reservation in reservations.docs) {
-          Timestamp docStartTime = reservation.get('startTime');
-          Timestamp docEndTime = reservation.get('endTime');
-          String replayState = reservation.get('replyState');
+          Timestamp docStartTime = await reservation.get('startTime');
+          Timestamp docEndTime = await reservation.get('endTime');
+          String replayState = await reservation.get('replyState');
           DateTime startTime = docStartTime.toDate();
           DateTime endTime = docEndTime.toDate();
 
           if (now.isBefore(endTime) &&
               now.isAfter(startTime) &&
               replayState == ReplyState.accepted.description) {
-            hasConflict = true;
+          //  hasConflict = true;
             remainingTime = endTime.difference(now);
             break;
           }
         }
 
-        if (hasConflict && remainingTime != null) {
+        if (remainingTime != null) {
           emit(ThereWasReservationInTheCruntTime(doc.id, remainingTime));
-          print(remainingTime.toString());
         } else {
           emit(NoReservationInTheCruntTime(doc.id));
         }
       }
+      emit(FeatchEndTimesIsDone());
     } catch (e) {
       if (!isClosed) {
-  emit(FeatchTheEndTimesFailer(e.toString()));
-}
+        emit(FeatchTheEndTimesFailer(e.toString()));
+      }
     }
   }
 }

@@ -6,6 +6,7 @@ import 'package:loc/featuers/admin/pressntation/widgets/admin_hall_item.dart';
 import '../../../../core/helper/delete_alert_dialog.dart';
 import '../../../../core/server/firebase_methoudes.dart';
 import '../../../../core/views/error_view.dart';
+import '../../../../core/widgets/hall_list_view_loading_indecator.dart';
 import '../../../../generated/l10n.dart';
 import '../../data/models/admin_hall_model.dart';
 import '../manager/featch_end_times_cubit/featch_the_end_times_cubit.dart';
@@ -62,7 +63,9 @@ class _AllHallsListViewState extends State<AllHallsListView> {
       },
       builder: (context, state) {
         if(state is FeathTheEndTimesLoading){
-          return const Center(child: CircularProgressIndicator());
+          return const HallListViewLoadingIndecator(
+                scrollDirection: Axis.vertical,
+              );
         }
         else if (state is ThereWasReservationInTheCruntTime||state is NoReservationInTheCruntTime) {
            return  StreamBuilder<QuerySnapshot<Object?>>(
@@ -71,7 +74,9 @@ class _AllHallsListViewState extends State<AllHallsListView> {
             if (snapshot.hasError) {
               return  Text(S.of(context).something_went_wrong_please_try_later);
             } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const HallListViewLoadingIndecator(
+                scrollDirection: Axis.vertical,
+              );
             }
             return GridView.builder(
               itemCount: snapshot.data!.docs.length,
@@ -90,8 +95,8 @@ class _AllHallsListViewState extends State<AllHallsListView> {
                       title: S.of(context).remove_hall,
                       content: S.of(context).hall,
                       context: context,
-                      onPressed: ()async {
-                      await  DataBaseMethouds().deleteLoc(hallId);
+                      onPressed: () {
+                        DataBaseMethouds().deleteLoc(hallId);
                         Navigator.pop(context);
                       },
                     );

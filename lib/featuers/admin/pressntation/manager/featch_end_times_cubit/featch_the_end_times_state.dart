@@ -25,3 +25,4 @@ class FeatchTheEndTimesFailer extends FeatchTheEndTimesState {
 
   FeatchTheEndTimesFailer(this.error);
 }
+class FeatchEndTimesIsDone extends FeatchTheEndTimesState{}
