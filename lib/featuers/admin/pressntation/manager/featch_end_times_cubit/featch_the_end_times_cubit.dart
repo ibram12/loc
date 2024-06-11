@@ -47,7 +47,7 @@ class FeatchTheEndTimesCubit extends Cubit<FeatchTheEndTimesState> {
           emit(NoReservationInTheCruntTime(doc.id));
         }
       }
-      emit(FeatchEndTimesIsDone());
+  //    emit(FeatchEndTimesIsDone());
     } catch (e) {
       if (!isClosed) {
         emit(FeatchTheEndTimesFailer(e.toString()));

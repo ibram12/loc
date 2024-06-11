@@ -18,7 +18,6 @@ class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
     try {
       QuerySnapshot locations =
           await FirebaseFirestore.instance.collection('locs').get();
-          
       for (var loc in locations.docs) {
         String name = loc['name'];
 
@@ -31,14 +30,33 @@ class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
                   isNotEqualTo: ReplyState.unaccepted.description)
               .get();
 
-          List<Meeting> locMeetings = reservationsSnap.docs.map((doc) {
+          for (var doc in reservationsSnap.docs) {
             var data = doc.data() as Map<String, dynamic>;
             ReservatoinModel reservation =
                 ReservatoinModel.fromDoucumentSnapshot(data);
-            return Meeting.fromReservatoinModel(reservation, doc.id, name);
-          }).toList();
 
-          meetings.addAll(locMeetings);
+            if (doc['daily'] == true) {
+              DateTime now = DateTime.now();
+              DateTime startDate = (doc['startTime'] as Timestamp).toDate();
+              List<DateTime> recurringDates =
+                  getWeeklyRecurringDates(DateTime(now.year, now.month, startDate.day), 4);
+              for (DateTime date in recurringDates) {
+                var newReservationData = Map<String, dynamic>.from(data);
+                newReservationData['startTime'] = Timestamp.fromDate(date);
+
+                Meeting meeting = Meeting.fromReservatoinModel(
+                    ReservatoinModel.fromDoucumentSnapshot(newReservationData),
+                    doc.id,
+                    hallName);
+                meetings.add(meeting);
+              }
+            } else {
+              // إذا لم يكن الحجز يومي، فقط أضف الحجز كالمعتاد
+              Meeting meeting =
+                  Meeting.fromReservatoinModel(reservation, doc.id, name);
+              meetings.add(meeting);
+            }
+          }
         }
       }
       emit(ShowTimeLineSuccess(meetings));
@@ -46,4 +64,12 @@ class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
       emit(ShowTimeLineError(e.toString()));
     }
   }
+}
+
+List<DateTime> getWeeklyRecurringDates(DateTime startDate, int weeks) {
+  List<DateTime> dates = [];
+  for (int i = 0; i < weeks; i++) {
+    dates.add(startDate.add(Duration(days: 7 * i)));
+  }
+  return dates;
 }

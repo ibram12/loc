@@ -67,7 +67,8 @@ class _AllHallsListViewState extends State<AllHallsListView> {
                 scrollDirection: Axis.vertical,
               );
         }
-        else if (state is ThereWasReservationInTheCruntTime||state is NoReservationInTheCruntTime) {
+        else 
+        if (state is ThereWasReservationInTheCruntTime||state is NoReservationInTheCruntTime) {
            return  StreamBuilder<QuerySnapshot<Object?>>(
           stream: _hallsStream,
           builder: (context, snapshot) {

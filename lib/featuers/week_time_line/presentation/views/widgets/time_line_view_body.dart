@@ -68,9 +68,9 @@ late  bool isEnglish;
             key: ValueKey(events),
             controller: controller,
             minDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
-            maxDate: DateTime(DateTime.now().year, DateTime.now().month + 1, 0),
+         maxDate: DateTime(DateTime.now().year, DateTime.now().month +1, DateTime.now().day),
             onTap: (CalendarTapDetails date) {
-              if (date.appointments != null) {
+              if (date.appointments != null && date.appointments!.isNotEmpty) {
                 showAlertDialog(
                     context: context,
                     message:
