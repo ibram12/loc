@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loc/featuers/admin/data/models/request_model.dart';
 
+import '../../../../../core/functions/add_duration_7_days_on_the_time_methoud.dart';
 import '../../../data/models/reservation_info_model.dart';
 import '../../../data/models/reservation_model.dart';
 
@@ -38,12 +39,12 @@ class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
             if (doc['daily'] == true) {
               DateTime now = DateTime.now();
               DateTime startDate = (doc['startTime'] as Timestamp).toDate();
-              List<DateTime> recurringDates =
-                  getWeeklyRecurringDates(DateTime(now.year, now.month, startDate.day), 4);
+              List<DateTime> recurringDates = getWeeklyRecurringDates(
+                  DateTime(now.year, now.month, startDate.day), 4);
               for (DateTime date in recurringDates) {
                 var newReservationData = Map<String, dynamic>.from(data);
                 newReservationData['startTime'] = Timestamp.fromDate(date);
-
+                print(recurringDates);
                 Meeting meeting = Meeting.fromReservatoinModel(
                     ReservatoinModel.fromDoucumentSnapshot(newReservationData),
                     doc.id,
@@ -51,7 +52,6 @@ class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
                 meetings.add(meeting);
               }
             } else {
-              // إذا لم يكن الحجز يومي، فقط أضف الحجز كالمعتاد
               Meeting meeting =
                   Meeting.fromReservatoinModel(reservation, doc.id, name);
               meetings.add(meeting);
@@ -66,10 +66,10 @@ class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
   }
 }
 
-List<DateTime> getWeeklyRecurringDates(DateTime startDate, int weeks) {
-  List<DateTime> dates = [];
-  for (int i = 0; i < weeks; i++) {
-    dates.add(startDate.add(Duration(days: 7 * i)));
-  }
-  return dates;
-}
+// List<DateTime> getWeeklyRecurringDates(DateTime startDate, int weeks) {
+//   List<DateTime> dates = [];
+//   for (int i = 0; i < weeks; i++) {
+//     dates.add(startDate.add(Duration(days: 7 * i)));
+//   }
+//   return dates;
+// }

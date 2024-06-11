@@ -12,7 +12,7 @@ class CustomHallLoadingIndecator extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child:  Container(
-              color: Colors.white38,
+              color: Colors.grey,
             )
             )
             ),

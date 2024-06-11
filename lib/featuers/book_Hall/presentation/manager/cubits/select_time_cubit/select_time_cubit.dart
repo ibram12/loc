@@ -53,7 +53,7 @@ class SelectTimeCubit extends Cubit<SelectTimeState> {
     }
   }
 
-  void selectDate(
+Future <  void> selectDate(
     BuildContext context,
   ) async {
     DateTime now = DateTime.now();
@@ -63,8 +63,8 @@ class SelectTimeCubit extends Cubit<SelectTimeState> {
         helpText: S.of(context).select_time_cubit_in_book_hall_feature_pick_the_date,
         context: context,
         initialDate: now,
-        firstDate: now,
-        lastDate:   DateTime(now.year, now.month + 1, 0),
+        firstDate: DateTime(now.year),
+        lastDate:   DateTime(now.year, now.month + 2, now.day),
 );
     if (pickedDate != null) {
       date = pickedDate;
