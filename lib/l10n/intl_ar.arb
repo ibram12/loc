@@ -152,7 +152,8 @@
      "all_halls":"جميع القاعات",
      "delete_request_alert": "هل انت متأكد من حذف هذا الطلب؟",
      "request_which_belongs_to": "الطلب الذي يعود لـ",
-     "request_deleted_successfully":"تم حذف الطلب بنجاح"	
+     "request_deleted_successfully":"تم حذف الطلب بنجاح"	,
+     "all_requests":"جميع الطلبات"
 
 
 

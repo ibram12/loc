@@ -63,7 +63,7 @@ Future <  void> selectDate(
         helpText: S.of(context).select_time_cubit_in_book_hall_feature_pick_the_date,
         context: context,
         initialDate: now,
-        firstDate: DateTime(now.year),
+        firstDate: now,
         lastDate:   DateTime(now.year, now.month + 2, now.day),
 );
     if (pickedDate != null) {

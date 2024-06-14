@@ -1607,6 +1607,16 @@ class S {
       args: [],
     );
   }
+
+  /// `All Requests`
+  String get all_requests {
+    return Intl.message(
+      'All Requests',
+      name: 'all_requests',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

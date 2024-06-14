@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Admin Password"),
         "alert": MessageLookupByLibrary.simpleMessage("Alert"),
         "all_halls": MessageLookupByLibrary.simpleMessage("All Halls"),
+        "all_requests": MessageLookupByLibrary.simpleMessage("All Requests"),
         "all_users": MessageLookupByLibrary.simpleMessage("All Users"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
         "appTheme": MessageLookupByLibrary.simpleMessage("App Theme"),

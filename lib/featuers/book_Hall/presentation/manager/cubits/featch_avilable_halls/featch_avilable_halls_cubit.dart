@@ -70,7 +70,7 @@ class FeatchAvilableHallsCubit extends Cubit<FeatchAvilableHallsState> {
       }
 
       if (availableHallsIds.isEmpty) {
-        emit(ThereNoAvilableHalls());
+        emit(ThereNoAvilableHalls());//TODO:here you can handle if there is no avilable halls
       } else {
         emit(FeatchAvilableHallsLoaded(availableHallsIds));
       }
