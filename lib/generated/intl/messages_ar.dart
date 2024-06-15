@@ -100,6 +100,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "hall": MessageLookupByLibrary.simpleMessage("القاعة"),
         "hall_added_successfully":
             MessageLookupByLibrary.simpleMessage("تم اضافة القاعة بنجاح"),
+        "hall_has_been_accepted":
+            MessageLookupByLibrary.simpleMessage("تم قبوله من قبل"),
+        "hall_has_been_rejected":
+            MessageLookupByLibrary.simpleMessage("تم رفضه من قبل"),
         "halls": MessageLookupByLibrary.simpleMessage("القاعات"),
         "home_made_a_reservation_from":
             MessageLookupByLibrary.simpleMessage("تم الحجز من"),
@@ -122,6 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تعديل الأذونات"),
         "modify_permissions_for":
             MessageLookupByLibrary.simpleMessage("تعديل الأذونات لـ"),
+        "mokadma": MessageLookupByLibrary.simpleMessage("الطلب المقدم علي"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم"),
         "name_app": MessageLookupByLibrary.simpleMessage("اماكن"),
         "name_loc": MessageLookupByLibrary.simpleMessage("اسم المكان"),
@@ -159,8 +164,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم قبول الطلب بنجاح"),
         "request_Rejected_Successfully":
             MessageLookupByLibrary.simpleMessage("تم رفض الطلب بنجاح"),
+        "request_accepted": MessageLookupByLibrary.simpleMessage("طلب مقبول"),
         "request_deleted_successfully":
             MessageLookupByLibrary.simpleMessage("تم حذف الطلب بنجاح"),
+        "request_rejected": MessageLookupByLibrary.simpleMessage("طلب مرفوض"),
         "request_which_belongs_to":
             MessageLookupByLibrary.simpleMessage("الطلب الذي يعود لـ"),
         "reservations": MessageLookupByLibrary.simpleMessage("الحجوزات"),

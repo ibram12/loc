@@ -5,6 +5,7 @@ import 'package:loc/featuers/admin/data/models/request_model.dart';
 
 import '../../../../core/text_styles/Styles.dart';
 import '../../../../generated/l10n.dart';
+import '../../../requests/data/models/user_request_model.dart';
 
 class RequestItemBody extends StatelessWidget {
   const RequestItemBody(

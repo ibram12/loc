@@ -153,7 +153,12 @@
      "delete_request_alert": "هل انت متأكد من حذف هذا الطلب؟",
      "request_which_belongs_to": "الطلب الذي يعود لـ",
      "request_deleted_successfully":"تم حذف الطلب بنجاح"	,
-     "all_requests":"جميع الطلبات"
+     "all_requests":"جميع الطلبات",
+     "request_accepted": "طلب مقبول",
+     "request_rejected": "طلب مرفوض",
+     "mokadma":"الطلب المقدم علي",
+     "hall_has_been_accepted":"تم قبوله من قبل",
+     "hall_has_been_rejected":"تم رفضه من قبل"
 
 
 

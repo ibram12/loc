@@ -46,6 +46,9 @@ dependencies:
   flutter_bloc: ^8.1.5
   flutter_localizations:
     sdk: flutter
+  googleapis: ^13.2.0
+  googleapis_auth: ^1.6.0
+  http: ^1.2.1
   image_cropper: ^6.0.0
   image_picker: ^1.1.0
   intl: any

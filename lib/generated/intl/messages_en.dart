@@ -102,6 +102,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "hall": MessageLookupByLibrary.simpleMessage("Hall"),
         "hall_added_successfully":
             MessageLookupByLibrary.simpleMessage("Hall added successfully"),
+        "hall_has_been_accepted":
+            MessageLookupByLibrary.simpleMessage("Hall has been accepted by"),
+        "hall_has_been_rejected":
+            MessageLookupByLibrary.simpleMessage("Hall has been rejected by"),
         "halls": MessageLookupByLibrary.simpleMessage("Halls"),
         "home_made_a_reservation_from":
             MessageLookupByLibrary.simpleMessage("made a reservation from"),
@@ -123,6 +127,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Modify permissions"),
         "modify_permissions_for":
             MessageLookupByLibrary.simpleMessage("Modify permissions for"),
+        "mokadma": MessageLookupByLibrary.simpleMessage(
+            "Your application submitted to the"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "name_app": MessageLookupByLibrary.simpleMessage("loc"),
         "name_loc": MessageLookupByLibrary.simpleMessage("name loc"),
@@ -158,8 +164,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Request Accepted Successfully"),
         "request_Rejected_Successfully": MessageLookupByLibrary.simpleMessage(
             "Request Rejected Successfully"),
+        "request_accepted":
+            MessageLookupByLibrary.simpleMessage("Request Accepted"),
         "request_deleted_successfully": MessageLookupByLibrary.simpleMessage(
             "Request deleted successfully"),
+        "request_rejected":
+            MessageLookupByLibrary.simpleMessage("Request Rejected"),
         "request_which_belongs_to":
             MessageLookupByLibrary.simpleMessage("Request which belongs to"),
         "reservations": MessageLookupByLibrary.simpleMessage("Reservations"),

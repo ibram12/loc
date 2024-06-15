@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-
 import '../../../../../generated/l10n.dart';
-import '../../../../admin/data/models/request_model.dart';
+import '../../../data/models/user_request_model.dart';
 
 part 'user_editing_request_state.dart';
 

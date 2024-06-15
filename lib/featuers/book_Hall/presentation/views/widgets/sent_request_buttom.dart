@@ -14,6 +14,7 @@ import '../../manager/cubits/sent_reservation_cubit/sent_reservation_cubit.dart'
 class SentRequestButtom extends StatefulWidget {
   const SentRequestButtom(
       {super.key,
+      required this.hallNames,
       required this.hallsIds,
       required this.startTime,
       required this.endTime, required this.selectedService});
@@ -21,6 +22,7 @@ class SentRequestButtom extends StatefulWidget {
   final Timestamp startTime;
   final Timestamp endTime;
   final String selectedService;
+  final List<String> hallNames;
 
   @override
   State<SentRequestButtom> createState() => _SentRequestButtomState();
@@ -35,6 +37,7 @@ class _SentRequestButtomState extends State<SentRequestButtom> {
         .addRequest(widget.startTime, widget.endTime, widget.hallsIds, daily,widget.selectedService);
 
     await BlocProvider.of<SentReservationToAdminCubit>(context).sentReservation(
+        hallNames: widget.hallNames,
         isDaily: daily,
         endTime: widget.endTime,
         startTime: widget.startTime,

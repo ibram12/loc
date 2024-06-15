@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../generated/l10n.dart';
-import '../../../data/models/request_model.dart';
+import '../../../../requests/data/models/user_request_model.dart';
 
 part 'edit_request_state.dart';
 

@@ -1617,6 +1617,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Request Accepted`
+  String get request_accepted {
+    return Intl.message(
+      'Request Accepted',
+      name: 'request_accepted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request Rejected`
+  String get request_rejected {
+    return Intl.message(
+      'Request Rejected',
+      name: 'request_rejected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your application submitted to the`
+  String get mokadma {
+    return Intl.message(
+      'Your application submitted to the',
+      name: 'mokadma',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hall has been accepted by`
+  String get hall_has_been_accepted {
+    return Intl.message(
+      'Hall has been accepted by',
+      name: 'hall_has_been_accepted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hall has been rejected by`
+  String get hall_has_been_rejected {
+    return Intl.message(
+      'Hall has been rejected by',
+      name: 'hall_has_been_rejected',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

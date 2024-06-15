@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
-import '../../../data/models/request_model.dart';
+import '../../../../requests/data/models/user_request_model.dart';
 
 part 'admin_change_daily_state_state.dart';
 

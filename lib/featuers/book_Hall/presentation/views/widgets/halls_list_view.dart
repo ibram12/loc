@@ -29,6 +29,7 @@ class _HallsListViewState extends State<HallsListView> {
   late Stream<QuerySnapshot<Object?>> _hallsStream;
   List<String> availableHallsIds = [];
   List<String> userhallsChoosed = [];
+  List<String> choosedHallsNames = [];
   @override
   void initState() {
     super.initState();
@@ -81,9 +82,12 @@ class _HallsListViewState extends State<HallsListView> {
                       setState(() {
                         if (isSelected) {
                           userhallsChoosed.add(hallId);
+                          choosedHallsNames.add(filteredDocs[index]['name']);
                         } else {
                           userhallsChoosed
                               .removeAt(userhallsChoosed.indexOf(hallId));
+                          choosedHallsNames
+                              .removeAt(choosedHallsNames.indexOf(filteredDocs[index]['name']));
                         }
                       });
                     },
@@ -94,6 +98,7 @@ class _HallsListViewState extends State<HallsListView> {
                 },
               ),
               SentRequestButtom(
+                  hallNames: choosedHallsNames,
                   startTime: widget.startTime,
                   endTime: widget.endTime,
                   hallsIds: userhallsChoosed,

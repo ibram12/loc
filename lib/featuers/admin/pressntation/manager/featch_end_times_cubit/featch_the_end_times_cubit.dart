@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:loc/featuers/admin/data/models/request_model.dart';
 import 'package:meta/meta.dart';
+
+import '../../../../requests/data/models/user_request_model.dart';
 
 part 'featch_the_end_times_state.dart';
 

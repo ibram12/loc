@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../../core/functions/add_duration_7_days_on_the_time_methoud.dart';
-import '../../../../../admin/data/models/request_model.dart';
+import '../../../../../requests/data/models/user_request_model.dart';
 
 part 'featch_avilable_halls_state.dart';
 

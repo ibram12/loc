@@ -52,6 +52,8 @@ class SignUpCubit extends Cubit<SignUpState> {
         'role': role,
         'service': services,
         'image': '',
+        'fcmToken': '',
+        
       };
       emit(AdminEnterTruePassword());
       await DataBaseMethouds().addUserDetails(userInfo, credential.user!.uid);

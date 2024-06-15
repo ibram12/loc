@@ -12,6 +12,7 @@ import '../../../../core/helper/alert_dialog.dart';
 import '../../../../core/helper/delightful_toast.dart';
 import '../../../../core/helper/snack_bar.dart';
 import '../../../../generated/l10n.dart';
+import '../../../requests/data/models/user_request_model.dart';
 
 class RequestItem extends StatefulWidget {
   const RequestItem({
@@ -116,19 +117,21 @@ class _RequestItemState extends State<RequestItem> {
                         onAccept: () {
                           BlocProvider.of<AdminReplyCubit>(context)
                               .adminReplyAccept(
-                                  hallId: widget.hallId,
+                                                                context: context,
+
+                                hallName: widget.hallName,
                                   reservatoinId: widget.reservationId,
-                                  userId: widget.requestModel.id,
-                                  requestId: widget.requestModel.requestId);
+                                  requestModel: widget.requestModel,);
                           Navigator.of(context).pop();
                         },
                         onReject: () {
                           BlocProvider.of<AdminReplyCubit>(context)
                               .adminReplyReject(
-                            hallId: widget.hallId,
+                                context: context,
+                            hallName: widget.hallName,
                             reservatoinId: widget.reservationId,
-                            userId: widget.requestModel.id,
-                            requestId: widget.requestModel.requestId,
+                            requestModel: widget.requestModel,
+                        
                           );
                           Navigator.of(context).pop();
                         });
