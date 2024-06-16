@@ -13,7 +13,7 @@ class MessagesViewBody extends StatelessWidget {
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, index) {
-              return const ChatBuble();
+              return const ChatBubleForFriend();
             },
           ),
         ),

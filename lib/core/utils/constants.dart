@@ -37,3 +37,5 @@ const Map<String, Color> kServiceColors = {
 const   List<String> kRoles = ['User','Moderator','Admin'];
 const List<CalendarView> kCalendarViews = [CalendarView.day, CalendarView.workWeek,CalendarView.month];
 
+const String kMessagesBox = 'messagesBox';
+

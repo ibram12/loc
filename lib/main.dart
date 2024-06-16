@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:loc/core/utils/constants.dart';
 import 'package:loc/core/utils/simple_bloc_observer.dart';
 import 'package:loc/featuers/admin/pressntation/view/add_hall_view.dart';
 import 'package:loc/featuers/admin/pressntation/view/all_requests_view.dart';
@@ -14,6 +17,7 @@ import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:loc/featuers/settings/presentaiton/manager/local_cubit/local_cubit.dart';
 import 'package:loc/featuers/spalsh/presntation/view/splash_view.dart';
 import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
+import 'featuers/messages/data/models/chat_buble_model.dart';
 import 'featuers/settings/presentaiton/manager/theme_cubit/theme_cubit.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
@@ -24,6 +28,9 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Hive.initFlutter();
+  Hive.registerAdapter(ChatBubleModelAdapter());
+  await Hive.openBox(kMessagesBox);
   runApp(const HomePage());
 }
 
