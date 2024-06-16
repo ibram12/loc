@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loc/featuers/settings/presentaiton/widgets/log_out_botton.dart';
+
 
 import '../../../../core/text_styles/Styles.dart';
 import '../../../../generated/l10n.dart';
@@ -22,13 +24,14 @@ class DrowerBody extends StatelessWidget {
                 children: [
                   Text(
                     S.of(context).appTheme,
-                    style: Styles.textStyle16.copyWith(fontWeight: FontWeight.bold),
+                    style: Styles.textStyle16
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     width: 7,
                   ),
                   const Icon(Icons.brightness_4_sharp),
-                const  Spacer(),
+                  const Spacer(),
                   const SwitchThemeApp(),
                 ],
               ),
@@ -39,16 +42,21 @@ class DrowerBody extends StatelessWidget {
                 children: [
                   Text(
                     S.of(context).appLanguage,
-                    style: Styles.textStyle16.copyWith(fontWeight: FontWeight.bold),
+                    style: Styles.textStyle16
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     width: 7,
                   ),
                   const Icon(Icons.translate_sharp),
-                const  Spacer(),
-                const  TranslateSwitcher()
+                  const Spacer(),
+                  const TranslateSwitcher()
                 ],
               ),
+              const SizedBox(
+                height: 20,
+              ),
+            const LogOutBotton()
             ],
           ),
         ),

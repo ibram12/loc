@@ -92,7 +92,7 @@ class _AllHallsListViewState extends State<AllHallsListView> {
                 return AdminHallItem(
                   hallid: hallId,
                   onLongPress: () {
-                    showDeleteItemAlert(
+                    showItemAlertDialog(
                       title: S.of(context).remove_hall,
                       content: S.of(context).hall,
                       context: context,

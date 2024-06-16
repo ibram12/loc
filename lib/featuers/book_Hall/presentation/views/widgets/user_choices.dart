@@ -31,7 +31,7 @@ class _UserChoicesState extends State<UserChoices> {
     return snapshot.data()?['service'] as List;
   }
 
-  bool? isAdmin;
+  String? isAdmin;
   Future<void> _checkRole() async {
     isAdmin = await SherdPrefHelper().getUserRole();
   }
@@ -106,7 +106,7 @@ class _UserChoicesState extends State<UserChoices> {
                       } else {}
                     },
                   ),
-                isAdmin == false
+                isAdmin != kRoles[2]
                     ? const SizedBox()
                     : Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),

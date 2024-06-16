@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../../core/server/shered_pref_helper.dart';
+import '../../../../../../core/utils/constants.dart';
 import '../../../../../requests/data/models/user_request_model.dart';
 
 part 'add_request_state.dart';
@@ -17,7 +18,7 @@ class AddRequestToUserCubit extends Cubit<AddRequestState> {
   try {
     String id = FirebaseAuth.instance.currentUser!.uid;
   List<String> reservationId = [];
-      bool? isAdmin = await SherdPrefHelper().getUserRole();
+      String? isAdmin = await SherdPrefHelper().getUserRole();
 
     for (int i = 0; i < hallIds.length; i++) {
       String name = await FirebaseFirestore.instance
@@ -48,7 +49,7 @@ class AddRequestToUserCubit extends Cubit<AddRequestState> {
         'hallName': name,
         'startTime': startTime,
         'endTime': endTime,
-        'replyState': isAdmin == true ? ReplyState.accepted.description : ReplyState.noReplyYet.description,
+        'replyState': isAdmin == kRoles[2] ? ReplyState.accepted.description : ReplyState.noReplyYet.description,
         'service': selectedService
       });
 

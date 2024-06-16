@@ -51,6 +51,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_users": MessageLookupByLibrary.simpleMessage("App Users"),
         "are_You_Sure_To_Remove_This":
             MessageLookupByLibrary.simpleMessage("Are You Sure To Remove This"),
+        "are_you_sure_you_want_to_log_out":
+            MessageLookupByLibrary.simpleMessage(
+                "Are you sure you want to log out?"),
         "at": MessageLookupByLibrary.simpleMessage("at"),
         "book_hall": MessageLookupByLibrary.simpleMessage("Book Hall"),
         "book_hall_something_went_wrong":
@@ -112,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "inn": MessageLookupByLibrary.simpleMessage("in"),
         "is_This_reservatoin_Daily":
             MessageLookupByLibrary.simpleMessage("is This reservation Daily?"),
+        "log_out": MessageLookupByLibrary.simpleMessage("Logout"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "login_cubit_messages_wrong_email_or_password":
             MessageLookupByLibrary.simpleMessage("Wrong email or password"),

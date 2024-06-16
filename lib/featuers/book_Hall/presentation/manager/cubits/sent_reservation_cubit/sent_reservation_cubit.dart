@@ -8,6 +8,7 @@ import 'package:loc/core/server/firebase_methoudes.dart';
 import 'package:loc/featuers/requests/data/models/user_request_model.dart';
 import 'package:meta/meta.dart';
 import '../../../../../../core/server/shered_pref_helper.dart';
+import '../../../../../../core/utils/constants.dart';
 part 'sent_reservation_state.dart';
 
 class SentReservationToAdminCubit extends Cubit<SentReservationState> {
@@ -37,7 +38,7 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
     String? fcmToken = userInfo['fcmToken'];
-    bool? isAdmin = await SherdPrefHelper().getUserRole();
+    String? isAdmin = await SherdPrefHelper().getUserRole();
     bool isSent = false;
     Map<String, dynamic> resrvationInfo = {
       'id': FirebaseAuth.instance.currentUser!.uid,
@@ -68,14 +69,14 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
             'startTime': startTime,
             'endTime': endTime,
             'date': '${data.day}/${data.month}/${data.year}',
-            'replyState': isAdmin == true
+            'replyState': isAdmin == kRoles[2]
                 ? ReplyState.accepted.description
                 : ReplyState.noReplyYet.description,
             'service': selectedService,
             'image': userImage
           });
         }
-        if (isAdmin==false&&!isSent) {
+        if (isAdmin==kRoles[2]&&!isSent) {
   sentNotificationForAdmins(getUserName ?? await getName(),
       'request to book ${hallNames.join(', ')}\non ${data.day}/${data.month}/${data.year} at ${DateFormat('hh:mm a').format(startTime.toDate())} to ${DateFormat('hh:mm a').format(endTime.toDate())}');
 isSent = true;

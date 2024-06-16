@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/utils/constants.dart';
+import 'package:loc/featuers/settings/presentaiton/manager/log_out_cubit/log_out_cubit.dart';
 import 'package:loc/featuers/settings/presentaiton/manager/set_user_image_cubit/set_user_image_cubit.dart';
 import 'package:loc/featuers/settings/presentaiton/widgets/drower_body.dart';
 import 'package:loc/featuers/settings/presentaiton/widgets/user_image.dart';
@@ -14,16 +15,21 @@ class DrawerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SetUserImageCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SetUserImageCubit(),
+        ),
+        BlocProvider(
+          create: (context) => LogOutCubit(),
+        ),
+      ],
       child: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              decoration: const BoxDecoration(
-                color: kOrange
-              ),
+              decoration: const BoxDecoration(color: kOrange),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -35,7 +41,6 @@ class DrawerView extends StatelessWidget {
                 ],
               ),
             ),
-            
             const DrowerBody()
           ],
         ),

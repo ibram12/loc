@@ -12,9 +12,9 @@ class SherdPrefHelper {
     return prefs.setString(name, getUserName ?? '');
   }
 
-  Future<bool> setUserRole(bool isAdmin) async {
+  Future<bool> setUserRole(String isAdmin) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(role, isAdmin);
+    return prefs.setString(role, isAdmin);
   }
     Future<bool> setDeletionDate(String? now)async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -38,9 +38,9 @@ return prefs.setString(lastDeletionDateKey, now??DateTime(1970).toString());
     return prefs.getString(name);
   }
 
-  Future<bool?> getUserRole() async {
+  Future<String?> getUserRole() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(role);
+    return prefs.getString(role);
   }
 
     Future<String?> getUserImage() async {  

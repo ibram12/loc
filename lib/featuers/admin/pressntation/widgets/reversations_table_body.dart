@@ -31,7 +31,7 @@ class MyData extends DataTableSource {
           Text(DateFormat('hh:mm a').format(reservation.endTime.toDate()))),
       DataCell(IconButton(
           onPressed: () {
-            showDeleteItemAlert(
+            showItemAlertDialog(
                 context: context,
                 onPressed: () {
                   DataBaseMethouds().deleteRequestFromAdminPanel(

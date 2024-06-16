@@ -158,5 +158,7 @@
   "request_rejected": "Request Rejected",
   "mokadma":"Your application submitted to the",
   "hall_has_been_accepted":"Hall has been accepted by",
-  "hall_has_been_rejected":"Hall has been rejected by"
+  "hall_has_been_rejected":"Hall has been rejected by",
+  "log_out":"Logout",
+  "are_you_sure_you_want_to_log_out":"Are you sure you want to log out?"
 }

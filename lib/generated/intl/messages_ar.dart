@@ -51,6 +51,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_users": MessageLookupByLibrary.simpleMessage("مستخدمي التطبيق"),
         "are_You_Sure_To_Remove_This":
             MessageLookupByLibrary.simpleMessage("هل انت متأكد من حذف هذا"),
+        "are_you_sure_you_want_to_log_out":
+            MessageLookupByLibrary.simpleMessage(
+                "هل انت متأكد من تسجيل الخروج؟"),
         "at": MessageLookupByLibrary.simpleMessage("عند"),
         "book_hall": MessageLookupByLibrary.simpleMessage("حجز قاعة"),
         "book_hall_something_went_wrong":
@@ -110,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "inn": MessageLookupByLibrary.simpleMessage("في"),
         "is_This_reservatoin_Daily":
             MessageLookupByLibrary.simpleMessage("هل هذا الحجز دائم؟"),
+        "log_out": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "login_cubit_messages_wrong_email_or_password":
             MessageLookupByLibrary.simpleMessage(

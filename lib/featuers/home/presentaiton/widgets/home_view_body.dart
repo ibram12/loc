@@ -21,26 +21,35 @@ class HomeVeiwBody extends StatefulWidget {
 }
 
 class _HomeVeiwBodyState extends State<HomeVeiwBody> {
-  bool isAdmin = false;
+  String? userRole;
   bool isLoading = true;
   void checkRole() async {
-     if (FirebaseAuth.instance.currentUser != null) {
+     if ( await SherdPrefHelper().getUserRole() == null) {
       String id = FirebaseAuth.instance.currentUser!.uid;
       DocumentSnapshot userInfo =
           await FirebaseFirestore.instance.collection('users').doc(id).get();
-      if (userInfo['role'] == 'Admin') {
+      if (userInfo['role'] == kRoles[2]) {
         setState(() {
-          isAdmin = true;
+          userRole = kRoles[2];
           isLoading = false;
         });
-        await SherdPrefHelper().setUserRole(true);
-      } else {
+        await SherdPrefHelper().setUserRole(kRoles[2]);
+      }else if (userInfo['role'] == kRoles[1])  {
         setState(() {
-          isAdmin = false;
+          userRole = kRoles[1];
           isLoading = false;
         });
-        await SherdPrefHelper().setUserRole(false);
+        await SherdPrefHelper().setUserRole(kRoles[1]);
+      }else{
+        setState(() {
+          userRole = kRoles[0];
+          isLoading = false;
+        });
+        await SherdPrefHelper().setUserRole(kRoles[0]);
       }
+    }else{
+      userRole = await SherdPrefHelper().getUserRole();
+      isLoading = false;
     }
   }
 
@@ -54,7 +63,7 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
+    return isLoading && userRole == null
         ? const Center(child: CircularProgressIndicator())
         : Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -71,10 +80,14 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
                   calendarView: CalendarView.month,
                 ), text: S.of(context).time_line,icon: Icons.calendar_month,),
 
-             Card_Button(
-              page: const BookLocView(), text: S.of(context).add_event,icon: Icons.add,),
+             Visibility(
+              visible: userRole==kRoles[1] || userRole==kRoles[2],
+               child: Card_Button(
+                page: const BookLocView(), text: S.of(context).add_event,icon: Icons.add,),
+             ),
+
             Visibility(
-                visible: isAdmin,
+                visible: userRole==kRoles[2],
                 child:  Card_Button(
                   color: Colors.red,
                     page: const BottomNavBar(),
