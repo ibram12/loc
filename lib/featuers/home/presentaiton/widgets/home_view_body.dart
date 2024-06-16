@@ -24,7 +24,7 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
   String? userRole;
   bool isLoading = true;
   void checkRole() async {
-     if ( await SherdPrefHelper().getUserRole() == null) {
+     if (await SherdPrefHelper().getUserRole() == null) {
       String id = FirebaseAuth.instance.currentUser!.uid;
       DocumentSnapshot userInfo =
           await FirebaseFirestore.instance.collection('users').doc(id).get();
@@ -48,7 +48,11 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
         await SherdPrefHelper().setUserRole(kRoles[0]);
       }
     }else{
-      userRole = await SherdPrefHelper().getUserRole();
+      
+  userRole = await SherdPrefHelper().getUserRole();
+setState(() {
+  
+});
       isLoading = false;
     }
   }

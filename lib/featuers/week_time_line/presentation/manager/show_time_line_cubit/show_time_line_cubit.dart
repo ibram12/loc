@@ -44,7 +44,6 @@ class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
               for (DateTime date in recurringDates) {
                 var newReservationData = Map<String, dynamic>.from(data);
                 newReservationData['startTime'] = Timestamp.fromDate(date);
-                print(recurringDates);
                 Meeting meeting = Meeting.fromReservatoinModel(
                     ReservatoinModel.fromDoucumentSnapshot(newReservationData),
                     doc.id,

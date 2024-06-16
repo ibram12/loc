@@ -128,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "make_reservation": MessageLookupByLibrary.simpleMessage("إجراء حجز"),
         "mass_alart": MessageLookupByLibrary.simpleMessage(
             "هل انت متاكد انك تريد ازالة هذا العنصر"),
+        "messages": MessageLookupByLibrary.simpleMessage("الرسائل"),
         "modify_permissions":
             MessageLookupByLibrary.simpleMessage("تعديل الأذونات"),
         "modify_permissions_for":

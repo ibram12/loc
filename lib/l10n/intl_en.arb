@@ -164,5 +164,6 @@
   "reservation_details":"Reservation Details",
   "reservation_time":"Reservation Time",
   "event_name":"Event Name",
-  "hall_name":"Hall Name"
+  "hall_name":"Hall Name",
+  "messages":"Messages"
 }

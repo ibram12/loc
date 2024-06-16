@@ -9,6 +9,7 @@ import 'package:loc/featuers/admin/pressntation/view/all_requests_view.dart';
 import 'package:loc/featuers/auth/presentation/views/login_view.dart';
 import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
 import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
+import 'package:loc/featuers/messages/presentation/views/messages_veiw.dart';
 import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:loc/featuers/settings/presentaiton/manager/local_cubit/local_cubit.dart';
 import 'package:loc/featuers/spalsh/presntation/view/splash_view.dart';
@@ -67,7 +68,8 @@ class HomePage extends StatelessWidget {
                   PasswordRecoveryVeiw.id: (context) => const PasswordRecoveryVeiw(),
                   AddHallView.id: (context) => const AddHallView(),
                   UserRequests.id: (context) => const UserRequests(),
-                  AllRequests.id:(context) => const AllRequests()
+                  AllRequests.id:(context) => const AllRequests(),
+                  MessagesVeiw.id:(context) => const MessagesVeiw(),
                 },
               );
             },

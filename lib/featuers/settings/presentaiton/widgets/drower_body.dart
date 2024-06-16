@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loc/featuers/settings/presentaiton/widgets/log_out_botton.dart';
+import 'package:loc/featuers/settings/presentaiton/widgets/messages_botton.dart';
 
 
 import '../../../../core/text_styles/Styles.dart';
 import '../../../../generated/l10n.dart';
+import '../../../messages/presentation/views/messages_veiw.dart';
 import 'theme_switcher.dart';
 import 'translate_switcher.dart';
 
@@ -53,6 +55,11 @@ class DrowerBody extends StatelessWidget {
                   const TranslateSwitcher()
                 ],
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              
+              const MessagesBotton(),
               const SizedBox(
                 height: 20,
               ),
