@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loc/core/helper/alert_dialog.dart';
+import 'package:loc/core/helper/alert_dalog.dart';
 import 'package:loc/core/helper/delightful_toast.dart';
 import 'package:loc/core/helper/dialog_with_textFiald.dart';
 import 'package:loc/core/helper/snack_bar.dart';

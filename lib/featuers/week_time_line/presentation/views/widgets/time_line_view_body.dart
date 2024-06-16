@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:loc/core/helper/alert_dialog.dart';
+import 'package:loc/core/helper/timeLine_ditales_dialog.dart';
 import 'package:loc/featuers/week_time_line/presentation/manager/show_time_line_cubit/show_time_line_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -28,7 +28,7 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
   MeetingDataSource? events;
   List<String> hallNames = ['all Halls'];
   late Query query;
-late  bool isEnglish;
+  bool isEnglish = true;
 
 
   @override
@@ -63,7 +63,8 @@ late  bool isEnglish;
           return Center(child: Text('Error: ${state.error}'));
         }
 
-        return Stack(children: [
+        return Stack(
+          children: [
           SfCalendar(
             key: ValueKey(events),
             controller: controller,
@@ -71,7 +72,8 @@ late  bool isEnglish;
          maxDate: DateTime(DateTime.now().year, DateTime.now().month +1, DateTime.now().day),
             onTap: (CalendarTapDetails date) {
               if (date.appointments != null && date.appointments!.isNotEmpty) {
-                showAlertDialog(
+                showDitalisDialog(
+                  data: date,
                     context: context,
                     message:
                         '${date.appointments![0].userName} ${S.of(context).home_made_a_reservation_from} ${DateFormat('hh:mm a').format(date.appointments![0].from)} ${S.of(context).to} ${DateFormat('hh:mm a').format(date.appointments![0].to)} ${S.of(context).forr} ${date.appointments![0].eventName} ${S.of(context).inn} ${date.appointments![0].hallName}',

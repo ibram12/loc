@@ -1687,6 +1687,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Reservation Details`
+  String get reservation_details {
+    return Intl.message(
+      'Reservation Details',
+      name: 'reservation_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reservation Time`
+  String get reservation_time {
+    return Intl.message(
+      'Reservation Time',
+      name: 'reservation_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Event Name`
+  String get event_name {
+    return Intl.message(
+      'Event Name',
+      name: 'event_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hall Name`
+  String get hall_name {
+    return Intl.message(
+      'Hall Name',
+      name: 'hall_name',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

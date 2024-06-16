@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loc/core/helper/alert_dialog.dart';
+import 'package:loc/core/helper/alert_dalog.dart';
 import 'package:loc/core/helper/questoin_alert_dialog.dart';
 import 'package:loc/core/server/firebase_methoudes.dart';
 import 'package:loc/featuers/requests/data/models/user_request_model.dart';

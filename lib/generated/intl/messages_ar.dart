@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "أدخل البريد الإلكتروني للمستخدم"),
         "enter_your_email":
             MessageLookupByLibrary.simpleMessage("أدخل بريدك الإلكتروني"),
+        "event_name": MessageLookupByLibrary.simpleMessage("اسم الحدث"),
         "failed_to_fetch_requests":
             MessageLookupByLibrary.simpleMessage("فشل في جلب الطلبات"),
         "floor": MessageLookupByLibrary.simpleMessage("الطابق"),
@@ -107,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم قبوله من قبل"),
         "hall_has_been_rejected":
             MessageLookupByLibrary.simpleMessage("تم رفضه من قبل"),
+        "hall_name": MessageLookupByLibrary.simpleMessage("اسم القاعة"),
         "halls": MessageLookupByLibrary.simpleMessage("القاعات"),
         "home_made_a_reservation_from":
             MessageLookupByLibrary.simpleMessage("تم الحجز من"),
@@ -174,6 +176,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "request_rejected": MessageLookupByLibrary.simpleMessage("طلب مرفوض"),
         "request_which_belongs_to":
             MessageLookupByLibrary.simpleMessage("الطلب الذي يعود لـ"),
+        "reservation_details":
+            MessageLookupByLibrary.simpleMessage("تفاصيل الحجز"),
+        "reservation_time": MessageLookupByLibrary.simpleMessage("وقت الحجز"),
         "reservations": MessageLookupByLibrary.simpleMessage("الحجوزات"),
         "role": MessageLookupByLibrary.simpleMessage("الصلاحيه"),
         "role_to": MessageLookupByLibrary.simpleMessage("الصلاحيه إلى"),

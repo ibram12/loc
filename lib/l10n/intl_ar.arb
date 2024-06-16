@@ -160,7 +160,11 @@
      "hall_has_been_accepted":"تم قبوله من قبل",
      "hall_has_been_rejected":"تم رفضه من قبل",
      "log_out":"تسجيل الخروج",
-     "are_you_sure_you_want_to_log_out":"هل انت متأكد من تسجيل الخروج؟"
+     "are_you_sure_you_want_to_log_out":"هل انت متأكد من تسجيل الخروج؟",
+     "reservation_details":"تفاصيل الحجز",
+     "reservation_time":"وقت الحجز",
+     "event_name":"اسم الحدث",
+     "hall_name":"اسم القاعة"
 
 
 

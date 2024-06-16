@@ -94,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter User Email"),
         "enter_your_email":
             MessageLookupByLibrary.simpleMessage("Enter Your Email"),
+        "event_name": MessageLookupByLibrary.simpleMessage("Event Name"),
         "failed_to_fetch_requests":
             MessageLookupByLibrary.simpleMessage("Failed to fetch requests"),
         "floor": MessageLookupByLibrary.simpleMessage("floor"),
@@ -109,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hall has been accepted by"),
         "hall_has_been_rejected":
             MessageLookupByLibrary.simpleMessage("Hall has been rejected by"),
+        "hall_name": MessageLookupByLibrary.simpleMessage("Hall Name"),
         "halls": MessageLookupByLibrary.simpleMessage("Halls"),
         "home_made_a_reservation_from":
             MessageLookupByLibrary.simpleMessage("made a reservation from"),
@@ -176,6 +178,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Request Rejected"),
         "request_which_belongs_to":
             MessageLookupByLibrary.simpleMessage("Request which belongs to"),
+        "reservation_details":
+            MessageLookupByLibrary.simpleMessage("Reservation Details"),
+        "reservation_time":
+            MessageLookupByLibrary.simpleMessage("Reservation Time"),
         "reservations": MessageLookupByLibrary.simpleMessage("Reservations"),
         "role": MessageLookupByLibrary.simpleMessage("Role"),
         "role_to": MessageLookupByLibrary.simpleMessage("Role to"),

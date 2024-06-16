@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loc/core/helper/alert_dialog.dart';
+import 'package:loc/core/helper/alert_dalog.dart';
 import 'package:loc/core/helper/delightful_toast.dart';
 import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/utils/constants.dart';
@@ -45,7 +45,6 @@ class _UserInfoCardState extends State<UserInfoCard> {
   Widget build(BuildContext context) {
     if (isDarkMode == null) {
       return const Center(
-        
       );
     }
     return BlocConsumer<ModifyPermissionsCubit, ModifyPermissionsState>(
