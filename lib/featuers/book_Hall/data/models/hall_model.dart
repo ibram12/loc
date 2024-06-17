@@ -12,7 +12,7 @@ class HallModel {
     required this.floor,
     required this.isBooked,
   });
-  factory HallModel.fromJson(Map<String, dynamic> json, ) {
+  factory HallModel.fromJson(Map<String, dynamic> json) {
     return HallModel(
 
       name: json['name'],

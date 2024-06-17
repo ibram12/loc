@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/utils/constants.dart';
 
 class ChatBuble extends StatelessWidget {
