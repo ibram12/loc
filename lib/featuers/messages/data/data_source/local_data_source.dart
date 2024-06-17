@@ -11,7 +11,7 @@ class MessagesLocalDataSourceImpl implements MessagesLocalDataSource {
   @override
   List<ChatBubleModel> getMessages()  {
 
-    var myBox = Hive.box(kMessagesBox);
+    var myBox = Hive.box<ChatBubleModel>(kMessagesBox);
 
     if (myBox.isNotEmpty) {
       return myBox.values.toList().cast<ChatBubleModel>();

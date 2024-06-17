@@ -13,3 +13,6 @@ final class SentMessageError extends SentMessageState {
   final String error;
   SentMessageError({required this.error});
 }
+final class MessageSentLocalySuccess extends SentMessageState {}
+
+final class MessageSentRemoteSuccess extends SentMessageState {}

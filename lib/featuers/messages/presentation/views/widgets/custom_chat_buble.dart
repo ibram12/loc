@@ -1,10 +1,13 @@
-
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:loc/core/utils/constants.dart';
+import 'package:loc/featuers/messages/data/models/chat_buble_model.dart';
 
 class ChatBuble extends StatelessWidget {
-const ChatBuble({Key?key, }) : super (key:key);
-
+  const ChatBuble({
+    Key? key, required this.bubleModel,
+  }) : super(key: key);
+  final ChatBubleModel bubleModel;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -19,20 +22,34 @@ const ChatBuble({Key?key, }) : super (key:key);
                 topRight: Radius.circular(32),
                 bottomRight: Radius.circular(32)),
             color: kPrimaryColor),
-        child: const Column(
+        child:  Column(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              "hallo, i am ramy",
-              style: TextStyle(color: Colors.white),
+              bubleModel.massege,
+              style: const TextStyle(color: Colors.white),
             ),
-            SizedBox(height: 3,),
-            Text("2:30 AM",style: TextStyle(
-              fontSize: 10,
-              color: Colors.black
+            const SizedBox(
+              height: 3,
             ),
+            Row(
+             mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  DateFormat("hh:mm a").format(bubleModel.time),
+                  style: const TextStyle(fontSize: 10, color: Colors.black),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                const Icon(
+                  Icons.done_all,
+                  size: 10,
+                  color: Colors.cyan,
+                )
+              ],
             )
           ],
         ),
@@ -41,10 +58,11 @@ const ChatBuble({Key?key, }) : super (key:key);
   }
 }
 
-
-
 class ChatBubleForFriend extends StatelessWidget {
-const   ChatBubleForFriend({Key?key,}) : super (key:key);
+  const ChatBubleForFriend({
+    Key? key, required this.bubleModel,
+  }) : super(key: key);
+   final ChatBubleModel bubleModel;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +70,7 @@ const   ChatBubleForFriend({Key?key,}) : super (key:key);
       alignment: Alignment.centerRight,
       child: Container(
         padding:
-            const EdgeInsets.only(left: 16, top: 22, bottom: 22, right: 16),
+            const EdgeInsets.only(left: 16, top: 18, bottom: 18, right: 16),
         margin: const EdgeInsets.all(7),
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -60,20 +78,21 @@ const   ChatBubleForFriend({Key?key,}) : super (key:key);
                 topRight: Radius.circular(32),
                 bottomLeft: Radius.circular(32)),
             color: Colors.lightGreen),
-        child: const Column(
+        child:  Column(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              "hallo, i am ramy",
-              style: TextStyle(color: Colors.white),
+              bubleModel.massege,
+              style: const TextStyle(color: Colors.white),
             ),
-            SizedBox(height: 3,),
-            Text("2:30 AM",style: TextStyle(
-              fontSize: 10,
-              color: Colors.black
+            const SizedBox(
+              height: 3,
             ),
+            Text(
+              DateFormat("hh:mm a").format(bubleModel.time),
+              style: const TextStyle(fontSize: 10, color: Colors.black),
             )
           ],
         ),

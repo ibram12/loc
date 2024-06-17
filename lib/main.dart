@@ -30,7 +30,7 @@ Future<void> main() async {
   );
   await Hive.initFlutter();
   Hive.registerAdapter(ChatBubleModelAdapter());
-  await Hive.openBox(kMessagesBox);
+  await Hive.openBox<ChatBubleModel>(kMessagesBox);
   runApp(const HomePage());
 }
 

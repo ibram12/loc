@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/utils/constants.dart';
 
+import '../../manager/reed_messages_cubit/reed_messages_cubit.dart';
 import '../../manager/sent_message_cubit/sent_message_cubit.dart';
 
 class CusotmChatTextField extends StatefulWidget {
@@ -32,6 +33,8 @@ class _CusotmChatTextFieldState extends State<CusotmChatTextField> {
             // _controller.animateTo(0,
             //     duration: const Duration(milliseconds: 500),
             //     curve: Curves.easeIn);
+          context.read<ReedMessagesCubit>().getMessages();
+
           },
           decoration: InputDecoration(
               hintText: 'Send Message',

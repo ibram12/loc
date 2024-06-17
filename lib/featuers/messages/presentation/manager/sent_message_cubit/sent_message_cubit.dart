@@ -12,13 +12,19 @@ part 'sent_message_state.dart';
 class SentMessageCubit extends Cubit<SentMessageState> {
   SentMessageCubit() : super(SentMessageInitial());
   Future<void> sentMessage({required String message}) async {
-    emit(SentMessageLoading());
     String id = FirebaseAuth.instance.currentUser!.uid;
+   
+     var myBox = Hive.box<ChatBubleModel>(kMessagesBox);
+    myBox.add(ChatBubleModel(id: id, massege: message, time: DateTime.now(),isSent: false));
+
+    emit(MessageSentLocalySuccess());
+    
+    emit(SentMessageLoading());
+
     FirebaseFirestore.instance
         .collection('messages')
         .add({"message": message, "time": DateTime.now(), "id": id,"isSent":true});
-    var myBox =await Hive.openBox(kMessagesBox);
-    myBox.add(ChatBubleModel(id: id, massege: message, time: DateTime.now(),isSent: false));
+     
     emit(SentMessageSuccess());
   }
 }

@@ -16,9 +16,12 @@ class MessageRepoImpl implements MessageRepo {
     List<ChatBubleModel> messagesList;
     messagesList = localDataSource.getMessages();
     if (messagesList.isNotEmpty){
+      print("this data comes from local data source======================");
       return messagesList;
     }else{
       messagesList =await remoteDataSource.getMessages();
+      print("this data comes from remote data source======================");
+
       return messagesList;
     }
     

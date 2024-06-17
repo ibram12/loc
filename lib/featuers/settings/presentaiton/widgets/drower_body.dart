@@ -6,7 +6,6 @@ import 'package:loc/featuers/settings/presentaiton/widgets/messages_botton.dart'
 
 import '../../../../core/text_styles/Styles.dart';
 import '../../../../generated/l10n.dart';
-import '../../../messages/presentation/views/messages_veiw.dart';
 import 'theme_switcher.dart';
 import 'translate_switcher.dart';
 

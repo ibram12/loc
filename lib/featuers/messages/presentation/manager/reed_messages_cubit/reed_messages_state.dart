@@ -4,3 +4,11 @@ part of 'reed_messages_cubit.dart';
 sealed class ReedMessagesState {}
 
 final class ReedMessagesInitial extends ReedMessagesState {}
+
+final class ReedMessagesLoading extends ReedMessagesState {}
+
+final class ReedMessagesSuccess extends ReedMessagesState {
+
+  final List<ChatBubleModel> messages;
+  ReedMessagesSuccess({required this.messages});
+}
