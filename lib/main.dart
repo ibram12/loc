@@ -18,6 +18,7 @@ import 'package:loc/featuers/settings/presentaiton/manager/local_cubit/local_cub
 import 'package:loc/featuers/spalsh/presntation/view/splash_view.dart';
 import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
 import 'featuers/messages/data/models/chat_buble_model.dart';
+import 'featuers/messages/data/models/times_tamp_adaptor.dart';
 import 'featuers/settings/presentaiton/manager/theme_cubit/theme_cubit.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
@@ -30,6 +31,7 @@ Future<void> main() async {
   );
   await Hive.initFlutter();
   Hive.registerAdapter(ChatBubleModelAdapter());
+  Hive.registerAdapter(TimestampAdapter());
   await Hive.openBox<ChatBubleModel>(kMessagesBox);
   runApp(const HomePage());
 }

@@ -8,8 +8,8 @@ import '../../manager/reed_messages_cubit/reed_messages_cubit.dart';
 import '../../manager/sent_message_cubit/sent_message_cubit.dart';
 
 class CusotmChatTextField extends StatefulWidget {
-  const CusotmChatTextField({super.key});
-
+  const CusotmChatTextField({super.key, required this.onSent});
+  final void Function() onSent;
   @override
   State<CusotmChatTextField> createState() => _CusotmChatTextFieldState();
 }
@@ -17,41 +17,40 @@ class CusotmChatTextField extends StatefulWidget {
 class _CusotmChatTextFieldState extends State<CusotmChatTextField> {
   final controller = TextEditingController();
   @override
-  Widget build(BuildContext context) {
-    return BlocListener<SentMessageCubit, SentMessageState>(
-      listener: (context, state) {
-        showSnackBar(context, "message sent succfully");
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: TextField(
-          controller: controller,
-          onSubmitted: (data) {
-            BlocProvider.of<SentMessageCubit>(context)
-                .sentMessage(message: controller.text);
-            controller.clear();
-            // _controller.animateTo(0,
-            //     duration: const Duration(milliseconds: 500),
-            //     curve: Curves.easeIn);
-          context.read<ReedMessagesCubit>().getMessages();
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
+  }
 
-          },
-          decoration: InputDecoration(
-              hintText: 'Send Message',
-              suffixIcon: const Icon(
-                Icons.send,
-                color: kPrimaryColor,
-              ),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-              enabledBorder:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-              //  borderSide: const BorderSide(color: )),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(color: kPrimaryColor),
-              )),
-        ),
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: TextField(
+        controller: controller,
+        onSubmitted: (data) {
+          BlocProvider.of<SentMessageCubit>(context)
+              .sentMessage(message: controller.text);
+          controller.clear();
+          widget.onSent;
+        
+          context.read<ReedMessagesCubit>().getMessages();
+        },
+        decoration: InputDecoration(
+            hintText: 'Send Message',
+            suffixIcon: const Icon(
+              Icons.send,
+              color: kPrimaryColor,
+            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+            enabledBorder:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+            //  borderSide: const BorderSide(color: )),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: kPrimaryColor),
+            )),
       ),
     );
   }

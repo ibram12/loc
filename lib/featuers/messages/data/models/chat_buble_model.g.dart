@@ -20,7 +20,7 @@ class ChatBubleModelAdapter extends TypeAdapter<ChatBubleModel> {
       isSent: fields[3] as bool,
       id: fields[1] as String,
       massege: fields[0] as String,
-      time: fields[2] as DateTime,
+      time: fields[2] as Timestamp,
     );
   }
 

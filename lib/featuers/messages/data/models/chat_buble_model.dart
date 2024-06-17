@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 part 'chat_buble_model.g.dart';
 
@@ -8,9 +9,9 @@ class ChatBubleModel extends HiveObject {
   @HiveField(1)
   final String id;
   @HiveField(2)
-  final DateTime time;
+  final Timestamp time;
   @HiveField(3)
-  final bool isSent;
+   bool isSent;
 
   ChatBubleModel({required this.isSent,required this.id ,required this.massege, required this.time});
 
@@ -18,8 +19,8 @@ class ChatBubleModel extends HiveObject {
     return ChatBubleModel(
       isSent: json['isSent'],
       id: json['id'],
-      massege: json['massege'],
-      time: DateTime.parse(json['time']),
+      massege: json['message'],
+      time: json['time'],
     );
   }
 }
