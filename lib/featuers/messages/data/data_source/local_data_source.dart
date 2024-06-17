@@ -4,14 +4,14 @@ import '../../../../core/utils/constants.dart';
 import '../models/chat_buble_model.dart';
 
 abstract class MessagesLocalDataSource {
-  Future<List<ChatBubleModel>> getMessages();
+  List<ChatBubleModel> getMessages();
 }
 
 class MessagesLocalDataSourceImpl implements MessagesLocalDataSource {
   @override
-  Future<List<ChatBubleModel>> getMessages() async {
+  List<ChatBubleModel> getMessages()  {
 
-    var myBox =await Hive.openBox(kMessagesBox);
+    var myBox = Hive.box(kMessagesBox);
 
     if (myBox.isNotEmpty) {
       return myBox.values.toList().cast<ChatBubleModel>();
