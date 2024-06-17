@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:loc/featuers/messages/presentation/views/widgets/cusotm_chat_text_field.dart';
@@ -20,6 +21,7 @@ class MessagesViewBody extends StatefulWidget {
 class _MessagesViewBodyState extends State<MessagesViewBody> {
   List<ChatBubleModel> messages = [];
   String id = FirebaseAuth.instance.currentUser!.uid;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 late ScrollController controller;
   @override
   void initState() {
@@ -69,6 +71,7 @@ late ScrollController controller;
           ),
         ),
          CusotmChatTextField(
+          formKey: formKey,
           onSent: (){
               controller.animateTo(controller.position.maxScrollExtent,
               duration: const Duration(milliseconds: 500),

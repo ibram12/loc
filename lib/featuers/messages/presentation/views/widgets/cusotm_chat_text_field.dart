@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/utils/constants.dart';
 
 import '../../manager/reed_messages_cubit/reed_messages_cubit.dart';
 import '../../manager/sent_message_cubit/sent_message_cubit.dart';
 
 class CusotmChatTextField extends StatefulWidget {
-  const CusotmChatTextField({super.key, required this.onSent});
+  const CusotmChatTextField({super.key, required this.onSent, required this.formKey});
   final void Function() onSent;
+  final GlobalKey<FormState> formKey;
   @override
   State<CusotmChatTextField> createState() => _CusotmChatTextFieldState();
 }
@@ -25,32 +25,57 @@ class _CusotmChatTextFieldState extends State<CusotmChatTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: TextField(
-        controller: controller,
-        onSubmitted: (data) {
-          BlocProvider.of<SentMessageCubit>(context)
-              .sentMessage(message: controller.text);
-          controller.clear();
-          widget.onSent;
-        
-          context.read<ReedMessagesCubit>().getMessages();
-        },
-        decoration: InputDecoration(
-            hintText: 'Send Message',
-            suffixIcon: const Icon(
-              Icons.send,
-              color: kPrimaryColor,
-            ),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-            enabledBorder:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-            //  borderSide: const BorderSide(color: )),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(color: kPrimaryColor),
-            )),
+    return Form(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      key:widget.formKey,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: TextFormField(
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Enter Message';
+            }
+            return null;
+          },
+          controller: controller,
+          onFieldSubmitted: (data) {
+            if(widget.formKey.currentState!.validate()){
+                      BlocProvider.of<SentMessageCubit>(context)
+                      .sentMessage(message: controller.text);
+                  controller.clear();
+                  widget.onSent;
+
+                  context.read<ReedMessagesCubit>().getMessages();
+                  }
+          },
+          decoration: InputDecoration(
+              hintText: 'Send Message',
+              suffixIcon: IconButton(
+                onPressed: () {
+                  if(widget.formKey.currentState!.validate()){
+                      BlocProvider.of<SentMessageCubit>(context)
+                      .sentMessage(message: controller.text);
+                  controller.clear();
+                  widget.onSent;
+
+                  context.read<ReedMessagesCubit>().getMessages();
+                  }
+                },
+                icon: const Icon(
+                  Icons.send,
+                  color: kPrimaryColor,
+                ),
+              ),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+              enabledBorder:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+              //  borderSide: const BorderSide(color: )),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(color: kPrimaryColor),
+              )),
+        ),
       ),
     );
   }

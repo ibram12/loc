@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:googleapis_auth/auth_io.dart' as auth;
 
+import '../utils/constants.dart';
+
 class PushNotificationService {
   static Future<String> getAccessToken() async {
     final serviceAccountJson = {
@@ -43,6 +45,36 @@ class PushNotificationService {
     final Map<String, dynamic> message = {
       'message': {
         'token': deviceToken,
+        'notification': {
+          'title': title,
+          'body': body,
+        }
+      }
+    };
+
+    final http.Response response = await http.post(
+        Uri.parse(endpointFirebaseCloudMessaging),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $serverAccessToken'
+        },
+        body: jsonEncode(message));
+
+    if (response.statusCode == 200) {
+      print('Notification Sent Successfully');
+    } else {
+      print('Notification Not Sent ${response.statusCode}');
+      print('Response body: ${response.body}');
+    }
+  }
+
+  static Future<void> sendNotificationToAllUsers({ required String title, required String body}) async {
+    final String serverAccessToken = await getAccessToken();
+    String endpointFirebaseCloudMessaging = 'https://fcm.googleapis.com/v1/projects/loct-app/messages:send';
+
+    final Map<String, dynamic> message = {
+      'message': {
+        'topic': kTopic,
         'notification': {
           'title': title,
           'body': body,

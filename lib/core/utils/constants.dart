@@ -39,3 +39,5 @@ const List<CalendarView> kCalendarViews = [CalendarView.day, CalendarView.workWe
 
 const String kMessagesBox = 'messagesBox';
 
+const String kTopic = 'topic';
+

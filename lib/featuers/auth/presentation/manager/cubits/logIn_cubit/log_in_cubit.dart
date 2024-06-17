@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:loc/core/utils/constants.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../../core/server/shered_pref_helper.dart';
@@ -32,7 +33,7 @@ class LogInCubit extends Cubit<LogInState> {
       }
 
       FirebaseMessaging messaging = FirebaseMessaging.instance;
-      NotificationSettings settings = await messaging.requestPermission(
+      await messaging.requestPermission(
         alert: true,
         announcement: false,
         badge: true,
@@ -48,6 +49,8 @@ class LogInCubit extends Cubit<LogInState> {
         await FirebaseFirestore.instance.collection('users').doc(uid).update({
           'fcmToken': fcmToken,
         });
+        FirebaseMessaging.instance.subscribeToTopic(kTopic);
+
       }
 
       emit(LogInSuccess());
