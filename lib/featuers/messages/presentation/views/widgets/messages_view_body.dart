@@ -7,6 +7,7 @@ import 'package:loc/featuers/messages/presentation/manager/reed_messages_cubit/r
 import 'package:loc/featuers/messages/presentation/views/widgets/cusotm_chat_text_field.dart';
 import 'package:loc/featuers/messages/presentation/views/widgets/custom_chat_buble.dart';
 import '../../../data/models/chat_buble_model.dart';
+import '../../manager/sent_message_cubit/sent_message_cubit.dart';
 
 class MessagesViewBody extends StatefulWidget {
   const MessagesViewBody({super.key});
@@ -22,21 +23,18 @@ class _MessagesViewBodyState extends State<MessagesViewBody> {
   late ScrollController controller;
   late Query query;
   late Stream<QuerySnapshot> stream;
-
   @override
   void initState() {
     super.initState();
     context.read<ReedMessagesCubit>().featchOldMessges();
+  context.read<SentMessageCubit>().loadMessageStatuses();
     query = FirebaseFirestore.instance.collection('messages').orderBy('time');
     stream = query.snapshots();
 
     controller = ScrollController();
   }
 
-  // void saveMessagesData(List<ChatBubleModel> newMessages) {
-  //   var box = Hive.box<ChatBubleModel>(kMessagesBox);
-  //   box.addAll(newMessages);
-  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +74,11 @@ class _MessagesViewBodyState extends State<MessagesViewBody> {
                 itemBuilder: (context, index) {
                   return snapshot.data!.docs[index]['id'] == userId
                       ? ChatBuble(
+                          index: index,
                           bubleModel: ChatBubleModel.fromJson(snapshot.data!.docs[index].data() as Map<String, dynamic>, snapshot.data!.docs[index].id),
                         )
                       : ChatBubleForFriend(
-                          bubleModel: messages[index],
+                          bubleModel: ChatBubleModel.fromJson(snapshot.data!.docs[index].data() as Map<String, dynamic>, snapshot.data!.docs[index].id),
                         );
                 },
               );

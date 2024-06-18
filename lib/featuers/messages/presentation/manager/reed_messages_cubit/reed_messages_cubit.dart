@@ -4,12 +4,11 @@ import 'package:loc/core/functions/get_suterdat_of_the_curant_week.dart';
 import 'package:loc/featuers/messages/domin/repos/message_repo.dart';
 import 'package:meta/meta.dart';
 
-
 part 'reed_messages_state.dart';
 
 class ReedMessagesCubit extends Cubit<ReedMessagesState> {
-  ReedMessagesCubit(this.messageRepo) : super(ReedMessagesInitial());
-  final MessageRepo messageRepo;
+  ReedMessagesCubit() : super(ReedMessagesInitial());
+  
   Future<void> featchOldMessges() async {
     emit(ReedMessagesLoading());
     CollectionReference messagesCollection =
@@ -24,7 +23,6 @@ class ReedMessagesCubit extends Cubit<ReedMessagesState> {
         messagesToDelete.add(message);
         for (var message in messagesToDelete) {
           await message.reference.delete();
-          
         }
       }
     }

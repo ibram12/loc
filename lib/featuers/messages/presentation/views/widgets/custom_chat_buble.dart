@@ -5,23 +5,26 @@ import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/messages/data/models/chat_buble_model.dart';
 import 'package:loc/featuers/messages/presentation/manager/sent_message_cubit/sent_message_cubit.dart';
 
-class ChatBuble extends StatefulWidget {
+import '../../../data/models/sent_state_enum.dart';
+
+class ChatBuble extends StatelessWidget {
   const ChatBuble({
     Key? key,
     required this.bubleModel,
+    required this.index,
   }) : super(key: key);
 
   final ChatBubleModel bubleModel;
+  final int index;
 
-  @override
-  State<ChatBuble> createState() => _ChatBubleState();
-}
-
-class _ChatBubleState extends State<ChatBuble> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SentMessageCubit, SentMessageState>(
       builder: (context, state) {
+        final messageStatus = state.messageStatuses.length > index
+            ? state.messageStatuses[index]
+            : MessageStatus.sending;
+
         return Align(
           alignment: Alignment.centerLeft,
           child: Container(
@@ -39,7 +42,7 @@ class _ChatBubleState extends State<ChatBuble> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  widget.bubleModel.massege,
+                  bubleModel.massege,
                   style: const TextStyle(color: Colors.white),
                 ),
                 const SizedBox(height: 3),
@@ -48,17 +51,17 @@ class _ChatBubleState extends State<ChatBuble> {
                   children: [
                     Text(
                       DateFormat("hh:mm a")
-                          .format(widget.bubleModel.time.toDate()),
+                          .format(bubleModel.time.toDate()),
                       style: const TextStyle(fontSize: 10, color: Colors.black),
                     ),
                     const SizedBox(width: 5),
-                    widget.bubleModel.isSent
+                    messageStatus != MessageStatus.sending
                         ? const Icon(
                             Icons.done_all,
                             size: 10,
                             color: Colors.cyan,
                           )
-                        : Image.asset(
+                        :  Image.asset(
                             "assets/images/9032185_pending_chatting_load_chat_social media_icon.png",
                             height: 12,
                             width: 12,
@@ -73,6 +76,7 @@ class _ChatBubleState extends State<ChatBuble> {
     );
   }
 }
+
 
 class ChatBubleForFriend extends StatelessWidget {
   const ChatBubleForFriend({

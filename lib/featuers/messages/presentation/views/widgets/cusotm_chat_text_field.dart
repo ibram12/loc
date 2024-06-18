@@ -7,10 +7,10 @@ import '../../manager/sent_message_cubit/sent_message_cubit.dart';
 
 class CusotmChatTextField extends StatefulWidget {
   const CusotmChatTextField(
-      {super.key, required this.onSent, required this.formKey});
+      {super.key, required this.onSent, required this.formKey,});
   final void Function() onSent;
   final GlobalKey<FormState> formKey;
-  
+
   @override
   State<CusotmChatTextField> createState() => _CusotmChatTextFieldState();
 }
@@ -31,8 +31,9 @@ class _CusotmChatTextFieldState extends State<CusotmChatTextField> {
         isLoading = true;
       });
       BlocProvider.of<SentMessageCubit>(context)
-          .sentMessage(message: controller.text)
+          .sendMessage(message: controller.text)
           .then((_) {
+      
         setState(() {
           isLoading = false;
         });
@@ -49,7 +50,6 @@ class _CusotmChatTextFieldState extends State<CusotmChatTextField> {
   @override
   Widget build(BuildContext context) {
     return Form(
-  
       key: widget.formKey,
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -69,8 +69,9 @@ class _CusotmChatTextFieldState extends State<CusotmChatTextField> {
               suffixIcon: isLoading
                   ? const Padding(
                       padding: EdgeInsets.all(12.0),
-                      child: CupertinoActivityIndicator(color: kPrimaryColor,)
-                    )
+                      child: CupertinoActivityIndicator(
+                        color: kPrimaryColor,
+                      ))
                   : IconButton(
                       onPressed: sendMessage,
                       icon: const Icon(

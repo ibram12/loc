@@ -1,18 +1,12 @@
 part of 'sent_message_cubit.dart';
 
 @immutable
-sealed class SentMessageState {}
+ class SentMessageState {
+  final List<MessageStatus> messageStatuses;
 
-final class SentMessageInitial extends SentMessageState {}
-
-final class SentMessageLoading extends SentMessageState {}
-
-final class SentMessageSuccess extends SentMessageState {}
-
-final class SentMessageError extends SentMessageState {
-  final String error;
-  SentMessageError({required this.error});
+const  SentMessageState({required this.messageStatuses});
 }
-final class MessageSentLocalySuccess extends SentMessageState {}
 
-final class MessageSentRemoteSuccess extends SentMessageState {}
+class SentMessageInitial extends SentMessageState {
+  SentMessageInitial() : super(messageStatuses: []);
+}

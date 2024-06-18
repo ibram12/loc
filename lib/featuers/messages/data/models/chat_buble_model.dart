@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
+import 'package:loc/featuers/messages/data/models/sent_state_enum.dart';
 part 'chat_buble_model.g.dart';
 
 @HiveType(typeId: 1)
@@ -10,13 +11,14 @@ class ChatBubleModel extends HiveObject {
   final String id;
   @HiveField(2)
   final Timestamp time;
-  @HiveField(3)
-  bool isSent;
   @HiveField(4)
   String docId;
+    @HiveField(5)
+  MessageStatus status;
 
   ChatBubleModel(
-      {required this.isSent,
+      {
+    this.status = MessageStatus.sending, 
       required this.id,
       required this.massege,
       required this.time,
@@ -26,7 +28,6 @@ class ChatBubleModel extends HiveObject {
   factory ChatBubleModel.fromJson(Map<String, dynamic> json,String docId) {
     return ChatBubleModel(
       docId: docId,
-      isSent: json['isSent'],
       id: json['id'],
       massege: json['message'],
       time: json['time'],
