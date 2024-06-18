@@ -21,13 +21,14 @@ class ChatBubleModelAdapter extends TypeAdapter<ChatBubleModel> {
       id: fields[1] as String,
       massege: fields[0] as String,
       time: fields[2] as Timestamp,
+      docId: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ChatBubleModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.massege)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class ChatBubleModelAdapter extends TypeAdapter<ChatBubleModel> {
       ..writeByte(2)
       ..write(obj.time)
       ..writeByte(3)
-      ..write(obj.isSent);
+      ..write(obj.isSent)
+      ..writeByte(4)
+      ..write(obj.docId);
   }
 
   @override

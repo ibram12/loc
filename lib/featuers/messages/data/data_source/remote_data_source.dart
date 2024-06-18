@@ -10,7 +10,7 @@ abstract class MessagesRemoteDataSource {
 class MessagesRemoteDataSourceImpl implements MessagesRemoteDataSource {
   @override
   Future<List<ChatBubleModel>> getMessages() async {
-   QuerySnapshot querySnapshot =await FirebaseFirestore.instance.collection("messages").get();
+   QuerySnapshot querySnapshot =await FirebaseFirestore.instance.collection("messages").orderBy('time').get();
   List<ChatBubleModel> messagesList =  getList(querySnapshot);
    saveMessagesData(messagesList);
     return messagesList;
@@ -20,7 +20,7 @@ class MessagesRemoteDataSourceImpl implements MessagesRemoteDataSource {
     List<ChatBubleModel> messagesList = [];
 
     for (var message in data.docs) {
-      messagesList.add(ChatBubleModel.fromJson(message.data() as Map<String, dynamic>));
+      messagesList.add(ChatBubleModel.fromJson(message.data() as Map<String, dynamic>,message.id));
     }
     return messagesList;
   }

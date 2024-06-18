@@ -9,6 +9,5 @@ final class ReedMessagesLoading extends ReedMessagesState {}
 
 final class ReedMessagesSuccess extends ReedMessagesState {
 
-  final List<ChatBubleModel> messages;
-  ReedMessagesSuccess({required this.messages});
+
 }

@@ -11,12 +11,21 @@ class ChatBubleModel extends HiveObject {
   @HiveField(2)
   final Timestamp time;
   @HiveField(3)
-   bool isSent;
+  bool isSent;
+  @HiveField(4)
+  String docId;
 
-  ChatBubleModel({required this.isSent,required this.id ,required this.massege, required this.time});
+  ChatBubleModel(
+      {required this.isSent,
+      required this.id,
+      required this.massege,
+      required this.time,
+      required this.docId
+      });
 
-  factory ChatBubleModel.fromJson(Map<String, dynamic> json) {
+  factory ChatBubleModel.fromJson(Map<String, dynamic> json,String docId) {
     return ChatBubleModel(
+      docId: docId,
       isSent: json['isSent'],
       id: json['id'],
       massege: json['message'],

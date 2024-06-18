@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../core/functions/get_suterdat_of_the_curant_week.dart';
+
 part 'delete_old_data_state.dart';
 
 class DeleteOldDataCubit extends Cubit<DeleteOldDataState> {
@@ -42,9 +44,5 @@ class DeleteOldDataCubit extends Cubit<DeleteOldDataState> {
     }
   }
 
-  DateTime getSuterDayOfCurrentWeek(DateTime date) {
-    int daysSinceSuterDay = (date.weekday + 1) % 7;
-    DateTime suterDay = date.subtract(Duration(days: daysSinceSuterDay));
-    return DateTime(suterDay.year, suterDay.month, suterDay.day);
-  }
+
 }
