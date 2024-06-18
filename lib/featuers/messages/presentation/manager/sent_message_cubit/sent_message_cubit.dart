@@ -27,9 +27,10 @@ class SentMessageCubit extends Cubit<SentMessageState> {
   Future<void> sendMessage({required String message}) async {
     String id = FirebaseAuth.instance.currentUser!.uid;
     String? userName = await SherdPrefHelper().getUserName();
-
-    // Create a new message and add it to the box
+    String? profileImage = FirebaseAuth.instance.currentUser!.photoURL;
     final chatMessage = ChatBubleModel(
+      profileImage: profileImage??"",
+      name: userName??"",
       id: id,
       massege: message,
       time: Timestamp.now(),
@@ -38,16 +39,16 @@ class SentMessageCubit extends Cubit<SentMessageState> {
     );
     chatBox.add(chatMessage);
 
-    // Add a new message with sending status
     final updatedStatuses = List<MessageStatus>.from(state.messageStatuses)
       ..add(MessageStatus.sending);
     emit(SentMessageState(messageStatuses: updatedStatuses));
 
-    // Get the index of the new message
     final messageIndex = updatedStatuses.length - 1;
 
     try {
       final docRef = await FirebaseFirestore.instance.collection('messages').add({
+        "name": userName,
+        "profileImage": profileImage??"",
         "message": message,
         "time": chatMessage.time,
         "id": id,
@@ -56,7 +57,6 @@ class SentMessageCubit extends Cubit<SentMessageState> {
       await PushNotificationService.sendNotificationToAllUsers(
           title: userName ?? '', body: message);
 
-      // Update the message status to sent and update docId
       chatMessage.status = MessageStatus.sent;
       chatMessage.docId = docRef.id;
       chatMessage.save();
@@ -64,7 +64,6 @@ class SentMessageCubit extends Cubit<SentMessageState> {
       updatedStatuses[messageIndex] = MessageStatus.sent;
       emit(SentMessageState(messageStatuses: updatedStatuses));
     } catch (e) {
-      // If there's an error, set the message status to error
       chatMessage.status = MessageStatus.error;
       chatMessage.save();
 

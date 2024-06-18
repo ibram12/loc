@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loc/core/functions/get_suterdat_of_the_curant_week.dart';
-import 'package:loc/featuers/messages/domin/repos/message_repo.dart';
 import 'package:meta/meta.dart';
 
 part 'reed_messages_state.dart';

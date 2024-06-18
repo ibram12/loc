@@ -17,6 +17,8 @@ class ChatBubleModelAdapter extends TypeAdapter<ChatBubleModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ChatBubleModel(
+      profileImage: fields[6] as String,
+      name: fields[3] as String,
       status: fields[5] as MessageStatus,
       id: fields[1] as String,
       massege: fields[0] as String,
@@ -28,17 +30,21 @@ class ChatBubleModelAdapter extends TypeAdapter<ChatBubleModel> {
   @override
   void write(BinaryWriter writer, ChatBubleModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.massege)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
       ..write(obj.time)
+      ..writeByte(3)
+      ..write(obj.name)
       ..writeByte(4)
       ..write(obj.docId)
       ..writeByte(5)
-      ..write(obj.status);
+      ..write(obj.status)
+      ..writeByte(6)
+      ..write(obj.profileImage);
   }
 
   @override

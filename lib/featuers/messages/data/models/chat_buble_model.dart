@@ -11,22 +11,28 @@ class ChatBubleModel extends HiveObject {
   final String id;
   @HiveField(2)
   final Timestamp time;
+  @HiveField(3)
+  final String name;
   @HiveField(4)
   String docId;
-    @HiveField(5)
+  @HiveField(5)
   MessageStatus status;
+  @HiveField(6)
+  final String profileImage;
 
   ChatBubleModel(
-      {
-    this.status = MessageStatus.sending, 
+      {required this.profileImage,
+      required this.name,
+      this.status = MessageStatus.sending,
       required this.id,
       required this.massege,
       required this.time,
-      required this.docId
-      });
+      required this.docId});
 
-  factory ChatBubleModel.fromJson(Map<String, dynamic> json,String docId) {
+  factory ChatBubleModel.fromJson(Map<String, dynamic> json, String docId) {
     return ChatBubleModel(
+      profileImage: json['profileImage'],
+      name: json['name'],
       docId: docId,
       id: json['id'],
       massege: json['message'],
