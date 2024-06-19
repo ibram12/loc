@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:loc/core/utils/constants.dart';
+import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
 import 'package:loc/featuers/week_time_line/presentation/views/time_line_view.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import '../../../../generated/l10n.dart';
@@ -24,7 +25,7 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
   String? userRole;
   bool isLoading = true;
   void checkRole() async {
-     if (await SherdPrefHelper().getUserRole() == null) {
+    if (await SherdPrefHelper().getUserRole() == null) {
       String id = FirebaseAuth.instance.currentUser!.uid;
       DocumentSnapshot userInfo =
           await FirebaseFirestore.instance.collection('users').doc(id).get();
@@ -34,25 +35,22 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
           isLoading = false;
         });
         await SherdPrefHelper().setUserRole(kRoles[2]);
-      }else if (userInfo['role'] == kRoles[1])  {
+      } else if (userInfo['role'] == kRoles[1]) {
         setState(() {
           userRole = kRoles[1];
           isLoading = false;
         });
         await SherdPrefHelper().setUserRole(kRoles[1]);
-      }else{
+      } else {
         setState(() {
           userRole = kRoles[0];
           isLoading = false;
         });
         await SherdPrefHelper().setUserRole(kRoles[0]);
       }
-    }else{
-      
-  userRole = await SherdPrefHelper().getUserRole();
-setState(() {
-  
-});
+    } else {
+      userRole = await SherdPrefHelper().getUserRole();
+      setState(() {});
       isLoading = false;
     }
   }
@@ -61,8 +59,7 @@ setState(() {
   void initState() {
     super.initState();
     checkRole();
-        BlocProvider.of<DeleteOldDataCubit>(context).deleteOldData();
-
+    BlocProvider.of<DeleteOldDataCubit>(context).deleteOldData();
   }
 
   @override
@@ -70,34 +67,45 @@ setState(() {
     return isLoading && userRole == null
         ? const Center(child: CircularProgressIndicator())
         : Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const SizedBox(
-              width: double.infinity,
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image.asset(kLogo)),
-               Card_Button(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                width: double.infinity,
+              ),
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.asset(kLogo)),
+              Card_Button(
                 page: const TimeLineVeiw(
                   calendarView: CalendarView.month,
-                ), text: S.of(context).time_line,icon: Icons.calendar_month,),
-
-             Visibility(
-              visible: userRole==kRoles[1] || userRole==kRoles[2],
-               child: Card_Button(
-                page: const BookLocView(), text: S.of(context).add_event,icon: Icons.add,),
-             ),
-
-            Visibility(
-                visible: userRole==kRoles[2],
-                child:  Card_Button(
+                ),
+                text: S.of(context).time_line,
+                icon: Icons.calendar_month,
+              ),
+              Visibility(
+                visible: userRole == kRoles[1] || userRole == kRoles[2],
+                child: Card_Button(
+                  page: const BookLocView(),
+                  text: S.of(context).add_event,
+                  icon: Icons.add,
+                ),
+              ),
+             userRole == kRoles[2] ?  Card_Button(
                   color: Colors.red,
-                    page: const BottomNavBar(),
-                    icon: Icons.admin_panel_settings_rounded,
-                    text: S.of(context).admin_panel)),
-          ],
-        );
+                  page: const BottomNavBar(),
+                  icon: Icons.admin_panel_settings_rounded,
+                  text: S.of(context).admin_panel):
+              Visibility(
+                visible: userRole == kRoles[1],
+                child: Card_Button(
+                  color: Colors.red,
+                  page: const SignUpView(),
+                  text: S.of(context).add_new_user,
+                  icon: Icons.person_add,
+                ),
+              ),
+            ],
+          );
   }
 }

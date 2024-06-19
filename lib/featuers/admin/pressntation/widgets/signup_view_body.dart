@@ -80,6 +80,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
               child: Form(
                 key: formKey,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 20),

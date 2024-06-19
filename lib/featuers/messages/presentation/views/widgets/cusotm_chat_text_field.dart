@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/server/shered_pref_helper.dart';
-import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/utils/constants.dart';
 
 import '../../../../../generated/l10n.dart';

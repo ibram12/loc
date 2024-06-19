@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/text_styles/Styles.dart';
@@ -5,6 +6,7 @@ import 'package:loc/featuers/admin/pressntation/manager/signUp_cubit/sign_up_cub
 import 'package:loc/featuers/admin/pressntation/manager/signUp_cubit/sign_up_state.dart';
 
 import '../../../../core/helper/dialog_with_textFiald.dart';
+import '../../../../core/server/shered_pref_helper.dart';
 import '../../../../core/utils/constants.dart';
 import '../../../../generated/l10n.dart';
 
@@ -30,6 +32,25 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
   GlobalKey<FormState> key = GlobalKey();
   List<String> _initSelectedItems = [];
   String role = 'Role';
+  String? userRole;
+  bool isRoleLoading = true;
+
+  void checkRole() async {
+    userRole = await SherdPrefHelper().getUserRole();
+    if (userRole != null) {
+      setState(() {
+        isRoleLoading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkRole();
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -96,22 +117,39 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              DropdownButton(
-                  hint: Text(role),
-                  items: kRoles
-                      .map((e) => DropdownMenuItem(
-                            child: Text(e),
-                            value: e,
-                          ))
-                      .toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      role = value!;
-                    });
-                    widget.onRoleSelected(value!);
-                  }),
+              isRoleLoading
+                  ? const CupertinoActivityIndicator(
+                      color: kPrimaryColor,
+                    )
+                  :userRole == kRoles[2]? DropdownButton(
+                      hint: Text(role),
+                      items:  kRoles
+                          .map((e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(e),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          role = value!;
+                        });
+                        widget.onRoleSelected(value!);
+                      }):DropdownButton(
+                      hint: Text(role),
+                      items:  [kRoles[0]]
+                          .map((e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(e),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          role = value!;
+                        });
+                        widget.onRoleSelected(value!);
+                      }),
               TextButton(
-                child:  Text(
+                child: Text(
                   S.of(context).add_New_Service,
                   style: Styles.textStyle14,
                 ),
@@ -124,8 +162,8 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
                       dilogController.clear();
                     });
                     Navigator.pop(context);
-                  }, key, S.of(context).enter_service_type, S.of(context).service, S.of(context).service_type,
-                      false);
+                  }, key, S.of(context).enter_service_type,
+                      S.of(context).service, S.of(context).service_type, false);
                 },
               ),
             ],
@@ -141,7 +179,10 @@ class MultiSelectDialog extends StatefulWidget {
   final List<dynamic> initiallySelectedItems;
   final void Function(List)? onPressed;
   const MultiSelectDialog(
-      {super.key, required this.items, required this.initiallySelectedItems, this.onPressed});
+      {super.key,
+      required this.items,
+      required this.initiallySelectedItems,
+      this.onPressed});
 
   @override
   _MultiSelectDialogState createState() => _MultiSelectDialogState();
@@ -187,11 +228,11 @@ class _MultiSelectDialogState extends State<MultiSelectDialog> {
           },
         ),
         ElevatedButton(
-          onPressed:    () {
-            if(widget.onPressed != null){
+          onPressed: () {
+            if (widget.onPressed != null) {
               widget.onPressed!(_tempSelectedItems);
-            }else{
-            Navigator.pop(context, _tempSelectedItems);
+            } else {
+              Navigator.pop(context, _tempSelectedItems);
             }
           },
           child: const Text('OK'),

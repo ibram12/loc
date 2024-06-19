@@ -21,21 +21,23 @@ class CustomBotton extends StatelessWidget {
   final double? width;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width ?? MediaQuery.of(context).size.width / 2,
-      height: 50,
-      child: TextButton(
-        style: TextButton.styleFrom(
-            shape: RoundedRectangleBorder(
-                borderRadius: borderRadius ?? BorderRadius.circular(16)),
-            backgroundColor: backgroundColor ?? Colors.white),
-        onPressed: onPressed,
-        child: child?? Text(
-          text,
-            style: Styles.textStyle18.copyWith(
-              color: textColor ?? Colors.black,
-              fontWeight: FontWeight.w900,
-            ),
+    return Flexible(
+      child: SizedBox(
+        width: width ?? MediaQuery.of(context).size.width / 1.7,
+        height: 50,
+        child: TextButton(
+          style: TextButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: borderRadius ?? BorderRadius.circular(16)),
+              backgroundColor: backgroundColor ?? Colors.white),
+          onPressed: onPressed,
+          child: child?? Text(
+            text,
+              style: Styles.textStyle18.copyWith(
+                color: textColor ?? Colors.black,
+                fontWeight: FontWeight.w900,
+              ),
+          ),
         ),
       ),
     );

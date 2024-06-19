@@ -67,6 +67,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                 key: formKey,
                 autovalidateMode: AutovalidateMode.always,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 20),

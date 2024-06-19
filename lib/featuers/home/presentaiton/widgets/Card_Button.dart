@@ -19,7 +19,16 @@ class Card_Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomBotton(
       text: text,
-      // ignore: sort_child_properties_last
+      backgroundColor: color??kOrange,
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => StatefulBuilder(
+              builder: (BuildContext context, setState) => page,
+            ),
+          ),
+        );
+      },
       child: Row(
         children: [
           Icon(
@@ -38,16 +47,6 @@ class Card_Button extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: color??kOrange,
-      onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => StatefulBuilder(
-              builder: (BuildContext context, setState) => page,
-            ),
-          ),
-        );
-      },
     );
   }
 }
