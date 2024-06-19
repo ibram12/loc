@@ -1737,6 +1737,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Value Requeired`
+  String get value_requeired {
+    return Intl.message(
+      'Value Requeired',
+      name: 'value_requeired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Message`
+  String get your_message {
+    return Intl.message(
+      'Your Message',
+      name: 'your_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Only admin can send messages`
+  String get only_admin_can_send_messages {
+    return Intl.message(
+      'Only admin can send messages',
+      name: 'only_admin_can_send_messages',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

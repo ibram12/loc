@@ -148,6 +148,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "not_daily": MessageLookupByLibrary.simpleMessage("Not Daily"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "on": MessageLookupByLibrary.simpleMessage("on"),
+        "only_admin_can_send_messages": MessageLookupByLibrary.simpleMessage(
+            "Only admin can send messages"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_recovery":
             MessageLookupByLibrary.simpleMessage("استعادة كلمة المرور"),
@@ -284,6 +286,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "You Have Updated Your Request from"),
         "user_name": MessageLookupByLibrary.simpleMessage("User Name"),
+        "value_requeired":
+            MessageLookupByLibrary.simpleMessage("Value Requeired"),
         "wellcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "you_have_modified":
             MessageLookupByLibrary.simpleMessage("You have modified"),
@@ -292,6 +296,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "you_have_updated_your_request_from":
             MessageLookupByLibrary.simpleMessage(
                 "You Have Updated Your Request from"),
+        "your_message": MessageLookupByLibrary.simpleMessage("Your Message"),
         "your_request_deleted_successfully":
             MessageLookupByLibrary.simpleMessage(
                 "Your request deleted successfully"),

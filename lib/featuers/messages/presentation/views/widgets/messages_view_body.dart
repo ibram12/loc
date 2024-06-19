@@ -8,6 +8,7 @@ import 'package:loc/featuers/messages/presentation/views/widgets/cusotm_chat_tex
 import 'package:loc/featuers/messages/presentation/views/widgets/custom_chat_buble.dart';
 import '../../../data/models/chat_buble_model.dart';
 import '../../manager/sent_message_cubit/sent_message_cubit.dart';
+import 'custom_chat_buble_for_friend.dart';
 
 class MessagesViewBody extends StatefulWidget {
   const MessagesViewBody({super.key});

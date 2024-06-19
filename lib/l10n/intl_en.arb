@@ -165,5 +165,8 @@
   "reservation_time":"Reservation Time",
   "event_name":"Event Name",
   "hall_name":"Hall Name",
-  "messages":"Messages"
+  "messages":"Messages",
+  "value_requeired":"Value Requeired",
+  "your_message":"Your Message",
+  "only_admin_can_send_messages":"Only admin can send messages"
 }

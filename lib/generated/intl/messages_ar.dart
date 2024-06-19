@@ -148,6 +148,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "not_daily": MessageLookupByLibrary.simpleMessage("غير دائم"),
         "ok": MessageLookupByLibrary.simpleMessage("موافق"),
         "on": MessageLookupByLibrary.simpleMessage("في"),
+        "only_admin_can_send_messages": MessageLookupByLibrary.simpleMessage(
+            "يمكن للمشرف فقط ارسال رسائل"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "password_recovery":
             MessageLookupByLibrary.simpleMessage("Password Recovery"),
@@ -270,6 +272,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "user_edit_request_cubit_in_requests_feature_you_have_updated_your_request_from":
             MessageLookupByLibrary.simpleMessage("لقد قمت بتحديث طلبك من"),
         "user_name": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
+        "value_requeired": MessageLookupByLibrary.simpleMessage("قيمة مطلوبة"),
         "wellcome": MessageLookupByLibrary.simpleMessage("مرحبا"),
         "you_have_modified":
             MessageLookupByLibrary.simpleMessage("لقد قمت بتعديل"),
@@ -277,6 +280,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لقد قمت بتعديل الطلب من"),
         "you_have_updated_your_request_from":
             MessageLookupByLibrary.simpleMessage("لقد قمت بتحديث طلبك من"),
+        "your_message": MessageLookupByLibrary.simpleMessage("رسالتك"),
         "your_request_deleted_successfully":
             MessageLookupByLibrary.simpleMessage("تم حذف طلبك بنجاح"),
         "your_request_sent_successfully":

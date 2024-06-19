@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loc/core/server/shered_pref_helper.dart';
+import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/utils/constants.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../../manager/sent_message_cubit/sent_message_cubit.dart';
+import 'not_admin_body.dart';
 
 class CusotmChatTextField extends StatefulWidget {
   const CusotmChatTextField(
@@ -18,7 +22,24 @@ class CusotmChatTextField extends StatefulWidget {
 class _CusotmChatTextFieldState extends State<CusotmChatTextField> {
   TextEditingController controller = TextEditingController();
   bool isLoading = false;
+  bool getRoleLoading =true;
+  String? userRole;
 
+  void checkRole() async {
+    userRole = await SherdPrefHelper().getUserRole();
+    if(userRole!=null){
+      setState(() {
+  getRoleLoading = false;
+});
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkRole();
+  }
   @override
   void dispose() {
     super.dispose();
@@ -49,14 +70,14 @@ class _CusotmChatTextFieldState extends State<CusotmChatTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return getRoleLoading ? const SizedBox() : userRole != kRoles[2] ?  const NotAdminBody() : Form(
       key: widget.formKey,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: TextFormField(
           validator: (value) {
             if (value!.isEmpty) {
-              return 'Enter Message';
+              return S.of(context).value_requeired;
             }
             return null;
           },
@@ -65,7 +86,7 @@ class _CusotmChatTextFieldState extends State<CusotmChatTextField> {
             sendMessage();
           },
           decoration: InputDecoration(
-              hintText: 'Send Message',
+              hintText: S.of(context).your_message,
               suffixIcon: isLoading
                   ? const Padding(
                       padding: EdgeInsets.all(12.0),
