@@ -168,5 +168,6 @@
   "messages":"Messages",
   "value_requeired":"Value Requeired",
   "your_message":"Your Message",
-  "only_admin_can_send_messages":"Only admin can send messages"
+  "only_admin_can_send_messages":"Only admin can send messages",
+  "developed_by":"Devaloped By"
 }

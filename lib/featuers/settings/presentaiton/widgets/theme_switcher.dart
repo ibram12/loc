@@ -26,8 +26,8 @@ class _SwitchThemeAppState extends State<SwitchThemeApp> {
       activeTrackColor: Colors.grey,
       inactiveTrackColor: Colors.grey,
       activeColor: Colors.white,
-      activeThumbImage: const AssetImage('assets/images/moon.png'),
-      inactiveThumbImage: const AssetImage('assets/images/sun.webp'),
+      activeThumbImage: const AssetImage('assets/images/sun.webp'),
+      inactiveThumbImage: const AssetImage('assets/images/moon.png'),
       inactiveThumbColor: Colors.black12,
       value: context.watch<ThemeCubit>().state == ThemeMode.dark,
       onChanged: (value) {

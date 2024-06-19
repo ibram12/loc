@@ -1767,6 +1767,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Devaloped By`
+  String get developed_by {
+    return Intl.message(
+      'Devaloped By',
+      name: 'developed_by',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

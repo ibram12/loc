@@ -71,7 +71,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 20),
-                    CustomLogoAuth(),
+                    const CustomLogoAuth(),
                     const SizedBox(height: 20),
                      Text(S.of(context).login, style: Styles.textStyle30),
                     const SizedBox(height: 10),

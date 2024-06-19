@@ -62,7 +62,8 @@ class DrowerBody extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-            const LogOutBotton()
+            const LogOutBotton(),
+          
             ],
           ),
         ),

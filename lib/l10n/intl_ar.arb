@@ -168,7 +168,8 @@
      "messages":"الرسائل",
      "value_requeired":"قيمة مطلوبة",
      "your_message":"رسالتك",
-     "only_admin_can_send_messages":"يمكن للمشرف فقط ارسال رسائل"
+     "only_admin_can_send_messages":"يمكن للمشرف فقط ارسال رسائل",
+     "developed_by":"تم تطويره بواسطه"
 
 
 

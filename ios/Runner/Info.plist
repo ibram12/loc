@@ -56,5 +56,10 @@
    <string>Describe why your app needs access to the camera.</string>
    <key>NSMicrophoneUsageDescription</key>
    <string>Describe why your app needs access to the microphone, if you intend to record videos.</string>
+   <key>LSApplicationQueriesSchemes</key>
+  <array>
+   <string>sms</string>
+   <string>tel</string>
+  </array>
 </dict>
 </plist>

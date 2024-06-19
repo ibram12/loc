@@ -59,6 +59,8 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
         return Center(
           child: SingleChildScrollView(
             child: Column(
+            mainAxisSize: MainAxisSize.min,
+
               children: [
                 UserChoices(
                   onServiceSelected: (String? selectedService) {
@@ -69,6 +71,7 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                 ),
                 if (state is SelectTimeSuccess)
                   Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                     
                       CustomBotton(
@@ -90,8 +93,10 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                             }
                           }),
                           const SizedBox(height: 20),
-                            Text(
-                          '${S.of(context).time_range}: \n ${S.of(context).on} ${DateFormat('yyyy-MM-dd').format(_date!)} ${S.of(context).at} \n${DateFormat('hh:mm a').format(_startTime!.toDate())}, ${S.of(context).to} ${DateFormat('hh:mm a').format(_endTime!.toDate())}\n ${S.of(context).to_make}:${_selectedText ?? S.of(context).select_your_service} '),
+                      _buildInfoDisplay(context),
+                        
+                          //   Text(
+                          // '${S.of(context).time_range}: \n ${S.of(context).on} ${DateFormat('yyyy-MM-dd').format(_date!)} ${S.of(context).at} \n${DateFormat('hh:mm a').format(_startTime!.toDate())}, ${S.of(context).to} ${DateFormat('hh:mm a').format(_endTime!.toDate())}\n ${S.of(context).to_make}:${_selectedText ?? S.of(context).select_your_service} '),
                 
                     ],
                   ),
@@ -101,5 +106,38 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
         );
       },
     );
+  } 
+  Widget _buildInfoDisplay(BuildContext context) {
+  
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildInfoRow(S.of(context).time_range, ''),
+        _buildInfoRow(S.of(context).on, DateFormat('yyyy-MM-dd').format(_date!)),
+        _buildInfoRow(S.of(context).at, DateFormat('hh:mm a').format(_startTime!.toDate())),
+        _buildInfoRow(S.of(context).to, DateFormat('hh:mm a').format(_endTime!.toDate())),
+        _buildInfoRow(S.of(context).to_make, _selectedText ?? S.of(context).select_your_service),
+      ],
+    );
   }
+
+  Widget _buildInfoRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: RichText(
+        text: TextSpan(
+          text: '$label: ',
+          style: DefaultTextStyle.of(context).style.copyWith(fontWeight: FontWeight.bold),
+          children: [
+            TextSpan(
+              text: value,
+              style: DefaultTextStyle.of(context).style.copyWith(fontWeight: FontWeight.normal),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }

@@ -69,6 +69,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "delete_request_alert": MessageLookupByLibrary.simpleMessage(
             "هل انت متأكد من حذف هذا الطلب؟"),
+        "developed_by":
+            MessageLookupByLibrary.simpleMessage("تم تطويره بواسطه"),
         "do_you_Need_To_Delete_Your_Request":
             MessageLookupByLibrary.simpleMessage("هل تحتاج لحذف طلبك؟"),
         "do_you_Need_To_Edit_Your_Request":
