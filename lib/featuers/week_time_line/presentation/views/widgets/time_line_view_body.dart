@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,13 +28,13 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
   late Query query;
   bool isEnglish = true;
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     selectedHall = S.of(context).all_halls;
     hallNames[0] = selectedHall;
   }
+
   @override
   void initState() {
     super.initState();
@@ -65,44 +63,45 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
 
         return Stack(
           children: [
-          SfCalendar(
-            key: ValueKey(events),
-            controller: controller,
-            minDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
-         maxDate: DateTime(DateTime.now().year, DateTime.now().month +1, DateTime.now().day),
-            onTap: (CalendarTapDetails date) {
-              if (date.appointments != null && date.appointments!.isNotEmpty) {
-                showDitalisDialog(
-                  data: date,
+            SfCalendar(
+              key: ValueKey(events),
+              controller: controller,
+              minDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
+              maxDate: DateTime(DateTime.now().year, DateTime.now().month + 1, DateTime.now().day),
+              onTap: (CalendarTapDetails date) {
+                if (date.appointments != null && date.appointments!.isNotEmpty) {
+                  showDitalisDialog(
+                    data: date,
                     context: context,
                     message:
-                        '${date.appointments![0].userName} ${S.of(context).home_made_a_reservation_from} ${DateFormat('hh:mm a').format(date.appointments![0].from)} ${S.of(context).to} ${DateFormat('hh:mm a').format(date.appointments![0].to)} ${S.of(context).forr} ${date.appointments![0].eventName} ${S.of(context).inn} ${date.appointments![0].hallName}',
+                    '${date.appointments![0].userName} ${S.of(context).home_made_a_reservation_from} ${DateFormat('hh:mm a').format(date.appointments![0].from)} ${S.of(context).to} ${DateFormat('hh:mm a').format(date.appointments![0].to)} ${S.of(context).forr} ${date.appointments![0].eventName} ${S.of(context).inn} ${date.appointments![0].hallName}',
                     onOkPressed: () => Navigator.pop(context));
-              }
-            },
-            view: widget.calendarView,
-            firstDayOfWeek: 6,
-            showDatePickerButton: true,
-            timeSlotViewSettings: const TimeSlotViewSettings(
-              timeIntervalHeight: 60,
-              startHour: 6,
-              endHour: 23,
-              nonWorkingDays: [],
+                }
+              },
+              view: widget.calendarView,
+              firstDayOfWeek: 6,
+              showDatePickerButton: true,
+              timeSlotViewSettings: const TimeSlotViewSettings(
+                timeIntervalHeight: 60,
+                startHour: 6,
+                endHour: 23,
+                nonWorkingDays: [],
+              ),
+              dataSource: events,
             ),
-            dataSource: events,
-          ),
-          Positioned(
-            top: 0,
-            right: isEnglish == true ? 10 : null,
-            left: isEnglish == false ? 10 : null,
-            child: FutureBuilder(
+            Positioned(
+              top: 0,
+              right: isEnglish ? 10 : null,
+              left: !isEnglish ? 10 : null,
+              child: FutureBuilder(
                 future: query.get(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
-                        child: CupertinoActivityIndicator(
-                      color: kPrimaryColor,
-                    ));
+                      child: CupertinoActivityIndicator(
+                        color: kPrimaryColor,
+                      ),
+                    );
                   }
                   return DropdownButton<String>(
                     iconEnabledColor: kPrimaryColor,
@@ -112,8 +111,7 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
                         value: role,
                         child: Text(
                           role,
-                          style:
-                              const TextStyle(overflow: TextOverflow.ellipsis),
+                          style: const TextStyle(overflow: TextOverflow.ellipsis),
                         ),
                       );
                     }).toList(),
@@ -124,12 +122,14 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
                           selectedHall = newHallName;
                           _fetchTimeLine();
                         });
-                      } else {}
+                      }
                     },
                   );
-                }),
-          ),
-        ]);
+                },
+              ),
+            ),
+          ],
+        );
       },
     );
   }
@@ -151,8 +151,10 @@ class _TimeLineViewBodyState extends State<TimeLineViewBody> {
     });
   }
 
-  Future<void> isArabic() async {
-    final prefs = SharedPreferences.getInstance();
-    isEnglish = await prefs.then((value) => value.getString('locale') == 'en');
+  void isArabic() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isEnglish = prefs.getString('locale') == 'en' || prefs.getString('locale') == null;
+    });
   }
 }

@@ -61,10 +61,7 @@ class PushNotificationService {
         body: jsonEncode(message));
 
     if (response.statusCode == 200) {
-      print('Notification Sent Successfully');
     } else {
-      print('Notification Not Sent ${response.statusCode}');
-      print('Response body: ${response.body}');
     }
   }
 
@@ -91,10 +88,8 @@ class PushNotificationService {
         body: jsonEncode(message));
 
     if (response.statusCode == 200) {
-      print('Notification Sent Successfully');
     } else {
-      print('Notification Not Sent ${response.statusCode}');
-      print('Response body: ${response.body}');
+
     }
   }
 }

@@ -11,9 +11,19 @@ import '../../../admin/pressntation/view/bottomNav_bar.dart';
 import '../../../book_Hall/presentation/views/book_loc_view.dart';
 import 'Card_Button.dart';
 
-class HomeVeiwBody extends StatelessWidget {
+class HomeVeiwBody extends StatefulWidget {
   const HomeVeiwBody({super.key});
 
+  @override
+  State<HomeVeiwBody> createState() => _HomeVeiwBodyState();
+}
+
+class _HomeVeiwBodyState extends State<HomeVeiwBody> {
+  @override
+  initState() {
+    super.initState();
+    context.read<GetUserRoleCubit>().getUserRole();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetUserRoleCubit, GetUserRoleState>(

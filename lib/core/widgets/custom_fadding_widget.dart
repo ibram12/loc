@@ -15,7 +15,6 @@ class _CustomFaddingWidgetState extends State<CustomFaddingWidget>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 700));
@@ -28,7 +27,6 @@ class _CustomFaddingWidgetState extends State<CustomFaddingWidget>
 
   @override
   void dispose() {
-    // TODO: implement dispose
         controller.dispose();
     super.dispose();
 

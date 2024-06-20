@@ -1,5 +1,4 @@
   import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../generated/l10n.dart';

@@ -1,9 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/notifications/get_user_token.dart';
 import 'package:loc/core/server/shered_pref_helper.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../requests/data/models/user_request_model.dart';

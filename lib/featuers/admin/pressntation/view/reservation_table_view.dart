@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/reversations_table_body.dart';
 import '../../../../generated/l10n.dart';

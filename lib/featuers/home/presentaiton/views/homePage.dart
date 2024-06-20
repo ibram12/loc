@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           title: Text(
-            '//${S.of(context).wellcome} ${userName ?? ''}',
+            '${S.of(context).wellcome} ${userName ?? ''}',
             style: Styles.textStyle18,
           ),
           leading: Builder(builder: (context) {

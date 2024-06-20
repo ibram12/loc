@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
