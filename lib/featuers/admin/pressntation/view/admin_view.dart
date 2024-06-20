@@ -6,7 +6,7 @@ import 'all_requests_view.dart';
 
 class AdminView extends StatelessWidget {
   const AdminView({super.key});
-  static const String id = 'admin_view';
+  static const String id = 'admin View';
   @override
   Widget build(BuildContext context) {
     return  Scaffold(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:googleapis_auth/auth_io.dart' as auth;
+import 'package:loc/featuers/messages/presentation/views/messages_veiw.dart';
 
 import '../utils/constants.dart';
 
@@ -38,7 +39,7 @@ class PushNotificationService {
     return credentials.accessToken.data;
   }
 
-  static Future<void> sendNotificationToSelectedUser({required String deviceToken, required String title, required String body}) async {
+  static Future<void> sendNotificationToSelectedUser({required String deviceToken, required String title, required String body,required String? screen}) async {
     final String serverAccessToken = await getAccessToken();
     String endpointFirebaseCloudMessaging = 'https://fcm.googleapis.com/v1/projects/loct-app/messages:send';
 
@@ -48,7 +49,11 @@ class PushNotificationService {
         'notification': {
           'title': title,
           'body': body,
-        }
+        },
+        'data': {
+        'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+        'screen': screen
+      },
       }
     };
 
@@ -75,7 +80,11 @@ class PushNotificationService {
         'notification': {
           'title': title,
           'body': body,
-        }
+        },
+        'data': {
+        'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+        'screen': MessagesVeiw.id
+      },
       }
     };
 

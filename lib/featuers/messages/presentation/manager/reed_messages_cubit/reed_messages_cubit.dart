@@ -5,8 +5,8 @@ import 'package:meta/meta.dart';
 
 part 'reed_messages_state.dart';
 
-class ReedMessagesCubit extends Cubit<ReedMessagesState> {
-  ReedMessagesCubit() : super(ReedMessagesInitial());
+class DeleteOldMessagesCubit extends Cubit<ReedMessagesState> {
+  DeleteOldMessagesCubit() : super(ReedMessagesInitial());
   
   Future<void> featchOldMessges() async {
     emit(ReedMessagesLoading());

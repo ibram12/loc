@@ -60,9 +60,9 @@ class _HallItemState extends State<HallItem> {
           clipBehavior: Clip.antiAlias,
           color: isSelected
               ? kPrimaryColor
-              : isDarkMode!
-                  ? Colors.black
-                  : Colors.white,
+              : isDarkMode  == false || isDarkMode == null
+                  ? Colors.white
+                  : Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

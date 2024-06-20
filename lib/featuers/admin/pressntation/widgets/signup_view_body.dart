@@ -8,7 +8,7 @@ import 'package:loc/core/helper/dialog_with_textFiald.dart';
 import 'package:loc/core/helper/snack_bar.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/widgets/password_text_field.dart';
-import 'package:loc/featuers/admin/pressntation/widgets/multi_drop_down_button_to_services.dart';
+import 'package:loc/featuers/admin/pressntation/widgets/select_services_and_roles_section.dart';
 
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:loc/core/widgets/custom_botton.dart';
@@ -121,7 +121,7 @@ class _SginUpViewBodyState extends State<SginUpViewBody> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: MultiSelectDropdown(
+                          child: SelectRoleAndServiceSection(
                             items: kServices,
                             hint: S.of(context).select_services,
                             onServiceSelected: (selectedServices) {

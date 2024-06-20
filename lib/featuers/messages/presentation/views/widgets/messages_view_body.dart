@@ -27,15 +27,12 @@ class _MessagesViewBodyState extends State<MessagesViewBody> {
   @override
   void initState() {
     super.initState();
-    context.read<ReedMessagesCubit>().featchOldMessges();
-  context.read<SentMessageCubit>().loadMessageStatuses();
+    context.read<DeleteOldMessagesCubit>().featchOldMessges();
+    context.read<SentMessageCubit>().loadMessageStatuses();
     query = FirebaseFirestore.instance.collection('messages').orderBy('time');
     stream = query.snapshots();
-
     controller = ScrollController();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +73,16 @@ class _MessagesViewBodyState extends State<MessagesViewBody> {
                   return snapshot.data!.docs[index]['id'] == userId
                       ? ChatBuble(
                           index: index,
-                          bubleModel: ChatBubleModel.fromJson(snapshot.data!.docs[index].data() as Map<String, dynamic>, snapshot.data!.docs[index].id),
+                          bubleModel: ChatBubleModel.fromJson(
+                              snapshot.data!.docs[index].data()
+                                  as Map<String, dynamic>,
+                              snapshot.data!.docs[index].id),
                         )
                       : ChatBubleForFriend(
-                          bubleModel: ChatBubleModel.fromJson(snapshot.data!.docs[index].data() as Map<String, dynamic>, snapshot.data!.docs[index].id),
+                          bubleModel: ChatBubleModel.fromJson(
+                              snapshot.data!.docs[index].data()
+                                  as Map<String, dynamic>,
+                              snapshot.data!.docs[index].id),
                         );
                 },
               );

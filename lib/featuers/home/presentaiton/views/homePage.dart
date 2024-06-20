@@ -7,6 +7,7 @@ import 'package:loc/featuers/home/presentaiton/manager/get_user_role_cubit/get_u
 import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:loc/featuers/settings/presentaiton/view/drawer_view.dart';
 
+import '../../../../core/notifications/notification_manager/notification_manager_cubit/notification_maneger_cubit.dart';
 import '../../../../core/server/shered_pref_helper.dart';
 import '../../../../generated/l10n.dart';
 import '../widgets/home_view_body.dart';
@@ -31,7 +32,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     getUserName();
-    // TODO: implement initState
+     final notificationManagerCubit = context.read<NotificationManegerCubit>();
+    notificationManagerCubit.onNotificationTapped(context);
+    
     super.initState();
   }
 

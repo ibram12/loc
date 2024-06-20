@@ -26,7 +26,7 @@ showDialog(
           style: const TextStyle(
           fontWeight: FontWeight.bold, 
           fontSize: 16,
-          color: Colors.black, 
+
         ),
       ),
       TextSpan(
@@ -34,7 +34,6 @@ showDialog(
         style: const TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 16, 
-          color: Colors.black, 
         ),
       ),
       TextSpan(
@@ -42,7 +41,6 @@ showDialog(
         style: const TextStyle(
           fontWeight: FontWeight.bold, 
           fontSize: 16,
-          color: Colors.black, 
         ),
       ),
        TextSpan(
@@ -50,7 +48,6 @@ showDialog(
         style: const TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 16, 
-          color: Colors.black, 
         ),
       ),
       TextSpan(
@@ -58,7 +55,6 @@ showDialog(
         style: const TextStyle(
           fontWeight: FontWeight.bold, 
           fontSize: 16, 
-          color: Colors.black, 
         
         ),
       ),

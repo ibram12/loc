@@ -42,10 +42,13 @@ void  onRetry()async {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Visibility(
-                  visible: widget.visable,
-                  child: Lottie.asset(
-                      'assets/animations/Animation - 1716081356717.json')),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Visibility(
+                    visible: widget.visable,
+                    child: Lottie.asset(
+                        'assets/animations/Animation - 1716081356717.json')),
+              ),
               widget.visable
                   ? const Text(
                       'Please Check Your Internet Connection',

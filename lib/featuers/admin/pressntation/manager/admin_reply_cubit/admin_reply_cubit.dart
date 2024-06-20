@@ -6,6 +6,7 @@ import 'package:loc/core/server/shered_pref_helper.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../requests/data/models/user_request_model.dart';
+import '../../../../requests/presentatoin/views/requests_view.dart';
 import '../../../data/models/request_model.dart';
 
 part 'admin_reply_state.dart';
@@ -33,6 +34,7 @@ class AdminReplyCubit extends Cubit<AdminReplyState> {
 
     batch.commit();
     PushNotificationService.sendNotificationToSelectedUser(
+      screen: UserRequests.id,
       deviceToken: requestModel.userToken,
       title: S.of(context).request_accepted,
       body: "${requestModel.name} ${S.of(context).mokadma} $hallName ${S.of(context).hall_has_been_accepted} $adminName",
@@ -60,6 +62,7 @@ class AdminReplyCubit extends Cubit<AdminReplyState> {
     }
     batch.commit();
     PushNotificationService.sendNotificationToSelectedUser(
+      screen: UserRequests.id,
       deviceToken: requestModel.userToken,
       title: S.of(context).request_rejected,
       body: "${requestModel.name} ${S.of(context).mokadma} $hallName ${S.of(context).hall_has_been_rejected} $adminName",

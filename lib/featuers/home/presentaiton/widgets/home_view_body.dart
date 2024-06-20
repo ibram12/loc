@@ -39,7 +39,7 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
+                    borderRadius: BorderRadius.circular(200),
                     child: Image.asset(
                       kLogo,
                       height: MediaQuery.of(context).size.height * .31,

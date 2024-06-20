@@ -207,7 +207,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اختر خدمتك"),
         "send_reset_to_my_email": MessageLookupByLibrary.simpleMessage(
             "إرسال إعادة تعيين إلى بريدي الإلكتروني"),
-        "sent_request": MessageLookupByLibrary.simpleMessage("تم إرسال الطلب"),
+        "sent_request": MessageLookupByLibrary.simpleMessage("إرسال الطلب"),
         "service": MessageLookupByLibrary.simpleMessage("الخدمة"),
         "service_type": MessageLookupByLibrary.simpleMessage("نوع الخدمة"),
         "services_has_been_modified_to":

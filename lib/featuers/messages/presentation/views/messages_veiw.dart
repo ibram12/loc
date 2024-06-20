@@ -25,7 +25,7 @@ const   MessagesVeiw({super.key});
           ),
         ),
         BlocProvider(
-          create: (context) => ReedMessagesCubit(
+          create: (context) => DeleteOldMessagesCubit(
         
         ),
         ),

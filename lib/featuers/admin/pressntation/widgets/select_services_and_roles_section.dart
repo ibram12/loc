@@ -10,8 +10,8 @@ import '../../../../core/server/shered_pref_helper.dart';
 import '../../../../core/utils/constants.dart';
 import '../../../../generated/l10n.dart';
 
-class MultiSelectDropdown extends StatefulWidget {
-  const MultiSelectDropdown(
+class SelectRoleAndServiceSection extends StatefulWidget {
+  const SelectRoleAndServiceSection(
       {super.key,
       required this.items,
       required this.hint,
@@ -24,10 +24,10 @@ class MultiSelectDropdown extends StatefulWidget {
   final void Function(String) onRoleSelected;
 
   @override
-  _MultiSelectDropdownState createState() => _MultiSelectDropdownState();
+  _SelectRoleAndServiceSectionState createState() => _SelectRoleAndServiceSectionState();
 }
 
-class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
+class _SelectRoleAndServiceSectionState extends State<SelectRoleAndServiceSection> {
   TextEditingController dilogController = TextEditingController();
   GlobalKey<FormState> key = GlobalKey();
   List<String> _initSelectedItems = [];
@@ -200,7 +200,7 @@ class _MultiSelectDialogState extends State<MultiSelectDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Select Services'),
+      title:  Text(S.of(context).select_services),
       content: SingleChildScrollView(
         child: ListBody(
           children: widget.items.map((item) {
@@ -222,7 +222,7 @@ class _MultiSelectDialogState extends State<MultiSelectDialog> {
       ),
       actions: [
         TextButton(
-          child: const Text('Cancel'),
+          child:  Text(S.of(context).cancel),
           onPressed: () {
             Navigator.pop(context, widget.initiallySelectedItems);
           },
@@ -235,7 +235,7 @@ class _MultiSelectDialogState extends State<MultiSelectDialog> {
               Navigator.pop(context, _tempSelectedItems);
             }
           },
-          child: const Text('OK'),
+          child:  Text(S.of(context).ok),
         ),
       ],
     );

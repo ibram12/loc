@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:loc/core/notifications/notification_manager/notification_manager_cubit/notification_maneger_cubit.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/core/utils/simple_bloc_observer.dart';
 import 'package:loc/featuers/admin/pressntation/view/add_hall_view.dart';
@@ -47,6 +48,7 @@ class HomePage extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => LocaleCubit()),
         BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => NotificationManegerCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

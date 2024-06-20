@@ -22,7 +22,8 @@ class ChatBuble extends StatefulWidget {
   State<ChatBuble> createState() => _ChatBubleState();
 }
 
-class _ChatBubleState extends State<ChatBuble> with SingleTickerProviderStateMixin {
+class _ChatBubleState extends State<ChatBuble>
+    with SingleTickerProviderStateMixin {
   late Animation<double> scale;
   late AnimationController controller;
   bool showDate = false;
@@ -89,11 +90,13 @@ class _ChatBubleState extends State<ChatBuble> with SingleTickerProviderStateMix
                       CircleAvatar(
                         radius: 18,
                         child: widget.bubleModel.profileImage == ""
-                            ? ClipOval(child: Image.asset("assets/images/person.png"))
+                            ? ClipOval(
+                                child: Image.asset("assets/images/person.png"))
                             : ClipOval(
                                 child: CachedNetworkImage(
                                   imageUrl: widget.bubleModel.profileImage,
-                                  placeholder: (context, url) => const CircularProgressIndicator(
+                                  placeholder: (context, url) =>
+                                      const CircularProgressIndicator(
                                     color: kPrimaryColor,
                                   ),
                                 ),
@@ -119,8 +122,10 @@ class _ChatBubleState extends State<ChatBuble> with SingleTickerProviderStateMix
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        DateFormat("hh:mm a").format(widget.bubleModel.time.toDate()),
-                        style: const TextStyle(fontSize: 10, color: Colors.black),
+                        DateFormat("hh:mm a")
+                            .format(widget.bubleModel.time.toDate()),
+                        style:
+                            const TextStyle(fontSize: 10, color: Colors.black),
                       ),
                       const SizedBox(width: 5),
                       messageStatus != MessageStatus.sending
@@ -141,12 +146,14 @@ class _ChatBubleState extends State<ChatBuble> with SingleTickerProviderStateMix
                     scale: scale,
                     child: showDate
                         ? Text(
-                            DateFormat("dd MMM").format(widget.bubleModel.time.toDate()),
-                            style: const TextStyle(fontSize: 10, color: Colors.black),
+                            DateFormat("dd MMM")
+                                .format(widget.bubleModel.time.toDate()),
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.black),
                           )
                         : Container(
-                          width: 0,
-                        ),
+                            width: 0,
+                          ),
                   ),
                 ],
               ),

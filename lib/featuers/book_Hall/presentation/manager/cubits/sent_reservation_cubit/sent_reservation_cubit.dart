@@ -9,6 +9,7 @@ import 'package:loc/featuers/requests/data/models/user_request_model.dart';
 import 'package:meta/meta.dart';
 import '../../../../../../core/server/shered_pref_helper.dart';
 import '../../../../../../core/utils/constants.dart';
+import '../../../../../admin/pressntation/view/admin_view.dart';
 part 'sent_reservation_state.dart';
 
 class SentReservationToAdminCubit extends Cubit<SentReservationState> {
@@ -94,6 +95,7 @@ isSent = true;
       for (var doc in value.docs) {
         if (doc['role'] == 'Admin') {
           PushNotificationService.sendNotificationToSelectedUser(
+              screen: AdminView.id,
               deviceToken: doc['fcmToken'],
               title: 'requsest from $name',
               body: body);
