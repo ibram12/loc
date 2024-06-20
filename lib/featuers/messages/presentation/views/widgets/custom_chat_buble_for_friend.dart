@@ -20,7 +20,7 @@ class _ChatBubleForFriendState extends State<ChatBubleForFriend>
     with SingleTickerProviderStateMixin {
   late Animation<double> scale;
   late AnimationController controller;
-  bool isDateShow = true;
+  bool isDateShow = false;
 
   @override
   void initState() {
@@ -60,11 +60,13 @@ class _ChatBubleForFriendState extends State<ChatBubleForFriend>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+              //  mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
                 children: [
                   CircleAvatar(
                     radius: 18,
                     child: widget.bubleModel.profileImage == ""
-                        ? Image.asset("assets/images/person.png")
+                        ? ClipOval(child: Image.asset("assets/images/person.png"))
                         : ClipOval(
                             child: CachedNetworkImage(
                                 imageUrl: widget.bubleModel.profileImage,

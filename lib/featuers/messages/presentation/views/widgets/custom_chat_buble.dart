@@ -89,7 +89,7 @@ class _ChatBubleState extends State<ChatBuble> with SingleTickerProviderStateMix
                       CircleAvatar(
                         radius: 18,
                         child: widget.bubleModel.profileImage == ""
-                            ? Image.asset("assets/images/person.png")
+                            ? ClipOval(child: Image.asset("assets/images/person.png"))
                             : ClipOval(
                                 child: CachedNetworkImage(
                                   imageUrl: widget.bubleModel.profileImage,

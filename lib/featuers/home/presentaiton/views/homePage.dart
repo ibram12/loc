@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/home/presentaiton/manager/delete_old_data_cubit/delete_old_data_cubit.dart';
+import 'package:loc/featuers/home/presentaiton/manager/get_user_role_cubit/get_user_role_cubit.dart';
 import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:loc/featuers/settings/presentaiton/view/drawer_view.dart';
 
@@ -36,13 +37,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DeleteOldDataCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => DeleteOldDataCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GetUserRoleCubit(),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           title: Text(
-            '${S.of(context).wellcome} ${userName ?? ''}',
+            '//${S.of(context).wellcome} ${userName ?? ''}',
             style: Styles.textStyle18,
           ),
           leading: Builder(builder: (context) {

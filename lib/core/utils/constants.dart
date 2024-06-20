@@ -5,7 +5,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 const String kFontFamily = 'Poppins';
 const Color kPrimaryColor = Colors.deepOrange;
 const Color kOrange = Colors.orange;
-const String kLogo = 'assets/images/logo.jpg';
+const String kLogo = 'assets/images/app_logo.jpg';
 const  List<String> kServices = [
   'ملائكه',
     'خدمه ابتدائي بنين',
