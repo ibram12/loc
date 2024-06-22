@@ -5,7 +5,6 @@ import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
 import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../featuers/admin/pressntation/view/admin_view.dart';
 import '../../../../featuers/messages/presentation/views/messages_veiw.dart';
 
 part 'notification_maneger_state.dart';
