@@ -21,7 +21,8 @@ class AddHallView extends StatelessWidget {
           backgroundColor: kPrimaryColor,
           title: Text(S.of(context).add_hall),
         ),
-        body: AddHallViewBody(),
+        
+        body: const AddHallViewBody(),
       ),
     );
   }

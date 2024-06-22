@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loc/core/utils/constants.dart';
-import 'package:loc/featuers/auth/presentation/views/sginup_view.dart';
+import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
 
 import '../../../../core/helper/snack_bar.dart';
 import '../../../../core/text_styles/Styles.dart';
 import '../../../../core/widgets/Custom_TextField.dart';
 import '../../../../core/widgets/custom_botton.dart';
+import '../../../../generated/l10n.dart';
 
 class PasswordRecavoryBody extends StatefulWidget {
   const PasswordRecavoryBody({super.key});
@@ -38,9 +39,9 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
         ),
         Container(
           alignment: Alignment.topCenter,
-          child: const Text(
-            "Password Recovery",
-            style: TextStyle(
+          child:  Text(
+            S.of(context).password_recovery,
+            style: const TextStyle(
                 color: Colors.white,
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold),
@@ -50,7 +51,7 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
           height: 10.0,
         ),
         Text(
-          "Enter your email",
+          S.of(context).enter_your_email,
           style: Styles.textStyle20.copyWith(color: Colors.white),
         ),
         Expanded(
@@ -65,7 +66,7 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                       ),
                       CustomTextField(
                           textEditingController: emailController,
-                          hinttext: "Email",
+                          hinttext: S.of(context).email,
                           onSaved: (value) {
                             email = value!;
                           }
@@ -75,7 +76,7 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                       ),
                       CustomBotton(
                         backgroundColor: kOrange,
-                        text: 'Send Email',
+                        text: S.of(context).send_reset_to_my_email,
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             setState(() {
@@ -91,10 +92,10 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            "Don't have an account?",
+                           Text(
+                            S.of(context).dont_have_an_account,
                             style:
-                                TextStyle(fontSize: 18.0, color: Colors.white),
+                                const TextStyle(fontSize: 18.0, color: Colors.white),
                           ),
                           const SizedBox(
                             width: 5.0,
@@ -104,9 +105,9 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                               Navigator.of(context)
                                   .pushReplacementNamed(SignUpView.id);
                             },
-                            child: const Text(
-                              "Create",
-                              style: TextStyle(
+                            child:  Text(
+                              S.of(context).create,
+                              style: const TextStyle(
                                   color: Color.fromARGB(225, 184, 166, 6),
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.w500),

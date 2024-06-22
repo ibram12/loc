@@ -3,18 +3,18 @@ class HallModel {
   final String image;
   final String floor;
   final bool isBooked;
-  final int reversationsCount;
-  
+
+
   HallModel({
-    required this.reversationsCount,
+
     required this.name,
     required this.image,
     required this.floor,
     required this.isBooked,
   });
-  factory HallModel.fromJson(Map<String, dynamic> json,int count) {
+  factory HallModel.fromJson(Map<String, dynamic> json) {
     return HallModel(
-      reversationsCount: count,
+
       name: json['name'],
       image: json['image'],
       floor: json['floor'],

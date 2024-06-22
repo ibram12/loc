@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:loc/generated/l10n.dart';
 
 import '../../featuers/admin/data/models/request_model.dart';
 
@@ -12,7 +13,7 @@ showDialog(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Alert'),
+               Text(S.of(context).alert),
             
             IconButton(onPressed: () => Navigator.of(context).pop(), icon:  Icon(Icons.close, color: Colors.red[900], size: 20),) 
             ],
@@ -25,15 +26,14 @@ showDialog(
           style: const TextStyle(
           fontWeight: FontWeight.bold, 
           fontSize: 16,
-          color: Colors.black, 
+
         ),
       ),
       TextSpan(
-        text: ' needs to book $hallName on ${requestModel.sendDate} from ',
+        text: ' ${S.of(context).needs_to_book} $hallName ${S.of(context).on} ${requestModel.sendDate} ${S.of(context).from} ',
         style: const TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 16, 
-          color: Colors.black, 
         ),
       ),
       TextSpan(
@@ -41,15 +41,13 @@ showDialog(
         style: const TextStyle(
           fontWeight: FontWeight.bold, 
           fontSize: 16,
-          color: Colors.black, 
         ),
       ),
-      const TextSpan(
-        text: ' to ',
-        style: TextStyle(
+       TextSpan(
+        text: ' ${S.of(context).to} ',
+        style: const TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 16, 
-          color: Colors.black, 
         ),
       ),
       TextSpan(
@@ -57,7 +55,6 @@ showDialog(
         style: const TextStyle(
           fontWeight: FontWeight.bold, 
           fontSize: 16, 
-          color: Colors.black, 
         
         ),
       ),
@@ -65,21 +62,22 @@ showDialog(
   ),
 ),
           actions: [
-            TextButton(
-              onPressed: onAccept,
-              child: const Text('Accept',style: TextStyle(color: Colors.green),),
-            ),
+          
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                     TextButton(
               onPressed: onEdit,
-              child: const Text('edit',style: TextStyle(color: Colors.blue),),
+              child:  Text(S.of(context).edit,style: const TextStyle(color: Colors.blue),),
             ),
                 TextButton(
                   onPressed: onReject,
-                  child: const Text('Rejection the request',style: TextStyle(color: Colors.red),),
+                  child:  Text(S.of(context).reject,style: const TextStyle(color: Colors.red),),
                 ),
-              
+                TextButton(
+              onPressed: onAccept,
+              child:  Text(S.of(context).accept,style: const TextStyle(color: Colors.green),),
+            ),
               ],
             ),
           

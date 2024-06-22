@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:loc/featuers/requests/data/models/request_model.dart';
 import 'package:loc/featuers/requests/presentatoin/widgets/request_item.dart';
+import '../../../../core/helper/snack_bar.dart';
+import '../../../../generated/l10n.dart';
+import '../../data/models/user_request_model.dart';
 
 class UserRequestBody extends StatefulWidget {
   const UserRequestBody({
@@ -14,62 +16,53 @@ class UserRequestBody extends StatefulWidget {
 }
 
 class _UserRequestBodyState extends State<UserRequestBody> {
-  String id = FirebaseAuth.instance.currentUser!.uid;
   late Query query;
-  late Stream<QuerySnapshot> requestsStream;
+  late Stream<QuerySnapshot> stream;
+  final String id = FirebaseAuth.instance.currentUser!.uid;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     query = FirebaseFirestore.instance
         .collection('users')
         .doc(id)
-        .collection('requests');
-    // .orderBy('startTime', descending: true);//TODO: show the pending requests first
-    requestsStream = query.snapshots();
+        .collection('requests')
+        .orderBy('startTime', descending: true);
+
+    stream = query.snapshots();
   }
 
   @override
   Widget build(BuildContext context) {
-    return  StreamBuilder<QuerySnapshot>(
-  stream: requestsStream,
-  builder: (context, snapshot) {
-    if (snapshot.hasError) {
-      return const Text('Something went wrong');
-    } else if (snapshot.connectionState == ConnectionState.waiting) {
-      return const Center(child: CircularProgressIndicator());
-    } else {
-      DateTime now = DateTime.now();
-      DateTime startOfWeek = DateTime(now.year, now.month, now.day - now.weekday + 1);
-      DateTime endOfWeek = DateTime(now.year, now.month, now.day - now.weekday + 8);
 
-      List<DocumentSnapshot> documentsToDelete = [];
-      snapshot.data!.docs.forEach((doc) {
-        Timestamp startTime = doc.get('startTime');
-        if (!isWithinCurrentWeek(startTime.toDate(), startOfWeek, endOfWeek)) {
-          documentsToDelete.add(doc);
-        }
-      });
-
-      documentsToDelete.forEach((doc) {
-        doc.reference.delete();
-      });
-
-      // Render the remaining documents
-      return ListView.builder(
-        itemCount: snapshot.data!.docs.length,
-        itemBuilder: (context, index) {
-          return UserRequestItem(
-            requestModel: UserRequestModel.fromDocumentSnapshot(snapshot.data!.docs[index]),
+    return StreamBuilder<QuerySnapshot>(
+        stream: stream,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }else if(snapshot.data!.docs.isEmpty) {
+            return Center(
+              child: Text(S.of(context).no_requests_yet),
+            );
+          }else if(snapshot.hasError) {
+            return Center(child: Text(S.of(context).failed_to_fetch_requests));
+          }
+          return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              return UserRequestItem(
+                onRequestDeleted: () async {
+                  showSnackBar(
+                      context, S.of(context).your_request_deleted_successfully);
+                },
+                requestModel: UserRequestModel.fromDocumentSnapshot(
+                    snapshot.data!.docs[index]),
+              );
+            },
           );
-        },
-      );
-    }
-  },
-);
+        });
+
   }
-// Function to check if a date is within the current week
-bool isWithinCurrentWeek(DateTime date, DateTime startOfWeek, DateTime endOfWeek) {
-  return date.isAfter(startOfWeek) && date.isBefore(endOfWeek);
-}
+
   }

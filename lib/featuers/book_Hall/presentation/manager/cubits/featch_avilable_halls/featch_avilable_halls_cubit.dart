@@ -2,45 +2,80 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../../core/functions/add_duration_7_days_on_the_time_methoud.dart';
+import '../../../../../requests/data/models/user_request_model.dart';
+
 part 'featch_avilable_halls_state.dart';
 
 class FeatchAvilableHallsCubit extends Cubit<FeatchAvilableHallsState> {
   FeatchAvilableHallsCubit() : super(FeatchAvilableHallsInitial());
 
-  Stream<List<QueryDocumentSnapshot>> getAvilableHalls({
+  Future<void> featchAvilableHallsDocs({
     required Timestamp startTime,
     required Timestamp endTime,
-  }) async* {
-    emit(FeatchAvilableHallsLoading());
+  }) async {
+    emit(ThereNoAvilableHalls());
 
     try {
-      // Query for reservations that overlap with the specified time range
-      QuerySnapshot overlappingReservations = await FirebaseFirestore.instance
-          .collection('locs')
-          .where('reservations.startTime', isLessThan: endTime)
-          .where('reservations.endTime', isGreaterThan: startTime)
-          .get();
+      var myHalls = await FirebaseFirestore.instance.collection('locs').get();
+      List<String> availableHallsIds = [];
 
-      // Get the IDs of halls with overlapping reservations
-      List<String> hallIdsWithReservations = overlappingReservations.docs
-          .map((doc) => doc['hallId'] as String)
-          .toList();
+      for (var doc in myHalls.docs) {
+        bool hasConflict = false;
 
-      // Query for all halls
-      Stream<QuerySnapshot> allHallsStream = FirebaseFirestore.instance
-          .collection('locs')
-          .snapshots();
+        var reservations = await FirebaseFirestore.instance
+            .collection('locs')
+            .doc(doc.id)
+            .collection('reservations')
+            .get();
 
-      await for (QuerySnapshot allHallsSnapshot in allHallsStream) {
-        // Filter out halls with reservations overlapping with the specified time range
-        List<QueryDocumentSnapshot> availableHalls = allHallsSnapshot.docs
-            .where((hall) => !hallIdsWithReservations.contains(hall.id))
-            .toList();
+        for (var reservation in reservations.docs) {
+          Timestamp docStartTime = reservation.get('startTime');
+          Timestamp docEndTime = reservation.get('endTime');
+          String replayState = reservation.get('replyState');
+          bool daily = reservation.get('daily');
 
-        yield availableHalls;
+          if (daily == true) {
+            List<DateTime> recurringDates = getWeeklyRecurringWhenFiltiringData(
+                endDateCuruntMounth: docEndTime.toDate(),
+                startDateCuruntMounth: docStartTime.toDate(),
+                weeks: 9);
+            print(recurringDates);
+            for (int i = 0; i < recurringDates.length; i += 2) {
+              DateTime recurringStart = recurringDates[i];
+              DateTime recurringEnd = recurringDates[i + 1];
+
+              if (startTime.toDate().isBefore(recurringEnd) &&
+                  endTime.toDate().isAfter(recurringStart) &&
+                  replayState != ReplyState.unaccepted.description) {
+                hasConflict = true;
+                break;
+              }
+            }
+          } else {
+            bool conflict = startTime.toDate().isBefore(docEndTime.toDate()) &&
+                endTime.toDate().isAfter(docStartTime.toDate()) &&
+                replayState != ReplyState.unaccepted.description;
+
+            if (conflict) {
+              hasConflict = true;
+              break;
+            }
+          }
+        }
+
+        if (!hasConflict) {
+          availableHallsIds.add(doc.id);
+        }
       }
-    } catch (error) {
-      emit(FeatchAvilableHallsError(message: error.toString()));
+
+      if (availableHallsIds.isEmpty) {
+        emit(ThereNoAvilableHalls());//TODO:here you can handle if there is no avilable halls
+      } else {
+        emit(FeatchAvilableHallsLoaded(availableHallsIds));
+      }
+    } catch (e) {
+      emit(FeatchAvilableHallsError(message: e.toString()));
     }
   }
 }

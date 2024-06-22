@@ -5,11 +5,11 @@ sealed class FeatchAvilableHallsState {}
 
 final class FeatchAvilableHallsInitial extends FeatchAvilableHallsState {}
 
-final class FeatchAvilableHallsLoading extends FeatchAvilableHallsState {}
+final class ThereNoAvilableHalls extends FeatchAvilableHallsState {}
 
-final class FeatchAvilableHallsSuccess extends FeatchAvilableHallsState {
-  final List<QueryDocumentSnapshot> availableHalls;
-  FeatchAvilableHallsSuccess(this.availableHalls);
+final class FeatchAvilableHallsLoaded extends FeatchAvilableHallsState {
+  final List<String> availableHalls;
+  FeatchAvilableHallsLoaded(this.availableHalls);
 }
 
 final class FeatchAvilableHallsError extends FeatchAvilableHallsState {
