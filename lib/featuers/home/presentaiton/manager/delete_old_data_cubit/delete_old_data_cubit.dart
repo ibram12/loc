@@ -35,7 +35,6 @@ class DeleteOldDataCubit extends Cubit<DeleteOldDataState> {
           if (daily == false && startTime!.toDate().isBefore(suterDay)) {
            documentsToDelete.add(doc); 
              for (var doc in documentsToDelete) {
-              print("i deleted: ${doc.id}========================== because $startTime is before $suterDay and daily is $daily");
               await doc.reference.delete();
             } 
           }

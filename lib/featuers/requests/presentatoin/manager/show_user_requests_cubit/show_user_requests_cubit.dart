@@ -55,7 +55,6 @@ class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
     try {
       DateTime now = DateTime.now();
       DateTime suterDay = getSuterDayOfCurrentWeek(now);
-      print(suterDay);
     
     
         QuerySnapshot snapshot = await query.get();

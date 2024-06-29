@@ -1,14 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
 import 'package:loc/featuers/home/presentaiton/manager/get_user_role_cubit/get_user_role_cubit.dart';
-import 'package:loc/featuers/week_time_line/presentation/views/time_line_view.dart';
+import 'package:loc/featuers/time_line/presentation/views/time_line_view.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import '../../../../generated/l10n.dart';
 import '../../../admin/pressntation/view/bottomNav_bar.dart';
 import '../../../book_Hall/presentation/views/book_loc_view.dart';
+import '../manager/delete_old_data_cubit/delete_old_data_cubit.dart';
 import 'Card_Button.dart';
 
 class HomeVeiwBody extends StatefulWidget {
@@ -23,7 +23,9 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
   initState() {
     super.initState();
     context.read<GetUserRoleCubit>().getUserRole();
+    context.read<DeleteOldDataCubit>().deleteOldData();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetUserRoleCubit, GetUserRoleState>(
@@ -79,7 +81,7 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
             ),
           );
         } else {
-          return  const SizedBox();
+          return const SizedBox();
         }
       },
     );

@@ -35,7 +35,6 @@ class SplashCubit extends Cubit<SplashState> {
       final bool result = await platform.invokeMethod('isAutomaticTimeEnabled');
       return result;
     } on PlatformException catch (e) {
-      print("Failed to get time setting: '${e.message}'.");
       return false;
     }
   }

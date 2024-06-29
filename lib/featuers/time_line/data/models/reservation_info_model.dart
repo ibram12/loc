@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loc/featuers/week_time_line/data/models/reservation_model.dart';
+import 'package:loc/featuers/time_line/data/models/reservation_model.dart';
 
 import '../../../../core/utils/constants.dart';
 

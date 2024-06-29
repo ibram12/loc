@@ -18,10 +18,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String adminPassword,
     required BuildContext context
   }) async {
-    emit(SignUpLoading());
-
     User? admin = FirebaseAuth.instance.currentUser;
-    String? adminEmail = admin?.email;
+    String? adminEmail = admin!.email;
     String? password = '';
 
     try {
@@ -39,7 +37,6 @@ class SignUpCubit extends Cubit<SignUpState> {
       }
     }
     try {
-      emit(SignUpLoading());
       UserCredential credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -60,7 +57,6 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(UserAddedSuccess());
 
       await FirebaseAuth.instance.signOut();
-      emit(SignUpLoading());
 
       if (adminEmail != null && password != '') {
         await FirebaseAuth.instance.signInWithEmailAndPassword(

@@ -20,7 +20,7 @@ class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
       QuerySnapshot locations =
           await FirebaseFirestore.instance.collection('locs').get();
       for (var loc in locations.docs) {
-        String name = loc['name'];
+        String name =await loc['name'];
 
         if (hallName == 'all Halls' || hallName == name) {
           QuerySnapshot reservationsSnap = await FirebaseFirestore.instance
@@ -40,16 +40,22 @@ class ShowTimeLineCubit extends Cubit<ShowTimeLineState> {
               DateTime now = DateTime.now();
               DateTime startDate = (doc['startTime'] as Timestamp).toDate();
               List<DateTime> recurringDates = getWeeklyRecurringDates(
-                  DateTime(now.year, now.month, startDate.day), 4);
+                  DateTime(now.year, now.month, startDate.day, startDate.hour, startDate.minute), 5);
+
+
               for (DateTime date in recurringDates) {
                 var newReservationData = Map<String, dynamic>.from(data);
+
                 newReservationData['startTime'] = Timestamp.fromDate(date);
+
                 Meeting meeting = Meeting.fromReservatoinModel(
                     ReservatoinModel.fromDoucumentSnapshot(newReservationData),
                     doc.id,
-                    hallName);
+                    name);
                 meetings.add(meeting);
               }
+
+
             } else {
               Meeting meeting =
                   Meeting.fromReservatoinModel(reservation, doc.id, name);

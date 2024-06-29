@@ -73,7 +73,6 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                    
                       CustomBotton(
                           backgroundColor: kPrimaryColor,
                           text: state is Loading ? S.of(context).time_line_loading : S.of(context).submit,

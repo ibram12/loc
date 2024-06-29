@@ -129,7 +129,6 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
         return;
       }
 
-      print('Sending password reset email to: $email');
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
 
       showSnackBar(context, 'Password Reset Email has been sent !');
@@ -137,7 +136,6 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
       if (e.code == 'user-not-found') {
         showSnackBar(context, 'No user found for that email.');
       } else {
-        print('Error sending password reset email: $e');
         showSnackBar(context, 'An error occurred. Please try again later.');
       }
     }

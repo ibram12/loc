@@ -152,6 +152,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "on": MessageLookupByLibrary.simpleMessage("في"),
         "only_admin_can_send_messages": MessageLookupByLibrary.simpleMessage(
             "يمكن للمشرف فقط ارسال رسائل"),
+        "outo_sittings_plz": MessageLookupByLibrary.simpleMessage(
+            "قم بتعيين الوقت والتاريخ التلقائي على جهازك من الاعدادات"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "password_recovery":
             MessageLookupByLibrary.simpleMessage("Password Recovery"),
@@ -244,6 +246,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("وقت البدء بعد وقت الانتهاء"),
         "there_was_a_conflict_with_another_reservation":
             MessageLookupByLibrary.simpleMessage("كان هناك تعارض مع حجز آخر"),
+        "there_was_no_messages_yet":
+            MessageLookupByLibrary.simpleMessage("لا توجد رسائل بعد"),
         "this_request_is_already_Unaccepted":
             MessageLookupByLibrary.simpleMessage("الطلب مرفوض بالفعل"),
         "time_line": MessageLookupByLibrary.simpleMessage("الخط الزمني"),

@@ -6,6 +6,7 @@ import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/admin/pressntation/manager/featch_end_times_cubit/featch_the_end_times_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/all_halls_list_veiw.dart';
 
+import '../manager/cubit/featch_reservaion_counts_cubit.dart';
 import '../view/add_hall_view.dart';
 
 class AdminViewBody extends StatelessWidget {
@@ -13,8 +14,15 @@ class AdminViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => FeatchTheEndTimesCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => FeatchTheEndTimesCubit(),
+        ),
+        BlocProvider(
+          create: (context) => FeatchReservaionCountsCubit(),
+        ),
+      ],
       child: Stack(
         children: [
           const AllHallsListView(),

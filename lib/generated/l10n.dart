@@ -1777,6 +1777,36 @@ class S {
       args: [],
     );
   }
+
+  /// `There was no messages yet`
+  String get there_was_no_messages_yet {
+    return Intl.message(
+      'There was no messages yet',
+      name: 'there_was_no_messages_yet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No_Internet_Connection`
+  String get no_net {
+    return Intl.message(
+      'No_Internet_Connection',
+      name: 'no_net',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set the automatic time and date on your device from Settings`
+  String get outo_sittings_plz {
+    return Intl.message(
+      'Set the automatic time and date on your device from Settings',
+      name: 'outo_sittings_plz',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

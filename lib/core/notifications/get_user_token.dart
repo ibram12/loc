@@ -28,15 +28,10 @@ class PushNotificationService {
       "https://www.googleapis.com/auth/firebase.messaging"
     ];
 
-    http.Client client = await auth.clientViaServiceAccount(
-        auth.ServiceAccountCredentials.fromJson(serviceAccountJson), scopes);
+    final auth.ServiceAccountCredentials credentials = auth.ServiceAccountCredentials.fromJson(serviceAccountJson);
+    final auth.AutoRefreshingAuthClient client = await auth.clientViaServiceAccount(credentials, scopes);
 
-    auth.AccessCredentials credentials = await auth.obtainAccessCredentialsViaServiceAccount(
-        auth.ServiceAccountCredentials.fromJson(serviceAccountJson), scopes, client);
-
-    client.close();
-
-    return credentials.accessToken.data;
+    return client.credentials.accessToken.data;
   }
 
   static Future<void> sendNotificationToSelectedUser({required String deviceToken, required String title, required String body,required String? screen}) async {
@@ -88,7 +83,7 @@ class PushNotificationService {
       }
     };
 
-    final http.Response response = await http.post(
+     await http.post(
         Uri.parse(endpointFirebaseCloudMessaging),
         headers: <String, String>{
           'Content-Type': 'application/json',
@@ -96,9 +91,6 @@ class PushNotificationService {
         },
         body: jsonEncode(message));
 
-    if (response.statusCode == 200) {
-    } else {
-
-    }
+    
   }
 }

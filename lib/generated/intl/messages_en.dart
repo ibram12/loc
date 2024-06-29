@@ -143,6 +143,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "needs_to_book": MessageLookupByLibrary.simpleMessage("needs to book"),
         "new_service": MessageLookupByLibrary.simpleMessage("New Service"),
         "no_data_found": MessageLookupByLibrary.simpleMessage("No Data Found"),
+        "no_net":
+            MessageLookupByLibrary.simpleMessage("No_Internet_Connection"),
         "no_requests_yet":
             MessageLookupByLibrary.simpleMessage("No Requests Yet"),
         "no_users_yet": MessageLookupByLibrary.simpleMessage("No Users yet"),
@@ -151,6 +153,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "on": MessageLookupByLibrary.simpleMessage("on"),
         "only_admin_can_send_messages": MessageLookupByLibrary.simpleMessage(
             "Only admin can send messages"),
+        "outo_sittings_plz": MessageLookupByLibrary.simpleMessage(
+            "Set the automatic time and date on your device from Settings"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_recovery":
             MessageLookupByLibrary.simpleMessage("استعادة كلمة المرور"),
@@ -252,6 +256,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "there_was_a_conflict_with_another_reservation":
             MessageLookupByLibrary.simpleMessage(
                 "There was a conflict with another reservation"),
+        "there_was_no_messages_yet":
+            MessageLookupByLibrary.simpleMessage("There was no messages yet"),
         "this_request_is_already_Unaccepted":
             MessageLookupByLibrary.simpleMessage(
                 "this request is already Unaccepted"),

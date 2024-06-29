@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/utils/constants.dart';
-import 'package:loc/featuers/week_time_line/presentation/manager/show_time_line_cubit/show_time_line_cubit.dart';
-import 'package:loc/featuers/week_time_line/presentation/views/widgets/time_line_view_body.dart';
+import 'package:loc/featuers/time_line/presentation/manager/show_time_line_cubit/show_time_line_cubit.dart';
+import 'package:loc/featuers/time_line/presentation/views/widgets/time_line_view_body.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../../../generated/l10n.dart';

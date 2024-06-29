@@ -6,8 +6,8 @@ import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/featuers/messages/presentation/manager/reed_messages_cubit/reed_messages_cubit.dart';
 import 'package:loc/featuers/messages/presentation/views/widgets/cusotm_chat_text_field.dart';
 import 'package:loc/featuers/messages/presentation/views/widgets/custom_chat_buble.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../data/models/chat_buble_model.dart';
-import '../../manager/sent_message_cubit/sent_message_cubit.dart';
 import 'custom_chat_buble_for_friend.dart';
 
 class MessagesViewBody extends StatefulWidget {
@@ -18,7 +18,6 @@ class MessagesViewBody extends StatefulWidget {
 }
 
 class _MessagesViewBodyState extends State<MessagesViewBody> {
-  List<ChatBubleModel> messages = [];
   String userId = FirebaseAuth.instance.currentUser!.uid;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late ScrollController controller;
@@ -28,7 +27,6 @@ class _MessagesViewBodyState extends State<MessagesViewBody> {
   void initState() {
     super.initState();
     context.read<DeleteOldMessagesCubit>().featchOldMessges();
-    context.read<SentMessageCubit>().loadMessageStatuses();
     query = FirebaseFirestore.instance.collection('messages').orderBy('time');
     stream = query.snapshots();
     controller = ScrollController();
@@ -50,9 +48,9 @@ class _MessagesViewBodyState extends State<MessagesViewBody> {
                 return const Center(child: Text('Error fetching messages.'));
               }
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                return const Center(
+                return  Center(
                   child: Text(
-                    "There Was No Messages Yet",
+                    S.of(context).there_was_no_messages_yet,
                     style: Styles.textStyle20,
                   ),
                 );

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/text_styles/Styles.dart';
+import '../../../../core/utils/constants.dart';
 import '../../../../generated/l10n.dart';
 
 class BottomSheetBody extends StatelessWidget {
@@ -20,10 +21,10 @@ class BottomSheetBody extends StatelessWidget {
           InkWell(
             onTap: chooseCamera,
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 25,
-                backgroundColor: Colors.grey.shade300,
-                child: const Icon(Icons.camera_alt),
+                backgroundColor: kOrange,
+                child: Icon(Icons.camera_alt),
               ),
                Text(
                 S.of(context).camera,
@@ -34,10 +35,10 @@ class BottomSheetBody extends StatelessWidget {
           InkWell(
             onTap: chooseGallery,
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 25,
-                backgroundColor: Colors.grey.shade300,
-                child: const Icon(Icons.image),
+                backgroundColor: kOrange,
+                child: Icon(Icons.image),
               ),
                Text(
                 S.of(context).gallery,

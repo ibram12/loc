@@ -169,7 +169,11 @@
      "value_requeired":"قيمة مطلوبة",
      "your_message":"رسالتك",
      "only_admin_can_send_messages":"يمكن للمشرف فقط ارسال رسائل",
-     "developed_by":"تم تطويره بواسطه"
+     "developed_by":"تم تطويره بواسطه",
+     "there_was_no_messages_yet":"لا توجد رسائل بعد",
+     "outo_sittings_plz":"قم بتعيين الوقت والتاريخ التلقائي على جهازك من الاعدادات"
+
+
 
 
 

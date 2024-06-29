@@ -4,6 +4,7 @@ import 'package:loc/core/widgets/custom_botton.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../generated/l10n.dart';
 import '../text_styles/Styles.dart';
 
 class ErrorView extends StatefulWidget {
@@ -39,30 +40,31 @@ void  onRetry()async {
       inAsyncCall: isLoading,
       child: Scaffold(
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Visibility(
-                    visible: widget.visable,
-                    child: Lottie.asset(
-                        'assets/animations/Animation - 1716081356717.json')),
-              ),
-              widget.visable
-                  ? const Text(
-                      'Please Check Your Internet Connection',
-                      style: Styles.textStyle20,
-                    )
-                  : const Text(
-                      'Please enable automatic time in your device settings ⚙ , then try again!',
-                      style: Styles.textStyle20,
-                    ),
-              CustomBotton(
-                  onPressed: onRetry,
-                  backgroundColor: kOrange,
-                  text: 'retry?')
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Visibility(
+                  visible: widget.visable,
+                  child: Lottie.asset(
+                        'assets/animations/Animation - 1716081356717.json'),
+                ),
+                widget.visable
+                    ?  Text(
+                        S.of(context).no_net,
+                        style: Styles.textStyle20,
+                      )
+                    :  Text(
+                      S.of(context).outo_sittings_plz  ,
+                        style: Styles.textStyle20,
+                      ),
+                CustomBotton(
+                    onPressed: onRetry,
+                    backgroundColor: kOrange,
+                    text: 'Try Again?')
+              ],
+            ),
           ),
         ),
       ),

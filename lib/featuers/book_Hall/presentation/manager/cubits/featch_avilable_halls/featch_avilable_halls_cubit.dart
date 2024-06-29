@@ -40,7 +40,6 @@ class FeatchAvilableHallsCubit extends Cubit<FeatchAvilableHallsState> {
                 endDateCuruntMounth: docEndTime.toDate(),
                 startDateCuruntMounth: docStartTime.toDate(),
                 weeks: 9);
-            print(recurringDates);
             for (int i = 0; i < recurringDates.length; i += 2) {
               DateTime recurringStart = recurringDates[i];
               DateTime recurringEnd = recurringDates[i + 1];
