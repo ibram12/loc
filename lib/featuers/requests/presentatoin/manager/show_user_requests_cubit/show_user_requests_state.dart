@@ -1,6 +1,5 @@
 
 
-import '../../../data/models/user_request_model.dart';
 
  class ShowUserRequestsState {}
 
@@ -8,13 +7,8 @@ import '../../../data/models/user_request_model.dart';
 class UserRequestsInitial extends ShowUserRequestsState {}
 
 class UserRequestsLoading extends ShowUserRequestsState {}
-
-class UserRequestsLoaded extends ShowUserRequestsState {
-  final List<UserRequestModel> requests;
-
-  UserRequestsLoaded(this.requests);
-}
-
+ 
+ class DeleteOldRequestsDone extends ShowUserRequestsState {}
 class UserRequestsError extends ShowUserRequestsState {
   final String message;
 

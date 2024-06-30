@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/messages/presentation/manager/reed_messages_cubit/reed_messages_cubit.dart';
+import 'package:loc/featuers/messages/presentation/manager/unread_messages_counter_provider.dart';
+import 'package:provider/provider.dart';
 
 
 import '../../../../generated/l10n.dart';
@@ -30,13 +32,25 @@ const   MessagesVeiw({super.key});
         ),
         ),
       ],
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: kPrimaryColor,
-          title: Text(S.of(context).messages),
+      child: ChangeNotifierProvider(
+        create: (context) => MessageCountProvider(),
+        child: PopScope(
+      onPopInvoked: (didPop) => didPop ? context.read<MessageCountProvider>().resetMessageCount() : null,
+          child: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              backgroundColor: kPrimaryColor,
+              title: Text(S.of(context).messages),
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                icon: const Icon(Icons.arrow_back),
+              ),
+            ),
+            body: const MessagesViewBody(),
+          ),
         ),
-        body: const MessagesViewBody(),
       ),
     );
   }

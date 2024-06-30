@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/featuers/messages/presentation/manager/reed_messages_cubit/reed_messages_cubit.dart';
+import 'package:loc/featuers/messages/presentation/manager/unread_messages_counter_provider.dart';
 import 'package:loc/featuers/messages/presentation/views/widgets/cusotm_chat_text_field.dart';
 import 'package:loc/featuers/messages/presentation/views/widgets/custom_chat_buble.dart';
 import '../../../../../generated/l10n.dart';
@@ -30,8 +31,14 @@ class _MessagesViewBodyState extends State<MessagesViewBody> {
     query = FirebaseFirestore.instance.collection('messages').orderBy('time');
     stream = query.snapshots();
     controller = ScrollController();
+    context.read<MessageCountProvider>().resetMessageCount();
   }
 
+@override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,7 +55,7 @@ class _MessagesViewBodyState extends State<MessagesViewBody> {
                 return const Center(child: Text('Error fetching messages.'));
               }
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                return  Center(
+                return Center(
                   child: Text(
                     S.of(context).there_was_no_messages_yet,
                     style: Styles.textStyle20,

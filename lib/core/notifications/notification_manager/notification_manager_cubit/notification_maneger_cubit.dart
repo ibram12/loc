@@ -14,7 +14,7 @@ class NotificationManegerCubit extends Cubit<NotificationManegerState> {
 
   void onNotificationTapped(BuildContext context) {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage? message) {
-     if (message != null) {
+      if (message != null) {
         _navigateToTargetScreen(message, context);
       }
     });
@@ -27,18 +27,21 @@ class NotificationManegerCubit extends Cubit<NotificationManegerState> {
     });
   }
 
+  
+  }
+
   void _navigateToTargetScreen(RemoteMessage message, BuildContext context) {
-    final String ? screen = message.data['screen'];
+    final String? screen = message.data['screen'];
     if (screen != null) {
       if (screen == MessagesVeiw.id) {
         Navigator.pushNamed(context, MessagesVeiw.id);
       } else if (screen == UserRequests.id) {
         Navigator.pushNamed(context, UserRequests.id);
-      }  else {
+      } else {
         Navigator.pushNamed(context, MyHomePage.id);
       }
     } else {
       Navigator.pushNamed(context, MyHomePage.id);
     }
   }
-}
+

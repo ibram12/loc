@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/featuers/requests/presentatoin/widgets/request_item.dart';
 import '../../../../core/helper/snack_bar.dart';
 import '../../../../generated/l10n.dart';
 import '../../data/models/user_request_model.dart';
+import '../manager/show_user_requests_cubit/show_user_requests_cubit.dart';
 
 class UserRequestBody extends StatefulWidget {
   const UserRequestBody({
@@ -22,6 +24,7 @@ class _UserRequestBodyState extends State<UserRequestBody> {
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<ShowUserRequestsCubit>(context).checkAndDeleteRequests();
     query = FirebaseFirestore.instance
         .collection('users')
         .doc(id)

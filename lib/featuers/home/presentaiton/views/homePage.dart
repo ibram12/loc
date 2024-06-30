@@ -6,6 +6,7 @@ import 'package:loc/featuers/home/presentaiton/manager/delete_old_data_cubit/del
 import 'package:loc/featuers/home/presentaiton/manager/get_user_role_cubit/get_user_role_cubit.dart';
 import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:loc/featuers/settings/presentaiton/view/drawer_view.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/notifications/notification_manager/notification_manager_cubit/notification_maneger_cubit.dart';
 import '../../../../core/server/shered_pref_helper.dart';
@@ -34,7 +35,6 @@ class _MyHomePageState extends State<MyHomePage> {
     getUserName();
      final notificationManagerCubit = context.read<NotificationManegerCubit>();
     notificationManagerCubit.onNotificationTapped(context);
-    
     super.initState();
   }
 

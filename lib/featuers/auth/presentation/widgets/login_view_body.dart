@@ -126,8 +126,6 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                           }
                         }),
                     const SizedBox(height: 20),
-
-                    // Text("Don't Have An Account ? Resister" , textAlign: TextAlign.center,),
                   ],
                 ),
               ),
