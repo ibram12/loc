@@ -15,6 +15,7 @@ import 'package:loc/featuers/admin/pressntation/view/all_requests_view.dart';
 import 'package:loc/featuers/auth/presentation/views/login_view.dart';
 import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
 import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
+import 'package:loc/featuers/messages/presentation/manager/unread_messages_counter_provider.dart';
 import 'package:loc/featuers/messages/presentation/views/messages_veiw.dart';
 import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:loc/featuers/settings/presentaiton/manager/local_cubit/local_cubit.dart';
@@ -24,25 +25,30 @@ import 'package:provider/provider.dart';
 import 'featuers/messages/data/models/chat_buble_model.dart';
 import 'featuers/messages/data/models/sent_state_enum.dart';
 import 'featuers/messages/data/models/times_tamp_adaptor.dart';
-import 'featuers/messages/presentation/manager/unread_messages_counter_provider.dart';
 import 'featuers/settings/presentaiton/manager/theme_cubit/theme_cubit.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
 
-Future<void> main() async {
+void  main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-//FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    firebaseMessagingBackgroundHandler(message);
+  });
 
   await Hive.initFlutter();
   Hive.registerAdapter(ChatBubleModelAdapter());
   Hive.registerAdapter(TimestampAdapter());
-   Hive.registerAdapter(MessageStatusAdapter());
+  Hive.registerAdapter(MessageStatusAdapter());
   await Hive.openBox<ChatBubleModel>(kMessagesBox);
-  runApp(const HomePage());
+  runApp(ChangeNotifierProvider
+  (
+    create: (_)=>MessageCountProvider(),
+    child: const HomePage()));
 }
 
 class HomePage extends StatelessWidget {
@@ -60,43 +66,41 @@ class HomePage extends StatelessWidget {
         builder: (context, themeMode) {
           return BlocBuilder<LocaleCubit, Locale>(
             builder: (context, locale) {
-              return ChangeNotifierProvider(
-                create: (context) => MessageCountProvider(),
-                child: MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  locale: locale,
-                  themeMode: themeMode,
-                  theme: ThemeData.light(),
-                  darkTheme: ThemeData.dark(
-                  ).copyWith(
-                    scaffoldBackgroundColor: Colors.grey.shade900,
-                  ),
-                  localizationsDelegates: const [
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                    S.delegate
-                  ],
-                  supportedLocales: const [
-                    Locale('en'),
-                    Locale('ar'),
-                  ],
-                  home: const SplashView(),
-                  routes: {
-                    SignUpView.id: (context) => const SignUpView(),
-                    LoginView.id: (context) => const LoginView(),
-                    MyHomePage.id: (context) => const MyHomePage(),
-                    PasswordRecoveryVeiw.id: (context) => const PasswordRecoveryVeiw(),
-                    AddHallView.id: (context) => const AddHallView(),
-                    UserRequests.id: (context) => const UserRequests(),
-                    AllRequests.id:(context) => const AllRequests(),
-                    MessagesVeiw.id:(context) =>const MessagesVeiw(),
-                  },
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                locale: locale,
+                themeMode: themeMode,
+                theme: ThemeData.light(),
+                darkTheme: ThemeData.dark().copyWith(
+                  scaffoldBackgroundColor: Colors.grey.shade900,
                 ),
+                localizationsDelegates: const [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  S.delegate
+                ],
+                supportedLocales: const [
+                  Locale('en'),
+                  Locale('ar'),
+                ],
+                home: const SplashView(),
+                routes: {
+                  SignUpView.id: (context) => const SignUpView(),
+                  LoginView.id: (context) => const LoginView(),
+                  MyHomePage.id: (context) => const MyHomePage(),
+                  PasswordRecoveryVeiw.id: (context) =>
+                      const PasswordRecoveryVeiw(),
+                  AddHallView.id: (context) => const AddHallView(),
+                  UserRequests.id: (context) => const UserRequests(),
+                  AllRequests.id: (context) => const AllRequests(),
+                  MessagesVeiw.id: (context) => const MessagesVeiw(),
+                },
               );
             },
           );
         },
       ),
-    );  }
+    );
+  }
 }

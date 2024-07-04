@@ -171,6 +171,6 @@
   "only_admin_can_send_messages":"Only admin can send messages",
   "developed_by":"Devaloped By",
   "there_was_no_messages_yet":"There was no messages yet",
-  "no_net":"No_Internet_Connection",
+  "no_net":"No Internet Connection",
   "outo_sittings_plz":"Set the automatic time and date on your device from Settings"
 }

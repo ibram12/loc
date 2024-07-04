@@ -28,9 +28,11 @@ void  onRetry()async {
        widget.onRetry();
        await Future.delayed(const Duration(seconds: 3));
     }finally{
-      setState(() {
+      if(mounted){
+        setState(() {
         isLoading = false;
       });
+      }
     }
   }
 

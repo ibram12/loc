@@ -5,19 +5,11 @@ import '../../../../generated/l10n.dart';
 import '../../../messages/presentation/views/messages_veiw.dart';
 import 'package:loc/featuers/messages/presentation/manager/unread_messages_counter_provider.dart';
 
-class MessagesBotton extends StatefulWidget {
+class MessagesBotton extends StatelessWidget {
   const MessagesBotton({super.key});
 
   @override
-  State<MessagesBotton> createState() => _MessagesBottonState();
-}
 
-class _MessagesBottonState extends State<MessagesBotton> {
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<MessageCountProvider>(context, listen: false).getMessagesCount();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -32,24 +32,21 @@ const   MessagesVeiw({super.key});
         ),
         ),
       ],
-      child: ChangeNotifierProvider(
-        create: (context) => MessageCountProvider(),
-        child: PopScope(
-      onPopInvoked: (didPop) => didPop ? context.read<MessageCountProvider>().resetMessageCount() : null,
-          child: Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              backgroundColor: kPrimaryColor,
-              title: Text(S.of(context).messages),
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-                icon: const Icon(Icons.arrow_back),
-              ),
+      child: PopScope(
+            onPopInvoked: (didPop) => didPop ? context.read<MessageCountProvider>().resetMessageCount() : null,
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: kPrimaryColor,
+            title: Text(S.of(context).messages),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              icon: const Icon(Icons.arrow_back),
             ),
-            body: const MessagesViewBody(),
           ),
+          body: const MessagesViewBody(),
         ),
       ),
     );

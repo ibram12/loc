@@ -1788,10 +1788,10 @@ class S {
     );
   }
 
-  /// `No_Internet_Connection`
+  /// `No Internet Connection`
   String get no_net {
     return Intl.message(
-      'No_Internet_Connection',
+      'No Internet Connection',
       name: 'no_net',
       desc: '',
       args: [],

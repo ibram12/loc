@@ -144,7 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_service": MessageLookupByLibrary.simpleMessage("New Service"),
         "no_data_found": MessageLookupByLibrary.simpleMessage("No Data Found"),
         "no_net":
-            MessageLookupByLibrary.simpleMessage("No_Internet_Connection"),
+            MessageLookupByLibrary.simpleMessage("No Internet Connection"),
         "no_requests_yet":
             MessageLookupByLibrary.simpleMessage("No Requests Yet"),
         "no_users_yet": MessageLookupByLibrary.simpleMessage("No Users yet"),

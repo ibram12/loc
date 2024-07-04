@@ -46,6 +46,7 @@ class _CusotmChatTextFieldState extends State<CusotmChatTextField> {
   }
 
   void sendMessage() {
+    print("send message");
     if (widget.formKey.currentState!.validate()) {
       setState(() {
         isLoading = true;
@@ -83,6 +84,7 @@ class _CusotmChatTextFieldState extends State<CusotmChatTextField> {
           controller: controller,
           onFieldSubmitted: (data) {
             sendMessage();
+            
           },
           decoration: InputDecoration(
               hintText: S.of(context).your_message,

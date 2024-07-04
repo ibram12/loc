@@ -1,68 +1,46 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import '../../../../core/server/shered_pref_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MessageCountProvider with ChangeNotifier {
   int messageCount = 0;
-  bool _disposed = false;
-
-  MessageCountProvider() {
-    _init();
-  }
-
-  void _init() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print('Received a message while in the foreground!');
-      print('Message data: ${message.data}');
-
-      if (message.notification != null) {
-        int count = await SherdPrefHelper().getMessagesCount() ?? 0;
-        await SherdPrefHelper().setMessagesCount(count + 1);
-        messageCount = count + 1;
-        if (!_disposed) notifyListeners();
-      }
-    });
-
-    getMessagesCount();
-    WidgetsBinding.instance.addObserver(LifecycleEventHandler(
-      resumeCallBack: () async {
-        await getMessagesCount();
-      },
-    ));
-  }
-
-  Future<void> getMessagesCount() async {
-    messageCount = await SherdPrefHelper().getMessagesCount() ?? 0;
-    if (!_disposed) notifyListeners();
-  }
-
-  Future<void> resetMessageCount() async {
-    await SherdPrefHelper().setMessagesCount(0);
-    messageCount = 0;
-    if (!_disposed) notifyListeners();
-  }
+  bool _dispose = false;
 
   @override
   void dispose() {
-    _disposed = true;
-    WidgetsBinding.instance.removeObserver(LifecycleEventHandler(
-      resumeCallBack: () async {},
-    ));
+    _dispose = true;
     super.dispose();
   }
-}
 
+  Future<void> getMessagesCount() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    messageCount = prefs.getInt('messagesCount') ?? 0;
+    if(!_dispose){
+      notifyListeners();
+    print("message count $messageCount");
+    }
+    
+  }
 
-class LifecycleEventHandler extends WidgetsBindingObserver {
-  final Future<void> Function() resumeCallBack;
+  Future<void> resetMessageCount() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('messagesCount', 0);
+        if(!_dispose){
+          
+    messageCount = 0;
+    notifyListeners();
+        }
 
-  LifecycleEventHandler({required this.resumeCallBack});
+  }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      resumeCallBack();
+  static final List<VoidCallback> _listeners = [];
+
+  static void addlistener(VoidCallback listener) {
+    _listeners.add(listener);
+  }
+
+  static void notifyAllListeners() {
+    for (var listener in _listeners) {
+      listener();
     }
   }
 }

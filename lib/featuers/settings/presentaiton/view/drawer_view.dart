@@ -8,7 +8,9 @@ import 'package:loc/featuers/settings/presentaiton/manager/set_user_image_cubit/
 import 'package:loc/featuers/settings/presentaiton/widgets/devaloper_profile.dart';
 import 'package:loc/featuers/settings/presentaiton/widgets/drower_body.dart';
 import 'package:loc/featuers/settings/presentaiton/widgets/user_image.dart';
+import 'package:provider/provider.dart';
 import '../../../../generated/l10n.dart';
+import '../../../messages/presentation/manager/unread_messages_counter_provider.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({super.key});
@@ -24,30 +26,38 @@ class DrawerView extends StatelessWidget {
           create: (context) => LogOutCubit(),
         ),
       ],
-      child: Drawer(
-        child: Stack(
-          children: [
-            ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  decoration: const BoxDecoration(color: kOrange),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        S.of(context).profile,
-                        style: Styles.textStyle18.copyWith(color: Colors.white),
-                      ),
-                      const UserImage(),
-                    ],
+      child: ChangeNotifierProvider<MessageCountProvider>(
+        create: (context) {
+           var provider = MessageCountProvider()..getMessagesCount();
+          MessageCountProvider.addlistener(provider.getMessagesCount);
+          return provider;
+        },
+
+        child: Drawer(
+          child: Stack(
+            children: [
+              ListView(
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                  DrawerHeader(
+                    decoration: const BoxDecoration(color: kOrange),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          S.of(context).profile,
+                          style: Styles.textStyle18.copyWith(color: Colors.white),
+                        ),
+                        const UserImage(),
+                      ],
+                    ),
                   ),
-                ),
-                const DrowerBody(),
-              ],
-            ),
-            const DevaloperProfile()
-          ],
+                  const DrowerBody(),
+                ],
+              ),
+              const DevaloperProfile()
+            ],
+          ),
         ),
       ),
     );
