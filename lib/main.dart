@@ -4,11 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:loc/core/notifications/increment_message_count.dart';
 import 'package:loc/core/notifications/notification_manager/notification_manager_cubit/notification_maneger_cubit.dart';
-import 'package:loc/core/utils/constants.dart';
 import 'package:loc/core/utils/simple_bloc_observer.dart';
 import 'package:loc/featuers/admin/pressntation/view/add_hall_view.dart';
 import 'package:loc/featuers/admin/pressntation/view/all_requests_view.dart';
@@ -22,9 +19,6 @@ import 'package:loc/featuers/settings/presentaiton/manager/local_cubit/local_cub
 import 'package:loc/featuers/spalsh/presntation/view/splash_view.dart';
 import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
 import 'package:provider/provider.dart';
-import 'featuers/messages/data/models/chat_buble_model.dart';
-import 'featuers/messages/data/models/sent_state_enum.dart';
-import 'featuers/messages/data/models/times_tamp_adaptor.dart';
 import 'featuers/settings/presentaiton/manager/theme_cubit/theme_cubit.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
@@ -40,11 +34,7 @@ void  main() async {
     firebaseMessagingBackgroundHandler(message);
   });
 
-  await Hive.initFlutter();
-  Hive.registerAdapter(ChatBubleModelAdapter());
-  Hive.registerAdapter(TimestampAdapter());
-  Hive.registerAdapter(MessageStatusAdapter());
-  await Hive.openBox<ChatBubleModel>(kMessagesBox);
+
   runApp(ChangeNotifierProvider
   (
     create: (_)=>MessageCountProvider(),
