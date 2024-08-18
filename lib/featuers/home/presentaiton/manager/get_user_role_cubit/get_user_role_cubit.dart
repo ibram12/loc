@@ -1,3 +1,4 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +10,7 @@ import '../../../../../core/utils/constants.dart';
 part 'get_user_role_state.dart';
 
 class GetUserRoleCubit extends Cubit<GetUserRoleState> {
-  GetUserRoleCubit() : super(GetUserRoleInitial());
+  GetUserRoleCubit() : super(GetUserInfoInitial());
 
   Future<void> getUserRole() async {
     emit(GetUserRoleLoading());
@@ -18,13 +19,13 @@ class GetUserRoleCubit extends Cubit<GetUserRoleState> {
       DocumentSnapshot userInfo =
           await FirebaseFirestore.instance.collection('users').doc(id).get();
       if (userInfo['role'] == kRoles[2]) {
-      emit(GetUserRoleSuccess(userRole: kRoles[2]));
+        emit(GetUserRoleSuccess(userRole: kRoles[2]));
         await SherdPrefHelper().setUserRole(kRoles[2]);
       } else if (userInfo['role'] == kRoles[1]) {
-      emit(GetUserRoleSuccess(userRole: kRoles[1]));
+        emit(GetUserRoleSuccess(userRole: kRoles[1]));
         await SherdPrefHelper().setUserRole(kRoles[1]);
       } else {
-      emit(GetUserRoleSuccess(userRole: kRoles[0]));
+        emit(GetUserRoleSuccess(userRole: kRoles[0]));
         await SherdPrefHelper().setUserRole(kRoles[0]);
       }
     } else {
@@ -32,4 +33,6 @@ class GetUserRoleCubit extends Cubit<GetUserRoleState> {
       emit(GetUserRoleSuccess(userRole: userRole));
     }
   }
+
+  
 }

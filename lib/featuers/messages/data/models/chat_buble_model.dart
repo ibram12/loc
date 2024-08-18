@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hive/hive.dart';
 import 'package:loc/featuers/messages/data/models/sent_state_enum.dart';
 
-class ChatBubleModel extends HiveObject {
+class ChatBubleModel  {
   final String massege;
   final String id;
   final Timestamp time;

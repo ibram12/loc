@@ -100,10 +100,10 @@ class S {
     );
   }
 
-  /// `add loc`
+  /// `Add location`
   String get add_loc {
     return Intl.message(
-      'add loc',
+      'Add location',
       name: 'add_loc',
       desc: '',
       args: [],

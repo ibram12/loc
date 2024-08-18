@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/messages/presentation/manager/reed_messages_cubit/reed_messages_cubit.dart';
 import 'package:loc/featuers/messages/presentation/manager/unread_messages_counter_provider.dart';
@@ -10,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../generated/l10n.dart';
 
-import '../../data/models/chat_buble_model.dart';
 import '../manager/sent_message_cubit/sent_message_cubit.dart';
 import 'widgets/messages_view_body.dart';
 
@@ -23,7 +21,7 @@ const   MessagesVeiw({super.key});
       providers: [
         BlocProvider(
           create: (context) => SentMessageCubit(
-            Hive.box<ChatBubleModel>(kMessagesBox)
+        
           ),
         ),
         BlocProvider(

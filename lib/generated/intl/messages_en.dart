@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_event": MessageLookupByLibrary.simpleMessage("Add Event"),
         "add_hall": MessageLookupByLibrary.simpleMessage("Add Hall"),
         "add_khdma": MessageLookupByLibrary.simpleMessage("add loc"),
-        "add_loc": MessageLookupByLibrary.simpleMessage("add loc"),
+        "add_loc": MessageLookupByLibrary.simpleMessage("Add location"),
         "add_new_user": MessageLookupByLibrary.simpleMessage("Add New User"),
         "add_reservation":
             MessageLookupByLibrary.simpleMessage("Add a reservation"),

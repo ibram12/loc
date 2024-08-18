@@ -114,7 +114,7 @@ class _AdminHallItemState extends State<AdminHallItem> {
             padding: const EdgeInsets.all(10),
             child: Material(
               clipBehavior: Clip.antiAlias,
-              color: isDarkMode! ? Colors.black : Colors.white,
+              color: isDarkMode! || isDarkMode!=null ? Colors.black : Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),

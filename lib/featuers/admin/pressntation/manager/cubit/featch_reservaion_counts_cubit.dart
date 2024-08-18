@@ -20,7 +20,10 @@ class FeatchReservaionCountsCubit extends Cubit<FeatchReservaionCountsState> {
           .get();
       reservationsCounts[hall.id] = reservations.docs.length;
     }
-    emit(FeatchReservaionCountsLoaded(reservationsCounts));
+    if(!isClosed){
+          emit(FeatchReservaionCountsLoaded(reservationsCounts));
+
+    }
     
   }
 }

@@ -1,10 +1,7 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:loc/core/notifications/increment_message_count.dart';
 import 'package:loc/core/notifications/notification_manager/notification_manager_cubit/notification_maneger_cubit.dart';
 import 'package:loc/core/utils/simple_bloc_observer.dart';
 import 'package:loc/featuers/admin/pressntation/view/add_hall_view.dart';
@@ -29,10 +26,6 @@ void  main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    firebaseMessagingBackgroundHandler(message);
-  });
 
 
   runApp(ChangeNotifierProvider

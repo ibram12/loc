@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/text_styles/Styles.dart';
@@ -9,8 +11,8 @@ import 'package:loc/featuers/settings/presentaiton/view/drawer_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/notifications/notification_manager/notification_manager_cubit/notification_maneger_cubit.dart';
-import '../../../../core/server/shered_pref_helper.dart';
 import '../../../../generated/l10n.dart';
+import '../manager/get_user_namecubit/get_user_name_cubit.dart';
 import '../widgets/home_view_body.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -24,16 +26,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String? userName;
-  Future<void> getUserName() async {
-    userName = await SherdPrefHelper().getUserName();
-    setState(() {});
-  }
 
   @override
   void initState() {
-    getUserName();
-     final notificationManagerCubit = context.read<NotificationManegerCubit>();
+    final notificationManagerCubit = context.read<NotificationManegerCubit>();
     notificationManagerCubit.onNotificationTapped(context);
     super.initState();
   }
@@ -48,13 +44,20 @@ class _MyHomePageState extends State<MyHomePage> {
         BlocProvider(
           create: (context) => GetUserRoleCubit(),
         ),
+        BlocProvider(create: (context)=> GetUserNameCubit()..getUserName()),
       ],
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
-          title: Text(
-            '${S.of(context).wellcome} ${userName ?? ''}',
-            style: Styles.textStyle18,
+          title: BlocBuilder<GetUserNameCubit, GetUserNameState>(
+            builder: (context, state) {
+                  log('BlocBuilder called with state: $state');
+
+              return Text(
+              state is GetUserNameSuccess ?  '${S.of(context).wellcome} ${state.userName}': S.of(context).wellcome,
+                style: Styles.textStyle18,
+              );
+            },
           ),
           leading: Builder(builder: (context) {
             return IconButton(

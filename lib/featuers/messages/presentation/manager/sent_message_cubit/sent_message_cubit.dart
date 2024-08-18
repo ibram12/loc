@@ -1,20 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:hive/hive.dart';
 import 'package:loc/core/notifications/get_user_token.dart';
 import 'package:loc/core/server/shered_pref_helper.dart';
 import 'package:meta/meta.dart';
 
-import '../../../data/models/chat_buble_model.dart';
 import '../../../data/models/sent_state_enum.dart';
 
 part 'sent_message_state.dart';
 
 class SentMessageCubit extends Cubit<SentMessageState> {
-  final Box<ChatBubleModel> chatBox;
 
-  SentMessageCubit(this.chatBox) : super(SentMessageInitial());
+  SentMessageCubit() : super(SentMessageInitial());
 
   Future<void> sendMessage({required String message}) async {
     String id = FirebaseAuth.instance.currentUser!.uid;

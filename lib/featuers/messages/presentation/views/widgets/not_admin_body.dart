@@ -13,7 +13,7 @@ class NotAdminBody extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Divider(
+          const Divider(
             color: kPrimaryColor,
           ),
           Text(S.of(context).only_admin_can_send_messages,style: Styles.textStyle18.copyWith(color: kPrimaryColor),),

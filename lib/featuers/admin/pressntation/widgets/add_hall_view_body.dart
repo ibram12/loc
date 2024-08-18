@@ -59,7 +59,7 @@ class _AddHallViewBodyState extends State<AddHallViewBody> {
           child: Form(
             key: key,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomImageContaner(
                   onSelected: (value) {
