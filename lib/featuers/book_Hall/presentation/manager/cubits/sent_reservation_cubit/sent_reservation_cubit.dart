@@ -40,7 +40,7 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
         .get();
     String? fcmToken = userInfo['fcmToken'];
     String? isAdmin = await SherdPrefHelper().getUserRole();
-    bool isSent = false;
+    bool isAccepted = isAdmin == kRoles[2] ? true : false;
     Map<String, dynamic> resrvationInfo = {
       'id': FirebaseAuth.instance.currentUser!.uid,
       'name': getUserName,
@@ -77,13 +77,12 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
             'image': userImage
           });
         }
-        if (isAdmin==kRoles[2]&&!isSent) {
-  sentNotificationForAdmins(getUserName ?? await getName(),
-      'request to book ${hallNames.join(', ')}\non ${data.day}/${data.month}/${data.year} at ${DateFormat('hh:mm a').format(startTime.toDate())} to ${DateFormat('hh:mm a').format(endTime.toDate())}');
-isSent = true;
-}
       }
-      
+        if (isAdmin==kRoles[2]) {
+  sentNotificationForAdmins(getUserName ?? await getName(),
+  isAccepted ?"${hallNames.join(', ')} لقد قام $getUserName بحجز":
+      'request to book ${hallNames.join(', ')}\non ${data.day}/${data.month}/${data.year} at ${DateFormat('hh:mm a').format(startTime.toDate())} to ${DateFormat('hh:mm a').format(endTime.toDate())}');
+}
         emit(SentReservationSuccess());
     } catch (err) {
       emit(SentReservationError(err.toString()));
@@ -93,7 +92,7 @@ isSent = true;
   Future<void> sentNotificationForAdmins(String name, String body) async {
     FirebaseFirestore.instance.collection('users').get().then((value) {
       for (var doc in value.docs) {
-        if (doc['role'] == 'Admin') {
+        if (doc['role'] == kRoles[2]) {
           PushNotificationService.sendNotificationToSelectedUser(
               screen: AdminView.id,
               deviceToken: doc['fcmToken'],

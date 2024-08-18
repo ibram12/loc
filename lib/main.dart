@@ -9,13 +9,11 @@ import 'package:loc/featuers/admin/pressntation/view/all_requests_view.dart';
 import 'package:loc/featuers/auth/presentation/views/login_view.dart';
 import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
 import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
-import 'package:loc/featuers/messages/presentation/manager/unread_messages_counter_provider.dart';
 import 'package:loc/featuers/messages/presentation/views/messages_veiw.dart';
 import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:loc/featuers/settings/presentaiton/manager/local_cubit/local_cubit.dart';
 import 'package:loc/featuers/spalsh/presntation/view/splash_view.dart';
 import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
-import 'package:provider/provider.dart';
 import 'featuers/settings/presentaiton/manager/theme_cubit/theme_cubit.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
@@ -28,10 +26,7 @@ void  main() async {
   );
 
 
-  runApp(ChangeNotifierProvider
-  (
-    create: (_)=>MessageCountProvider(),
-    child: const HomePage()));
+  runApp(const HomePage());
 }
 
 class HomePage extends StatelessWidget {

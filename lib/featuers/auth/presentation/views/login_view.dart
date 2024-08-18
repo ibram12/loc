@@ -9,7 +9,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LogInCubit(),
+      create: (context) => LogInCubit()..requestNotificationPermaion(),
       child: const Scaffold(body: LogInViewBody()),
     );
   }

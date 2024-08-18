@@ -14,10 +14,11 @@ part 'log_in_state.dart';
 class LogInCubit extends Cubit<LogInState> {
   LogInCubit() : super(LogInInitial());
 
-  Future<void> logInWithEmailAndPassword(BuildContext context, String email, String password) async {
+  Future<void> logInWithEmailAndPassword(
+      BuildContext context, String email, String password) async {
     try {
       emit(LogInLoading());
-      
+
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -25,13 +26,38 @@ class LogInCubit extends Cubit<LogInState> {
 
       String uid = FirebaseAuth.instance.currentUser!.uid;
 
-      DocumentSnapshot userInfo = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      DocumentSnapshot userInfo =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
       String? userName = userInfo['name'];
 
       if (userName != null) {
         await SherdPrefHelper().setUserName(userName);
       }
 
+      
+
+      if (await requestNotificationPermaion() != null) {
+        await FirebaseFirestore.instance.collection('users').doc(uid).update({
+          'fcmToken': await requestNotificationPermaion(),
+        });
+        FirebaseMessaging.instance.subscribeToTopic(kTopic);
+      }
+
+      emit(LogInSuccess());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password' || e.code == 'user-not-found') {
+        emit(LogInError(
+            S.of(context).login_cubit_messages_wrong_email_or_password));
+      } else {
+        emit(LogInError('Login failed: ${e.message}'));
+      }
+    } catch (e) {
+      emit(LogInError('Unexpected error: $e'));
+    }
+  }
+
+  Future<String?> requestNotificationPermaion() async {
+    
       FirebaseMessaging messaging = FirebaseMessaging.instance;
       await messaging.requestPermission(
         alert: true,
@@ -44,24 +70,6 @@ class LogInCubit extends Cubit<LogInState> {
       );
 
       String? fcmToken = await messaging.getToken();
-
-      if (fcmToken != null) {
-        await FirebaseFirestore.instance.collection('users').doc(uid).update({
-          'fcmToken': fcmToken,
-        });
-        FirebaseMessaging.instance.subscribeToTopic(kTopic);
-
-      }
-
-      emit(LogInSuccess());
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'wrong-password' || e.code == 'user-not-found') {
-        emit(LogInError(S.of(context).login_cubit_messages_wrong_email_or_password));
-      } else {
-        emit(LogInError('Login failed: ${e.message}'));
-      }
-    } catch (e) {
-      emit(LogInError('Unexpected error: $e'));
-    }
+      return fcmToken;
   }
 }

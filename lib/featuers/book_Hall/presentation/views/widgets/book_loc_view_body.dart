@@ -64,9 +64,12 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
               children: [
                 UserChoices(
                   onServiceSelected: (String? selectedService) {
-                    setState(() {
+                    if (selectedService != null) {
+                      // setState(() {
                       _selectedText = selectedService;
-                    });
+                    // });  
+                    }
+                  
                   },
                 ),
                 if (state is SelectTimeSuccess)

@@ -103,7 +103,7 @@ class _UserChoicesState extends State<UserChoices> {
                            _selectedText = newHallName;
                           widget.onServiceSelected(_selectedText);
                         });
-                      } else {}
+                      }
                     },
                   ),
                 isAdmin != kRoles[2]

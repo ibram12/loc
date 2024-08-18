@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loc/core/text_styles/Styles.dart';
@@ -51,8 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: kPrimaryColor,
           title: BlocBuilder<GetUserNameCubit, GetUserNameState>(
             builder: (context, state) {
-                  log('BlocBuilder called with state: $state');
-
               return Text(
               state is GetUserNameSuccess ?  '${S.of(context).wellcome} ${state.userName}': S.of(context).wellcome,
                 style: Styles.textStyle18,

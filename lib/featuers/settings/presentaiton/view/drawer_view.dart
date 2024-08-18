@@ -8,9 +8,7 @@ import 'package:loc/featuers/settings/presentaiton/manager/set_user_image_cubit/
 import 'package:loc/featuers/settings/presentaiton/widgets/devaloper_profile.dart';
 import 'package:loc/featuers/settings/presentaiton/widgets/drower_body.dart';
 import 'package:loc/featuers/settings/presentaiton/widgets/user_image.dart';
-import 'package:provider/provider.dart';
 import '../../../../generated/l10n.dart';
-import '../../../messages/presentation/manager/unread_messages_counter_provider.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({super.key});
@@ -26,13 +24,6 @@ class DrawerView extends StatelessWidget {
           create: (context) => LogOutCubit(),
         ),
       ],
-      child: ChangeNotifierProvider<MessageCountProvider>(
-        create: (context) {
-           var provider = MessageCountProvider()..getMessagesCount();
-          MessageCountProvider.addlistener(provider.getMessagesCount);
-          return provider;
-        },
-
         child: Drawer(
           child: Stack(
             children: [
@@ -59,7 +50,7 @@ class DrawerView extends StatelessWidget {
             ],
           ),
         ),
-      ),
+
     );
   }
 }

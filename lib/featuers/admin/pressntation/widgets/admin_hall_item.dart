@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/text_styles/Styles.dart';
 
+
 class AdminHallItem extends StatefulWidget {
   const AdminHallItem({
     Key? key,
@@ -33,10 +34,12 @@ class _AdminHallItemState extends State<AdminHallItem> {
   bool? isDarkMode;
 
   Future<void> fetchThemeMode() async {
-    final prefs = await SharedPreferences.getInstance();
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      isDarkMode = prefs.getBool('themeMode') == true;
+     isDarkMode = prefs.getBool('themeMode') ?? false;
     });
+  
   }
 
   @override
@@ -114,7 +117,7 @@ class _AdminHallItemState extends State<AdminHallItem> {
             padding: const EdgeInsets.all(10),
             child: Material(
               clipBehavior: Clip.antiAlias,
-              color: isDarkMode! || isDarkMode!=null ? Colors.black : Colors.white,
+              color: !isDarkMode! ? Colors.white : Colors.black,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
