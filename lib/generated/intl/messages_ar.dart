@@ -279,6 +279,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لقد قمت بتحديث طلبك من"),
         "user_name": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "value_requeired": MessageLookupByLibrary.simpleMessage("قيمة مطلوبة"),
+        "wants_to_modify_your_request_to_be":
+            MessageLookupByLibrary.simpleMessage("يريد تعديل طلبك"),
         "wellcome": MessageLookupByLibrary.simpleMessage("مرحبا"),
         "you_have_modified":
             MessageLookupByLibrary.simpleMessage("لقد قمت بتعديل"),

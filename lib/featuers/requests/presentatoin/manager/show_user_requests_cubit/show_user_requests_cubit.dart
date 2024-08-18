@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../../../core/functions/get_suterdat_of_the_curant_week.dart';
+import '../../../data/models/user_request_model.dart';
 import 'show_user_requests_state.dart';
 
 class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
@@ -30,7 +31,7 @@ class ShowUserRequestsCubit extends Cubit<ShowUserRequestsState> {
           startTime = doc.get('startTime');
           daily = doc.get('daily');
         
-        if (daily == false && startTime!.toDate().isBefore(suterDay)) {
+        if (daily == false && startTime!.toDate().isBefore(suterDay)|| doc.get('replyState') == ReplyState.unaccepted.description) {
           documentsToDelete.add(doc);
           for (var doc in documentsToDelete) {
             await doc.reference.delete();

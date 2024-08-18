@@ -18,7 +18,7 @@ class LogInCubit extends Cubit<LogInState> {
       BuildContext context, String email, String password) async {
     try {
       emit(LogInLoading());
-
+       FocusScope.of(context).unfocus();
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,

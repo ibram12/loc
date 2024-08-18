@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -82,30 +84,38 @@ class RequestItemBody extends StatelessWidget {
                       ],
                     ),
                     const Spacer(),
-                    if (requestModel.replyState.description == 'No reply yet')
-                      CircleAvatar(
-                        backgroundColor: Colors.amber,
-                        radius: 20,
-                        child: Image.asset(
-                          'assets/images/9032185_pending_chatting_load_chat_social media_icon.png',
-                          height: 30,
-                        ),
-                      ),
-                    if (requestModel.replyState != ReplyState.noReplyYet)
-                      CircleAvatar(
-                        backgroundColor: requestModel.replyState.description ==
-                                ReplyState.accepted.description
-                            ? Colors.green
-                            : Colors.red,
-                        radius: 20,
-                        child: Icon(
-                          requestModel.replyState.description ==
-                                  ReplyState.accepted.description
-                              ? Icons.check
-                              : Icons.close,
-                          color: Colors.white,
-                        ),
-                      ),
+                    if (requestModel.replyState.description == ReplyState.noReplyYet.description)
+  CircleAvatar(
+    backgroundColor: Colors.amber,
+    radius: 20,
+    child: Image.asset(
+      'assets/images/9032185_pending_chatting_load_chat_social media_icon.png',
+      height: 30,
+    ),
+  )
+else if (requestModel.replyState.description == ReplyState.modified.description)
+  CircleAvatar(
+    backgroundColor: Colors.blue,
+    radius: 20,
+    child: Image.asset(
+      'assets/images/wait_approved.jpg',
+      height: 30,
+    ),
+  )
+else
+  CircleAvatar(
+    backgroundColor: requestModel.replyState.description ==
+            ReplyState.accepted.description
+        ? Colors.green
+        : Colors.red,
+    radius: 20,
+    child: Icon(
+      requestModel.replyState.description == ReplyState.accepted.description
+          ? Icons.check
+          : Icons.close,
+      color: Colors.white,
+    ),
+  ),
                   ],
                 ),
         ),

@@ -65,9 +65,9 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
                 UserChoices(
                   onServiceSelected: (String? selectedService) {
                     if (selectedService != null) {
-                      // setState(() {
+                       setState(() {
                       _selectedText = selectedService;
-                    // });  
+                     });  
                     }
                   
                   },
@@ -117,7 +117,7 @@ class _BookLocViewBodyState extends State<BookLocViewBody> {
       children: [
         _buildInfoRow(S.of(context).time_range, ''),
         _buildInfoRow(S.of(context).on, DateFormat('yyyy-MM-dd').format(_date!)),
-        _buildInfoRow(S.of(context).at, DateFormat('hh:mm a').format(_startTime!.toDate())),
+        _buildInfoRow(S.of(context).from, DateFormat('hh:mm a').format(_startTime!.toDate())),
         _buildInfoRow(S.of(context).to, DateFormat('hh:mm a').format(_endTime!.toDate())),
         _buildInfoRow(S.of(context).to_make, _selectedText ?? S.of(context).select_your_service),
       ],

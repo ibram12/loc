@@ -1807,6 +1807,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Wants to modify your request to be`
+  String get wants_to_modify_your_request_to_be {
+    return Intl.message(
+      'Wants to modify your request to be',
+      name: 'wants_to_modify_your_request_to_be',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

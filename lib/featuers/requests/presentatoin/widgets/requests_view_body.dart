@@ -7,6 +7,7 @@ import '../../../../core/helper/snack_bar.dart';
 import '../../../../generated/l10n.dart';
 import '../../data/models/user_request_model.dart';
 import '../manager/show_user_requests_cubit/show_user_requests_cubit.dart';
+import 'request_to_accept_the_modification_form_admin.dart';
 
 class UserRequestBody extends StatefulWidget {
   const UserRequestBody({
@@ -54,13 +55,18 @@ class _UserRequestBodyState extends State<UserRequestBody> {
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
-              return UserRequestItem(
+            
+              return snapshot.data!.docs[index]['adminModified'] ==true? UserRequestItem(
                 onRequestDeleted: () async {
                   showSnackBar(
                       context, S.of(context).your_request_deleted_successfully);
                 },
                 requestModel: UserRequestModel.fromDocumentSnapshot(
                     snapshot.data!.docs[index]),
+              ):RequestToAcceptTheModificationFormAdminItem(
+                requestModel: UserRequestModel.fromDocumentSnapshot(
+                    snapshot.data!.docs[index],
+                ),
               );
             },
           );

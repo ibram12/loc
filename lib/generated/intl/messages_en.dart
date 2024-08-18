@@ -295,6 +295,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "user_name": MessageLookupByLibrary.simpleMessage("User Name"),
         "value_requeired":
             MessageLookupByLibrary.simpleMessage("Value Requeired"),
+        "wants_to_modify_your_request_to_be":
+            MessageLookupByLibrary.simpleMessage(
+                "Wants to modify your request to be"),
         "wellcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "you_have_modified":
             MessageLookupByLibrary.simpleMessage("You have modified"),

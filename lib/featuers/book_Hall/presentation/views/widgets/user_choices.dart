@@ -73,11 +73,15 @@ class _UserChoicesState extends State<UserChoices> {
             return const CircularProgressIndicator();
           } else {
             final servises = snapshot.data;
-            if (servises?.length == 1) {
-              _selectedText = servises![0];
-              widget.onServiceSelected(_selectedText);
-              return const SizedBox();
-            }
+          if (servises?.length == 1) {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    setState(() {
+      _selectedText = servises![0];
+      widget.onServiceSelected(_selectedText);
+    });
+  });
+  return const SizedBox();
+}
             return Column(
               children: [
                 DropdownButton<String>(

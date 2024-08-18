@@ -74,7 +74,9 @@ class SentReservationToAdminCubit extends Cubit<SentReservationState> {
                 ? ReplyState.accepted.description
                 : ReplyState.noReplyYet.description,
             'service': selectedService,
-            'image': userImage
+            'image': userImage,
+        'adminModified':false,
+        'modifier':''
           });
         }
       }

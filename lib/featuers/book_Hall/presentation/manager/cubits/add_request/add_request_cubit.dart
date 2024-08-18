@@ -50,7 +50,9 @@ class AddRequestToUserCubit extends Cubit<AddRequestState> {
         'startTime': startTime,
         'endTime': endTime,
         'replyState': isAdmin == kRoles[2] ? ReplyState.accepted.description : ReplyState.noReplyYet.description,
-        'service': selectedService
+        'service': selectedService,
+        'adminModified':false,
+        'modifier':''
       });
 
       reservationId.add(reservationRef.id);

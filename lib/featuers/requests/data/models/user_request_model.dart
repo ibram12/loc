@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-enum ReplyState {
+enum  ReplyState {
   accepted,
   unaccepted,
   noReplyYet,
+  modified
 }
 
 extension ReplyStateExtension on ReplyState {
@@ -14,6 +15,10 @@ extension ReplyStateExtension on ReplyState {
         return 'Accepted';
       case ReplyState.unaccepted:
         return 'Unaccepted';
+      case ReplyState.noReplyYet:
+        return 'No reply yet';
+      case ReplyState.modified:
+        return 'Modified';
       default:
         return 'No reply yet';
     }
@@ -31,8 +36,11 @@ class UserRequestModel {
   final String requestId;
   final bool daily;
   final String service;
+  final bool adminModification;
+  final String? modifier;
 
-  UserRequestModel({
+  UserRequestModel(this.modifier, {
+    required this.adminModification,
     required this.service,
     required this.id,
     required this.hallId,
@@ -46,7 +54,6 @@ class UserRequestModel {
   });
 
   factory UserRequestModel.fromDocumentSnapshot(
-  
       DocumentSnapshot documentSnapshot) {
     final data = documentSnapshot.data() as Map<String, dynamic>?;
     String userId = FirebaseAuth.instance.currentUser!.uid;
@@ -55,6 +62,8 @@ class UserRequestModel {
     }
 
     return UserRequestModel(
+      data['modifier']??'',
+      adminModification: data['adminModified'],
       service: data['service'],
       id: documentSnapshot.id,
       hallId: data['hallId'],

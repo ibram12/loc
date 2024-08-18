@@ -9,7 +9,7 @@ import '../../../../core/views/error_view.dart';
 import '../../../../core/widgets/hall_list_view_loading_indecator.dart';
 import '../../../../generated/l10n.dart';
 import '../../data/models/admin_hall_model.dart';
-import '../manager/cubit/featch_reservaion_counts_cubit.dart';
+import '../manager/featch_reservatoin_count_cubit/featch_reservaion_counts_cubit.dart';
 import '../manager/featch_end_times_cubit/featch_the_end_times_cubit.dart';
 
 class AllHallsListView extends StatefulWidget {

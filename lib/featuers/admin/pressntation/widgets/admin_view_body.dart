@@ -6,7 +6,7 @@ import 'package:loc/core/utils/constants.dart';
 import 'package:loc/featuers/admin/pressntation/manager/featch_end_times_cubit/featch_the_end_times_cubit.dart';
 import 'package:loc/featuers/admin/pressntation/widgets/all_halls_list_veiw.dart';
 
-import '../manager/cubit/featch_reservaion_counts_cubit.dart';
+import '../manager/featch_reservatoin_count_cubit/featch_reservaion_counts_cubit.dart';
 import '../view/add_hall_view.dart';
 
 class AdminViewBody extends StatelessWidget {
