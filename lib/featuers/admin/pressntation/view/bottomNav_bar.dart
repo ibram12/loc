@@ -11,7 +11,7 @@ import '../manager/signUp_cubit/sign_up_state.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
-
+  static String id = 'BottomNavBar';
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }

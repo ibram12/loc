@@ -246,6 +246,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("وقت البدء بعد وقت الانتهاء"),
         "there_was_a_conflict_with_another_reservation":
             MessageLookupByLibrary.simpleMessage("كان هناك تعارض مع حجز آخر"),
+        "there_was_a_problem_during_the_approval_process":
+            MessageLookupByLibrary.simpleMessage(
+                "حدثت مشكله اثناء عمليه الموافقه برجاء الخروج واعاده الدخول مره اخرى واعاده المحاوله"),
         "there_was_no_messages_yet":
             MessageLookupByLibrary.simpleMessage("لا توجد رسائل بعد"),
         "this_request_is_already_Unaccepted":

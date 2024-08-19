@@ -256,6 +256,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "there_was_a_conflict_with_another_reservation":
             MessageLookupByLibrary.simpleMessage(
                 "There was a conflict with another reservation"),
+        "there_was_a_problem_during_the_approval_process":
+            MessageLookupByLibrary.simpleMessage(
+                "There was a problem during the approval process. Please log out and log in again and try again"),
         "there_was_no_messages_yet":
             MessageLookupByLibrary.simpleMessage("There was no messages yet"),
         "this_request_is_already_Unaccepted":

@@ -1,12 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-enum  ReplyState {
-  accepted,
-  unaccepted,
-  noReplyYet,
-  modified
-}
+enum ReplyState { accepted, unaccepted, noReplyYet, modified }
 
 extension ReplyStateExtension on ReplyState {
   String get description {
@@ -38,8 +33,13 @@ class UserRequestModel {
   final String service;
   final bool adminModification;
   final String? modifier;
+  final String? modifiedDoc;
+  final String? modiferAdminToken;
 
-  UserRequestModel(this.modifier, {
+  UserRequestModel(
+    this.modifier, {
+      required this.modiferAdminToken,
+    required this.modifiedDoc,
     required this.adminModification,
     required this.service,
     required this.id,
@@ -55,19 +55,18 @@ class UserRequestModel {
 
   factory UserRequestModel.fromDocumentSnapshot(
       DocumentSnapshot documentSnapshot) {
-    final data = documentSnapshot.data() as Map<String, dynamic>?;
+    final data = documentSnapshot.data() as Map<String, dynamic>;
     String userId = FirebaseAuth.instance.currentUser!.uid;
-    if (data == null) {
-      throw StateError('Missing data for document ID ${documentSnapshot.id}');
-    }
 
     return UserRequestModel(
-      data['modifer']??'',
+      modiferAdminToken: data['modiferAdminToken'],
+      modifiedDoc: data['modifiedDoc'],
+      data['modifer'] ?? '',
       adminModification: data['adminModified'],
       service: data['service'],
       id: documentSnapshot.id,
       hallId: data['hallId'],
-      userId: data['userId'] ?? userId,
+      userId:  userId,
       hallName: data['hallName'],
       endTime: data['endTime'],
       startTime: data['startTime'],

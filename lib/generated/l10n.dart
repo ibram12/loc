@@ -1817,6 +1817,16 @@ class S {
       args: [],
     );
   }
+
+  /// `There was a problem during the approval process. Please log out and log in again and try again`
+  String get there_was_a_problem_during_the_approval_process {
+    return Intl.message(
+      'There was a problem during the approval process. Please log out and log in again and try again',
+      name: 'there_was_a_problem_during_the_approval_process',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

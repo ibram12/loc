@@ -111,7 +111,8 @@ class EditRequestCubit extends Cubit<EditRequestState> {
 
         for (var path in pathsToUpdate) {
           await FirebaseFirestore.instance.doc(path).update({
-              'replyState': ReplyState.modified.description,
+            'modifiedDoc': reservationId,
+            'replyState': ReplyState.modified.description,
             'modifer': adminName,
             'adminModified': true,
             'startTime': Timestamp.fromDate(startDateTime),
@@ -213,6 +214,8 @@ class EditRequestCubit extends Cubit<EditRequestState> {
 
             for (var path in pathsToUpdate) {
               await FirebaseFirestore.instance.doc(path).update({
+                'modiferAdminToken': userToken,
+                'modifiedDoc': reservationId,
                 'replyState': ReplyState.modified.description,
                 'modifer': adminName,
                 'adminModified': true,
@@ -224,7 +227,7 @@ class EditRequestCubit extends Cubit<EditRequestState> {
               deviceToken: userToken,
               screen: UserRequests.id,
               title: 'طلب تعديل',
-              body: 'طلب تعديل طلبك الي ${selectedStartTime!.format(context)}',
+              body: 'طلب تعديل طلبك من ${selectedStartTime!.format(context)} الى ${selectedEndTime!.format(context)}',
             );
             emit(EditRequestSuccess(
                 '${S.of(context).you_have_updated_request_from} ${selectedStartTime!.format(context)} ${S.of(context).to} ${selectedEndTime!.format(context)} ${S.of(context).on} ${DateFormat('yyyy-MM-dd').format(selectedDate!)}'));

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loc/featuers/requests/presentatoin/manager/user_accept_admin_offer_cubit/user_accept_admin_offer_cubit.dart';
 import 'package:loc/featuers/requests/presentatoin/widgets/requests_view_body.dart';
 
 import '../../../../core/utils/constants.dart';
@@ -12,8 +13,15 @@ class UserRequests extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ShowUserRequestsCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ShowUserRequestsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => UserAcceptAdminOfferCubit(),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,

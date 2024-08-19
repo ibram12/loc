@@ -6,6 +6,7 @@ import 'package:loc/core/notifications/notification_manager/notification_manager
 import 'package:loc/core/utils/simple_bloc_observer.dart';
 import 'package:loc/featuers/admin/pressntation/view/add_hall_view.dart';
 import 'package:loc/featuers/admin/pressntation/view/all_requests_view.dart';
+import 'package:loc/featuers/admin/pressntation/view/bottomNav_bar.dart';
 import 'package:loc/featuers/auth/presentation/views/login_view.dart';
 import 'package:loc/featuers/auth/presentation/views/password_recovary_view.dart';
 import 'package:loc/featuers/admin/pressntation/view/sginup_view.dart';
@@ -73,6 +74,7 @@ class HomePage extends StatelessWidget {
                   UserRequests.id: (context) => const UserRequests(),
                   AllRequests.id: (context) => const AllRequests(),
                   MessagesVeiw.id: (context) => const MessagesVeiw(),
+                  BottomNavBar.id:(context)=> const BottomNavBar()
                 },
               );
             },
