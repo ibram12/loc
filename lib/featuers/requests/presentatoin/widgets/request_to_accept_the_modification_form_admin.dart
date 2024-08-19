@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/core/text_styles/Styles.dart';
 import 'package:loc/featuers/requests/presentatoin/manager/user_accept_admin_offer_cubit/user_accept_admin_offer_cubit.dart';
+import 'package:loc/featuers/requests/presentatoin/manager/user_reject_admin_offer_cubit/user_reject_admin_offer_cubit.dart';
 import 'package:loc/featuers/requests/presentatoin/widgets/user_disetoin_button.dart';
 import '../../../../generated/l10n.dart';
 import '../../data/models/user_request_model.dart';
@@ -83,7 +84,7 @@ class RequestToAcceptTheModificationFormAdminItem extends StatelessWidget {
                           bottonName: "accept the the offer",
                           color: Colors.green),
                       UserDisetoinButton(
-                        onPressed: (){},
+                        onPressed: ()=> context.read<UserRejectAdminOfferCubit>().userRejectAdminOffer(context: context,userRequestModel: requestModel),
                           bottonName: "cancel the request", color: Colors.red),
                     ],
                   )

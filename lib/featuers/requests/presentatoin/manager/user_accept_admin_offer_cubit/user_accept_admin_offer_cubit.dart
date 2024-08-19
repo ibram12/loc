@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +27,6 @@ class UserAcceptAdminOfferCubit extends Cubit<UserAcceptAdminOfferState> {
         'adminModified': false,
         'replyState': ReplyState.accepted.description,
       }).onError((e, s) {
-        log('Path to update: $path');
         emit(UserAcceptAdminOfferError(
             err:
                 S.of(context).there_was_a_problem_during_the_approval_process));

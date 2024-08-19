@@ -5,6 +5,7 @@ import 'package:loc/featuers/home/presentaiton/views/homePage.dart';
 import 'package:loc/featuers/requests/presentatoin/views/requests_view.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../featuers/admin/pressntation/view/bottomNav_bar.dart';
 import '../../../../featuers/messages/presentation/views/messages_veiw.dart';
 
 part 'notification_maneger_state.dart';
@@ -26,22 +27,21 @@ class NotificationManegerCubit extends Cubit<NotificationManegerState> {
       }
     });
   }
+}
 
-  
-  }
-
-  void _navigateToTargetScreen(RemoteMessage message, BuildContext context) {
-    final String? screen = message.data['screen'];
-    if (screen != null) {
-      if (screen == MessagesVeiw.id) {
-        Navigator.pushNamed(context, MessagesVeiw.id);
-      } else if (screen == UserRequests.id) {
-        Navigator.pushNamed(context, UserRequests.id);
-      } else {
-        Navigator.pushNamed(context, MyHomePage.id);
-      }
+void _navigateToTargetScreen(RemoteMessage message, BuildContext context) {
+  final String? screen = message.data['screen'];
+  if (screen != null) {
+    if (screen == MessagesVeiw.id) {
+      Navigator.pushNamed(context, MessagesVeiw.id);
+    } else if (screen == UserRequests.id) {
+      Navigator.pushNamed(context, UserRequests.id);
+    } else if (screen == BottomNavBar.id) {
+      Navigator.pushNamed(context, BottomNavBar.id);
     } else {
       Navigator.pushNamed(context, MyHomePage.id);
     }
+  } else {
+    Navigator.pushNamed(context, MyHomePage.id);
   }
-
+}
