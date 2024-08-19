@@ -15,10 +15,12 @@ class UserDisetoinButton extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 6),
         alignment: Alignment.center,
         height: 50,
+      
         decoration: BoxDecoration(
           border: Border.all(color: color),
         ),
-        child: Text(bottonName,
+        child: Text(
+          bottonName,
             style: Styles.textStyle16.copyWith(
               color: color
             )),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +15,9 @@ class RequestItemBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Banner(
-      message: requestModel.daily == false ? S.of(context).not_daily : S.of(context).daily,
+      message: requestModel.daily == false
+          ? S.of(context).not_daily
+          : S.of(context).daily,
       color: requestModel.daily == false ? Colors.red : Colors.green,
       location: BannerLocation.topEnd,
       child: Card(
@@ -42,14 +42,21 @@ class RequestItemBody extends StatelessWidget {
                             CircleAvatar(
                               radius: 34,
                               child: ClipOval(
-                                child: requestModel.imageUrl == null ? Image.asset('assets/images/person.png') : CachedNetworkImage(
-                                    placeholder: (context, url) => const Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
+                                child: requestModel.imageUrl == null
+                                    ? Image.asset('assets/images/person.png')
+                                    : CachedNetworkImage(
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            ),
                                         fit: BoxFit.fill,
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error,color: Colors.red,),
-                                    imageUrl: requestModel.imageUrl!),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(
+                                              Icons.error,
+                                              color: Colors.red,
+                                            ),
+                                        imageUrl: requestModel.imageUrl!),
                               ),
                             ),
                             const SizedBox(width: 10),
@@ -64,7 +71,7 @@ class RequestItemBody extends StatelessWidget {
                           requestModel.service,
                           style:
                               Styles.textStyle18.copyWith(color: Colors.green),
-                              overflow: TextOverflow.ellipsis,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 5),
                         Text(
@@ -84,38 +91,44 @@ class RequestItemBody extends StatelessWidget {
                       ],
                     ),
                     const Spacer(),
-                    if (requestModel.replyState.description == ReplyState.noReplyYet.description)
-  CircleAvatar(
-    backgroundColor: Colors.amber,
-    radius: 20,
-    child: Image.asset(
-      'assets/images/9032185_pending_chatting_load_chat_social media_icon.png',
-      height: 30,
-    ),
-  )
-else if (requestModel.replyState.description == ReplyState.modified.description)
-  CircleAvatar(
-    backgroundColor: Colors.blue,
-    radius: 20,
-    child: Image.asset(
-      'assets/images/wait_approved.jpg',
-      height: 30,
-    ),
-  )
-else
-  CircleAvatar(
-    backgroundColor: requestModel.replyState.description ==
-            ReplyState.accepted.description
-        ? Colors.green
-        : Colors.red,
-    radius: 20,
-    child: Icon(
-      requestModel.replyState.description == ReplyState.accepted.description
-          ? Icons.check
-          : Icons.close,
-      color: Colors.white,
-    ),
-  ),
+                    if (requestModel.replyState.description ==
+                        ReplyState.noReplyYet.description)
+                      CircleAvatar(
+                        backgroundColor: Colors.amber,
+                        radius: 20,
+                        child: Image.asset(
+                          'assets/images/9032185_pending_chatting_load_chat_social media_icon.png',
+                          height: 30,
+                        ),
+                      )
+                    else if (requestModel.replyState.description ==
+                        ReplyState.modified.description)
+                      CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        radius: 25,
+                        child: ClipOval(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          child: Image.asset(
+                            'assets/images/download.jpg',
+                            //  height: 45,
+                          ),
+                        ),
+                      )
+                    else
+                      CircleAvatar(
+                        backgroundColor: requestModel.replyState.description ==
+                                ReplyState.accepted.description
+                            ? Colors.green
+                            : Colors.red,
+                        radius: 20,
+                        child: Icon(
+                          requestModel.replyState.description ==
+                                  ReplyState.accepted.description
+                              ? Icons.check
+                              : Icons.close,
+                          color: Colors.white,
+                        ),
+                      ),
                   ],
                 ),
         ),

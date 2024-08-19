@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:loc/core/text_styles/Styles.dart';
@@ -18,16 +19,16 @@ class RequestToAcceptTheModificationFormAdminItem extends StatelessWidget {
         RequstCard(
             requestModel: requestModel,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
               child: Column(
                 children: [
                   RichText(
                     text: TextSpan(
                       style: Styles.textStyle20Extra, // Base style
                       children: [
-                        const TextSpan(
-                          text: 'Ramy ',
-                          style: TextStyle(
+                         TextSpan(
+                          text: '${requestModel.modifier} ' ,
+                          style: const TextStyle(
                               color: Colors.purple, fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
@@ -73,14 +74,10 @@ class RequestToAcceptTheModificationFormAdminItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  const Wrap(
                     children: [
                       UserDisetoinButton(
                           bottonName: "cancel the request", color: Colors.red),
-                      SizedBox(
-                        width: 10,
-                      ),
                       UserDisetoinButton(
                           bottonName: "accept the the offer",
                           color: Colors.green),
@@ -91,7 +88,6 @@ class RequestToAcceptTheModificationFormAdminItem extends StatelessWidget {
             )),
         Positioned.directional(
          start: 10,
-        top: -10,
         textDirection: Directionality.of(context),
             child: const Icon(
               Icons.error_sharp,

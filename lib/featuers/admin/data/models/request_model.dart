@@ -49,6 +49,8 @@ class RequestModel {
         return ReplyState.accepted;
       case 'Unaccepted':
         return ReplyState.unaccepted;
+      case 'Modified':
+        return ReplyState.modified;
       default:
         return ReplyState.noReplyYet;
     }

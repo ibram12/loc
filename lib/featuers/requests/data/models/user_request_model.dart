@@ -62,7 +62,7 @@ class UserRequestModel {
     }
 
     return UserRequestModel(
-      data['modifier']??'',
+      data['modifer']??'',
       adminModification: data['adminModified'],
       service: data['service'],
       id: documentSnapshot.id,

@@ -37,7 +37,6 @@ class _UserRequestBodyState extends State<UserRequestBody> {
 
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder<QuerySnapshot>(
         stream: stream,
         builder: (context, snapshot) {
@@ -45,32 +44,32 @@ class _UserRequestBodyState extends State<UserRequestBody> {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }else if(snapshot.data!.docs.isEmpty) {
+          } else if (snapshot.data!.docs.isEmpty) {
             return Center(
               child: Text(S.of(context).no_requests_yet),
             );
-          }else if(snapshot.hasError) {
+          } else if (snapshot.hasError) {
             return Center(child: Text(S.of(context).failed_to_fetch_requests));
           }
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
-            
-              return snapshot.data!.docs[index]['adminModified'] ==true? UserRequestItem(
-                onRequestDeleted: () async {
-                  showSnackBar(
-                      context, S.of(context).your_request_deleted_successfully);
-                },
-                requestModel: UserRequestModel.fromDocumentSnapshot(
-                    snapshot.data!.docs[index]),
-              ):RequestToAcceptTheModificationFormAdminItem(
-                requestModel: UserRequestModel.fromDocumentSnapshot(
-                    snapshot.data!.docs[index],
-                ),
-              );
+              return snapshot.data!.docs[index]['adminModified'] == true
+                  ? RequestToAcceptTheModificationFormAdminItem(
+                      requestModel: UserRequestModel.fromDocumentSnapshot(
+                        snapshot.data!.docs[index],
+                      ),
+                    )
+                  : UserRequestItem(
+                      onRequestDeleted: () async {
+                        showSnackBar(context,
+                            S.of(context).your_request_deleted_successfully);
+                      },
+                      requestModel: UserRequestModel.fromDocumentSnapshot(
+                          snapshot.data!.docs[index]),
+                    );
             },
           );
-        }); 
-      }
-
+        });
   }
+}
